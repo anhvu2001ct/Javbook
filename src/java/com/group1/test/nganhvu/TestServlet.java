@@ -16,12 +16,12 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Anh Vu Nguyen {@literal <nganhvu>}
  */
-@WebServlet({"/test/", "/test11/"})
+@WebServlet({"/test/nganhvu/"})
 public class TestServlet extends BaseServlet {
 
     @Override
     protected void processGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/test/index.html").forward(request, response);
+        request.getRequestDispatcher("/test/nganhvu/index.html").forward(request, response);
     }
 
     @Override
