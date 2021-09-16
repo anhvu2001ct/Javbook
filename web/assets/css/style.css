@@ -106,6 +106,10 @@ body {
     cursor: pointer;
 }
 
+.sign-in .form__input-item-toggle-password:hover {
+    opacity: 0.8;
+}
+
 .sign-in .form__input-item-toggle-password.hide:before {
     content: "";
     position: absolute;
