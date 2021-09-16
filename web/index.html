@@ -7,8 +7,12 @@
         <title>Login JavBook</title>
         <link
             rel="icon"
-            href="/Javbook/assets/img/icon/Javbook.ico"
+            href="/assets/img/icon/Javbook.ico"
             type="image/x-icon"
+        />
+        <link
+            rel="stylesheet"
+            href="./assets/fonts/themify-icons/themify-icons.css"
         />
         <link rel="stylesheet" href="./assets/css/variables.css" />
         <link rel="stylesheet" href="./assets/css/base.css" />
@@ -42,12 +46,14 @@
                                 <label class="form__input-text" for="username"
                                     >Username or email address</label
                                 >
-                                <input
-                                    class="form__input-item"
-                                    type="text"
-                                    name="username"
-                                    id="username"
-                                />
+                                <div class="form__input-item">
+                                    <input
+                                        class="form__input-input"
+                                        type="text"
+                                        name="username"
+                                        id="username"
+                                    />
+                                </div>
                             </div>
                             <div class="form__input">
                                 <label class="form__input-text" for="password"
@@ -56,12 +62,22 @@
                                 <a href="#" class="form__input-text-more">
                                     Forgot password?</a
                                 >
-                                <input
-                                    class="form__input-item"
-                                    type="password"
-                                    name="password"
-                                    id="password"
-                                />
+                                <div class="form__input-item">
+                                    <input
+                                        class="form__input-input"
+                                        type="password"
+                                        name="password"
+                                        id="password"
+                                    />
+                                    <span
+                                        class="
+                                            form__input-item-toggle-password
+                                            js-toggle-pass-btn
+                                        "
+                                    >
+                                        <i class="ti-eye"></i>
+                                    </span>
+                                </div>
                             </div>
                             <button type="submit" class="btn btn--primary mt-4">
                                 Sign in
@@ -91,5 +107,6 @@
                 </div>
             </div>
         </footer>
+        <script src="./assets/js/ToggleDisplayPassword.js"></script>
     </body>
 </html>

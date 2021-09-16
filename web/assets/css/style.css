@@ -67,29 +67,55 @@ body {
 
 .sign-in .form__input-item {
     width: 100%;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.sign-in .form__input-input {
+    width: 100%;
     padding: 5px 12px;
     font-size: 14px;
     line-height: 20px;
     border-radius: 6px;
     background-color: var(--primary-background-color);
     border: 1px solid var(--border-color);
-    margin-top: 5px;
-    margin-bottom: 15px;
     color: var(--input-color);
 }
 
 /* Change Autocomplete styles in Chrome*/
-.sign-in .form__input-item:-webkit-autofill,
-.sign-in .form__input-item:-webkit-autofill:hover,
-.sign-in .form__input-item:-webkit-autofill:focus {
+.sign-in .form__input-input:-webkit-autofill,
+.sign-in .form__input-input:-webkit-autofill:hover,
+.sign-in .form__input-input:-webkit-autofill:focus {
     background-color: var(--primary-background-color);
     -webkit-text-fill-color: var(--input-color);
     transition: background-color 5000s ease-in-out 0s;
 }
 
-.sign-in .form__input-item:focus {
+.sign-in .form__input-input:focus {
     border-color: var(--border-color-hover);
     box-shadow: 0 0 0 3px var(--box-shadow-color);
+}
+
+.sign-in .form__input-item-toggle-password {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 15px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.sign-in .form__input-item-toggle-password.hide:before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 2px;
+    transition: 0.5s;
+    transform: translate(-50%, -50%) rotate(135deg);
+    background-color: var(--primary-color);
 }
 
 .sign-in .sign-in__sign-up {
