@@ -5,6 +5,7 @@
  */
 package com.group1.controller;
 
+import com.group1.model.db.SQLConnector;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -18,11 +19,13 @@ public class ServerInit implements ServletContextListener {
     public void contextInitialized(ServletContextEvent sce) {
         ServletContext context = sce.getServletContext();
         System.out.println("Init " + Thread.currentThread());
+        SQLConnector.establishConnection();
     }
 
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
         ServletContext context = sce.getServletContext();
         System.out.println("Down " + Thread.currentThread());
+        SQLConnector.closeConnection();
     }
 }

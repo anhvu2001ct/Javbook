@@ -16,19 +16,15 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Anh Vu Nguyen {@literal <nganhvu>}
  */
-@WebServlet("/test/nganhvu/")
-public class TestServlet extends BaseServlet {
-    int cnt = 0;
-    
+//@WebServlet("/test/nganhvu/Javbook.png/")
+public class DefaultServlet extends BaseServlet {
     @Override
-    protected void processGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("name", "nganhvu");
-        request.getRequestDispatcher("/test/nganhvu/index.jsp").forward(request, response);
-        System.out.println(++cnt);
+    public void processGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        System.out.println("GET");
     }
 
     @Override
     protected void processPOST(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
+        System.out.println("POST");
     }
 }

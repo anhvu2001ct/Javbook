@@ -20,7 +20,7 @@
                 <div class="header-main">
                     <a href="#"
                         ><img
-                            src="Javbook.png"
+                            src="/Javbook/assets/img/logo/Javbook.png"
                             alt="Logo JavBook"
                             class="header__logo"
                     /></a>
