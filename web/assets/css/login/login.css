@@ -139,7 +139,7 @@ body {
 
 .sisu .form__input-input {
     width: 100%;
-    padding: 5px 12px;
+    padding: 5px 42px 5px 12px;
     font-size: 14px;
     line-height: 20px;
     border-radius: 6px;
@@ -159,7 +159,26 @@ body {
 
 .sisu .form__input-input:focus {
     border-color: var(--border-color-hover);
-    box-shadow: 0 0 0 3px var(--box-shadow-color);
+    box-shadow: 0 0 0 2px var(--box-shadow-color),
+        0 0 10px 4px var(--box-shadow-color);
+}
+
+.sisu .form__input-input.success {
+    border-color: green;
+    box-shadow: 0 0 0 2px #1e4d1e;
+}
+
+.sisu .form__input-input.success:focus {
+    box-shadow: 0 0 0 2px #1e4d1e, 0 0 10px 4px #1e4d1e;
+}
+
+.sisu .form__input-input.error {
+    border-color: #c11f1f;
+    box-shadow: 0 0 0 2px #701616;
+}
+
+.sisu .form__input-input.error:focus {
+    box-shadow: 0 0 0 2px #701616, 0 0 10px 4px #701616;
 }
 
 .sisu .form__input-item-toggle-password {
@@ -169,6 +188,10 @@ body {
     right: 15px;
     font-size: 20px;
     cursor: pointer;
+}
+
+.sisu .form__input-item-toggle-password i {
+    font-weight: 300;
 }
 
 .sisu .form__input-item-toggle-password.hide:before {

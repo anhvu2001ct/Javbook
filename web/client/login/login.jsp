@@ -7,20 +7,24 @@
         <title>Login JavBook</title>
         <link
             rel="icon"
-            href="/Javbook/test/PoiMinhCanh/assets/img/icon/Javbook.ico"
+            href="/Javbook/assets/img/icon/Javbook.ico"
             type="image/x-icon"
         />
         <link
             rel="stylesheet"
-            href="/Javbook/test/PoiMinhCanh/assets/css/variables.css"
+            href="/Javbook/assets/fonts/fontawesome-5.15.4/css/all.min.css"
         />
         <link
             rel="stylesheet"
-            href="/Javbook/test/PoiMinhCanh/assets/css/base.css"
+            href="/Javbook/assets/css/common/variables.css"
         />
         <link
             rel="stylesheet"
-            href="/Javbook/test/PoiMinhCanh/assets/css/style.css"
+            href="/Javbook/assets/css/common/base.css"
+        />
+        <link
+            rel="stylesheet"
+            href="/Javbook/assets/css/login/login.css"
         />
     </head>
     <body>
@@ -29,7 +33,7 @@
                 <div class="header-main">
                     <a href="#"
                         ><img
-                            src="/Javbook/test/PoiMinhCanh/assets/img/logo/Javbook_white.png"
+                            src="/Javbook/assets/img/logo/Javbook_white.png"
                             alt="Logo JavBook"
                             class="header__logo"
                     /></a>
@@ -78,17 +82,26 @@
                                             type="password"
                                             name="password"
                                             id="sign-in-password"
+                                            autocomplete="off"
                                         />
                                         <span
                                             class="
                                                 form__input-item-toggle-password
-                                                js-toggle-pass-btn
+                                                js-sign-in-toggle-pass-btn
                                             "
                                         >
-                                            <i class="ti-eye"></i>
+                                            <i class="far fa-eye"></i>
                                         </span>
                                     </div>
                                 </div>
+                                <label class="form__input-item-text">
+                                    <input
+                                        type="checkbox"
+                                        name="remember-password"
+                                        class="input-checkbox"
+                                    />
+                                    Remember password in 30 days.
+                                </label>
                                 <button
                                     type="submit"
                                     class="btn btn--primary mt-4"
@@ -126,6 +139,7 @@
                                             type="text"
                                             name="username"
                                             id="sign-up-username"
+                                            onkeyup="checkUsername()"
                                         />
                                     </div>
                                 </div>
@@ -141,14 +155,16 @@
                                             type="password"
                                             name="password"
                                             id="sign-up-password"
+                                            autocomplete="off"
+                                            onkeyup="checkPassword()"
                                         />
                                         <span
                                             class="
                                                 form__input-item-toggle-password
-                                                js-toggle-pass-btn
+                                                js-sign-up-toggle-pass-btn
                                             "
                                         >
-                                            <i class="ti-eye"></i>
+                                            <i class="far fa-eye"></i>
                                         </span>
                                     </div>
                                 </div>
@@ -164,14 +180,16 @@
                                             type="password"
                                             name="password"
                                             id="sign-up-repassword"
+                                            autocomplete="off"
+                                            onkeyup="checkConfirmPassword()"
                                         />
                                         <span
                                             class="
                                                 form__input-item-toggle-password
-                                                js-toggle-pass-btn
+                                                js-sign-up-toggle-pass-btn
                                             "
                                         >
-                                            <i class="ti-eye"></i>
+                                            <i class="far fa-eye"></i>
                                         </span>
                                     </div>
                                 </div>
@@ -255,7 +273,8 @@
                 </p>
             </div>
         </footer>
-        <script src="/Javbook/test/PoiMinhCanh/assets/js/ToggleDisplayPassword.js"></script>
-        <script src="/Javbook/test/PoiMinhCanh/assets/js/ToggleDisplaySISU.js"></script>
+        <script src="/Javbook/assets/js/login/toggleDisplayPassword.js"></script>
+        <script src="/Javbook/assets/js/login/toggleDisplaySISU.js"></script>
+        <script src="/Javbook/assets/js/login/checkValidationForm.js"></script>
     </body>
 </html>
