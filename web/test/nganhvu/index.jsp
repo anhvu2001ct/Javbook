@@ -14,8 +14,6 @@
         <title>JSP Page</title>
     </head>
     <body>
-        /test/nganhvu/index.jsp<br>
-        <c:url value="/test/nganhvu/index.jsp" />
-        <%--<c:forEach--%> 
+        
     </body>
 </html>

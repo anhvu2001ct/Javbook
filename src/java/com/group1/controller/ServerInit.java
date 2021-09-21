@@ -9,22 +9,25 @@ import com.group1.model.db.SQLConnector;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
+import lombok.Getter;
 
 /**
  *
  * @author Anh Vu Nguyen {@literal <nganhvu>}
  */
 public class ServerInit implements ServletContextListener {
+    @Getter
+    private ServletContext context;
+    
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        ServletContext context = sce.getServletContext();
+        context = sce.getServletContext();
         System.out.println("Init " + Thread.currentThread());
         SQLConnector.establishConnection();
     }
 
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
-        ServletContext context = sce.getServletContext();
         System.out.println("Down " + Thread.currentThread());
         SQLConnector.closeConnection();
     }

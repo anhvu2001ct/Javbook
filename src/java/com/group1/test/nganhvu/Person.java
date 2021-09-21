@@ -10,13 +10,13 @@ package com.group1.test.nganhvu;
  * @author Anh Vu Nguyen {@literal <nganhvu>}
  */
 public class Person {
-    private String nameXX;
+    private String myName;
     
     public Person(String x) {
-        nameXX = x;
+        myName = x;
     }
     
-    public String getMyCustomName() {
-        return nameXX;
+    public String getMyName() {
+        return myName;
     }
 }

@@ -5,8 +5,14 @@
  */
 package com.group1.test.nganhvu;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import com.group1.controller.BaseServlet;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -22,9 +28,14 @@ public class TestServlet extends BaseServlet {
     
     @Override
     protected void processGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("name", "nganhvu");
-        request.getRequestDispatcher("/test/nganhvu/index.jsp").forward(request, response);
-        System.out.println(++cnt);
+        JsonElement json = JsonParser.parseReader(new BufferedReader(new FileReader("/data.json")));
+        String filename = "/WEB-INF/data/test.json";
+        ServletContext context = getServletContext();
+        System.out.println(context.getContextPath());
+        System.out.println(context.getRealPath(""));
+        System.out.println(context.getRealPath("/"));
+        System.out.println(context.getRealPath("/WEB-INF"));
+        System.out.println(context.getRealPath("/WEB-INF/"));
     }
 
     @Override
