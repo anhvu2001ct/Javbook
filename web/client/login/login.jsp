@@ -18,14 +18,8 @@
             rel="stylesheet"
             href="/Javbook/assets/css/common/variables.css"
         />
-        <link
-            rel="stylesheet"
-            href="/Javbook/assets/css/common/base.css"
-        />
-        <link
-            rel="stylesheet"
-            href="/Javbook/assets/css/login/login.css"
-        />
+        <link rel="stylesheet" href="/Javbook/assets/css/common/base.css" />
+        <link rel="stylesheet" href="/Javbook/assets/css/login/login.css" />
     </head>
     <body>
         <header class="header">
