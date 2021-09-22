@@ -5,7 +5,7 @@
  */
 package com.group1.model.db;
 
-import com.group1.misc.Printter;
+import com.group1.misc.Sout;
 import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
@@ -27,7 +27,7 @@ public class SQLConnector {
         try {
             SQL = ds.getConnection();
             DatabaseMetaData dm = SQL.getMetaData();
-            Printter pt = new Printter("SQL Database");
+            Sout pt = new Sout("SQL Database");
             pt.add("Driver name:", dm.getDriverName());
             pt.add("Driver version:", dm.getDriverVersion());
             pt.add("Product name:", dm.getDatabaseProductName());
@@ -43,7 +43,7 @@ public class SQLConnector {
     public static void closeConnection() {
         try {
             SQL.close();
-            Printter pt = new Printter("SQL Database");
+            Sout pt = new Sout("SQL Database");
             pt.add("SQLConnector closed!");
             pt.print();
         } catch (SQLException ex) {
