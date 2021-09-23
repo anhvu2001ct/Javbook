@@ -17,17 +17,17 @@ interface ErrorHandler {
 public abstract class BaseServlet extends HttpServlet {
     @Override
     public void init() {
-        System.out.printf("Servlet init: %s\n", getServletConfig().getServletName());
+        System.out.printf("Servlet init: %s\n", getServletName());
     }
 
     @Override
     public void destroy() {
-        System.out.printf("Servlet destroy: %s\n", getServletConfig().getServletName());
+        System.out.printf("Servlet destroy: %s\n", getServletName());
     }
 
     private void processBoth(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        // May do something in the future.
     }
 
     private void handleError(HttpServletRequest request, HttpServletResponse response, ErrorHandler handler) throws ServletException, IOException {

@@ -6,20 +6,14 @@
 package com.group1.rest;
 
 import com.group1.misc.Sout;
-import com.group1.rest.decorator.ServeMethod;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.group1.rest.decorator.ServeAt;
-import java.lang.reflect.InvocationTargetException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
 
 /**
  *
@@ -57,13 +51,13 @@ public abstract class BaseProcessor extends HttpServlet {
         }
         
         String path = request.getPathInfo();
-        if (path == null) path = "";
+        if (path == null || path.equals("/")) path = "";
         
         response.setContentType("text/plain;charset=UTF-8");
         try {
             serveGET.get(path).invoke(this, request, response);
         } catch (Exception ex) {
-            Sout.print("BaseProcessor->serving | Error at:", this.getClass());
+            Sout.print("BaseProcessor->serving->GET | Error at:", this.getClass());
             ex.printStackTrace();
         }
     }
@@ -78,13 +72,13 @@ public abstract class BaseProcessor extends HttpServlet {
         }
         
         String path = request.getPathInfo();
-        if (path == null) path = "";
+        if (path == null || path.equals("/")) path = "";
         
         response.setContentType("text/plain;charset=UTF-8");
         try {
             servePOST.get(path).invoke(this, request, response);
         } catch (Exception ex) {
-            Sout.print("BaseProcessor->serving | Error at:", this.getClass());
+            Sout.print("BaseProcessor->serving->POST | Error at:", this.getClass());
             ex.printStackTrace();
         }
     }

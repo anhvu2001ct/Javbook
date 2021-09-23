@@ -25,7 +25,7 @@ public class ServerInit implements ServletContextListener {
         context = sce.getServletContext();
         String rootPath = Paths.get(context.getRealPath("")).getParent().getParent().toString();
         dataPath = Paths.get(rootPath, "data").toString();
-        imgPath = Paths.get(rootPath, "web/WEB-INF/assets/img").toString();
+        imgPath = Paths.get(rootPath, "web/assets/img").toString();
         SQLConnector.establishConnection();
     }
 
