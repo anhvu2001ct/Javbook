@@ -17,5 +17,4 @@ import lombok.ToString;
 @ToString
 public class Account {
     private String username, password;
-    
 }
