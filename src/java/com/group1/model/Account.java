@@ -16,5 +16,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class Account {
-    private String username, password;
+    private int accountID;
+    private String username, password, name, avatar, phone, dob, address;
+    private boolean gender;
 }
