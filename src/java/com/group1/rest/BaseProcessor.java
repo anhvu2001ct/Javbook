@@ -52,6 +52,7 @@ public abstract class BaseProcessor extends HttpServlet {
         
         String path = request.getPathInfo();
         if (path == null || path.equals("/")) path = "";
+        if (!serveGET.containsKey(path)) return;
         
         response.setContentType("text/plain;charset=UTF-8");
         try {
@@ -73,6 +74,7 @@ public abstract class BaseProcessor extends HttpServlet {
         
         String path = request.getPathInfo();
         if (path == null || path.equals("/")) path = "";
+        if (!servePOST.containsKey(path)) return;
         
         response.setContentType("text/plain;charset=UTF-8");
         try {

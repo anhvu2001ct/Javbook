@@ -1,9 +1,9 @@
 class QueryData {
-    constructor(link, type) {
+    constructor(path, type) {
         this.xhr = new XMLHttpRequest();
         this.params = new URLSearchParams();
         this.xhr.responseType = type || "";
-        this.link = `/Javbook/process/${link}`;
+        this.link = `/Javbook/process/${path}`;
     }
 
     addEvent(eventType, func, ...args) {
@@ -20,7 +20,7 @@ class QueryData {
             this.xhr.send();
         } else if (method === "POST") {
             this.xhr.open(method, this.link);
-            this.xhr.send(this.params.toString());
+            this.xhr.send(this.params);
         } else {
             throw "Only accept GET and POST";
         }
@@ -28,10 +28,10 @@ class QueryData {
 }
 
 class QueryUpload {
-    constructor(link) {
+    constructor(path) {
         this.xhr = new XMLHttpRequest();
         this.params = new FormData();
-        this.link = `/Javbook/process/${link}`;
+        this.link = `/Javbook/process/${path}`;
     }
 
     addEvent(eventType, func, ...args) {

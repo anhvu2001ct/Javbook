@@ -5,6 +5,7 @@
  */
 package com.group1.controller;
 
+import com.google.gson.Gson;
 import com.group1.model.db.SQLConnector;
 import java.nio.file.Paths;
 import javax.servlet.ServletContext;
@@ -19,6 +20,7 @@ import javax.servlet.ServletContextListener;
 public class ServerInit implements ServletContextListener {
     public static ServletContext context;
     public static String dataPath, imgPath;
+    public static Gson gson = new Gson();
     
     @Override
     public void contextInitialized(ServletContextEvent sce) {

@@ -23,7 +23,7 @@ public class TestServlet extends BaseServlet {
     @Override
     protected void processGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println(++cnt);
-        request.getRequestDispatcher("/test/nganhvu/upfile.jsp").forward(request, response);
+        request.getRequestDispatcher("/test/nganhvu/websocket.jsp").forward(request, response);
     }
 
     @Override

@@ -56,7 +56,7 @@ public class Sout {
     }
     
     public void print() {
-        System.out.printf("\n|-------------------[ %s ]-------------------|\n", title);
+        System.out.printf("\n|=============================[ %s ]=============================|\n", title);
         list.forEach(str -> iprint(1, str));
         System.out.println();
     }

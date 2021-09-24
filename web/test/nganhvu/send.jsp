@@ -13,9 +13,17 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
-        <c:forEach begin="1" end="5">
-            ${name}
-        </c:forEach>
+        
     </body>
+    <script src="/Javbook/assets/js/common/query.js"></script>
+    <script>
+        let query = new QueryData("test/sendGET")
+        query.addParam("key", "value");
+        query.addParam("key2", "value2");
+        query.send("GET")
+        
+        let query2 = new QueryData("test/sendPOST")
+        query2.addParam("keyPOST", "value1");
+        query2.send("POST")
+    </script>
 </html>
