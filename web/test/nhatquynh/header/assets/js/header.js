@@ -6,9 +6,4 @@ $(document).on("click", ".header_icon", function () {
     $(this).addClass("active").siblings().removeClass("active");
     $(".popup_container").show();
   }
-  $(".popup_inner").hide();
-  if ($(this)) {
-    $(".popup_inner").show();
-    console.log($(this));
-  }
 });
