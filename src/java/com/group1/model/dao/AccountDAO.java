@@ -1,12 +1,8 @@
 package com.group1.model.dao;
 
-import com.group1.model.Account;
 import static com.group1.model.db.SQLConnector.SQL;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *

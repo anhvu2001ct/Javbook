@@ -1,6 +1,5 @@
 package com.group1.controller.processor;
 
-import com.google.gson.Gson;
 import static com.group1.controller.ServerInit.gson;
 import com.group1.model.dao.AccountDAO;
 import com.group1.rest.BaseProcessor;
@@ -10,9 +9,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.servlet.ServletException;
