@@ -12,7 +12,7 @@ import javax.websocket.server.ServerEndpoint;
  * @author Anh Vu Nguyen {@literal <nganhvu>}
  */
 @ServerEndpoint("/ws/test")
-public class TestWebSocket extends BaseWS {
+public class MessageHandler extends BaseWS {
     private static ConcurrentMap<String, Session> clients = new ConcurrentHashMap<String, Session>();
 
     @Override
@@ -22,10 +22,12 @@ public class TestWebSocket extends BaseWS {
 
     @Override
     protected void onMessage(Session session, JsonObject msg) {
-        System.out.println(msg);
-        Session client = clients.get(msg.getAsJsonPrimitive("to").getAsString());
+        String to = msg.getAsJsonPrimitive("to").getAsString();
+        Session client = clients.get(to);
         if (client != null) {
-            client.getAsyncRemote().sendText(msg.get("data").toString());
+            msg.remove("to");
+            msg.addProperty("from", id);
+            client.getAsyncRemote().sendText(msg.toString());
         }
     }
 

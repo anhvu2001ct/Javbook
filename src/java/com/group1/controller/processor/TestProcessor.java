@@ -5,6 +5,7 @@ import com.group1.rest.BaseProcessor;
 import com.group1.rest.ServeAt;
 import com.group1.rest.ServeMethod;
 import java.io.IOException;
+import java.util.Arrays;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +20,7 @@ public class TestProcessor extends BaseProcessor {
     private void printParams(HttpServletRequest request) {
         request.getParameterMap().forEach((key, values) -> {
             System.out.print(key + ": ");
-            Sout.print(values);
+            Sout.print(Arrays.asList(values));
         });
     }
     
