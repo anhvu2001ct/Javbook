@@ -3,7 +3,6 @@ package com.group1.test.nganhvu;
 import com.group1.controller.BaseServlet;
 import java.io.IOException;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 

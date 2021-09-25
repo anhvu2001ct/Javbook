@@ -20,8 +20,15 @@
         />
         <link rel="stylesheet" href="/Javbook/assets/css/common/base.css" />
         <link rel="stylesheet" href="/Javbook/assets/css/login/login.css" />
+        <link
+            rel="stylesheet"
+            href="/Javbook/assets/css/login/toastMessage.css"
+        />
     </head>
     <body>
+        <!-- Toast Message -->
+        <div id="toast"></div>
+
         <header class="header">
             <div class="container">
                 <div class="header-main">
@@ -115,11 +122,7 @@
                         </div>
                         <div id="sign-up" class="sisu-main">
                             <h1 class="sisu__title">Sign up to JavBook</h1>
-                            <form
-                                action="home.html"
-                                method="POST"
-                                class="sisu__form"
-                            >
+                            <div class="sisu__form">
                                 <!-- autocomplete: off -->
                                 <div class="form__input">
                                     <label
@@ -131,7 +134,7 @@
                                         <input
                                             class="form__input-input"
                                             type="text"
-                                            name="username"
+                                            name="sign-up-username"
                                             id="sign-up-username"
                                             onkeyup="checkUsername()"
                                         />
@@ -147,7 +150,7 @@
                                         <input
                                             class="form__input-input"
                                             type="password"
-                                            name="password"
+                                            name="sign-up-password"
                                             id="sign-up-password"
                                             autocomplete="off"
                                             onkeyup="checkPassword()"
@@ -172,7 +175,7 @@
                                         <input
                                             class="form__input-input"
                                             type="password"
-                                            name="password"
+                                            name="sign-up-repassword"
                                             id="sign-up-repassword"
                                             autocomplete="off"
                                             onkeyup="checkConfirmPassword()"
@@ -192,16 +195,18 @@
                                         type="checkbox"
                                         name="agree-condition"
                                         class="input-checkbox"
+                                        id="js-sign-up-checkbox"
                                     />
                                     I agree all terms & conditions.
                                 </label>
                                 <button
                                     type="submit"
                                     class="btn btn--primary mt-4"
+                                    id="js-sign-up-btn"
                                 >
                                     Sign up
                                 </button>
-                            </form>
+                            </div>
                             <div class="sisu__sign-up">
                                 Already have an account?
                                 <a
@@ -267,8 +272,9 @@
                 </p>
             </div>
         </footer>
-        <script src="/Javbook/assets/js/login/toggleDisplayPassword.js"></script>
-        <script src="/Javbook/assets/js/login/toggleDisplaySISU.js"></script>
-        <script src="/Javbook/assets/js/login/checkValidationForm.js"></script>
+
+        <script src="/Javbook/assets/js/common/query.js"></script>
+        <script src="/Javbook/assets/js/login/animatedLogin.js"></script>
+        <script src="/Javbook/assets/js/login/queryLogin.js"></script>
     </body>
 </html>
