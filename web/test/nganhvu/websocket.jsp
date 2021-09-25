@@ -48,6 +48,7 @@
         };
 
         socket.addEvent("message", message => {
+          console.log(message)
           let messageElem = document.createElement('div');
           messageElem.textContent = message;
           document.getElementById('messages').prepend(messageElem);

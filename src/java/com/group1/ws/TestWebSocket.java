@@ -5,12 +5,21 @@
  */
 package com.group1.ws;
 
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.group1.controller.ServerInit;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import javax.websocket.CloseReason;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
+class TheMessage {
+    String from;
+    JsonElement data;
+}
 
 /**
  *
@@ -28,9 +37,12 @@ public class TestWebSocket extends BaseWS {
     @Override
     protected void onMessage(Session session, JsonObject msg) {
         System.out.println(msg);
-        Session client = clients.get(msg.getAsJsonPrimitive("to").getAsString());
+        
+        String to = msg.getAsJsonPrimitive("to").getAsString();
+        Session client = clients.get(to);
         if (client != null) {
-            client.getAsyncRemote().sendText(msg.get("data").toString());
+            TheMessage message = new TheMessage(id, msg.get("data"));
+            client.getAsyncRemote().sendText(ServerInit.gson.toJson(message));
         }
     }
 
