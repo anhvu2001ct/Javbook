@@ -3,7 +3,6 @@ package com.group1.ws;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import static com.group1.controller.ServerInit.gson;
-import com.group1.misc.Sout;
 import java.io.IOException;
 import javax.websocket.CloseReason;
 import javax.websocket.OnClose;
@@ -21,7 +20,7 @@ public abstract class BaseWS {
     
     @OnOpen
     public void open(Session session) {
-        System.out.printf("New connection. ID = %s\n", session.getId());
+        System.out.printf("New connection. SID = %s\n", session.getId());
         onOpen(session);
     }
 
@@ -39,15 +38,13 @@ public abstract class BaseWS {
    
    @OnError
     public void error(Session session, Throwable error) {
-        Sout sout = new Sout("OnError");
-        sout.add("ID = ", id, error);
-        sout.print();
+        System.out.printf("%s - ERROR. SID = %s, id = %s. Code = %s\n", this.getClass().getName(), session.getId(), id, error.getMessage());
         onError(session, error);
     } 	
 
     @OnClose
     public void close(Session session, CloseReason reason) {
-        System.out.printf("Connection closed. ID = %s\n", session.getId());
+        System.out.printf("Connection closed. SID = %s, id = %s\n", session.getId(), id);
         onClose(session, reason);
     }
     
