@@ -87,16 +87,21 @@
 }
 
 .toast__title {
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 600;
     color: #333;
 }
 
 .toast__msg {
-    font-size: 14px;
+    font-size: 15px;
     color: #888;
     margin-top: 6px;
     line-height: 1.5;
+}
+
+.toast__msg span {
+    color: #ff623d;
+    font-weight: 600;
 }
 
 .toast__close {

@@ -35,7 +35,7 @@
                     <a href="#"
                         ><img
                             src="/Javbook/assets/img/logo/Javbook_white.png"
-                            alt="Logo JavBook"
+                            alt="Logo Javbook"
                             class="header__logo"
                     /></a>
                 </div>
@@ -100,18 +100,19 @@
                                         type="checkbox"
                                         name="remember-password"
                                         class="input-checkbox"
+                                        id="js-sign-in-checkbox"
                                     />
                                     Remember password in 30 days.
                                 </label>
                                 <button
-                                    type="submit"
                                     class="btn btn--primary mt-4"
+                                    id="js-sign-in-btn"
                                 >
                                     Sign in
                                 </button>
                             </form>
                             <div class="sisu__sign-up">
-                                New to JavBook?
+                                New to Javbook?
                                 <a
                                     href="#"
                                     class="sisu__sign-up-link"
@@ -121,7 +122,7 @@
                             </div>
                         </div>
                         <div id="sign-up" class="sisu-main">
-                            <h1 class="sisu__title">Sign up to JavBook</h1>
+                            <h1 class="sisu__title">Sign up to Javbook</h1>
                             <div class="sisu__form">
                                 <!-- autocomplete: off -->
                                 <div class="form__input">
@@ -200,7 +201,6 @@
                                     I agree all terms & conditions.
                                 </label>
                                 <button
-                                    type="submit"
                                     class="btn btn--primary mt-4"
                                     id="js-sign-up-btn"
                                 >
@@ -229,7 +229,7 @@
                         <li class="footer-item"><a href="#">Privacy</a></li>
                         <li class="footer-item"><a href="#">Security</a></li>
                         <li class="footer-item">
-                            <a href="#">Contact JavBook</a>
+                            <a href="#">Contact Javbook</a>
                         </li>
                     </ul>
                 </div>

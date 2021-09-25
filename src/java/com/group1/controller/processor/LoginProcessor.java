@@ -39,27 +39,64 @@ public class LoginProcessor extends BaseProcessor {
         String signupCheckbox = request.getParameter("signupCheckbox");
         
         ArrayList<String> list = new ArrayList<>();
+
+        // check validation for username
+        String USERNAME_PATTERN = "^[a-z]([a-z0-9]){5,19}";
+        Pattern pattern = Pattern.compile(USERNAME_PATTERN);
+        Matcher matcher = pattern.matcher(signupUsername);
+   
+        if (!matcher.matches()){
+            list.add("username");
+        } else {
+            // check available username
+            if (!AccountDAO.isAvailableUsername(signupUsername)){
+                list.add("available_username");
+            }
+        }
+        
+        // check validation for password
+        String PASSWORD_PATTERN = "^[a-zA-Z]([a-zA-Z0-9]){5,19}";
+        pattern = Pattern.compile(PASSWORD_PATTERN);
+        matcher = pattern.matcher(signupPassword);
+        if (!matcher.matches()){
+            list.add("password");
+        } else {
+            // check password is the same
+            if (!signupPassword.equals(signupRepassword)){
+                list.add("repassword");
+            }
+        }
         
         // check checkbox "I agree all terms & conditions."
         if (signupCheckbox.equals("false")){
             list.add("checkbox");
         }
         
-        // check validation for username
-        String USERNAME_PATTERN = "^[a-z]([a-z0-9]){5,19}";
-        Pattern pattern = Pattern.compile(USERNAME_PATTERN);
-        Matcher matcher = pattern.matcher(signupUsername);
-      
-        if (!matcher.matches()){
-            list.add("username");
-        }
-        // check password is the same
-        if (!signupPassword.equals(signupRepassword)){
-            list.add("password");
-        }
-        
         if (list.isEmpty()){
             AccountDAO.createNewAccount(signupUsername, signupPassword);
+        }
+
+        out.println(gson.toJson(list));
+    }
+    
+    @ServeAt(value="/signin", method=ServeMethod.POST)
+    public void serveSignin(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, SQLException {
+        PrintWriter out = response.getWriter();
+        
+        String signinUsername = request.getParameter("signinUsername");
+        String signinPassword = request.getParameter("signinPassword");
+        String signinRememberPassword = request.getParameter("signinRememberPassword");
+        
+        ArrayList<String> list = new ArrayList<>();
+             
+        // check account exist in database
+        if (!AccountDAO.isAccountExists(signinUsername, signinPassword)){
+            
+        }
+        
+        // check checkbox "Remember password in 30 days."
+        if (signinRememberPassword.equals("true")){
+
         }
 
         out.println(gson.toJson(list));
