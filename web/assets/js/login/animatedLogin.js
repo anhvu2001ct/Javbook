@@ -6,6 +6,19 @@ var signupUsername = document.getElementById("sign-up-username");
 var signupPassword = document.getElementById("sign-up-password");
 var signupRepassword = document.getElementById("sign-up-repassword");
 
+function resetSignup() {
+    signupUsername.classList.remove("success");
+    signupUsername.classList.remove("error");
+    signupPassword.classList.remove("success");
+    signupPassword.classList.remove("error");
+    signupRepassword.classList.remove("success");
+    signupRepassword.classList.remove("error");
+    signupUsername.value = "";
+    signupPassword.value = "";
+    signupRepassword.value = "";
+    document.getElementById("js-sign-up-checkbox").checked = false;
+}
+
 function checkUsername() {
     if (signupUsername.value == "") {
         signupUsername.classList.remove("success");
@@ -50,22 +63,24 @@ var signinPassword = document.getElementById("sign-in-password");
 var signupPassword = document.getElementById("sign-up-password");
 var signupRepassword = document.getElementById("sign-up-repassword");
 
-var togglePassSignInBtns = document.querySelectorAll(
-    ".js-sign-in-toggle-pass-btn"
-);
+var togglePassSignInBtn = document.querySelector(".js-sign-in-toggle-pass-btn");
+
 var togglePassSignUpBtns = document.querySelectorAll(
     ".js-sign-up-toggle-pass-btn"
 );
 
 function toggleSignInPassword() {
-    for (const togglePassSignInBtn of togglePassSignInBtns) {
-        togglePassSignInBtn.classList.toggle("hide");
-    }
+    togglePassSignInBtn.classList.toggle("hide");
     if (signinPassword.type === "password") {
         signinPassword.type = "text";
     } else {
         signinPassword.type = "password";
     }
+}
+
+function resetToggleSignInPassword() {
+    togglePassSignInBtn.classList.remove("hide");
+    signinPassword.type = "password";
 }
 
 function toggleSignUpPassword() {
@@ -81,9 +96,7 @@ function toggleSignUpPassword() {
     }
 }
 
-for (const togglePassSignInBtn of togglePassSignInBtns) {
-    togglePassSignInBtn.addEventListener("click", toggleSignInPassword);
-}
+togglePassSignInBtn.addEventListener("click", toggleSignInPassword);
 
 for (const togglePassSignUpBtn of togglePassSignUpBtns) {
     togglePassSignUpBtn.addEventListener("click", toggleSignUpPassword);

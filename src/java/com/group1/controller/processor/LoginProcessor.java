@@ -1,6 +1,7 @@
 package com.group1.controller.processor;
 
 import static com.group1.controller.ServerInit.gson;
+import com.group1.model.Account;
 import com.group1.model.dao.AccountDAO;
 import com.group1.rest.BaseProcessor;
 import com.group1.rest.ServeAt;
@@ -76,7 +77,7 @@ public class LoginProcessor extends BaseProcessor {
             AccountDAO.createNewAccount(signupUsername, signupPassword);
         }
 
-        out.println(gson.toJson(list));
+        out.print(gson.toJson(list));
     }
     
     @ServeAt(value="/signin", method=ServeMethod.POST)
@@ -87,18 +88,20 @@ public class LoginProcessor extends BaseProcessor {
         String signinPassword = request.getParameter("signinPassword");
         String signinRememberPassword = request.getParameter("signinRememberPassword");
         
-        ArrayList<String> list = new ArrayList<>();
-             
         // check account exist in database
         if (!AccountDAO.isAccountExists(signinUsername, signinPassword)){
-            
+            out.print("fail");
+            return;
         }
+        
+        Account account = AccountDAO.getAccountByUsername(signinUsername);
+        request.getSession().setAttribute("user", account);
         
         // check checkbox "Remember password in 30 days."
         if (signinRememberPassword.equals("true")){
-
+            
         }
 
-        out.println(gson.toJson(list));
+        out.print("success");
     }
 }

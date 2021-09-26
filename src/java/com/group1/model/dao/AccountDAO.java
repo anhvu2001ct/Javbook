@@ -23,7 +23,7 @@ public class AccountDAO {
         
         ResultSet rs = ps.executeQuery(); // execute query va nhan ket qua tra ve
         
-        return !rs.isBeforeFirst();
+        return rs.isBeforeFirst();
     }
     
     public static void createNewAccount(String username, String password) throws SQLException{

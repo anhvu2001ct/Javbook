@@ -11,12 +11,13 @@ var message = {
         duration: 15000,
         errorMessage: {
             username:
-                "Username must only contains <span>a-z, 0-9</span> and is between <span>6 and 20 characters long</span>!",
+                "Username must only contains <span>a-z, 0-9</span> with <span>first letter is a-z</span> and is between <span>6 and 20 characters long</span>!",
             available_username: "This username is <span>not available</span>!",
             password:
-                "Password must only contains <span>a-z, A-Z, 0-9</span> and is between <span>6 and 20 characters long</span>!",
+                "Password must only contains <span>a-z, A-Z, 0-9</span> with <span>first letter is a-z, A-Z</span> and is between <span>6 and 20 characters long</span>!",
             repassword: "Password must be <span>the same</span>!",
             checkbox: "You must agree <span>all terms & conditions</span>!",
+            account: "Username or password <span>incorrect</span>!",
         },
     },
 };
@@ -42,33 +43,36 @@ signupBtn.onclick = function () {
         clearInterval(timerId);
     }, 6000);
 
+    let signupUsername = document.getElementById("sign-up-username");
+    let signupPassword = document.getElementById("sign-up-password");
+    let signupRepassword = document.getElementById("sign-up-repassword");
+    let signupCheckbox = document.getElementById("js-sign-up-checkbox");
+
     let query = new QueryData("login/createNewAccount", "json");
-    query.addParam(
-        "signupUsername",
-        document.getElementById("sign-up-username").value
-    );
 
-    query.addParam(
-        "signupPassword",
-        document.getElementById("sign-up-password").value
-    );
-
-    query.addParam(
-        "signupRepassword",
-        document.getElementById("sign-up-repassword").value
-    );
-
-    query.addParam(
-        "signupCheckbox",
-        document.getElementById("js-sign-up-checkbox").checked
-    );
+    query.addParam("signupUsername", signupUsername.value);
+    query.addParam("signupPassword", signupPassword.value);
+    query.addParam("signupRepassword", signupRepassword.value);
+    query.addParam("signupCheckbox", signupCheckbox.checked);
 
     query.addEvent("load", function () {
         let result = this.response;
         let msg = [];
         if (result.length == 0) {
+            // show Toast message signup successfully!
             msg.push(message.success.message);
             toast(message.success, msg);
+            // Autofill username and password into signin form
+            document.getElementById("sign-in-username").value =
+                signupUsername.value;
+            document.getElementById("sign-in-password").value =
+                signupPassword.value;
+            // reset toggle signin password
+            resetToggleSignInPassword();
+            // reset input and validation input
+            resetSignup();
+
+            // show Signin form
             displaySignin();
         } else {
             result.forEach((element) => {
@@ -103,7 +107,7 @@ signinBtn.onclick = function () {
         clearInterval(timerId);
     }, 6000);
 
-    let query = new QueryData("login/signin", "json");
+    let query = new QueryData("login/signin");
     query.addParam(
         "signinUsername",
         document.getElementById("sign-in-username").value
@@ -122,17 +126,12 @@ signinBtn.onclick = function () {
     query.addEvent("load", function () {
         let result = this.response;
         let msg = [];
-        if (result.length == 0) {
-            msg.push(message.success.message);
-            toast(message.success, msg);
-            displaySignin();
-        } else {
-            result.forEach((element) => {
-                msg.push(message.fail.errorMessage[element]);
-            });
+        if (result == "fail") {
+            msg.push(message.fail.errorMessage.account);
             toast(message.fail, msg);
+        } else {
+            window.location = "/Javbook/test/nganhvu/";
         }
-        console.log(result);
     });
 
     query.send("POST");
