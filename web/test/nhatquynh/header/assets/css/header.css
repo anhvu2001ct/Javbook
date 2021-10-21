@@ -54,7 +54,8 @@ body {
 .header_item:last-child {
   margin-right: 0;
 }
-.header_item {
+.header_item,
+.imageuser {
   margin-right: 8px;
   position: relative;
 }
@@ -139,6 +140,7 @@ body {
   line-height: 40px;
   width: 0;
 }
+
 /* popup_container */
 .popup_container {
   position: absolute;
@@ -167,7 +169,7 @@ body {
 }
 .popup_item {
   padding: 10px;
-  width: max-content;
+  width: 100%;
 }
 .popup_item:hover {
   background-color: rgba(255, 255, 255, 0.1);
@@ -187,14 +189,73 @@ body {
   color: indigo;
 }
 .button:hover {
-  box-shadow: 0 0 5px cyan, 0 0 5px #00ff2d;
+  box-shadow: 0 0 2px 2px rgba(255, 255, 255, 0.3),
+    0 0 3px 4px rgba(0, 0, 0, 0.1);
 }
 .button:first-child {
   background-color: #0080fa;
   margin-right: 8px;
+  color: white;
 }
 .button:last-child {
   background-color: #c2c2c2;
+  color: black;
+}
+/* custom notifications */
+.notification,
+.message,
+.message_cp {
+  display: flex;
+  align-items: flex-start;
+  cursor: pointer;
+  position: relative;
+}
+.notification_logo,
+.message_logo {
+  position: relative;
+}
+.notification_icon {
+  position: absolute;
+  right: -2px;
+  bottom: -2px;
+}
+.fa-grin,
+.fa-comment-alt {
+  background: linear-gradient(24deg, #0080fa, #fff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.notification_content,
+.message_content {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.3;
+  font-size: 16px;
+  width: 175px;
+}
+.notification_time {
+  font-size: 13px;
+  color: #0080fa;
+}
+
+/* custom message  */
+
+.message_user {
+  font-size: 16px;
+}
+.message {
+  font-size: 13px;
+}
+.message_text {
+  display: inline-block;
+  max-width: 80%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #2e89ff;
+}
+.message_text > strong {
+  color: #fff;
 }
 /* custom scroll bar  */
 .popup_container::-webkit-scrollbar {

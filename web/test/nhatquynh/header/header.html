@@ -62,6 +62,7 @@
             title="Messages"
           >
             <i class="fas fa-comments"></i>
+            <span class="num nummess">0</span>
           </div>
 
           <div
@@ -70,7 +71,7 @@
             title="Friend request"
           >
             <i class="fas fa-user-friends"></i>
-            <span class="num">2</span>
+            <span class="num numfriend">0</span>
           </div>
 
           <div
@@ -79,12 +80,12 @@
             title="Notification"
           >
             <i class="fas fa-bell"></i>
-            <span class="num">13</span>
+            <span class="num numnotifi">0</span>
           </div>
 
           <div class="profile_border"></div>
           <!-- sửa đường dẫn ở đây -->
-          <a class="header_item" href="#"
+          <a class="imageuser" href="#"
             ><img
               src="/Javbook/test/nhatquynh/header/assets/img/logo/logo.jpg"
               alt=""
@@ -100,9 +101,9 @@
         </div>
 
         <!--popup_container inner  -->
-        <div class="popup_inner flex">
+        <div class="popup_inner flex" id="popup_inner">
           <!-- popup_container inner item  -->
-          <div class="popup_item flex flex_ac">
+          <div class="popup_item flex flex_ac friend">
             <!-- popup_container inner item image -->
             <a class="popup_item_img wh_40" href="#"
               ><img
@@ -113,7 +114,9 @@
             <!-- popup_container inner item information -->
             <div class="popup_item_info">
               <!-- name user  -->
-              <a class="popup_item_info_name" href="#"> Le Nhat Quynh 1</a>
+              <a class="popup_item_info_name" href="#"
+                ><strong>Le Nhat Quynh 1</strong>
+              </a>
               <!-- confirm of user  -->
               <div class="popup_item_info_confirm flex">
                 <button class="button accept">Accept</button>
@@ -121,29 +124,58 @@
               </div>
             </div>
           </div>
+
           <!-- popup_container inner item  -->
-          <div class="popup_item flex flex_ac">
+          <div class="popup_item message mess_active">
             <!-- popup_container inner item image -->
-            <a class="popup_item_img wh_40" href="#"
+            <a class="popup_item_img wh_40 message_logo" href="#"
               ><img
                 src="/Javbook/test/nhatquynh/header/assets/img/logo/logo.jpg"
                 alt=""
                 class="scale wh_40 circle"
-            /></a>
+              />
+            </a>
             <!-- popup_container inner item information -->
-            <div class="popup_item_info">
+            <div class="popup_item_info message_content">
               <!-- name user  -->
-              <a class="popup_item_info_name" href="#"> Le Nhat Quynh 2</a>
-              <!-- confirm of user  -->
-              <div class="popup_item_info_confirm flex">
-                <button class="button accept">Accept</button>
-                <button class="button rejeinfo">Reject</button>
-              </div>
+              <span class="message_user"><strong>Hoang Khang</strong></span>
+              <span class="message_cp">
+                <span class="message_text"
+                  ><strong>Khang:</strong> đã bình luận về bài viết của
+                  bạn</span
+                >
+              </span>
+            </div>
+          </div>
+
+          <!-- popup_container inner item  -->
+          <div class="popup_item notification notifi_active">
+            <!-- popup_container inner item image -->
+            <a class="popup_item_img wh_40 notification_logo" href="#"
+              ><img
+                src="/Javbook/test/nhatquynh/header/assets/img/logo/logo.jpg"
+                alt=""
+                class="scale wh_40 circle"
+              />
+              <span class="notification_icon">
+                <!-- thay icon tại đây -->
+                <i class="fas fa-grin"></i>
+              </span>
+            </a>
+            <!-- popup_container inner item information -->
+            <div class="popup_item_info notification_content">
+              <!-- name user  -->
+              <span class="notification_text"
+                ><strong>Nhat Quynh</strong> đã bày tỏ cảm xúc về bài viết của
+                bạn</span
+              >
+              <span class="notification_time">khoảng 1 giờ trước</span>
             </div>
           </div>
         </div>
       </div>
     </div>
+
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script
       src="/Javbook/test/nhatquynh/header/assets/js/header.js"
