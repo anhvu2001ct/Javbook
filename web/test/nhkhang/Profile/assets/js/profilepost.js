@@ -8,6 +8,14 @@ function profilePost() {
     const frameImg = document.querySelector(".display-img");
     const postBtn = document.querySelector(".pop_ele3 .share");
     const userEditContent = document.querySelector(".status_content  .enter");
+    const select = document.querySelector("#select");
+    let option = 1;
+    select.addEventListener("change", () => {
+        option = select.options[select.selectedIndex].value;
+
+    });
+
+
     document.getElementById("input").addEventListener("click", function () {
         document.querySelector(".popup_model").style.display = "flex";
     });
@@ -49,12 +57,15 @@ function profilePost() {
         });
         uploadImg.send();
         // uploadData
+        
         uploadData.addParam("content", userEditContent.value);
         uploadData.addParam("link", "/Javbook/assets/img/user/" + name);
+       
+        uploadData.addParam("audience", option);
         uploadData.send("POST");
-        
+
         document.querySelector(".popup_model").style.display = "none";
-        
+
     }
 
 

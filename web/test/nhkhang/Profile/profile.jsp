@@ -117,9 +117,9 @@
 
                 <div class="pop_ele3 flex">
                     <select name="object" id="select" class="popup_btn pointer">
-                        <option value="public">Public</option>
-                        <option value="friends">Friends</option>
-                        <option value="only_me">Only me</option>
+                        <option value="1">Public</option>
+                        <option value="2">Friends</option>
+                        <option value="3">Only me</option>
                     </select>
                     <div class="input_file popup_btn pointer">
                         <input type="file" name="file" id="file" accept="image/*" />
