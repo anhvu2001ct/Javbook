@@ -48,15 +48,17 @@ public class SessionFilter implements Filter {
         }
         
         int uid = -1;
-        for (Cookie cookie: request.getCookies()) {
-            if (cookie.getName().equals("JBID")) {
-                try {
-                    uid = AccountDAO.getAccountByUsername(Serect.decode1(cookie.getValue())).getAccountID();
-                } catch (Exception e) {
-                    Sout.print("Error getting UID!!!");
-                    e.printStackTrace();
+        if (request.getCookies() != null) {
+            for (Cookie cookie: request.getCookies()) {
+                if (cookie.getName().equals("JBID")) {
+                    try {
+                        uid = AccountDAO.getAccountByUsername(Serect.decode1(cookie.getValue())).getAccountID();
+                    } catch (Exception e) {
+                        Sout.print("Error getting UID!!!");
+                        e.printStackTrace();
+                    }
+                    break;
                 }
-                break;
             }
         }
         
