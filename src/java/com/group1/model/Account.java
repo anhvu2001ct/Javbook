@@ -18,8 +18,5 @@ import lombok.ToString;
 @ToString
 public class Account {
     private int accountID;
-    private String username, password, name, avatar, phone;
-    private Date dob;
-    private String address;
-    private boolean gender;
+    private String username, password, avatar, phone, email;
 }

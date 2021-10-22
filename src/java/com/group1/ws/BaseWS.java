@@ -24,8 +24,8 @@ public abstract class BaseWS {
         onOpen(session);
     }
 
-   @OnMessage
-   public void message(Session session, String msg) throws IOException {
+    @OnMessage
+    public void message(Session session, String msg) throws IOException {
        JsonArray arr = gson.fromJson(msg, JsonArray.class);
        if (arr.size() == 2) {
            id = arr.get(1).getAsString();
@@ -34,13 +34,13 @@ public abstract class BaseWS {
        }
        
        onMessage(session, arr.get(0).getAsJsonObject());
-   }
+    }
    
-   @OnError
+    @OnError
     public void error(Session session, Throwable error) {
         System.out.printf("%s - ERROR. SID = %s, id = %s. Code = %s\n", this.getClass().getName(), session.getId(), id, error.getMessage());
         onError(session, error);
-    } 	
+    }
 
     @OnClose
     public void close(Session session, CloseReason reason) {
@@ -49,9 +49,10 @@ public abstract class BaseWS {
     }
     
     protected abstract void addClient(Session session);
+    protected abstract void removeClient(Session session);
     protected abstract void onMessage(Session session, JsonObject msg);
     protected abstract void onClose(Session session, CloseReason reason);
+    protected abstract void onError(Session session, Throwable error);
     
     protected void onOpen(Session session) {}
-    protected void onError(Session session, Throwable error) {}
 }

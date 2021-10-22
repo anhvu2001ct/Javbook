@@ -1,6 +1,7 @@
 package com.group1.controller.processor;
 
 import static com.group1.controller.ServerInit.gson;
+import com.group1.misc.Serect;
 import com.group1.model.Account;
 import com.group1.model.dao.AccountDAO;
 import com.group1.rest.BaseProcessor;
@@ -14,6 +15,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -95,13 +97,15 @@ public class LoginProcessor extends BaseProcessor {
         }
         
         Account account = AccountDAO.getAccountByUsername(signinUsername);
-        request.getSession().setAttribute("user", account);
+        Cookie cookie = new Cookie("JBID", Serect.encode1(signinUsername));
+        cookie.setPath("/Javbook");
         
         // check checkbox "Remember password in 30 days."
         if (signinRememberPassword.equals("true")){
-            
+            cookie.setMaxAge(3600 * 24 * 30);
         }
 
+        response.addCookie(cookie);
         out.print("success");
     }
 }

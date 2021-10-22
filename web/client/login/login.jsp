@@ -47,11 +47,7 @@
                     <div class="container-form">
                         <div id="sign-in" class="sisu-main">
                             <h1 class="sisu__title">Sign in to Javbook</h1>
-                            <form
-                                action="home.html"
-                                method="POST"
-                                class="sisu__form"
-                            >
+                            <div class="sisu__form">
                                 <!-- autocomplete: off -->
                                 <div class="form__input">
                                     <label
@@ -110,7 +106,7 @@
                                 >
                                     Sign in
                                 </button>
-                            </form>
+                            </div>
                             <div class="sisu__sign-up">
                                 New to Javbook?
                                 <a
