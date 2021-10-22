@@ -1,7 +1,7 @@
 package com.group1.controller.processor;
 
 import static com.group1.controller.ServerInit.gson;
-import com.group1.misc.Serect;
+import com.group1.misc.Secret;
 import com.group1.model.Account;
 import com.group1.model.dao.AccountDAO;
 import com.group1.rest.BaseProcessor;
@@ -97,7 +97,7 @@ public class LoginProcessor extends BaseProcessor {
         }
         
         Account account = AccountDAO.getAccountByUsername(signinUsername);
-        Cookie cookie = new Cookie("JBID", Serect.encode1(signinUsername));
+        Cookie cookie = new Cookie("JBID", Secret.encode1(signinUsername));
         cookie.setPath("/Javbook");
         
         // check checkbox "Remember password in 30 days."

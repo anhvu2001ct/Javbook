@@ -5,7 +5,7 @@
  */
 package com.group1.controller;
 
-import com.group1.misc.Serect;
+import com.group1.misc.Secret;
 import com.group1.misc.Sout;
 import com.group1.model.dao.AccountDAO;
 import java.io.IOException;
@@ -52,7 +52,7 @@ public class SessionFilter implements Filter {
             for (Cookie cookie: request.getCookies()) {
                 if (cookie.getName().equals("JBID")) {
                     try {
-                        uid = AccountDAO.getAccountByUsername(Serect.decode1(cookie.getValue())).getAccountID();
+                        uid = AccountDAO.getAccountByUsername(Secret.decode1(cookie.getValue())).getAccountID();
                     } catch (Exception e) {
                         Sout.print("Error getting UID!!!");
                         e.printStackTrace();

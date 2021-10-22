@@ -14,8 +14,8 @@ import java.nio.file.Paths;
  * @author Anh Vu Nguyen {@literal <nganhvu>}
  */
 public class IO {
-    public static BufferedReader getReader(String pathToFile) {
-        Path path = Paths.get(ServerInit.dataPath.toString(), pathToFile);
+    public static BufferedReader getReader(String basePath, String pathToFile) {
+        Path path = Paths.get(basePath, pathToFile);
         try {
             Files.createDirectories(path.getParent());
             if (Files.exists(path)) return new BufferedReader(new FileReader(path.toString()));
@@ -25,9 +25,13 @@ public class IO {
         }
         return null;
     }
+
+    public static BufferedReader getReader(String pathToFile) {
+        return getReader(ServerInit.dataPath, pathToFile);
+    }
     
     public static BufferedWriter getWriter(String pathToFile, boolean append) {
-        Path path = Paths.get(ServerInit.dataPath.toString(), pathToFile);
+        Path path = Paths.get(ServerInit.dataPath, pathToFile);
         try {
             Files.createDirectories(path.getParent());
             return new BufferedWriter(new FileWriter(path.toString(), append));
