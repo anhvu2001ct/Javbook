@@ -2,19 +2,20 @@ package com.group1.controller;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import com.group1.misc.Secret;
 import com.group1.model.db.IO;
 import com.group1.model.db.SQLConnector;
 import java.nio.file.Paths;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
+import javax.servlet.annotation.WebListener;
 
 /**
  *
  * @author Anh Vu Nguyen {@literal <nganhvu>}
  */
 //@Getter
+@WebListener
 public class ServerInit implements ServletContextListener {
     public static ServletContext context;
     public static String dataPath, imgPath;

@@ -1,5 +1,6 @@
 package com.group1.controller.processor;
 
+import com.group1.controller.ServerInit;
 import static com.group1.controller.ServerInit.gson;
 import com.group1.misc.Secret;
 import com.group1.model.Account;
@@ -25,6 +26,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet("/process/login/*")
 public class LoginProcessor extends BaseProcessor {
+    private static int cookieMaxAge = ServerInit.config.get("cookieMaxAge").getAsInt();
+    
     @ServeAt("")
     public void serveIndex(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 //        response.getWriter().println(JsonParser.parseReader(IO.getReader("notify/user1.json")).getAsJsonObject().toString());
@@ -102,7 +105,7 @@ public class LoginProcessor extends BaseProcessor {
         
         // check checkbox "Remember password in 30 days."
         if (signinRememberPassword.equals("true")){
-            cookie.setMaxAge(3600 * 24 * 30);
+            cookie.setMaxAge(3600 * 24 * cookieMaxAge);
         }
 
         response.addCookie(cookie);
