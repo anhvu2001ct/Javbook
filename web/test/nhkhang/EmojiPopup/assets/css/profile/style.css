@@ -1,7 +1,9 @@
 @import url("https://fonts.googleapis.com/css?family=DM+Sans:400,500,700|Source+Sans+Pro:300,400,600,700&display=swap");
 
-input[type="file"] {
-  display: none;
+html {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 ::-webkit-scrollbar {
@@ -20,16 +22,23 @@ input[type="file"] {
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(255, 255, 255, 0.1);
 }
-
-html {
-  box-sizing: border-box;
-  -webkit-font-smoothing: antialiased;
-  font-family: Arial, Helvetica, sans-serif;
-}
-
 body {
   background-color: #373e57;
   color: #ccc8db;
+}
+
+.post-page {
+  display: flex;
+  max-height: 720px;
+}
+.post-page-img {
+  flex-grow: 1;
+}
+.post-page-img img {
+  width: 100%;
+  height: 100vh;
+  object-fit: cover;
+  object-position: center;
 }
 
 .box {
@@ -37,7 +46,9 @@ body {
   border-radius: 6px;
 }
 .post {
-  max-width: 515px;
+  max-width: 400px;
+  overflow-y: scroll;
+  height: 100vh;
   margin: 0 auto;
   caret-color: rgba(0, 0, 0, 0);
   padding-bottom: 20px;
@@ -58,49 +69,11 @@ body {
   padding-bottom: 20px;
   flex-wrap: wrap;
 }
-.edit-post {
-  position: relative;
-}
-.status-main .edit-post i {
-  margin-left: 20px;
-  opacity: 0.8;
-}
-.edit-post i:hover {
-  opacity: 1;
-}
-.edit-post:hover .edit-post-item {
-  visibility: visible;
-}
 
-.edit-post-item {
-  width: 100px;
-  height: 80px;
-  background-color: #151728;
-  color: #fff;
-  margin: 0 auto;
-  position: absolute;
-  right: 0;
-  border-radius: 6px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 0 2px 2px rgba(156, 156, 163, 0.1),
-    0 0 3px 4px rgba(14, 36, 230, 0.1);
-  visibility: hidden;
-}
-.edit-post-item ul {
-  padding: 4px;
-}
-.edit-post-item li i {
-  margin-left: 0 !important;
-  margin-right: 4px;
-}
-.edit-post-item li {
-  border-radius: 4px;
-  padding: 10px;
-}
-.edit-post-item li:hover {
-  background-color: #151728;
-  background-color: rgba(255, 255, 255, 0.2);
-  cursor: pointer;
+.content {
+  max-height: 300px;
+  overflow-y: scroll;
+  min-height: 50px;
 }
 
 .status .status-main {
@@ -182,7 +155,6 @@ body {
 
 .post {
   padding-top: 20px;
-  margin-top: 20px;
 }
 .post .status-main {
   border: none;
@@ -214,38 +186,61 @@ body {
   padding: 0 20px 20px;
 }
 
-.post-photo {
-  width: 100%;
-  object-fit: cover;
-  object-position: center;
-  border-radius: 4px;
+.edit-post {
   margin-top: 10px;
+  padding: 8px 15px;
+  font-weight: bold;
+  border: 1px;
+  border-radius: 5px;
+  font-size: 15px;
+  cursor: pointer;
+  margin-right: 10px;
 }
-
-.post-photos {
-  display: flex;
-  margin-bottom: 20px;
-  max-height: 40vh;
-  padding: 0 20px;
-}
-
-.post-photos > .post-photo {
+.edit-text-content {
   width: 100%;
+  min-height:100px;
+  max-height:600px;
+  height: auto;
+  background-color: transparent;
+  color: #ffff;
+  font-size: 16px;
 }
+.edit-text-content::-webkit-scrollbar {
+  display: none;
+}
+.edit-content {
+  display: none;
+}
+.edit-content button {
+  margin-top: 10px;
+  padding: 8px 15px;
+  font-weight: bold;
+  border: 1px;
+  border-radius: 5px;
+  font-size: 15px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+.edit-content button:first-child {
+  background-color: #1877f2;
+  color: #fff;
+}
+
+.post-action {
+  position: relative;
+}
+
 .post-count {
   padding: 10px 20px;
-  margin: 0 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 .post-count-left{
   display: flex;
-  cursor: pointer;
 }
 .post-count-right{
   display: flex;
-  cursor: pointer;
 }
 .post-count-right span{
   display: flex;
@@ -262,12 +257,7 @@ body {
   height: 18px;
   width: 18px;
 }
-.post-action {
-  position: relative;
-}
 .actions {
-  padding: 0 20px;
-  margin: 0 20px;
   max-height: 40px;
   display: flex;
   justify-content: space-between;
@@ -425,6 +415,9 @@ body {
   margin-left: 10px;
   margin-bottom: 10px;
 }
+.comment-content-box .list-icon {
+  left: -70px !important;
+}
 .content-main-comment {
   margin-bottom: 5px;
   border: 1px solid rgba(255, 255, 255, 0.2);
@@ -433,6 +426,7 @@ body {
   border-radius: 12px;
   background-color: rgba(255, 255, 255, 0.1);
   line-height: 1.3;
+  max-width:300px;
 }
 .comment-main-title:hover,
 .main-comment-action > span:hover,
@@ -461,6 +455,9 @@ body {
 .comment-level {
   display: flex;
 }
+.comment-level-item .content-main-comment{
+  max-width: 255px ;
+}
 /* send  */
 .send-comment-box {
   width: 100%;
@@ -470,10 +467,19 @@ body {
 .send-comment-box > textarea {
   flex-grow: 1;
   margin-left: 10px;
+  max-width: 255px;
   background-color: rgba(255, 255, 255, 0.3);
   color: #fff;
   padding: 10px 0px 0px 15px;
   border-radius: 30px;
+}
+.comment-level-item .send-comment-box > textarea {
+  max-width: 215px !important;
+}
+
+.comment-level-item .send-comment-box img {
+  width: 30px !important;
+  height: 30px;
 }
 .send-comment {
   width: 40px;
@@ -492,201 +498,4 @@ body {
   background-color: rgba(255, 255, 255, 0.4);
   box-shadow: 0 0 2px 2px rgba(156, 156, 163, 0.1),
     0 0 3px 4px rgba(14, 36, 230, 0.1);
-}
-/* popp[pppp */
-
-.flex {
-  display: flex;
-}
-.flex_center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.flex_cl {
-  display: flex;
-  flex-direction: column;
-}
-.flex_jc {
-  justify-content: center;
-}
-.flex-js {
-  justify-content: flex-start;
-}
-.flex_ac {
-  align-items: center;
-}
-.flex_gr1 {
-  flex-grow: 1;
-}
-
-.scale {
-  object-fit: cover;
-  object-position: center;
-}
-.circle {
-  border-radius: 50%;
-}
-.wh_40 {
-  width: 40px;
-  height: 40px;
-}
-.pointer {
-  cursor: pointer;
-}
-.p_l5 {
-  padding-left: 8px !important;
-  padding-right: 8px !important;
-}
-
-.timeline-right {
-  width: 100%;
-  height: 130px;
-  margin-left: 20px;
-  padding: 20px;
-  border-radius: 4px;
-  background-color: #151728;
-}
-.post_ele1 {
-  padding-bottom: 10px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-}
-.input {
-  margin-left: 20px;
-  padding-left: 20px;
-  height: 40px;
-  width: 100%;
-  position: relative;
-}
-.input::before {
-  content: "";
-  position: absolute;
-  left: 0px;
-  width: 100%;
-  height: inherit;
-  border-radius: 24px;
-  background-color: rgba(255, 255, 255, 0.2);
-  transition: background-color 0.2s;
-}
-.input:hover::before {
-  background-color: rgba(255, 255, 255, 0.3);
-}
-.post_ele2 {
-  margin-top: 10px;
-  color: #fff;
-}
-.hv {
-  border-radius: 6px;
-  padding: 10px 0px;
-}
-.hv:hover {
-  background-color: rgba(255, 255, 255, 0.3);
-}
-/* popup  */
-.popup_model {
-  width: 100%;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.7);
-  position: absolute;
-  top: 0;
-  z-index: 2;
-  display: none;
-}
-.post_popup {
-  position: relative;
-  width: 700px;
-  min-height: 300px;
-  height: auto;
-  padding: 16px;
-  background-color: #151728;
-  border-radius: 4px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  display: flex;
-  flex-direction: column;
-}
-.pop_ele1 {
-  font-size: 24px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  position: relative;
-}
-.close {
-  position: absolute;
-  top: -10;
-  right: 14px;
-  font-size: 40px;
-  transform: rotate(45deg);
-  border-radius: 50%;
-}
-
-.pop_ele2 {
-  font-size: 24px;
-  padding: 10px 0px;
-  min-height: 150px;
-  max-height: 300px;
-  overflow: auto;
-  flex-grow: 1;
-}
-
-.status_content {
-  margin-left: 10px;
-}
-.status_content textarea {
-  width: 100%;
-  padding: 10px;
-  background-color: inherit;
-  color: #fff;
-}
-
-.status_content img {
-  width: 100%;
-}
-
-.pop_ele3 {
-  color: white;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  margin-top: 10px;
-  padding-top: 10px;
-  width: 100%;
-  bottom: 10px;
-}
-
-.popup_btn {
-  padding: 10px;
-  margin-right: 20px;
-  border-radius: 6px;
-  background-color: inherit;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-.popup_btn:hover {
-  background-color: rgba(255, 255, 255, 0.3);
-}
-#select {
-  -moz-appearance: none;
-  -webkit-appearance: none;
-  appearance: none;
-  color: white;
-}
-#select > option {
-  background-color: #151728;
-}
-
-#select::-ms-expand {
-  display: none;
-}
-.share {
-  position: absolute;
-  right: 14px;
-  margin: 0;
-}
-
-.enter {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-.display-img {
-  position: relative;
-  width: 0;
-  height: 0;
 }

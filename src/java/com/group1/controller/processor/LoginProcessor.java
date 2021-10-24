@@ -1,6 +1,8 @@
 package com.group1.controller.processor;
 
+import com.group1.controller.ServerInit;
 import static com.group1.controller.ServerInit.gson;
+import com.group1.misc.Secret;
 import com.group1.model.Account;
 import com.group1.model.dao.AccountDAO;
 import com.group1.rest.BaseProcessor;
@@ -14,6 +16,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -23,6 +26,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet("/process/login/*")
 public class LoginProcessor extends BaseProcessor {
+    private static int cookieMaxAge = ServerInit.config.get("cookieMaxAge").getAsInt();
+    
     @ServeAt("")
     public void serveIndex(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 //        response.getWriter().println(JsonParser.parseReader(IO.getReader("notify/user1.json")).getAsJsonObject().toString());
@@ -95,13 +100,15 @@ public class LoginProcessor extends BaseProcessor {
         }
         
         Account account = AccountDAO.getAccountByUsername(signinUsername);
-        request.getSession().setAttribute("user", account);
+        Cookie cookie = new Cookie("JBID", Secret.encode1(signinUsername));
+        cookie.setPath("/Javbook");
         
         // check checkbox "Remember password in 30 days."
         if (signinRememberPassword.equals("true")){
-            
+            cookie.setMaxAge(3600 * 24 * cookieMaxAge);
         }
 
+        response.addCookie(cookie);
         out.print("success");
     }
 }

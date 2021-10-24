@@ -27,6 +27,6 @@ public class UploadProcessor extends BaseProcessor {
         Part part = request.getPart("file");
         String savePath = request.getParameter("savePath");
         part.write(IO.getPathToFile(ServerInit.imgPath, "user", savePath).toString());
-        response.getWriter().println("done.");
+        response.getWriter().print("done");
     }
 }

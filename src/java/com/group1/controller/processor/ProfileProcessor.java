@@ -42,7 +42,9 @@ public class ProfileProcessor extends BaseProcessor {
     public void serveCreateStatus(HttpServletRequest request, HttpServletResponse response) throws SQLException {
         String content = request.getParameter("content");
         String link = request.getParameter("link");
-        StatusDAO.createStatus("1", "1", content, link);
+        String audience = request.getParameter("audience");
+        System.out.println(audience);
+        StatusDAO.createStatus("1", "1", content, link, audience);
 
     }
 
