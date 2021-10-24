@@ -130,7 +130,7 @@ signinBtn.onclick = function () {
             msg.push(message.fail.errorMessage.account);
             toast(message.fail, msg);
         } else {
-            window.location = "/Javbook/test/nganhvu/";
+            window.location = ".";
         }
     });
 

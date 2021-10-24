@@ -22,7 +22,7 @@ public class AccountDAO {
         ps.setString(2, password);
         
         ResultSet rs = ps.executeQuery(); // execute query va nhan ket qua tra ve
-        
+            
         return rs.isBeforeFirst();
     }
     
