@@ -8,25 +8,24 @@ html {
     scroll-behavior: smooth;
 }
 
-
 ::-webkit-scrollbar {
-  width: 10px;
-  border-radius: 10px;
+    width: 10px;
+    border-radius: 10px;
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.01);
+    background: rgba(255, 255, 255, 0.01);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.11);
-  border-radius: 10px;
+    background: rgba(255, 255, 255, 0.11);
+    border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.1);
 }
 input[type="file"] {
-  display: none;
+    display: none;
 }
 
 body {
@@ -49,7 +48,6 @@ select {
     box-sizing: border-box;
     /*khang*/
     resize: none;
-    
 }
 
 input {
@@ -139,4 +137,51 @@ section[id] {
 img {
     width: 100%;
     object-fit: cover;
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes growth {
+    form {
+        transform: scale(var(--growth-form));
+    }
+    to {
+        transform: scale(var(--growth-to));
+    }
+}
+
+/* Modal */
+.modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    animation: fadeIn linear 0.1s;
+    z-index: 999;
+}
+
+.modal__overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+}
+
+.modal__body {
+    --growth-from: 0.7;
+    --growth-to: 1;
+    margin: auto;
+    position: relative;
+    z-index: 1;
+    animation: growth linear 0.1s;
 }
