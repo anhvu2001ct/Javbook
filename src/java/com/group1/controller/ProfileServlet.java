@@ -28,20 +28,20 @@ public class ProfileServlet extends BaseServlet {
 
     @Override
     protected void processGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        try {
-            int accountId = (int) request.getSession().getAttribute("uid");
-            List<Status> status = StatusDAO.getListStatusUser(accountId);
-//            Collections.sort(status, new Comparator<Status>() {
-//                @Override
-//                public int compare(Status a, Status b) {
-//                    return b.getStatusId() - a.getStatusId();
-//                }
-//            });
-            request.setAttribute("statusUser", status);
+//        try {
+//            int accountId = (int) request.getSession().getAttribute("uid");
+//            List<Status> status = StatusDAO.getListStatusUser(accountId);
+////            Collections.sort(status, new Comparator<Status>() {
+////                @Override
+////                public int compare(Status a, Status b) {
+////                    return b.getStatusId() - a.getStatusId();
+////                }
+////            });
+//            request.setAttribute("statusUser", status);
             request.getRequestDispatcher("/client/profile/profile.jsp").forward(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(ProfileServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        } catch (SQLException ex) {
+//            Logger.getLogger(ProfileServlet.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }
 
     @Override

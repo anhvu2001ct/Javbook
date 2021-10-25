@@ -48,15 +48,8 @@ public class ProfileProcessor extends BaseProcessor {
             request.getRequestDispatcher("/client/profile/profilePost.jsp").forward(request, response);
         }
         if (value.equals("about")) {
-            HttpSession ses = request.getSession();
-            int uid = (Integer) ses.getAttribute("uid");
-            System.out.println("uid: " + uid);
-            ProfileUser profileUser = ProfileUserDAO.getProfileUser(uid);
-            System.out.println(profileUser.toString());
-            request.setAttribute("profileUser", profileUser);
-
-//            request.getRequestDispatcher("/client/profile/profileAbout.jsp").include(request, response);
-            request.getRequestDispatcher("/client/profile/profileAbout.jsp").forward(request, response);
+           
+            request.getRequestDispatcher("/process/profileUser/index").forward(request, response);
         }
         if (value.equals("friends")) {
             request.getRequestDispatcher("/client/profile/profilePost.jsp").forward(request, response);

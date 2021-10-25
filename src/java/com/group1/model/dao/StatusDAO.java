@@ -25,7 +25,7 @@ public class StatusDAO {
     public static void createStatus(int accountID, String text, String statusImg, String audience) {
         try {
 
-            String query = "INSERT INTO Status(AccountID, Text, StatusImg, Time, StatusModeID)\n"
+            String query = "INSERT INTO Status(AccountUserID, Text, StatusImg, Time, StatusModeID)\n"
                     + "Values (?,?,?,?,?);";
             PreparedStatement ps = SQL.prepareStatement(query);
             ps.setInt(1, accountID);
@@ -61,7 +61,7 @@ public class StatusDAO {
         List<Status> list = new ArrayList<>();
         String query = "select Name, StatusID, Text, StatusImg, Time, ActiveTime, StatusModeID\n"
                 + "from Status s ,AccountProfile a\n"
-                + "where a.AccountID = ?  and s.AccountID =a.AccountID";
+                + "where a.AccountUserID = ?  and s.AccountUserID =a.AccountUserID";
         PreparedStatement ps = SQL.prepareStatement(query);
 
         Timestamp time = new Timestamp(System.currentTimeMillis());

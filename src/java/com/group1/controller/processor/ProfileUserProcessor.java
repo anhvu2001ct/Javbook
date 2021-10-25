@@ -31,9 +31,16 @@ import javax.servlet.http.HttpSession;
 @WebServlet("/process/profileUser/*")
 public class ProfileUserProcessor extends BaseProcessor {
     
-    @ServeAt("")
+    @ServeAt("/index")
     public void serveIndex(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, SQLException {         
-       
+        HttpSession ses = request.getSession();
+            int uid = (Integer) ses.getAttribute("uid");
+            System.out.println("uid: " + uid);
+            ProfileUser profileUser = ProfileUserDAO.getProfileUser(uid);
+            System.out.println(profileUser.toString());
+            request.setAttribute("profileUser", profileUser);
+
+            request.getRequestDispatcher("/client/profile/profileAbout.jsp").forward(request, response);
     }
     
     @ServeAt(value="/createNewAccount", method=ServeMethod.POST)
