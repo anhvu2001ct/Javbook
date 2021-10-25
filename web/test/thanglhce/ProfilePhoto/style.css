@@ -1,0 +1,218 @@
+@import url("https://fonts.googleapis.com/css?family=DM+Sans:400,500,700|Source+Sans+Pro:300,400,600,700&display=swap");
+
+
+
+html {
+  
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  font-family: "Source Sans Pro", sans-serif;
+  background-color: #373e57;
+  color: #ccc8db;
+}
+
+.main-container {
+  padding: 20px;
+  flex-grow: 1;
+  overflow: auto;
+  background-color: #24273b;
+  max-width: 940px;
+  margin: 0 auto;
+  caret-color: rgba(0, 0, 0, 0);
+}
+
+.profile {
+  position: relative;
+  height: 50vh;
+  min-height: 250px;
+  max-height: 400px;
+  z-index: 1;
+}
+.profile-cover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 4px;
+}
+
+.edit-cover-img {
+  position: absolute;
+  padding: 10px 50px;
+  opacity: 0.8;
+  top: 20%;
+  left: 50%;
+  color: var(--white-color);
+  z-index: 1;
+  transform: translate(-50%, -50%);
+  visibility: hidden;
+  text-align: center;
+  border: 1px solid;
+  background-color: rgba(100, 100, 100, 0.4);
+}
+.profile-cover:hover {
+  opacity: 0.6;
+}
+.edit-cover-img:hover {
+  background-color: rgba(100, 100, 100, 0.8);
+  box-shadow:  2px 4px 8px 2px rgba(100, 100, 100, 0.5);
+
+}
+
+.photo-profile-cover:hover .edit-cover-img{
+  visibility: visible;
+}
+.photo-profile-cover:hover .profile-cover{
+  opacity: 0.6;
+}
+.profile-name-background {
+  height: 110px;
+  width: 100%;
+  position: absolute;
+  align-items: center;
+  display: flex;
+  z-index: 1;
+  bottom: 58px;
+  left: 0;
+  background-color: rgba(100, 100, 100, 0.5);
+}
+
+.profile-menu {
+  position: absolute;
+  bottom: 0;
+  padding-left: 200px;
+  background: var(--profile-box);
+  width: 100%;
+  display: flex;
+  border-radius: 0 0 4px 4px;
+}
+
+.profile-menu-link {
+  padding: 20px 16px;
+  color: #5c5e6e;
+  transition: 0.3s;
+  cursor: pointer;
+  z-index: 2;
+}
+.profile-menu-link.active,
+.profile-menu-link:hover {
+  color: var(--white-color);
+  background-color: #1b1d2e;
+  border-bottom: 3px solid #1488fa;
+}
+
+.profile-avatar {
+  position: absolute;
+  align-items: center;
+  display: flex;
+  z-index: 1;
+  bottom: 16px;
+  left: 24px;
+}
+
+.profile-img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--profile-box);
+}
+.profile-img:hover {
+  opacity: 0.8;
+}
+.profile-name {
+  margin-left: 24px;
+  margin-bottom: 24px;
+  font-size: 22px;
+  color: var(--white-color);;
+  font-weight: 600;
+  font-family: "DM Sans", sans-serif;
+}
+.edit-header-avatar {
+  border: 1px solid;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  bottom: 20px;
+  left: 125px;
+  background-color: #ccc8db;
+  color: var(--black-color);
+}
+.edit-header-avatar {
+  color: var(--black-color);
+}
+@media screen and (max-width: 700px) {
+  .profile-avatar {
+    top: -25px;
+    left: 50%;
+    transform: translatex(-50%);
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .profile-img {
+    height: 100px;
+    width: 100px;
+  }
+
+  .profile-name {
+    margin: 5px 0;
+  }
+
+  .profile-menu {
+    padding-left: 0;
+    width: 100%;
+    overflow: auto;
+    justify-content: center;
+  }
+
+  .profile-menu-link {
+    padding: 16px;
+    font-size: 15px;
+  }
+}
+.timeline {
+	padding-top: 20px;
+  	z-index: 2;
+}
+
+@media screen and (max-width: 768px) {
+  .timeline {
+    flex-wrap: wrap;
+    flex-direction: column-reverse;
+  }
+  .timeline-right {
+    padding-left: 0;
+    margin-bottom: 20px;
+  }
+  .timeline-left {
+    width: 100%;
+  }
+}
+
+/*========css for photos ThangLHCE===========*/
+
+.timeline .photos-item {
+	display: grid;
+	grid-template-columns: 215px 215px 215px 215px;
+	grid-template-rows: auto;
+	grid-gap: 13px;
+}
+
+.timeline .photos-item img {
+	width: 215px;
+	height: 200px;
+	border-radius: 15px;
+}
+

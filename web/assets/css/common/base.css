@@ -8,6 +8,27 @@ html {
     scroll-behavior: smooth;
 }
 
+
+::-webkit-scrollbar {
+  width: 10px;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.01);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.11);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+input[type="file"] {
+  display: none;
+}
+
 body {
     /* font-family: ; */
     font-size: 16px;
@@ -26,6 +47,9 @@ select {
     outline: none;
     border: 0;
     box-sizing: border-box;
+    /*khang*/
+    resize: none;
+    
 }
 
 input {
@@ -110,4 +134,9 @@ section[id] {
 
 .mt-4 {
     margin-top: 4px;
+}
+
+img {
+    width: 100%;
+    object-fit: cover;
 }

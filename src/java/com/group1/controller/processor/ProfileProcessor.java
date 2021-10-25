@@ -43,8 +43,9 @@ public class ProfileProcessor extends BaseProcessor {
         String content = request.getParameter("content");
         String link = request.getParameter("link");
         String audience = request.getParameter("audience");
-        System.out.println(audience);
-        StatusDAO.createStatus("1", "1", content, link, audience);
+        int accountId = (int) request.getSession().getAttribute("uid");
+
+        StatusDAO.createStatus(accountId, content, link, "1");
 
     }
 
