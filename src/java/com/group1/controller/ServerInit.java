@@ -18,17 +18,18 @@ import javax.servlet.annotation.WebListener;
 @WebListener
 public class ServerInit implements ServletContextListener {
     public static ServletContext context;
-    public static String dataPath, imgPath;
+    public static String dataPath, imgPath, webPath;
     public static JsonObject config;
     public static Gson gson = new Gson();
     
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         context = sce.getServletContext();
-        String rootPath = Paths.get(context.getRealPath("")).getParent().getParent().toString();
+        webPath = context.getRealPath("");
+        String rootPath = Paths.get(webPath).getParent().getParent().toString();
         dataPath = Paths.get(rootPath, "data").toString();
         imgPath = Paths.get(rootPath, "web/assets/img").toString();
-        config = gson.fromJson(IO.getReader(context.getRealPath(""), "WEB-INF/config.json"), JsonObject.class);
+        config = gson.fromJson(IO.getReader(webPath, "WEB-INF/config.json"), JsonObject.class);
         SQLConnector.establishConnection();
     }
 

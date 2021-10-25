@@ -8,6 +8,9 @@ import java.io.FileWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Stream;
 
 /**
  *
@@ -54,5 +57,15 @@ public class IO {
     
     public static boolean exists(String basePath, String subPath, String fileName) {
         return Files.exists(Paths.get(basePath, subPath, fileName));
+    }
+    
+    public static List<String> getFilesName(String basePath, String subPath) {
+        List<String> res = new ArrayList<>();
+        try (Stream<Path> paths = Files.list(Paths.get(basePath, subPath))) {
+            paths.filter(Files::isRegularFile).forEach(path -> res.add(path.getFileName().toString()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return res;
     }
 }
