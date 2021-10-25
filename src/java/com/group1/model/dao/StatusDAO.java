@@ -34,7 +34,6 @@ public class StatusDAO {
             Timestamp time = new Timestamp(System.currentTimeMillis());
             ps.setTimestamp(4, time);
             ps.setInt(5, Integer.parseInt(audience));
-            
 
             ps.executeUpdate();
         } catch (SQLException ex) {
@@ -42,29 +41,39 @@ public class StatusDAO {
         }
     }
 
-    public static void editStatus(String statusId) throws SQLException {
-        String query = "UPDATE Status"
-                + "SET ActiveTime= ?"
-                + "WHERE StatusId=?;";
+    public static void editStatus(int statusId, String text, String mood) throws SQLException {
+        String query = "UPDATE Status\n"
+                + "SET  \n"
+                + "	Text =?\n"
+                + "	,StatusModeID =?\n"
+                + "	,ActiveTime= ?\n"
+                + "WHERE StatusId= ?;";
         PreparedStatement ps = SQL.prepareStatement(query);
-        ps.setString(1, statusId);
+        ps.setString(1, text);
+        ps.setInt(2, Integer.parseInt(mood));
         Timestamp time = new Timestamp(System.currentTimeMillis());
-        ps.setTimestamp(2, time);
+        ps.setTimestamp(3, time);
+        ps.setInt(4, statusId);
+
     }
 
-    public static List<Status> getListStatusUser(String acccountID) throws SQLException {
+    public static List<Status> getListStatusUser(int acccountID) throws SQLException {
         List<Status> list = new ArrayList<>();
-        String query = "select * from Status where AccountID = ?  ";
+        String query = "select Name, StatusID, Text, StatusImg, Time, ActiveTime, StatusModeID\n"
+                + "from Status s ,AccountProfile a\n"
+                + "where a.AccountID = ?  and s.AccountID =a.AccountID";
         PreparedStatement ps = SQL.prepareStatement(query);
-        ps.setString(1, acccountID);
+
+        Timestamp time = new Timestamp(System.currentTimeMillis());
+
+        ps.setInt(1, acccountID);
         ResultSet rs = ps.executeQuery();
         if (!rs.isBeforeFirst()) {
             return null;
         } else {
-
             while (rs.next()) {
-                Status status = new Status(rs.getString(1), rs.getString(2), rs.getString(3),
-                        rs.getString(4), rs.getDate(5), rs.getDate(6));
+                Status status = new Status(rs.getString(1), rs.getInt(2), rs.getString(3),
+                        rs.getString(4), rs.getTimestamp(5), rs.getTimestamp(6), rs.getInt(7));
                 list.add(status);
             }
             return list;
@@ -81,9 +90,9 @@ public class StatusDAO {
             return null;
         } else {
             while (rs.next()) {
-                Status status = new Status(rs.getString(1), rs.getString(2), rs.getString(3),
-                        rs.getString(4), rs.getDate(5), rs.getDate(6));
-                list.add(status);
+//                Status status = new Status(rs.getString(1), rs.getInt(2), rs.getString(3),
+//                        rs.getString(4), rs.getTimestamp(5), rs.getTimestamp(6), rs.getInt(7), rs.getInt(8));
+//                list.add(status);
             }
             return list;
         }

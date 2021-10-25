@@ -24,7 +24,11 @@
         <link rel="stylesheet" href="/Javbook/assets/css/common/base.css" />
         <link rel="stylesheet" href="/Javbook/assets/css/profile/profileHeader.css" />
         <link rel="stylesheet" href="/Javbook/assets/css/profile/profilePost.css" />
-        <link rel="stylesheet" href="/Javbook/assets/css/common/postBox.css" />
+        <link rel="stylesheet" href="/Javbook/assets/css/common/postBox.css" />     
+        <link rel="stylesheet" href="/Javbook/assets/css/profile/profilePhoto.css" />
+        <link rel="stylesheet" href="/Javbook/assets/css/profile/profileAbout.css" />
+
+
 
         <link rel="stylesheet" href="/Javbook/assets/fonts/fontawesome-5.15.4/css/all.min.css" />
         <script src="/Javbook/assets/js/common/postBox.js" async></script>

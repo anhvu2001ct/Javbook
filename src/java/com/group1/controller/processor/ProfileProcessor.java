@@ -5,8 +5,13 @@
  */
 package com.group1.controller.processor;
 
+import com.group1.controller.ServerInit;
+import static com.group1.controller.ServerInit.gson;
+import com.group1.model.ProfileUser;
 import com.group1.model.Status;
+import com.group1.model.dao.ProfileUserDAO;
 import com.group1.model.dao.StatusDAO;
+import com.group1.model.db.IO;
 import com.group1.rest.BaseProcessor;
 import com.group1.rest.ServeAt;
 import com.group1.rest.ServeMethod;
@@ -23,6 +28,8 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import org.apache.catalina.util.ServerInfo;
 
 /**
  *
@@ -34,8 +41,50 @@ public class ProfileProcessor extends BaseProcessor {
     @ServeAt("/changeItem")
     public void changeTimeline(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String value = request.getParameter("key");
-        request.getRequestDispatcher("/test/nhkhang/Profile/profilepost.jsp").forward(request, response);
+        if (value.equals("photo")) {
+            request.getRequestDispatcher("/client/profile/profilePhoto.jsp").forward(request, response);
+        }
+        if (value.equals("post")) {
+            request.getRequestDispatcher("/client/profile/profilePost.jsp").forward(request, response);
+        }
+        if (value.equals("about")) {
+            HttpSession ses = request.getSession();
+            int uid = (Integer) ses.getAttribute("uid");
+            System.out.println("uid: " + uid);
+            ProfileUser profileUser = ProfileUserDAO.getProfileUser(uid);
+            System.out.println(profileUser.toString());
+            request.setAttribute("profileUser", profileUser);
 
+//            request.getRequestDispatcher("/client/profile/profileAbout.jsp").include(request, response);
+            request.getRequestDispatcher("/client/profile/profileAbout.jsp").forward(request, response);
+        }
+        if (value.equals("friends")) {
+            request.getRequestDispatcher("/client/profile/profilePost.jsp").forward(request, response);
+        }
+
+    }
+
+    @ServeAt("/changeJs")
+    public void changeJS(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        String key = request.getParameter("key");
+        if (key.equals("photo")) {
+            List<String> list = IO.getFilesName(ServerInit.webPath, "assets/js/profile/");
+            response.getWriter().print(gson.toJson(list));
+        }
+        if (key.equals("post")) {
+            List<String> list = IO.getFilesName(ServerInit.webPath, "assets/js/profile/");
+            response.getWriter().print(gson.toJson(list));
+        }
+        if (key.equals("about")) {
+
+            List<String> list = IO.getFilesName(ServerInit.webPath, "assets/js/profile/");
+            response.getWriter().print(gson.toJson(list));
+        }
+        if (key.equals("friends")) {
+            List<String> list = IO.getFilesName(ServerInit.webPath, "assets/js/profile/");
+            response.getWriter().print(gson.toJson(list));
+        }
     }
 
     @ServeAt(value = "/crateStatus", method = ServeMethod.POST)
@@ -44,30 +93,15 @@ public class ProfileProcessor extends BaseProcessor {
         String link = request.getParameter("link");
         String audience = request.getParameter("audience");
         int accountId = (int) request.getSession().getAttribute("uid");
-
-        StatusDAO.createStatus(accountId, content, link, "1");
+        StatusDAO.createStatus(accountId, content, link, audience);
 
     }
 
     @ServeAt(value = "/editStatus", method = ServeMethod.POST)
     public void serveEditStatus(HttpServletRequest request, HttpServletResponse response) throws SQLException {
         String statusId = request.getParameter("StatusId");
-        StatusDAO.editStatus(statusId);
+//        StatusDAO.editStatus(Integer.parseInt(statusId));
 
     }
 
-    @ServeAt(value = "/getStatusUser")
-    public void serveGetStatusUser(HttpServletRequest request, HttpServletResponse response) throws SQLException {
-        List<Status> status = StatusDAO.getListStatusUser("1");
-        request.setAttribute("statususer", status);
-
-    }
-
-    @ServeAt(value = "/getAllStatus")
-    public void serveGetAllStatus(HttpServletRequest request, HttpServletResponse response) throws SQLException {
-
-        List<Status> status = StatusDAO.getListStatus();
-        request.setAttribute("status", status);
-
-    }
 }

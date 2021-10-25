@@ -80,7 +80,7 @@ function profilePost() {
     }
 
     function renderNewPost(text, img, option) {
-        console.log(img);
+       
         let postbox = document.createElement("div");
         postbox.classList.add("post");
         postbox.classList.add("box");

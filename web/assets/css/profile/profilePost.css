@@ -10,11 +10,6 @@
   caret-color: rgba(0, 0, 0, 0);
 }
 
-.timeline {
-  display: flex;
-  padding-top: 20px;
-  position: relative;
-}
 .post-container {
   display: flex;
 }
