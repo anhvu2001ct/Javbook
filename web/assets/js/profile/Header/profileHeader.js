@@ -18,7 +18,7 @@ profileMenu[3].onclick = () => {
 
         query2.addEvent("load", function () {
             let script = document.createElement("script");
-            script.src = `/Javbook/assets/js/profile/${this.response[3]}`;
+            script.src = `/Javbook/assets/js/profile/${this.response}`;
             document.body.appendChild(script);
         });
         query2.send("GET");
@@ -57,9 +57,11 @@ profileMenu[1].onclick = () => {
         query2.addParam("key", "about");
 
         query2.addEvent("load", function () {
+           this.response.forEach((file) => {
             let script = document.createElement("script");
-            script.src = `/Javbook/assets/js/profile/${this.response[1]}`;
+            script.src = `/Javbook/assets/js/profile/About/${file}`;
             document.body.appendChild(script);
+           })
         });
         query2.send("GET");
     });

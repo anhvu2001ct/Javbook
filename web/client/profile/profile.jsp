@@ -33,8 +33,8 @@
         <link rel="stylesheet" href="/Javbook/assets/fonts/fontawesome-5.15.4/css/all.min.css" />
         <script src="/Javbook/assets/js/common/postBox.js" async></script>
         <script src="/Javbook/assets/js/common/query.js" async></script>
-        <script src="/Javbook/assets/js/profile/profileHeader.js" async  ></script>
-        <script src="/Javbook/assets/js/profile/profilePost.js" async></script>
+        <script src="/Javbook/assets/js/profile/Header/profileHeader.js" async  ></script>
+        <script src="/Javbook/assets/js/profile/Post/profilePost.js" async></script>
 
 
     </head>
