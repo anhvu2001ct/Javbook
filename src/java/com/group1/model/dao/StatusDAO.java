@@ -22,19 +22,19 @@ import java.util.logging.Logger;
  */
 public class StatusDAO {
 
-    public static void createStatus(String statusId, String accountID, String text, String statusImg, String audience) {
+    public static void createStatus(int accountID, String text, String statusImg, String audience) {
         try {
 
-            String query = "INSERT INTO Status(StatusId ,AccountID, Text, StatusImg, Audience, Time)\n"
-                    + "Values (?,?,?,?,?,?);";
+            String query = "INSERT INTO Status(AccountID, Text, StatusImg, Time, StatusModeID)\n"
+                    + "Values (?,?,?,?,?);";
             PreparedStatement ps = SQL.prepareStatement(query);
-            ps.setString(1, statusId);
-            ps.setString(2, accountID);
-            ps.setString(3, text);
-            ps.setString(4, statusImg);
-            ps.setInt(5, Integer.parseInt(audience));
+            ps.setInt(1, accountID);
+            ps.setString(2, text);
+            ps.setString(3, statusImg);
             Timestamp time = new Timestamp(System.currentTimeMillis());
-            ps.setTimestamp(6, time);
+            ps.setTimestamp(4, time);
+            ps.setInt(5, Integer.parseInt(audience));
+            
 
             ps.executeUpdate();
         } catch (SQLException ex) {

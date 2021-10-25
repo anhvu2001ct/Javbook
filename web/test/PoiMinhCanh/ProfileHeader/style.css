@@ -1,0 +1,314 @@
+.about .about-main {
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    gap: 20px;
+    min-height: 400px;
+    background: #2b343b;
+}
+
+.about .about-nav {
+    position: relative;
+    width: 50px;
+    box-shadow: 8px 0 0 #4187f6;
+    border-left: 2px solid #2b343b;
+    overflow-x: hidden;
+    transition: width 0.5s;
+}
+
+.about .about-nav:hover {
+    width: 200px;
+}
+
+.about .about-nav .list {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding-left: 5px;
+    padding-top: 10px;
+}
+
+.about .about-nav .list-item {
+    position: relative;
+    width: 100%;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    cursor: pointer;
+}
+
+.about .about-nav .list-item.active {
+    background: #4187f6;
+}
+
+.about .about-nav .list-item-container {
+    position: relative;
+    width: 100%;
+    display: flex;
+    color: #fff;
+}
+
+.about .about-nav .list-item.active .list-item-container::before {
+    content: "";
+    position: absolute;
+    top: -30px;
+    right: 0;
+    width: 30px;
+    height: 30px;
+    background: #2b343b;
+    border-radius: 50%;
+    box-shadow: 15px 15px 0 #4187f6;
+}
+
+.about .about-nav .list-item.active .list-item-container::after {
+    content: "";
+    position: absolute;
+    bottom: -30px;
+    right: 0;
+    width: 30px;
+    height: 30px;
+    background: #2b343b;
+    border-radius: 50%;
+    box-shadow: 15px -15px 0 #4187f6;
+}
+
+.about .about-nav .icon {
+    position: relative;
+    display: block;
+    min-width: 50px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+}
+
+.about .about-nav .icon i {
+    position: relative;
+    font-size: 20px;
+    z-index: 1;
+}
+
+.about .about-nav .title {
+    position: relative;
+    display: block;
+    padding-left: 10px;
+    height: 50px;
+    line-height: 45px;
+    white-space: nowrap;
+}
+
+.about .about-content {
+    padding: 20px;
+    flex: 1;
+}
+
+.about .about-content .password-main,
+.about .about-content .setting-main {
+    display: none;
+}
+
+.about .about-content .list-item {
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-top: 20px;
+    font-size: 18px;
+}
+
+.about .about-content .icon {
+    width: 20px;
+}
+
+.about .about-content .list-item-content {
+    font-weight: 300;
+    flex: 1;
+}
+
+.about .about-content .list-item-content span {
+    font-weight: bold;
+}
+
+.about .about-content .list-item-content .edit-text {
+    -webkit-appearance: none;
+    outline: none;
+    border: 0;
+    font-weight: bold;
+    background-color: transparent;
+    cursor: text;
+    color: #fff;
+    font-size: 18px;
+    width: calc(100% - 140px);
+    padding: 4px;
+}
+
+.about .about-content .list-item-content .edit-text.active {
+    border: 2px solid #4187f6;
+    caret-color: #fff;
+}
+
+.about .about-content .edit-icon {
+    width: 20px;
+    height: 20px;
+}
+
+.about .about-content .edit-icon i:nth-child(2) {
+    color: #47d864;
+    display: none;
+}
+
+.about .about-content .edit-icon:hover {
+    cursor: pointer;
+    opacity: 0.6;
+}
+
+.about .about-content .edit-password {
+    display: none;
+    flex-direction: column;
+    flex: 1;
+    gap: 20px;
+}
+
+.about .about-content .edit-password-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.about .about-content .dark-mode .dark-mode-btn {
+    position: relative;
+    width: 40px;
+    height: 20px;
+    -webkit-appearance: none;
+    background: #c6c6c6;
+    outline: none;
+    border-radius: 10px;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    transition: 0.5s;
+}
+
+.about .about-content .dark-mode .dark-mode-btn:checked {
+    background: #4187f6;
+}
+
+.about .about-content .dark-mode .dark-mode-btn::before {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    top: 0;
+    left: 0;
+    background: #fff;
+    transform: scale(1.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: 0.5s;
+}
+
+.about .about-content .dark-mode .dark-mode-btn:checked::before {
+    left: 20px;
+}
+
+/* Modal select audience */
+.modal-select-audience,
+.modal-gender,
+.modal-status {
+    display: none;
+}
+
+.modal .modal__body-container {
+    background: #fff;
+    width: 550px;
+    border-radius: 4px;
+}
+
+.modal__body-container .modal__header {
+    height: 60px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal__body-container .modal__title {
+    color: #000;
+    font-size: 24px;
+}
+
+.modal__body-container .modal__close {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    color: #686f77;
+    background-color: #e4e6eb;
+    border-radius: 50%;
+    font-weight: 300;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal__body-container .modal__close:hover {
+    cursor: pointer;
+    background: #ccc;
+}
+
+.modal__body-container .modal__close-icon {
+    font-size: 24px;
+}
+
+.modal__body-container .choices {
+    padding: 0 8px 10px;
+}
+
+.modal__body-container .choice-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    height: 75px;
+    border-radius: 4px;
+    padding: 0 10px;
+    cursor: pointer;
+}
+
+.modal__body-container .choice-item:hover {
+    background: #d5d2d2;
+}
+
+.modal__body-container .choice-item-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 60px;
+    width: 60px;
+    background-color: #e4e6eb;
+    border-radius: 50%;
+}
+
+.modal__body-container .choice-item-icon i {
+    font-size: 24px;
+    color: #000;
+}
+
+.modal__body-container .choice-item-text {
+    flex: 1;
+}
+
+.modal__body-container .choice-item-text .title {
+    color: #000;
+    margin-bottom: 4px;
+}
+
+.modal__body-container .choice-item-text .content {
+    color: #333;
+}
+
+.modal__body-container .radio-btn input {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}

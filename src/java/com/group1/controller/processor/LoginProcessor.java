@@ -81,7 +81,7 @@ public class LoginProcessor extends BaseProcessor {
         if (list.isEmpty()){
             AccountDAO.createNewAccount(signupUsername, signupPassword);
         }
-
+        
         out.print(gson.toJson(list));
     }
     
