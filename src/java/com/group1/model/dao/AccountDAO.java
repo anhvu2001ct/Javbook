@@ -5,6 +5,8 @@ import static com.group1.model.db.SQLConnector.SQL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -12,18 +14,23 @@ import java.sql.SQLException;
  */
 public class AccountDAO {
  
-    public static boolean isAccountExists(String username, String password) throws SQLException{
-        String query = "SELECT * " 
-                + "FROM AccountUser " 
-                + "WHERE Username = ? "
-                + "AND Password = ?";
-        PreparedStatement ps = SQL.prepareStatement(query); // nem cau lenh query tu netbeans sang sql server 
-        ps.setString(1, username);
-        ps.setString(2, password);
-        
-        ResultSet rs = ps.executeQuery(); // execute query va nhan ket qua tra ve
+    public static boolean isAccountExists(String username, String password){
+        try {
+            String query = "SELECT * "
+                    + "FROM AccountUser "
+                    + "WHERE Username = ? "
+                    + "AND Password = ?";
+            PreparedStatement ps = SQL.prepareStatement(query); // nem cau lenh query tu netbeans sang sql server
+            ps.setString(1, username);
+            ps.setString(2, password);
             
-        return rs.isBeforeFirst();
+            ResultSet rs = ps.executeQuery(); // execute query va nhan ket qua tra ve
+            
+            return rs.isBeforeFirst();
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
     }
     
     public static void createNewAccount(String username, String password) throws SQLException{
@@ -64,14 +71,14 @@ public class AccountDAO {
             // if have account
             rs.next();
             return new Account(rs.getInt(1), rs.getString(2), rs.getString(3), 
-                               rs.getString(4), rs.getString(5), rs.getString(6));
+                               rs.getString(4), rs.getString(5), rs.getString(6));  
         }
     }
     
     public static Account getAccount(String accountID) throws SQLException{
         String query = "SELECT * " 
                 + "FROM AccountUser " 
-                + "WHERE AccountID = ?;";
+                + "WHERE AccountUserID = ?;";
         PreparedStatement ps = SQL.prepareStatement(query); // nem cau lenh query tu netbeans sang sql server 
         ps.setString(1, accountID);
         

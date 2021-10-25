@@ -3,7 +3,9 @@ package com.group1.controller.processor;
 import com.group1.controller.ServerInit;
 import static com.group1.controller.ServerInit.gson;
 import com.group1.misc.Secret;
+import com.group1.misc.Sout;
 import com.group1.model.Account;
+import com.group1.model.ProfileUser;
 import com.group1.model.dao.AccountDAO;
 import com.group1.model.dao.ProfileUserDAO;
 import com.group1.rest.BaseProcessor;
@@ -20,20 +22,18 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Dang Minh Canh
  */
-@WebServlet("/process/login/*")
-public class LoginProcessor extends BaseProcessor {
-    private static int cookieMaxAge = ServerInit.config.get("cookieMaxAge").getAsInt();
+@WebServlet("/process/profileUser/*")
+public class ProfileUserProcessor extends BaseProcessor {
     
     @ServeAt("")
-    public void serveIndex(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-//        response.getWriter().println(JsonParser.parseReader(IO.getReader("notify/user1.json")).getAsJsonObject().toString());
-        request.setAttribute("name", "Nguyễn Anh Vũ");
-        request.getRequestDispatcher("/test/nganhvu/send.jsp").include(request, response);
+    public void serveIndex(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, SQLException {         
+       
     }
     
     @ServeAt(value="/createNewAccount", method=ServeMethod.POST)
@@ -81,8 +81,6 @@ public class LoginProcessor extends BaseProcessor {
         
         if (list.isEmpty()){
             AccountDAO.createNewAccount(signupUsername, signupPassword);
-            Account account = AccountDAO.getAccountByUsername(signupUsername);
-            ProfileUserDAO.createNewProfileUser(account.getAccountID());
         }
         
         out.print(gson.toJson(list));
@@ -105,12 +103,7 @@ public class LoginProcessor extends BaseProcessor {
         Account account = AccountDAO.getAccountByUsername(signinUsername);
         Cookie cookie = new Cookie("JBID", Secret.encode1(signinUsername));
         cookie.setPath("/Javbook");
-        
-        // check checkbox "Remember password in 30 days."
-        if (signinRememberPassword.equals("true")){
-            cookie.setMaxAge(3600 * 24 * cookieMaxAge);
-        }
-
+       
         response.addCookie(cookie);
         out.print("success");
     }

@@ -6,6 +6,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>About</title>
         <link
+            rel="icon"
+            href="/Javbook/assets/img/icon/Javbook.ico"
+            type="image/x-icon"
+        />
+        <link
             rel="stylesheet"
             href="/Javbook/assets/fonts/fontawesome-5.15.4/css/all.min.css"
         />
@@ -13,14 +18,15 @@
             src="https://kit.fontawesome.com/466439df6f.js"
             crossorigin="anonymous"
         ></script>
-        <link rel="stylesheet" href="./assets/css/Common/variables.css" />
-        <link rel="stylesheet" href="./assets/css/Common/base.css" />
-        <link rel="stylesheet" href="./assets/css/profile/style.css" />
-        <link rel="stylesheet" href="common.css" />
-        <script src="./assets/js/main.js" async></script>
-        <link rel="stylesheet" href="style.css" />
+          <link
+            rel="stylesheet"
+            href="/Javbook/assets/css/common/variables.css"
+        />
+        <link rel="stylesheet" href="/Javbook/assets/css/common/base.css" />
+        <link rel="stylesheet" href="/Javbook/assets/css/profile/profileAbout.css" />
     </head>
     <body>
+        ${profileUser}
         <div class="main-container">
             <div class="profile">
                 <div class="profile-name-background"></div>
@@ -31,7 +37,7 @@
                         class="profile-img"
                     />
 
-                    <div class="profile-name">Nguyễn Hoàng Khang</div>
+                    <div class="profile-name">Nguyen Hoang Khang</div>
                 </div>
                 <div class="edit-header-avatar">
                     <label for="header-avatar-file">
@@ -123,7 +129,7 @@
                                                 disabled
                                                 class="edit-text"
                                                 type="text"
-                                                value="Đại Học FPT Cần Thơ"
+                                                value="${profileUser.gender}"
                                             />
                                         </div>
                                         <div
@@ -152,7 +158,7 @@
                                                 disabled
                                                 class="edit-text"
                                                 type="text"
-                                                value="Bạc Liêu"
+                                                value="Bac Lieu"
                                             />
                                         </div>
                                         <div
@@ -862,6 +868,6 @@
                 </div>
             </div>
         </div>
-        <script src="main.js"></script>
+        <script src="/Javbook/assets/js/profile/profileAbout.js"></script>
     </body>
 </html>
