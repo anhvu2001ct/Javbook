@@ -6,8 +6,8 @@
 package com.group1.test.poiminhcanh;
 
 import com.group1.controller.BaseServlet;
-import com.group1.model.ProfileUser;
-import com.group1.model.dao.ProfileUserDAO;
+import com.group1.model.ProfileUserAbout;
+import com.group1.model.dao.ProfileUserAboutDAO;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,7 +27,7 @@ public class TestProfileAbout extends BaseServlet {
         HttpSession ses = request.getSession();
         int uid = (Integer)ses.getAttribute("uid");
         System.out.println("uid: " + uid);
-        ProfileUser profileUser = ProfileUserDAO.getProfileUser(uid);
+        ProfileUserAbout profileUser = ProfileUserAboutDAO.getProfileUser(uid);
         System.out.println(profileUser.toString());
         request.setAttribute("profileUser", profileUser);
 

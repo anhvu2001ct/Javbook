@@ -16,7 +16,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class ProfileUser {
+public class ProfileUserAbout {
     private int accountID;
     // Profile User
     private String name;

@@ -5,9 +5,9 @@ import static com.group1.controller.ServerInit.gson;
 import com.group1.misc.Secret;
 import com.group1.misc.Sout;
 import com.group1.model.Account;
-import com.group1.model.ProfileUser;
+import com.group1.model.ProfileUserAbout;
 import com.group1.model.dao.AccountDAO;
-import com.group1.model.dao.ProfileUserDAO;
+import com.group1.model.dao.ProfileUserAboutDAO;
 import com.group1.rest.BaseProcessor;
 import com.group1.rest.ServeAt;
 import com.group1.rest.ServeMethod;
@@ -29,14 +29,14 @@ import javax.servlet.http.HttpSession;
  * @author Dang Minh Canh
  */
 @WebServlet("/process/profileUser/*")
-public class ProfileUserProcessor extends BaseProcessor {
+public class ProfileUserAboutProcessor extends BaseProcessor {
     
     @ServeAt("/index")
     public void serveIndex(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, SQLException {         
         HttpSession ses = request.getSession();
             int uid = (Integer) ses.getAttribute("uid");
             System.out.println("uid: " + uid);
-            ProfileUser profileUser = ProfileUserDAO.getProfileUser(uid);
+            ProfileUserAbout profileUser = ProfileUserAboutDAO.getProfileUser(uid);
             System.out.println(profileUser.toString());
             request.setAttribute("profileUser", profileUser);
 

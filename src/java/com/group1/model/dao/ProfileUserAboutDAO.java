@@ -1,7 +1,6 @@
 package com.group1.model.dao;
 
-import com.group1.model.Account;
-import com.group1.model.ProfileUser;
+import com.group1.model.ProfileUserAbout;
 import static com.group1.model.db.SQLConnector.SQL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,7 +12,7 @@ import java.util.logging.Logger;
  *
  * @author Dang Minh Canh
  */
-public class ProfileUserDAO {
+public class ProfileUserAboutDAO {
  
     public static void createNewProfileUser(int accountID){
         try {
@@ -24,11 +23,11 @@ public class ProfileUserDAO {
             ps.setInt(1, accountID);
             ps.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(ProfileUserDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProfileUserAboutDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
-    public static ProfileUser getProfileUser(int accountID) {
+    public static ProfileUserAbout getProfileUser(int accountID) {
         try {
             String query = "SELECT * "
                     + "FROM AccountProfile "
@@ -45,11 +44,11 @@ public class ProfileUserDAO {
             } else {
                 // if have account
                 rs.next();
-                return new ProfileUser(rs.getInt(1), rs.getString(2), rs.getDate(3),  
+                return new ProfileUserAbout(rs.getInt(1), rs.getString(2), rs.getDate(3),  
                         rs.getString(4), rs.getString(5), rs.getString(6), rs.getInt(7));
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ProfileUserDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProfileUserAboutDAO.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
     }

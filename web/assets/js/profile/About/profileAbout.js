@@ -1,14 +1,15 @@
 (() => {
     // add active class in selected tab
-    const list = document.querySelectorAll(".about-main .about-nav .list-item");
+    const listAboutItems = document.querySelectorAll(
+        ".about-main .about-nav .list-item"
+    );
     const profileMain = document.querySelector(".profile-main");
     const passwordMain = document.querySelector(".password-main");
     const settingMain = document.querySelector(".setting-main");
 
     function activeLink() {
-        console.log("hhi");
-        list.forEach((item) => {
-            item.classList.remove("active");
+        listAboutItems.forEach((listAboutItem) => {
+            listAboutItem.classList.remove("active");
             profileMain.style.display = "none";
             passwordMain.style.display = "none";
             settingMain.style.display = "none";
@@ -25,8 +26,8 @@
         }
     }
 
-    list.forEach((item) => {
-        item.addEventListener("click", activeLink);
+    listAboutItems.forEach((listAboutItem) => {
+        listAboutItem.addEventListener("click", activeLink);
     });
 
     var editTextBtns = document.querySelectorAll(".js-edit-text-btn");
@@ -64,7 +65,6 @@
         // save edit text
         if (input.classList.contains("active")) {
             input.setAttribute("value", input.value);
-            console.log(input.value);
             input.disabled = true;
             input.classList.remove("active");
             this.firstElementChild.style.display = "block";
