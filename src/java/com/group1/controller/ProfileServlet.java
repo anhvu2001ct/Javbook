@@ -25,19 +25,7 @@ public class ProfileServlet extends BaseServlet {
 
     @Override
     protected void processGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int accountId = (int) request.getSession().getAttribute("uid");
-        List<Status> status = StatusDAO.getListStatusUser(accountId);
-        if (status != null) {
-            Collections.sort(status, new Comparator<Status>() {
-                @Override
-                public int compare(Status a, Status b) {
-                    return b.getStatusId() - a.getStatusId();
-                }
-            });
-            System.out.println(status.size());
-        }
-
-        request.setAttribute("statusUser", status);
+       
         request.getRequestDispatcher("/client/profile/profile.jsp").forward(request, response);
     }
 

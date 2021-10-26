@@ -5,6 +5,7 @@ const displayPhotoAvatar = document.querySelector(".profile-img");
 const profileMenu = document.querySelectorAll(".profile-menu-link");
 const timeLine = document.querySelector(".timeline");
 const tabMenu = ["Post", "About", "Friends", "Photo"];
+let listOldJS = [];
 
 function profileTabChange(index) {
     let query = new QueryData("/profile/changeItem");
@@ -19,6 +20,7 @@ function profileTabChange(index) {
                 let script = document.createElement("script");
                 script.src = `${path}/${response}`;
                 document.body.appendChild(script);
+                listOldJS.push(script);
             })
 
         });
@@ -31,14 +33,8 @@ function profileTabChange(index) {
 
 profileMenu.forEach((item, index) => {
     item.onclick = () => {
-        let listScript = document.querySelectorAll("script");
-        listScript.forEach((script) => {
-            if (!script.src.includes("profileHeader")) {
-                if (!script.src.includes("common/query")) {
-                    script.remove();
-                }
-            }
-        })
+        listOldJS.forEach(script => script.remove());
+        listOldJS = [];
         profileTabChange(index);
         window.history.replaceState(null, "", `?page=${tabMenu[index]}`);
     }

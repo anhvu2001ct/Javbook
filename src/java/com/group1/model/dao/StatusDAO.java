@@ -37,11 +37,11 @@ public class StatusDAO {
 
             ps.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(StatusDAO.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println("Create Status Error");
         }
     }
 
-    public static void editStatus(int statusId, String text, String mood) {
+    public static void editStatus(String statusId, String text, String mood) {
         try {
             String query = "UPDATE Status\n"
                     + "SET  \n"
@@ -54,9 +54,23 @@ public class StatusDAO {
             ps.setInt(2, Integer.parseInt(mood));
             Timestamp time = new Timestamp(System.currentTimeMillis());
             ps.setTimestamp(3, time);
-            ps.setInt(4, statusId);
+            ps.setInt(4, Integer.parseInt(statusId));
+            ps.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(StatusDAO.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println("Edit Status Error");
+        }
+
+    }
+
+    public static void deleteStatus(String statusId) {
+        try {
+            String query = "DELETE  FROM Status\n"
+                    + "WHERE StatusID = ?;";
+            PreparedStatement ps = SQL.prepareStatement(query);
+            ps.setInt(1, Integer.parseInt(statusId));
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            System.err.println("Delete Status Error");
         }
 
     }
@@ -64,9 +78,9 @@ public class StatusDAO {
     public static List<Status> getListStatusUser(int acccountID) {
         try {
             List<Status> list = new ArrayList<>();
-            String query = "select Name, StatusID, Text, StatusImg, Time, ActiveTime, StatusModeID\n"
-                    + "from Status s ,AccountProfile a\n"
-                    + "where a.AccountUserID = ?  and s.AccountUserID =a.AccountUserID";
+            String query = "select Name, Avatar, StatusID, Text, StatusImg, Time, ActiveTime, StatusModeID\n"
+                    + "from Status s ,AccountProfile a ,AccountUser au\n"
+                    + "where a.AccountUserID = ?  and s.AccountUserID =a.AccountUserID and s.AccountUserID =au.AccountUserID";
             PreparedStatement ps = SQL.prepareStatement(query);
 
             ps.setInt(1, acccountID);
@@ -75,14 +89,14 @@ public class StatusDAO {
                 return null;
             } else {
                 while (rs.next()) {
-                    Status status = new Status(rs.getString(1), rs.getInt(2), rs.getString(3),
-                            rs.getString(4), rs.getTimestamp(5), rs.getTimestamp(6), rs.getInt(7));
+                    Status status = new Status(rs.getString(1),rs.getString(2), rs.getInt(3), rs.getString(4),
+                            rs.getString(5), rs.getTimestamp(6), rs.getTimestamp(7), rs.getInt(8));
                     list.add(status);
                 }
                 return list;
             }
         } catch (SQLException ex) {
-            Logger.getLogger(StatusDAO.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println("Get Status User Error");
         }
         return null;
     }
@@ -104,7 +118,7 @@ public class StatusDAO {
                 return list;
             }
         } catch (SQLException ex) {
-            Logger.getLogger(StatusDAO.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println("Get All Status Error");
         }
         return null;
     }

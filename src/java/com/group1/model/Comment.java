@@ -6,7 +6,6 @@
 package com.group1.model;
 
 import java.sql.Timestamp;
-import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,13 +21,13 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Status {
+public class Comment {
 
     private String userName;
     private String userImage;
-    private int statusId;
-    private String text, statusImg;
-    private Timestamp time, activeTime;
-    private int mood;
+    private int commentId;
+    private String text, commentImg;
+    private Timestamp time;
+    private int update;
 
 }

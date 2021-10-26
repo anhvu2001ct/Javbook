@@ -1,91 +1,91 @@
-function profilePost() {
+(() => {
+  const closePopUp = document.querySelector(".close");
+  const inputFile = document.querySelector("#file");
+  const statusPhoto = document.getElementById("status-img");
+  const textarea = document.querySelector(".status_content  .enter");
+  const deletePhoto = document.querySelector(".close-img");
+  const frameImg = document.querySelector(".display-img");
+  const postBtn = document.querySelector(".pop_ele3 .share");
+  const userEditContent = document.querySelector(".status_content  .enter");
+  const select = document.querySelector("#select");
+  let option = 1;
 
-    const closePopUp = document.querySelector(".close");
-    const inputFile = document.querySelector("#file");
-    const statusPhoto = document.getElementById("status-img");
-    const textarea = document.querySelector(".status_content  .enter");
-    const deletePhoto = document.querySelector(".close-img");
-    const frameImg = document.querySelector(".display-img");
-    const postBtn = document.querySelector(".pop_ele3 .share");
-    const userEditContent = document.querySelector(".status_content  .enter");
-    const select = document.querySelector("#select");
-    let option = 1;
+  select.addEventListener("change", () => {
+    option = select.options[select.selectedIndex].value;
 
-    select.addEventListener("change", () => {
-        option = select.options[select.selectedIndex].value;
-
-    });
+  });
 
 
-    document.getElementById("input").addEventListener("click", function () {
-        document.querySelector(".popup-main-post").style.display = "flex";
-        statusPhoto.src = "";
+  document.getElementById("input").addEventListener("click", function () {
+    document.querySelector(".popup-main-post").style.display = "flex";
+    statusPhoto.src = "";
+    console.log("hi");
 
-    });
-    closePopUp.addEventListener("click", function () {
-        document.querySelector(".popup_model").style.display = "none";
-        userEditContent.value = "";
-    });
-    deletePhoto.onclick = () => {
-        statusPhoto.src = "";
-        deletePhoto.style.display = "none";
-        frameImg.style.width = "0";
-        frameImg.style.height = "0";
+  });
+  closePopUp.addEventListener("click", function () {
+    document.querySelector(".popup_model").style.display = "none";
+    userEditContent.value = "";
+  });
+  deletePhoto.onclick = () => {
+    statusPhoto.src = "";
+    deletePhoto.style.display = "none";
+    frameImg.style.width = "0";
+    frameImg.style.height = "0";
 
+  };
+
+  inputFile.addEventListener("change", () => {
+    let render = new FileReader();
+    render.readAsDataURL(inputFile.files[0]);
+    render.onload = (oFREvent) => {
+      statusPhoto.src = oFREvent.target.result;
+      deletePhoto.style.display = "flex";
+      frameImg.style.width = "auto";
+      frameImg.style.height = "auto";
     };
+  });
+  postBtn.onclick = sendFile;
 
-    inputFile.addEventListener("change", () => {
-        let render = new FileReader();
-        render.readAsDataURL(inputFile.files[0]);
-        render.onload = (oFREvent) => {
-            statusPhoto.src = oFREvent.target.result;
-            deletePhoto.style.display = "flex";
-            frameImg.style.width = "auto";
-            frameImg.style.height = "auto";
-        };
+  function sendFile() {
+
+    let uploadImg = new QueryUpload("upload/image");
+    let uploadData = new QueryData("/profile/crateStatus");
+    //uploadImage
+    let name = "user" + Date.now() + ".png";
+    uploadImg.addParam("file", inputFile.files[0]);
+    uploadImg.addParam("savePath", name);
+
+    uploadImg.addEvent("progress", function (e) {
+      let percent = e.loaded / e.total * 100;
+      console.log('upload process: ' + Math.floor(percent) + '%');
     });
-    postBtn.onclick = sendFile;
 
-    function sendFile() {
+    // uploadData
 
-        let uploadImg = new QueryUpload("upload/image");
-        let uploadData = new QueryData("/profile/crateStatus");
-        //uploadImage
-        let name = "user" + Date.now() + ".png";
-        uploadImg.addParam("file", inputFile.files[0]);
-        uploadImg.addParam("savePath", name);
+    uploadData.addParam("content", userEditContent.value);
+    uploadData.addParam("link", "/Javbook/assets/img/user/" + name);
 
-        uploadImg.addEvent("progress", function (e) {
-            let percent = e.loaded / e.total * 100;
-            console.log('upload process: ' + Math.floor(percent) + '%');
-        });
-
-        // uploadData
-
-        uploadData.addParam("content", userEditContent.value);
-        uploadData.addParam("link", "/Javbook/assets/img/user/" + name);
-
-        uploadData.addParam("audience", option);
-        uploadImg.addEvent("load", function () {
-            window.setTimeout(() => {
-                renderNewPost(userEditContent.value, name, option);
-            }, 2000);
-        });
+    uploadData.addParam("audience", option);
+    uploadImg.addEvent("load", function () {
+      window.setTimeout(() => {
+        renderNewPost(userEditContent.value, name, option);
+      }, 2000);
+    });
 
 
-        document.querySelector(".popup_model").style.display = "none";
-        uploadImg.send();
-        uploadData.send("POST");
+    document.querySelector(".popup_model").style.display = "none";
+    uploadImg.send();
+    uploadData.send("POST");
 
-    }
+  }
 
-    function renderNewPost(text, img, option) {
-       
-        let postbox = document.createElement("div");
-        postbox.classList.add("post");
-        postbox.classList.add("box");
+  function renderNewPost(text, img, option) {
 
-        let html = `
+    let postbox = document.createElement("div");
+    postbox.classList.add("post");
+    postbox.classList.add("box");
+
+    let html = `
         
   <div class="post-item">
     <div class="status-main">
@@ -245,21 +245,18 @@ ${(option === 1) ? "<i class='fas fa-globe-asia'></i>" : (option === 2) ? " <i c
   </div>
 
            `;
-        postbox.innerHTML = html;
-        document.querySelector(".list-post").prepend(postbox);
-       postBox();
+    postbox.innerHTML = html;
+    document.querySelector(".list-post").prepend(postbox);
+    postBox();
 
-    }
-    textarea.addEventListener('keydown', () => {
-        setTimeout(() => {
-            if (textarea.scrollHeight < 150) {
-                textarea.style.cssText = 'height:auto; padding:0';
-                textarea.style.cssText = 'height:' + textarea.scrollHeight + 'px';
-            }
+  }
+  textarea.addEventListener('keydown', () => {
+    setTimeout(() => {
+      if (textarea.scrollHeight < 150) {
+        textarea.style.cssText = 'height:auto; padding:0';
+        textarea.style.cssText = 'height:' + textarea.scrollHeight + 'px';
+      }
 
-        }, 0);
-    });
-
-
-}
-profilePost();
+    }, 0);
+  });
+})();

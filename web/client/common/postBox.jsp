@@ -6,9 +6,9 @@
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<c:if test="${statusUser.size()==null}">
-    
 
+
+<c:if test="${statusUser.size()==null}">
     <div class="post box">
         <div class="post-item">
             <div class="status-main">
@@ -42,7 +42,7 @@
             <div class="post-photos">
                 <img
                     src="/Javbook/assets/img/default/avatar.png"
-                    alt=""
+                    alt="Image"
                     class="post-photo"
                     />
             </div>
@@ -339,13 +339,20 @@
         </div>
     </div>
 </c:if>
-   
-<c:forEach items="${statusUser}" var="status" >
 
+<c:forEach items="${statusUser}" var="status" >
     <div class="post box" id="${status.statusId}">
         <div class="post-item">
             <div class="status-main">
-                <img src="/Javbook/assets/img/default/avatar.png" class="status-img" />
+
+                <c:choose>
+                    <c:when test="${empty status.userImage}">
+                        <img src="/Javbook/assets/img/default/avatar.png" class="status-img" />
+                    </c:when>
+                    <c:otherwise>
+                        <img src="${status.userImage}" class="status-img" />
+                    </c:otherwise>
+                </c:choose>
                 <div class="post-detail">
                     <div class="post-title">
                         <a href="">${status.userName}</a>
@@ -386,7 +393,7 @@
             <div class="post-photos">
                 <img
                     src="${status.statusImg}"
-                    alt=""
+                    alt="Image"
                     class="post-photo"
                     />
             </div>
@@ -684,5 +691,5 @@
     </div>
 </c:forEach>
 
-<script src="/Javbook/assets/js/common/postBox.js" async></script>
+<script src="/Javbook/assets/js/profile/Post/postBox.js" async></script>
 <script src="/Javbook/assets/js/profile/Post/profilePost.js" async></script>

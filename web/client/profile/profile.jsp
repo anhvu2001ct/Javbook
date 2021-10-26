@@ -27,11 +27,12 @@
         <link rel="stylesheet" href="/Javbook/assets/css/common/postBox.css" />     
         <link rel="stylesheet" href="/Javbook/assets/css/profile/profilePhoto.css" />
         <link rel="stylesheet" href="/Javbook/assets/css/profile/profileAbout.css" />
+        <link rel="stylesheet" href="/Javbook/assets/css/profile/profileFriends.css" />
 
 
 
         <link rel="stylesheet" href="/Javbook/assets/fonts/fontawesome-5.15.4/css/all.min.css" />
-        <script src="/Javbook/assets/js/common/query.js" async></script>
+        <script src="/Javbook/assets/js/common/query.js" ></script>
 
 
 
@@ -175,7 +176,7 @@
                 </div>
             </div>
         </div>
-        
+
         <script src="/Javbook/assets/js/profile/Header/profileHeader.js"></script>
     </body>
 

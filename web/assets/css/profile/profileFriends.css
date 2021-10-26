@@ -1,0 +1,57 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Oct 26, 2021, 3:18:10 PM
+    Author     : Mr Khang
+*/
+
+
+.main-friends {
+	padding-left: 20px;
+	display: grid;
+	grid-template-columns: 426px 426px;
+	grid-template-rows: auto;
+	grid-gap: 10px;
+}
+
+.friends-item {
+	border-radius: 5px;
+	border: 2px solid #004879;
+	display: flex;
+}
+.friend-item-img {
+	width: 120px;
+	height: 120px;
+}
+
+.friend-item-info {
+	margin-top: 40px;
+	margin-left: 10px;
+	height: 50px;
+}
+
+.friend-item-name {
+	height: 20px;
+	font-size: 17px;
+	font-weight: 600;
+}
+
+.friend-item-mutual {
+	height: 20px;
+	font-size: 13px;
+}
+
+.friends-item img {
+	margin-top: 15px;
+	margin-left: 15px;
+	margin-bottom: 15px;
+	width: 90px;
+	height: 90px;
+	border-radius: 10px;
+}
+
+
+
