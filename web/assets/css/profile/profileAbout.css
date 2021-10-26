@@ -101,7 +101,7 @@
     flex: 1;
 }
 
-.about .about-content .password-main,
+.about .about-content .security-main,
 .about .about-content .setting-main {
     display: none;
 }
@@ -173,6 +173,32 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: relative;
+}
+
+.about .about-content .edit-password .toggle-password {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 15px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.about .about-content .edit-password .toggle-password i {
+    font-weight: 300;
+}
+
+.about .about-content .edit-password .toggle-password.hide:before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 2px;
+    transition: 0.5s;
+    transform: translate(-50%, -50%) rotate(135deg);
+    background-color: var(--primary-color);
 }
 
 .about .about-content .dark-mode .dark-mode-btn {

@@ -4,14 +4,14 @@
         ".about-main .about-nav .list-item"
     );
     const profileMain = document.querySelector(".profile-main");
-    const passwordMain = document.querySelector(".password-main");
+    const securityMain = document.querySelector(".security-main");
     const settingMain = document.querySelector(".setting-main");
 
     function activeLink() {
         listAboutItems.forEach((listAboutItem) => {
             listAboutItem.classList.remove("active");
             profileMain.style.display = "none";
-            passwordMain.style.display = "none";
+            securityMain.style.display = "none";
             settingMain.style.display = "none";
         });
         this.classList.add("active");
@@ -19,8 +19,8 @@
         console.log(contentType);
         if (contentType == "Profile") {
             profileMain.style.display = "block";
-        } else if (contentType == "Password") {
-            passwordMain.style.display = "block";
+        } else if (contentType == "Security") {
+            securityMain.style.display = "block";
         } else if (contentType == "Setting") {
             settingMain.style.display = "block";
         }
@@ -79,7 +79,69 @@
         }
     }
 
+    // Toggle Password
+
+    // Toggle Password Button
+    var toggleCurrentPassBtn = document.querySelector(
+        ".js-toggle-current-pass-btn"
+    );
+    var toggleNewPassBtns = document.querySelectorAll(
+        ".js-toggle-new-pass-btn"
+    );
+
+    // Toggle Eye Password
+    var currentPassword = document.getElementById("js-current-password");
+    var newPassword = document.getElementById("js-new-password");
+    var newRepassword = document.getElementById("js-new-repassword");
+
+    function toggleCurrentPass() {
+        toggleCurrentPassBtn.classList.toggle("hide");
+        if (currentPassword.type === "password") {
+            currentPassword.type = "text";
+        } else {
+            currentPassword.type = "password";
+        }
+    }
+
+    function resetPasswordInputs() {
+        currentPassword.value = "";
+        newPassword.value = "";
+        newRepassword.value = "";
+
+        // change eye
+        toggleCurrentPassBtn.classList.remove("hide");
+        toggleNewPassBtns.forEach((toggleNewPassBtn) => {
+            toggleNewPassBtn.classList.remove("hide");
+        });
+
+        currentPassword.type = "password";
+        newPassword.type = "password";
+        newRepassword.type = "password";
+    }
+
+    function toggleNewPass() {
+        toggleNewPassBtns.forEach((toggleNewPassBtn) => {
+            toggleNewPassBtn.classList.toggle("hide");
+        });
+
+        if (newPassword.type === "password") {
+            newPassword.type = "text";
+            newRepassword.type = "text";
+        } else {
+            newPassword.type = "password";
+            newRepassword.type = "password";
+        }
+    }
+
+    // Event Toggle Password Button Onclick
+    toggleCurrentPassBtn.addEventListener("click", toggleCurrentPass);
+
+    toggleNewPassBtns.forEach((toggleNewPassBtn) => {
+        toggleNewPassBtn.addEventListener("click", toggleNewPass);
+    });
+
     function editPassword() {
+        resetPasswordInputs();
         let itemContent = this.parentNode;
         let passDiv = itemContent.querySelector(".password");
         let editPassDiv = itemContent.querySelector(".edit-password");
