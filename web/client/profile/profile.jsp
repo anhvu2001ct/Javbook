@@ -32,7 +32,6 @@
 
         <link rel="stylesheet" href="/Javbook/assets/fonts/fontawesome-5.15.4/css/all.min.css" />
         <script src="/Javbook/assets/js/common/query.js" async></script>
-        <script src="/Javbook/assets/js/profile/Header/profileHeader.js" async  ></script>
 
 
 
@@ -84,7 +83,6 @@
                 </div>
             </div>
             <div class="timeline">
-                <%@include file="profilePost.jsp" %>
             </div>
         </div>
         <!-- popup  -->
@@ -177,6 +175,8 @@
                 </div>
             </div>
         </div>
+        
+        <script src="/Javbook/assets/js/profile/Header/profileHeader.js"></script>
     </body>
 
 </html>

@@ -71,7 +71,8 @@ public class AccountDAO {
             // if have account
             rs.next();
             return new Account(rs.getInt(1), rs.getString(2), rs.getString(3), 
-                               rs.getString(4), rs.getString(5), rs.getString(6));  
+                               rs.getString(4), rs.getString(5), rs.getString(6),
+                               rs.getBoolean(7));
         }
     }
     
@@ -91,8 +92,20 @@ public class AccountDAO {
             // if have account
             rs.next();
             return new Account(rs.getInt(1), rs.getString(2), rs.getString(3), 
-                               rs.getString(4), rs.getString(5), rs.getString(6));
+                               rs.getString(4), rs.getString(5), rs.getString(6),
+                               rs.getBoolean(7));
         }
     }
     
+    public static void markFirstLogin(int accountId) {
+        String query = "UPDATE AccountUser SET firstLogin=1 WHERE accountUserId=?";
+        try {
+            PreparedStatement ps;ps = SQL.prepareStatement(query);
+            ps.setInt(1, accountId);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
 }

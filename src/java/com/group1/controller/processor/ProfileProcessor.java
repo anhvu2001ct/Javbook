@@ -7,29 +7,18 @@ package com.group1.controller.processor;
 
 import com.group1.controller.ServerInit;
 import static com.group1.controller.ServerInit.gson;
-import com.group1.model.ProfileUser;
-import com.group1.model.Status;
-import com.group1.model.dao.ProfileUserDAO;
 import com.group1.model.dao.StatusDAO;
 import com.group1.model.db.IO;
 import com.group1.rest.BaseProcessor;
 import com.group1.rest.ServeAt;
 import com.group1.rest.ServeMethod;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import org.apache.catalina.util.ServerInfo;
 
 /**
  *
@@ -41,17 +30,17 @@ public class ProfileProcessor extends BaseProcessor {
     @ServeAt("/changeItem")
     public void changeTimeline(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String value = request.getParameter("key");
-        if (value.equals("photo")) {
+        if (value.equals("Photo")) {
             request.getRequestDispatcher("/client/profile/profilePhoto.jsp").forward(request, response);
         }
-        if (value.equals("post")) {
+        if (value.equals("Post")) {
             request.getRequestDispatcher("/client/profile/profilePost.jsp").forward(request, response);
         }
-        if (value.equals("about")) {
+        if (value.equals("About")) {
            
             request.getRequestDispatcher("/process/profileUser/index").forward(request, response);
         }
-        if (value.equals("friends")) {
+        if (value.equals("Friends")) {
             request.getRequestDispatcher("/client/profile/profilePost.jsp").forward(request, response);
         }
 
@@ -61,21 +50,21 @@ public class ProfileProcessor extends BaseProcessor {
     public void changeJS(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String key = request.getParameter("key");
-        if (key.equals("photo")) {
+        if (key.equals("Photo")) {
             List<String> list = IO.getFilesName(ServerInit.webPath, "assets/js/profile/Photo");
             response.getWriter().print(gson.toJson(list));
             System.out.println(list);
         }
-        if (key.equals("post")) {
+        if (key.equals("Post")) {
             List<String> list = IO.getFilesName(ServerInit.webPath, "assets/js/profile/Post");
             response.getWriter().print(gson.toJson(list));
         }
-        if (key.equals("about")) {
+        if (key.equals("About")) {
 
             List<String> list = IO.getFilesName(ServerInit.webPath, "assets/js/profile/About");
             response.getWriter().print(gson.toJson(list));
         }
-        if (key.equals("friends")) {
+        if (key.equals("Friends")) {
             List<String> list = IO.getFilesName(ServerInit.webPath, "assets/js/profile/");
             response.getWriter().print(gson.toJson(list));
         }

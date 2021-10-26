@@ -7,6 +7,7 @@ package com.group1.controller;
 
 import com.group1.misc.Secret;
 import com.group1.misc.Sout;
+import com.group1.model.Account;
 import com.group1.model.dao.AccountDAO;
 import java.io.IOException;
 import javax.servlet.Filter;
@@ -47,12 +48,12 @@ public class SessionFilter implements Filter {
             return;
         }
         
-        int uid = -1;
+        Account account = null;
         if (request.getCookies() != null) {
             for (Cookie cookie: request.getCookies()) {
                 if (cookie.getName().equals("JBID")) {
                     try {
-                        uid = AccountDAO.getAccountByUsername(Secret.decode1(cookie.getValue())).getAccountID();
+                        account = AccountDAO.getAccountByUsername(Secret.decode1(cookie.getValue()));
                     } catch (Exception e) {
                         Sout.print("Error getting UID!!!");
                         e.printStackTrace();
@@ -62,11 +63,15 @@ public class SessionFilter implements Filter {
             }
         }
         
-        if (uid == -1) request.getRequestDispatcher("/client/login/login.jsp").forward(request, response);
+        if (account == null) request.getRequestDispatcher("/client/login/login.jsp").forward(request, response);
         else {
             HttpSession ses = request.getSession();
+            int uid = account.getAccountID();
             if (ses.getAttribute("user") == null) ses.setAttribute("uid", uid);
-            chain.doFilter(request, response);
+            if (!account.isFirstLogin()) {
+                AccountDAO.markFirstLogin(uid);
+                response.sendRedirect("/Javbook/profile?page=About");
+            } else chain.doFilter(request, response);
         }
     }
 

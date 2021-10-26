@@ -4,6 +4,30 @@ const inputFileAvatar = document.querySelector('#header-avatar-file');
 const displayPhotoAvatar = document.querySelector(".profile-img");
 const profileMenu = document.querySelectorAll(".profile-menu-link");
 const timeLine = document.querySelector(".timeline");
+const tabMenu = ["Post", "About", "Friends", "Photo"];
+
+function profileTabChange(index) {
+    let query = new QueryData("/profile/changeItem");
+    query.addParam("key", tabMenu[index]);
+    let query2 = new QueryData("/profile/changeJs", "json");
+    query2.addParam("key", tabMenu[index]);
+    let path = `/Javbook/assets/js/profile/${tabMenu[index]}`;
+    query.addEvent("load", function () {
+        timeLine.innerHTML = this.response;
+        query2.addEvent("load", function () {
+            this.response.forEach((response) => {
+                let script = document.createElement("script");
+                script.src = `${path}/${response}`;
+                document.body.appendChild(script);
+            })
+
+        });
+        query2.send("GET");
+    });
+    query.send("GET");
+    document.querySelector('.active').classList.remove("active");
+    profileMenu[index].classList.add("active");
+}
 
 profileMenu.forEach((item, index) => {
     item.onclick = () => {
@@ -15,47 +39,8 @@ profileMenu.forEach((item, index) => {
                 }
             }
         })
-        document.querySelector('.active').classList.remove("active");
-        item.classList.add("active");
-        let query = new QueryData("/profile/changeItem");
-        let query2 = new QueryData("/profile/changeJs", "json");
-        let path;
-        if (index === 0) {
-            query.addParam("key", "post");
-            query2.addParam("key", "post");
-            path = "/Javbook/assets/js/profile/Post"
-        }
-        if (index === 1) {
-            query.addParam("key", "about");
-            query2.addParam("key", "about");
-            path = "/Javbook/assets/js/profile/About"
-
-        }
-        if (index === 2) {
-            query.addParam("key", "friends");
-            query2.addParam("key", "friends");
-            path = "/Javbook/assets/js/profile/Friends"
-
-        }
-        if (index === 3) {
-            query.addParam("key", "photo");
-            query2.addParam("key", "photo");
-            path = "/Javbook/assets/js/profile/Photo"
-
-        }
-        query.addEvent("load", function () {
-            timeLine.innerHTML = this.response;
-            query2.addEvent("load", function () {
-                this.response.forEach((response) => {
-                    let script = document.createElement("script");
-                    script.src = `${path}/${response}`;
-                    document.body.appendChild(script);
-                })
-
-            });
-            query2.send("GET");
-        });
-        query.send("GET");
+        profileTabChange(index);
+        window.history.replaceState(null, "", `?page=${tabMenu[index]}`);
     }
 })
 inputFileCover.addEventListener("change", () => {
@@ -77,4 +62,14 @@ inputFileAvatar.addEventListener("change", () => {
 }
 );
 
-
+{
+    let map = {};
+    tabMenu.forEach((val, idx) => {map[val] = idx;});
+    let params = new URLSearchParams(window.location.search);
+    let tabPage = "Post";
+    if (params.has("page")) {
+        let page = params.get("page");
+        if (map[page] != undefined) tabPage = page;
+    }
+    profileTabChange(map[tabPage]);
+}

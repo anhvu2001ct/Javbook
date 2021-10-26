@@ -20,4 +20,5 @@ public class Account {
     private int accountID;
     // Account User
     private String username, password, avatar, phone, email;
+    private boolean firstLogin;
 }

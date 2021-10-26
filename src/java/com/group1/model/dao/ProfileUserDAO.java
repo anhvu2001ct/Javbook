@@ -54,24 +54,4 @@ public class ProfileUserDAO {
         }
     }
     
-    public static Account getAccount(String accountID) throws SQLException{
-        String query = "SELECT * " 
-                + "FROM AccountUser " 
-                + "WHERE AccountID = ?;";
-        PreparedStatement ps = SQL.prepareStatement(query); // nem cau lenh query tu netbeans sang sql server 
-        ps.setString(1, accountID);
-        
-        ResultSet rs = ps.executeQuery(); // execute query va nhan ket qua tra ve
-        
-        // if do not have account
-        if (!rs.isBeforeFirst()){
-            return null;
-        } else {
-            // if have account
-            rs.next();
-            return new Account(rs.getInt(1), rs.getString(2), rs.getString(3), 
-                               rs.getString(4), rs.getString(5), rs.getString(6));
-        }
-    }
-    
 }
