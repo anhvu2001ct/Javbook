@@ -64,6 +64,7 @@ public class ProfileProcessor extends BaseProcessor {
         if (key.equals("photo")) {
             List<String> list = IO.getFilesName(ServerInit.webPath, "assets/js/profile/Photo");
             response.getWriter().print(gson.toJson(list));
+            System.out.println(list);
         }
         if (key.equals("post")) {
             List<String> list = IO.getFilesName(ServerInit.webPath, "assets/js/profile/Post");

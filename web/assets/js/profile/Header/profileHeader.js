@@ -5,69 +5,59 @@ const displayPhotoAvatar = document.querySelector(".profile-img");
 const profileMenu = document.querySelectorAll(".profile-menu-link");
 const timeLine = document.querySelector(".timeline");
 
-
-profileMenu[3].onclick = () => {
-    document.querySelector('.active').classList.remove("active");
-    profileMenu[3].classList.add("active");
-    let query = new QueryData("/profile/changeItem");
-    query.addParam("key", "photo");
-    query.addEvent("load", function () {
-        timeLine.innerHTML = this.response;
+profileMenu.forEach((item, index) => {
+    item.onclick = () => {
+        let listScript = document.querySelectorAll("script");
+        listScript.forEach((script) => {
+            if (!script.src.includes("profileHeader")) {
+                if (!script.src.includes("common/query")) {
+                    script.remove();
+                }
+            }
+        })
+        document.querySelector('.active').classList.remove("active");
+        item.classList.add("active");
+        let query = new QueryData("/profile/changeItem");
         let query2 = new QueryData("/profile/changeJs", "json");
-        query2.addParam("key", "photo");
+        let path;
+        if (index === 0) {
+            query.addParam("key", "post");
+            query2.addParam("key", "post");
+            path = "/Javbook/assets/js/profile/Post"
+        }
+        if (index === 1) {
+            query.addParam("key", "about");
+            query2.addParam("key", "about");
+            path = "/Javbook/assets/js/profile/About"
 
-        query2.addEvent("load", function () {
-            let script = document.createElement("script");
-            script.src = `/Javbook/assets/js/profile/${this.response}`;
-            document.body.appendChild(script);
+        }
+        if (index === 2) {
+            query.addParam("key", "friends");
+            query2.addParam("key", "friends");
+            path = "/Javbook/assets/js/profile/Friends"
+
+        }
+        if (index === 3) {
+            query.addParam("key", "photo");
+            query2.addParam("key", "photo");
+            path = "/Javbook/assets/js/profile/Photo"
+
+        }
+        query.addEvent("load", function () {
+            timeLine.innerHTML = this.response;
+            query2.addEvent("load", function () {
+                this.response.forEach((response) => {
+                    let script = document.createElement("script");
+                    script.src = `${path}/${response}`;
+                    document.body.appendChild(script);
+                })
+
+            });
+            query2.send("GET");
         });
-        query2.send("GET");
-    });
-    query.send("GET");
-
-};
-profileMenu[0].onclick = () => {
-    document.querySelector('.active').classList.remove("active");
-    profileMenu[3].classList.add("active");
-    let query = new QueryData("/profile/changeItem");
-    query.addParam("key", "post");
-    query.addEvent("load", function () {
-        timeLine.innerHTML = this.response;
-        let query2 = new QueryData("/profile/changeJs", "json");
-        query2.addParam("key", "post");
-
-        query2.addEvent("load", function () {
-            let script = document.createElement("script");
-            script.src = `/Javbook/assets/js/profile/${this.response[2]}`;
-            document.body.appendChild(script);
-        });
-        query2.send("GET");
-    });
-    query.send("GET");
-
-};
-profileMenu[1].onclick = () => {
-    document.querySelector('.active').classList.remove("active");
-    profileMenu[1].classList.add("active");
-    let query = new QueryData("/profile/changeItem");
-    query.addParam("key", "about");
-    query.addEvent("load", function () {
-        timeLine.innerHTML = this.response;
-        let query2 = new QueryData("/profile/changeJs", "json");
-        query2.addParam("key", "about");
-
-        query2.addEvent("load", function () {
-           this.response.forEach((file) => {
-            let script = document.createElement("script");
-            script.src = `/Javbook/assets/js/profile/About/${file}`;
-            document.body.appendChild(script);
-           })
-        });
-        query2.send("GET");
-    });
-    query.send("GET");
-
-};
+        query.send("GET");
+    }
+})
 inputFileCover.addEventListener("change", () => {
     var oFReader = new FileReader();
     oFReader.readAsDataURL(inputFileCover.files[0]);

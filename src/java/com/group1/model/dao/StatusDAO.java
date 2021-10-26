@@ -41,62 +41,72 @@ public class StatusDAO {
         }
     }
 
-    public static void editStatus(int statusId, String text, String mood) throws SQLException {
-        String query = "UPDATE Status\n"
-                + "SET  \n"
-                + "	Text =?\n"
-                + "	,StatusModeID =?\n"
-                + "	,ActiveTime= ?\n"
-                + "WHERE StatusId= ?;";
-        PreparedStatement ps = SQL.prepareStatement(query);
-        ps.setString(1, text);
-        ps.setInt(2, Integer.parseInt(mood));
-        Timestamp time = new Timestamp(System.currentTimeMillis());
-        ps.setTimestamp(3, time);
-        ps.setInt(4, statusId);
-
-    }
-
-    public static List<Status> getListStatusUser(int acccountID) throws SQLException {
-        List<Status> list = new ArrayList<>();
-        String query = "select Name, StatusID, Text, StatusImg, Time, ActiveTime, StatusModeID\n"
-                + "from Status s ,AccountProfile a\n"
-                + "where a.AccountUserID = ?  and s.AccountUserID =a.AccountUserID";
-        PreparedStatement ps = SQL.prepareStatement(query);
-
-        Timestamp time = new Timestamp(System.currentTimeMillis());
-
-        ps.setInt(1, acccountID);
-        ResultSet rs = ps.executeQuery();
-        if (!rs.isBeforeFirst()) {
-            return null;
-        } else {
-            while (rs.next()) {
-                Status status = new Status(rs.getString(1), rs.getInt(2), rs.getString(3),
-                        rs.getString(4), rs.getTimestamp(5), rs.getTimestamp(6), rs.getInt(7));
-                list.add(status);
-            }
-            return list;
+    public static void editStatus(int statusId, String text, String mood) {
+        try {
+            String query = "UPDATE Status\n"
+                    + "SET  \n"
+                    + "	Text =?\n"
+                    + "	,StatusModeID =?\n"
+                    + "	,ActiveTime= ?\n"
+                    + "WHERE StatusId= ?;";
+            PreparedStatement ps = SQL.prepareStatement(query);
+            ps.setString(1, text);
+            ps.setInt(2, Integer.parseInt(mood));
+            Timestamp time = new Timestamp(System.currentTimeMillis());
+            ps.setTimestamp(3, time);
+            ps.setInt(4, statusId);
+        } catch (SQLException ex) {
+            Logger.getLogger(StatusDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
 
-    public static List<Status> getListStatus() throws SQLException {
-        List<Status> list = new ArrayList<>();
-        String query = "select * from Status";
-        PreparedStatement ps = SQL.prepareStatement(query);
-        ResultSet rs = ps.executeQuery();
-        if (!rs.isBeforeFirst()) {
-            return null;
-        } else {
-            while (rs.next()) {
+    public static List<Status> getListStatusUser(int acccountID) {
+        try {
+            List<Status> list = new ArrayList<>();
+            String query = "select Name, StatusID, Text, StatusImg, Time, ActiveTime, StatusModeID\n"
+                    + "from Status s ,AccountProfile a\n"
+                    + "where a.AccountUserID = ?  and s.AccountUserID =a.AccountUserID";
+            PreparedStatement ps = SQL.prepareStatement(query);
+
+            ps.setInt(1, acccountID);
+            ResultSet rs = ps.executeQuery();
+            if (!rs.isBeforeFirst()) {
+                return null;
+            } else {
+                while (rs.next()) {
+                    Status status = new Status(rs.getString(1), rs.getInt(2), rs.getString(3),
+                            rs.getString(4), rs.getTimestamp(5), rs.getTimestamp(6), rs.getInt(7));
+                    list.add(status);
+                }
+                return list;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(StatusDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    public static List<Status> getListStatus() {
+        try {
+            List<Status> list = new ArrayList<>();
+            String query = "select * from Status";
+            PreparedStatement ps = SQL.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            if (!rs.isBeforeFirst()) {
+                return null;
+            } else {
+                while (rs.next()) {
 //                Status status = new Status(rs.getString(1), rs.getInt(2), rs.getString(3),
 //                        rs.getString(4), rs.getTimestamp(5), rs.getTimestamp(6), rs.getInt(7), rs.getInt(8));
 //                list.add(status);
+                }
+                return list;
             }
-            return list;
+        } catch (SQLException ex) {
+            Logger.getLogger(StatusDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        return null;
     }
 
 }
