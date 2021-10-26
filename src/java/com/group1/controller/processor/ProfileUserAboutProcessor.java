@@ -34,13 +34,15 @@ public class ProfileUserAboutProcessor extends BaseProcessor {
     @ServeAt("/index")
     public void serveIndex(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, SQLException {         
         HttpSession ses = request.getSession();
-            int uid = (Integer) ses.getAttribute("uid");
-            System.out.println("uid: " + uid);
-            ProfileUserAbout profileUser = ProfileUserAboutDAO.getProfileUser(uid);
-            System.out.println(profileUser.toString());
-            request.setAttribute("profileUser", profileUser);
+        int uid = (Integer) ses.getAttribute("uid");
+        
+        ProfileUserAbout profileUser = ProfileUserAboutDAO.getProfileUser(uid);
+        Account account = AccountDAO.getAccount(uid);
+        
+        request.setAttribute("profileUser", profileUser);
+        request.setAttribute("account", account);
 
-            request.getRequestDispatcher("/client/profile/profileAbout.jsp").forward(request, response);
+        request.getRequestDispatcher("/client/profile/profileAbout.jsp").forward(request, response);
     }
     
     @ServeAt(value="/createNewAccount", method=ServeMethod.POST)

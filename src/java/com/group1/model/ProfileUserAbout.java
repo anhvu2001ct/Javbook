@@ -21,6 +21,6 @@ public class ProfileUserAbout {
     // Profile User
     private String name;
     private Date DOB;
-    private String address, career, gender;
+    private String address, gender, career;
     private int profileStatusID;
 }

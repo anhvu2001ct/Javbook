@@ -28,6 +28,24 @@
                 <ul class="list">
                     <li class="list-item">
                         <div class="icon">
+                            <i class="fas fa-signature"></i>
+                        </div>
+                        <div class="list-item-content">
+                            Name
+                            <input
+                                disabled
+                                class="edit-text"
+                                type="text"
+                                value="${profileUser.name}"
+                            />
+                        </div>
+                        <div class="edit-icon js-edit-text-btn">
+                            <i class="fas fa-pen"></i>
+                            <i class="fas fa-check"></i>
+                        </div>
+                    </li>
+                    <li class="list-item">
+                        <div class="icon">
                             <i class="fas fa-briefcase"></i>
                         </div>
                         <div class="list-item-content">
@@ -36,7 +54,7 @@
                                 disabled
                                 class="edit-text"
                                 type="text"
-                                value="${profileUser.gender}"
+                                value="${profileUser.career}"
                             />
                         </div>
                         <div
@@ -60,7 +78,7 @@
                                 disabled
                                 class="edit-text"
                                 type="text"
-                                value="Bac Lieu"
+                                value="${profileUser.address}"
                             />
                         </div>
                         <div
@@ -84,7 +102,7 @@
                                 disabled
                                 class="edit-text"
                                 type="date"
-                                value="2001-09-08"
+                                value="${profileUser.DOB}"
                             />
                         </div>
                         <div
@@ -107,7 +125,7 @@
                                 disabled
                                 class="edit-text js-gender-value"
                                 type="text"
-                                value="Male"
+                                value="${profileUser.gender}"
                             />
                         </div>
                         <div class="edit-icon js-edit-select-audience">
@@ -215,7 +233,7 @@
                                 disabled
                                 class="edit-text"
                                 type="text"
-                                value="0857817812"
+                                value="${account.phone}"
                             />
                         </div>
                         <div
@@ -238,7 +256,7 @@
                                 disabled
                                 class="edit-text js-status-value"
                                 type="text"
-                                value="Married"
+                                value="Others"
                             />
                         </div>
                         <div class="edit-icon js-edit-select-audience">
@@ -500,7 +518,7 @@
                                 disabled
                                 class="edit-text"
                                 type="text"
-                                value="poiminhcanh08092001@gmail.com"
+                                value="${account.email}"
                             />
                         </div>
                         <div class="edit-icon js-edit-text-btn">

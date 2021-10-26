@@ -35,8 +35,8 @@ public class AccountDAO {
     
     public static void createNewAccount(String username, String password) {
         try {
-            String query = "INSERT INTO AccountUser(Username, Password) "
-                    + "VALUES (?, ?);";
+            String query = "INSERT INTO AccountUser(Username, Password, Avatar, Phone, Email) "
+                    + "VALUES (?, ?, '/Javbook/assets/img/default/avatar.png', '0123456789', 'email@gmail.com');";
             
             PreparedStatement ps = SQL.prepareStatement(query); // nem cau lenh query tu netbeans sang sql server
             ps.setString(1, username);
@@ -90,13 +90,13 @@ public class AccountDAO {
         }
     }
     
-    public static Account getAccount(String accountID) {
+    public static Account getAccount(int accountID) {
         try {
             String query = "SELECT * "
                     + "FROM AccountUser "
                     + "WHERE AccountUserID = ?;";
             PreparedStatement ps = SQL.prepareStatement(query); // nem cau lenh query tu netbeans sang sql server
-            ps.setString(1, accountID);
+            ps.setInt(1, accountID);
             
             ResultSet rs = ps.executeQuery(); // execute query va nhan ket qua tra ve
             
@@ -119,7 +119,8 @@ public class AccountDAO {
     public static void markFirstLogin(int accountId) {
         String query = "UPDATE AccountUser SET firstLogin=1 WHERE accountUserId=?";
         try {
-            PreparedStatement ps;ps = SQL.prepareStatement(query);
+            PreparedStatement ps;
+            ps = SQL.prepareStatement(query);
             ps.setInt(1, accountId);
             ps.executeUpdate();
         } catch (SQLException ex) {
