@@ -46,7 +46,7 @@ public class ProfileProcessor extends BaseProcessor {
                         return b.getStatusId() - a.getStatusId();
                     }
                 });
-                System.out.println(status.size());
+                
             }
 
             request.setAttribute("statusUser", status);
@@ -69,7 +69,7 @@ public class ProfileProcessor extends BaseProcessor {
         if (key.equals("Photo")) {
             List<String> list = IO.getFilesName(ServerInit.webPath, "assets/js/profile/Photo");
             response.getWriter().print(gson.toJson(list));
-            System.out.println(list);
+            
         }
         if (key.equals("Post")) {
             List<String> list = IO.getFilesName(ServerInit.webPath, "assets/js/profile/Post");
@@ -107,7 +107,6 @@ public class ProfileProcessor extends BaseProcessor {
     @ServeAt(value = "/deleteStatus", method = ServeMethod.POST)
     public void serveDeleteStatus(HttpServletRequest request, HttpServletResponse response) throws SQLException {
         String statusId = request.getParameter("id");
-        System.out.println(statusId);
         StatusDAO.deleteStatus(statusId);
     }
 
