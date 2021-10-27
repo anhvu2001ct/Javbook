@@ -53,7 +53,7 @@ public class ProfileProcessor extends BaseProcessor {
             request.getRequestDispatcher("/client/profile/profilePost.jsp").forward(request, response);
         }
         if (value.equals("About")) {
-            request.getRequestDispatcher("/process/profileUser/index").forward(request, response);
+            request.getRequestDispatcher("/process/profileUserAbout/index").forward(request, response);
         }
         if (value.equals("Friends")) {
             request.getRequestDispatcher("/client/profile/profileFriends.jsp").forward(request, response);
