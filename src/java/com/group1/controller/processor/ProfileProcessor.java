@@ -85,33 +85,6 @@ public class ProfileProcessor extends BaseProcessor {
         }
     }
 
-    @ServeAt(value = "/crateStatus", method = ServeMethod.POST)
-    public void serveCreateStatus(HttpServletRequest request, HttpServletResponse response) throws SQLException {
-        String content = request.getParameter("content");
-        String link = request.getParameter("link");
-        String audience = request.getParameter("audience");
-        int accountId = (int) request.getSession().getAttribute("uid");
-        StatusDAO.createStatus(accountId, content, link, audience);
-
-    }
-
- @ServeAt(value = "/editStatus", method = ServeMethod.POST)
-    public void serveEditStatus(HttpServletRequest request, HttpServletResponse response) throws SQLException {
-        String text = request.getParameter("text");
-        String mood = request.getParameter("mood");
-        String statusId = request.getParameter("id");
-        StatusDAO.editStatus(statusId, text, mood);
-    }
-
-    @ServeAt(value = "/deleteStatus", method = ServeMethod.POST)
-    public void serveDeleteStatus(HttpServletRequest request, HttpServletResponse response) throws SQLException {
-        String statusId = request.getParameter("id");
-        StatusDAO.deleteStatus(statusId);
-    }
-
-    @ServeAt(value = "/createComment", method = ServeMethod.POST)
-    public void serveCreateComment(HttpServletRequest request, HttpServletResponse response) throws SQLException {
-
-    }
+ 
 
 }

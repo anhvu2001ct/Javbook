@@ -46,7 +46,7 @@ function postBox() {
     deletePost.onclick = () => {
       let deletePostUser = deletePost.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
       console.log(deletePostUser.id)
-      let query = new QueryData("/profile/deleteStatus");
+      let query = new QueryData("/status/deleteStatus");
       query.addParam("id", deletePostUser.id);
       query.send("POST");
       deletePostUser.remove();
@@ -73,10 +73,10 @@ function postBox() {
     let createComment = document.createElement("div");
     createComment.classList.add("main-comment");
     let html = `
-    <div class="main-comment">
+    
     <div class="comment-user">
       <img
-        src="./assets/image/avatar.jpg"
+        src="${mainSend.parentNode.querySelector(".user-avatar-send").src}"
         alt=""
         class="ava_cmt avatar-main-comment"
       />
@@ -168,6 +168,11 @@ function postBox() {
     checkEmojiCount();
     noneDisplayEmoji();
     replyMain();
+    let query = new QueryData("/status/createComment");
+    query.addParam("text", value.value.trim());
+    query.addParam("id", mainSend.parentNode.parentNode.parentNode.parentNode.id);
+
+    query.send("POST");
     value.value = "";
 
 
@@ -373,21 +378,21 @@ function postBox() {
   saveEditBtn.onclick = () => {
     userContent[isUpdate].innerText = userEditContent.value;
     document.querySelector(".popup-post-box").style.display = "none";
-    let query = new QueryData("/profile/editStatus");
+    let query = new QueryData("/status/editStatus");
     query.addParam("text", userEditContent.value);
     query.addParam("mood", optionPostBox + 1);
     console.log(optionPostBox + 1);
     query.addParam("id", parentBox.id);
     query.send("POST");
-    let stateBox= parentBox.querySelector(".post-state i");
+    let stateBox = parentBox.querySelector(".post-state i");
     if (optionPostBox == 0) {
-      stateBox.className  = "fas fa-globe-asia"
+      stateBox.className = "fas fa-globe-asia"
     }
     if (optionPostBox == 1) {
-      stateBox.className  = "fas fa-user-friends"
+      stateBox.className = "fas fa-user-friends"
     }
     if (optionPostBox == 2) {
-      stateBox.className  = "fas fa-lock"
+      stateBox.className = "fas fa-lock"
 
     }
   };

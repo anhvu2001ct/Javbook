@@ -21,11 +21,11 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Comment {
+public class Comment2 {
 
     private String userName;
     private String userImage;
-    private int commentId, statusId;
+    private int commentId, comment2Id, statusId;
     private String text, commentImg;
     private Timestamp time;
     private int update;

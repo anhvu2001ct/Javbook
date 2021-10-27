@@ -20,13 +20,13 @@ import java.util.List;
  */
 public class CommentDAO {
 
-    public static void createComment(int statusId, int accountId, String text) {
+    public static void createComment(String statusId, int accountId, String text) {
         try {
 
-            String query = "INSERT INTO Comment(StatusID,AccountUserID,Text,Time)\n"
+            String query = "INSERT INTO Comment(StatusID, AccountUserID, Text, Time)\n"
                     + "Values (?,?,?,?);";
             PreparedStatement ps = SQL.prepareStatement(query);
-            ps.setInt(1, statusId);
+            ps.setInt(1, Integer.parseInt(statusId));
             ps.setInt(2, accountId);
             ps.setString(3, text);
             Timestamp time = new Timestamp(System.currentTimeMillis());
@@ -34,6 +34,23 @@ public class CommentDAO {
             ps.executeUpdate();
         } catch (SQLException ex) {
             System.err.println("Create Comment Error");
+        }
+    }
+
+    public static void createComment2(String commentId, String statusId, int accountId, String text) {
+        try {
+            String query = "INSERT INTO Comment2(CommentID,StatusID, AccountUserID, Text, Time)\n"
+                    + "Values (?,?,?,?,?)";
+            PreparedStatement ps = SQL.prepareStatement(query);
+            ps.setInt(1, Integer.parseInt(commentId));
+            ps.setInt(2, Integer.parseInt(statusId));
+            ps.setInt(3, accountId);
+            ps.setString(4, text);
+            Timestamp time = new Timestamp(System.currentTimeMillis());
+            ps.setTimestamp(5, time);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            System.err.println("Create Comment2 Error");
         }
     }
 

@@ -49,7 +49,7 @@
   function sendFile() {
 
     let uploadImg = new QueryUpload("upload/image");
-    let uploadData = new QueryData("/profile/crateStatus");
+    let uploadData = new QueryData("/status/crateStatus");
     //uploadImage
     let name = "user" + Date.now() + ".png";
     uploadImg.addParam("file", inputFile.files[0]);

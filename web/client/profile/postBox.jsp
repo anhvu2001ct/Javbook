@@ -19,7 +19,7 @@
                     </div>
 
                     <div class="post-state">
-                        <span class="post-date">6 hours ago</span>
+                        <span class="post-date"> 6 hours ago</span>
 
                         <i class="fas fa-globe-asia"></i>
                         <i class="fas fa-lock"></i>
@@ -344,15 +344,7 @@
     <div class="post box" id="${status.statusId}">
         <div class="post-item">
             <div class="status-main">
-
-                <c:choose>
-                    <c:when test="${empty status.userImage}">
-                        <img src="/Javbook/assets/img/default/avatar.png" class="status-img" />
-                    </c:when>
-                    <c:otherwise>
-                        <img src="${status.userImage}" class="status-img" />
-                    </c:otherwise>
-                </c:choose>
+                <img src="${status.userImage}" class="status-img" />
                 <div class="post-detail">
                     <div class="post-title">
                         <a href="">${status.userName}</a>
@@ -360,8 +352,7 @@
 
                     <div class="post-state">
                         <span class="post-date">
-                            12
-                            hours ago
+                           ${status.time}
                         </span>
                         <c:if test="${status.mood==1}">
                             <i class="fas fa-globe-asia"></i>
@@ -493,7 +484,7 @@
             <div class="comment-box">
                 <div class="send-comment-box">
                     <img
-                        src="/Javbook/assets/img/default/avatar.png"
+                        src="${status.userImage}"
                         alt=""
                         class="ava_cmt user-avatar-send"
                         />

@@ -48,7 +48,7 @@
                 <div class="wh_40">
                     <img
                         class="wh_40 scale circle"
-                        src="/Javbook/assets/img/default/avatar.png"
+                        src=${statusUser.get(0).userImage}
                         alt=""
                         />
                 </div>
@@ -76,7 +76,7 @@
 
     </div>
     <div class="list-post">
-        <%@include file="../common/postBox.jsp" %>
+        <%@include file="postBox.jsp" %>
     </div>
     </div>
 </div>
