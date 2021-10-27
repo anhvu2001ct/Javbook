@@ -144,7 +144,42 @@ public class AccountDAO {
         } catch (SQLException ex) {
             Logger.getLogger(ProfileUserAboutDAO.class.getName()).log(Level.SEVERE, null, ex);
             return false;
+        }  
+    }
+    
+    public static boolean updateEmail(int accountID, String email) {
+        try {
+            String query = "UPDATE AccountUser "
+                    +  "SET Email = ? "
+                    +  "WHERE AccountUserID = ?";
+            
+            PreparedStatement ps = SQL.prepareStatement(query); // nem cau lenh query tu netbeans sang sql server
+            ps.setString(1, email);
+            ps.setInt(2, accountID);
+            
+            int affectedRows = ps.executeUpdate(); // execute query va nhan ket qua tra ve
+            return (affectedRows != 0);
+        } catch (SQLException ex) {
+            Logger.getLogger(ProfileUserAboutDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
-       
+    }
+    
+    public static boolean changePassword(int accountID, String password) {
+        try {
+            String query = "UPDATE AccountUser "
+                    +  "SET Password = ? "
+                    +  "WHERE AccountUserID = ?";
+            
+            PreparedStatement ps = SQL.prepareStatement(query); // nem cau lenh query tu netbeans sang sql server
+            ps.setString(1, password);
+            ps.setInt(2, accountID);
+            
+            int affectedRows = ps.executeUpdate(); // execute query va nhan ket qua tra ve
+            return (affectedRows != 0);
+        } catch (SQLException ex) {
+            Logger.getLogger(ProfileUserAboutDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
     }
 }

@@ -12,6 +12,25 @@
             type: "error",
             duration: 10000,
         },
+        changePassSuccess: {
+            title: "Change Password Successfully!",
+            message: "You changed password successfully!",
+            type: "success",
+            duration: 10000,
+        },
+        changePassFail: {
+            title: "Change Password Failed!",
+            type: "error",
+            duration: 10000,
+            errorMessage: {
+                password:
+                    "<span>Current Password</span> is <span>incorrect</span>!",
+                newPassword:
+                    "Password must only contains <span>a-z, A-Z, 0-9</span> with <span>first letter is a-z, A-Z</span> and is between <span>6 and 20 characters long</span>!",
+                repassword: "Password must be <span>the same</span>!",
+                fail: "<span>Unknown fault</span>!",
+            },
+        },
     };
 
     // add active class in selected tab
@@ -89,13 +108,11 @@
             this.firstElementChild.style.display = "block";
             this.lastElementChild.style.display = "none";
             switch (dataItemType) {
-                case "name":
-                    let nameQuery = new QueryData(
-                        "profileUserAbout/updateName"
-                    );
-                    nameQuery.addParam("name", input.value);
+                case "name": {
+                    let query = new QueryData("profileUserAbout/updateName");
+                    query.addParam("name", input.value);
 
-                    nameQuery.addEvent("load", function () {
+                    query.addEvent("load", function () {
                         let result = this.response;
 
                         if (result == "success") {
@@ -106,15 +123,14 @@
                         }
                     });
 
-                    nameQuery.send("POST");
+                    query.send("POST");
                     break;
-                case "career":
-                    careerQuery = new QueryData(
-                        "profileUserAbout/updateCareer"
-                    );
-                    careerQuery.addParam("career", input.value);
+                }
+                case "career": {
+                    let query = new QueryData("profileUserAbout/updateCareer");
+                    query.addParam("career", input.value);
 
-                    careerQuery.addEvent("load", function () {
+                    query.addEvent("load", function () {
                         let result = this.response;
 
                         if (result == "success") {
@@ -125,15 +141,15 @@
                         }
                     });
 
-                    careerQuery.send("POST");
+                    query.send("POST");
                     break;
-                case "address":
-                    addressQuery = new QueryData(
-                        "profileUserAbout/updateAddress"
-                    );
-                    addressQuery.addParam("address", input.value);
+                }
 
-                    addressQuery.addEvent("load", function () {
+                case "address": {
+                    let query = new QueryData("profileUserAbout/updateAddress");
+                    query.addParam("address", input.value);
+
+                    query.addEvent("load", function () {
                         let result = this.response;
 
                         if (result == "success") {
@@ -144,16 +160,17 @@
                         }
                     });
 
-                    addressQuery.send("POST");
+                    query.send("POST");
                     break;
+                }
                 case "dob":
                     aboutUpdateDOB();
                     break;
-                case "phone":
-                    phoneQuery = new QueryData("account/updatePhone");
-                    phoneQuery.addParam("phone", input.value);
+                case "phone": {
+                    let query = new QueryData("account/updatePhone");
+                    query.addParam("phone", input.value);
 
-                    phoneQuery.addEvent("load", function () {
+                    query.addEvent("load", function () {
                         let result = this.response;
 
                         if (result == "success") {
@@ -164,11 +181,27 @@
                         }
                     });
 
-                    phoneQuery.send("POST");
+                    query.send("POST");
                     break;
-                case "email":
-                    aboutUpdateEmail();
+                }
+                case "email": {
+                    let query = new QueryData("account/updateEmail");
+                    query.addParam("email", input.value);
+
+                    query.addEvent("load", function () {
+                        let result = this.response;
+
+                        if (result == "success") {
+                            toast(message.success, [message.success.message]);
+                        } else {
+                            input.value = result;
+                            toast(message.fail, [message.fail.message]);
+                        }
+                    });
+
+                    query.send("POST");
                     break;
+                }
                 default:
                     break;
             }
@@ -244,16 +277,40 @@
     });
 
     function editPassword() {
-        resetPasswordInputs();
         let itemContent = this.parentNode;
         let passDiv = itemContent.querySelector(".password");
         let editPassDiv = itemContent.querySelector(".edit-password");
         let isEditing = editPassDiv.style.display == "flex";
         if (isEditing) {
+            let query = new QueryData("account/changePassword", "json");
+
+            query.addParam("currentPassword", currentPassword.value);
+            query.addParam("newPassword", newPassword.value);
+            query.addParam("newRepassword", newRepassword.value);
+
+            query.addEvent("load", function () {
+                let result = this.response;
+                let msg = [];
+                if (result.length == 0) {
+                    // show Toast message change password successfully!
+                    toast(message.changePassSuccess, [
+                        message.changePassSuccess.message,
+                    ]);
+                } else {
+                    result.forEach((element) => {
+                        msg.push(message.changePassFail.errorMessage[element]);
+                    });
+                    toast(message.changePassFail, msg);
+                }
+            });
+
+            query.send("POST");
+
             passDiv.style.display = "block";
             editPassDiv.style.display = "none";
             this.firstElementChild.style.display = "block";
             this.lastElementChild.style.display = "none";
+            resetPasswordInputs();
         } else {
             passDiv.style.display = "none";
             editPassDiv.style.display = "flex";
