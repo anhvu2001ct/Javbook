@@ -22,7 +22,7 @@
         <link rel="stylesheet" href="/Javbook/assets/css/login/login.css" />
         <link
             rel="stylesheet"
-            href="/Javbook/assets/css/login/toastMessage.css"
+            href="/Javbook/assets/css/common/toastMessage.css"
         />
     </head>
     <body>
@@ -270,6 +270,7 @@
         </footer>
 
         <script src="/Javbook/assets/js/common/query.js"></script>
+        <script src="/Javbook/assets/js/common/toastMessage.js"></script>
         <script src="/Javbook/assets/js/login/animatedLogin.js"></script>
         <script src="/Javbook/assets/js/login/queryLogin.js"></script>
     </body>

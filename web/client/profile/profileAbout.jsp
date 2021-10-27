@@ -1,4 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!-- Toast Message -->
+<div id="toast"></div>
 <div class="about">
     <div class="about-main">
         <nav class="about-nav">
@@ -39,7 +41,10 @@
                                 value="${profileUser.name}"
                             />
                         </div>
-                        <div class="edit-icon js-edit-text-btn">
+                        <div
+                            class="edit-icon js-edit-text-btn"
+                            data-item-type="name"
+                        >
                             <i class="fas fa-pen"></i>
                             <i class="fas fa-check"></i>
                         </div>
@@ -63,7 +68,10 @@
                         >
                             <i class="fas fa-globe-asia"></i>
                         </div>
-                        <div class="edit-icon js-edit-text-btn">
+                        <div
+                            class="edit-icon js-edit-text-btn"
+                            data-item-type="carrer"
+                        >
                             <i class="fas fa-pen"></i>
                             <i class="fas fa-check"></i>
                         </div>
@@ -87,7 +95,10 @@
                         >
                             <i class="fas fa-globe-asia"></i>
                         </div>
-                        <div class="edit-icon js-edit-text-btn">
+                        <div
+                            class="edit-icon js-edit-text-btn"
+                            data-item-type="address"
+                        >
                             <i class="fas fa-pen"></i>
                             <i class="fas fa-check"></i>
                         </div>
@@ -111,7 +122,10 @@
                         >
                             <i class="fas fa-globe-asia"></i>
                         </div>
-                        <div class="edit-icon js-edit-text-btn">
+                        <div
+                            class="edit-icon js-edit-text-btn"
+                            data-item-type="dob"
+                        >
                             <i class="fas fa-pen"></i>
                             <i class="fas fa-check"></i>
                         </div>
@@ -242,7 +256,10 @@
                         >
                             <i class="fas fa-globe-asia"></i>
                         </div>
-                        <div class="edit-icon js-edit-text-btn">
+                        <div
+                            class="edit-icon js-edit-text-btn"
+                            data-item-type="phone"
+                        >
                             <i class="fas fa-pen"></i>
                             <i class="fas fa-check"></i>
                         </div>
@@ -521,7 +538,10 @@
                                 value="${account.email}"
                             />
                         </div>
-                        <div class="edit-icon js-edit-text-btn">
+                        <div
+                            class="edit-icon js-edit-text-btn"
+                            data-item-type="email"
+                        >
                             <i class="fas fa-pen"></i>
                             <i class="fas fa-check"></i>
                         </div>

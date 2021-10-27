@@ -1,15 +1,9 @@
-
-<%-- 
-    Document   : profileheader
-    Created on : Oct 11, 2021, 7:57:36 PM
-    Author     : Mr Khang
---%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%-- Document : profileheader Created on : Oct 11, 2021, 7:57:36 PM Author : Mr
+Khang --%> <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -19,32 +13,59 @@
             href="/Javbook/assets/img/logo/Javbook_black.png"
             type="image/gif"
             sizes="16x16"
-            />
-        <link rel="stylesheet" href="/Javbook/assets/css/common/variables.css" />
+        />
+        <link
+            rel="stylesheet"
+            href="/Javbook/assets/css/common/variables.css"
+        />
         <link rel="stylesheet" href="/Javbook/assets/css/common/base.css" />
-        <link rel="stylesheet" href="/Javbook/assets/css/profile/profileHeader.css" />
-        <link rel="stylesheet" href="/Javbook/assets/css/profile/profilePost.css" />
-        <link rel="stylesheet" href="/Javbook/assets/css/common/postBox.css" />     
-        <link rel="stylesheet" href="/Javbook/assets/css/profile/profilePhoto.css" />
-        <link rel="stylesheet" href="/Javbook/assets/css/profile/profileAbout.css" />
-        <link rel="stylesheet" href="/Javbook/assets/css/profile/profileFriends.css" />
+        <link
+            rel="stylesheet"
+            href="/Javbook/assets/css/profile/profileHeader.css"
+        />
+        <link
+            rel="stylesheet"
+            href="/Javbook/assets/css/profile/profilePost.css"
+        />
+        <link rel="stylesheet" href="/Javbook/assets/css/common/postBox.css" />
+        <link
+            rel="stylesheet"
+            href="/Javbook/assets/css/profile/profilePhoto.css"
+        />
+        <link
+            rel="stylesheet"
+            href="/Javbook/assets/css/profile/profileAbout.css"
+        />
+        <!-- Toast Message -->
+        <link
+            rel="stylesheet"
+            href="/Javbook/assets/css/common/toastMessage.css"
+        />
+        <link
+            rel="stylesheet"
+            href="/Javbook/assets/css/profile/profileFriends.css"
+        />
 
-
-
-        <link rel="stylesheet" href="/Javbook/assets/fonts/fontawesome-5.15.4/css/all.min.css" />
-        <script src="/Javbook/assets/js/common/query.js" ></script>
-
-
-
+        <link
+            rel="stylesheet"
+            href="/Javbook/assets/fonts/fontawesome-5.15.4/css/all.min.css"
+        />
+        <script src="/Javbook/assets/js/common/query.js"></script>
+        <!-- Toast Message -->
+        <script src="/Javbook/assets/js/common/toastMessage.js"></script>
     </head>
     <body>
         <div class="main-container">
             <div class="profile">
                 <div class="profile-name-background"></div>
                 <div class="profile-avatar">
-                    <img src="/Javbook/assets/img/default/avatar.png" alt="" class="profile-img" />
+                    <img
+                        src="/Javbook/assets/img/default/avatar.png"
+                        alt=""
+                        class="profile-img"
+                    />
 
-                    <div class="profile-name">Javbook User </div>
+                    <div class="profile-name">Javbook User</div>
                 </div>
                 <div class="edit-header-avatar">
                     <label for="header-avatar-file">
@@ -55,7 +76,7 @@
                         name="photo-file"
                         id="header-avatar-file"
                         accept="image/* "
-                        />
+                    />
                 </div>
                 <div class="photo-profile-cover">
                     <div class="edit-cover-img">
@@ -67,13 +88,13 @@
                             name="photo-file"
                             id="header-photo-file"
                             accept="image/* "
-                            />
+                        />
                     </div>
                     <img
                         src="/Javbook/assets/img/default/cover.jpg"
                         alt=""
                         class="profile-cover"
-                        />
+                    />
                 </div>
 
                 <div class="profile-menu">
@@ -83,13 +104,11 @@
                     <a class="profile-menu-link">Photos</a>
                 </div>
             </div>
-            <div class="timeline">
-            </div>
+            <div class="timeline"></div>
         </div>
         <!-- popup  -->
         <div class="popup_model flex_center popup-main-post">
             <div class="post_popup" id="post_popup">
-
                 <div class="pop_ele1 flex_center">
                     <span class="pop_title">Create Post</span>
                     <span class="close pointer">+</span>
@@ -101,20 +120,21 @@
                             class="wh_40 scale circle"
                             src="/Javbook/assets/img/default/avatar.png"
                             alt=""
-                            />
+                        />
                     </div>
                     <div class="status_content flex_gr1">
                         <textarea
-
                             name="input_field"
                             cols=""
                             rows=""
                             class="enter"
                             placeholder="What's your mind?"
-                            ></textarea>
+                        ></textarea>
                         <div class="display-img">
                             <img src="" alt="" id="status-img" />
-                            <span class="close-img"><i class="fas fa-times"></i></span>
+                            <span class="close-img"
+                                ><i class="fas fa-times"></i
+                            ></span>
                         </div>
                     </div>
                 </div>
@@ -126,7 +146,12 @@
                         <option value="3">Only me</option>
                     </select>
                     <div class="input_file popup_btn pointer">
-                        <input type="file" name="file" id="file" accept="image/*" />
+                        <input
+                            type="file"
+                            name="file"
+                            id="file"
+                            accept="image/*"
+                        />
                         <label for="file" class="photo pointer">
                             <i class="far fa-images"></i>
                             <span class="p_l5">Photo/Video</span>
@@ -149,7 +174,7 @@
                             class="wh_40 scale circle"
                             src="/Javbook/assets/img/default/avatar.png"
                             alt=""
-                            />
+                        />
                     </div>
                     <div class="status_content flex_gr1">
                         <textarea
@@ -158,7 +183,7 @@
                             rows=""
                             class="enter"
                             placeholder="What's your mind?"
-                            ></textarea>
+                        ></textarea>
                         <div class="display-img">
                             <img src="" alt="" id="status-img" />
                         </div>
@@ -179,5 +204,4 @@
 
         <script src="/Javbook/assets/js/profile/Header/profileHeader.js"></script>
     </body>
-
 </html>

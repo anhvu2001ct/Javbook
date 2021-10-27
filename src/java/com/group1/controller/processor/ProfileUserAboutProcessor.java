@@ -28,7 +28,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Dang Minh Canh
  */
-@WebServlet("/process/profileUser/*")
+@WebServlet("/process/profileUserAbout/*")
 public class ProfileUserAboutProcessor extends BaseProcessor {
     
     @ServeAt("/index")
@@ -45,54 +45,24 @@ public class ProfileUserAboutProcessor extends BaseProcessor {
         request.getRequestDispatcher("/client/profile/profileAbout.jsp").forward(request, response);
     }
     
-    @ServeAt(value="/createNewAccount", method=ServeMethod.POST)
-    public void serveCreateNewAccount(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, SQLException {
+    @ServeAt(value="/updateName", method=ServeMethod.POST)
+    public void serveUpdateName(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        
         PrintWriter out = response.getWriter();
-        
-        String signupUsername = request.getParameter("signupUsername");
-        String signupPassword = request.getParameter("signupPassword");
-        String signupRepassword = request.getParameter("signupRepassword");
-        String signupCheckbox = request.getParameter("signupCheckbox");
-        
-        ArrayList<String> list = new ArrayList<>();
 
-        // check validation for username
-        String USERNAME_PATTERN = "^[a-z]([a-z0-9]){5,19}";
-        Pattern pattern = Pattern.compile(USERNAME_PATTERN);
-        Matcher matcher = pattern.matcher(signupUsername);
-   
-        if (!matcher.matches()){
-            list.add("username");
+        String name = request.getParameter("name");
+        
+        HttpSession ses = request.getSession();
+        int uid = (Integer) ses.getAttribute("uid");
+        
+        // check account exist in database
+        if (ProfileUserAboutDAO.updateName(uid, name)){
+            out.print("success");
         } else {
-            // check available username
-            if (!AccountDAO.isAvailableUsername(signupUsername)){
-                list.add("available_username");
-            }
+            ProfileUserAbout profileUser = ProfileUserAboutDAO.getProfileUser(uid);
+            out.print(profileUser.getName());
         }
-        
-        // check validation for password
-        String PASSWORD_PATTERN = "^[a-zA-Z]([a-zA-Z0-9]){5,19}";
-        pattern = Pattern.compile(PASSWORD_PATTERN);
-        matcher = pattern.matcher(signupPassword);
-        if (!matcher.matches()){
-            list.add("password");
-        } else {
-            // check password is the same
-            if (!signupPassword.equals(signupRepassword)){
-                list.add("repassword");
-            }
-        }
-        
-        // check checkbox "I agree all terms & conditions."
-        if (signupCheckbox.equals("false")){
-            list.add("checkbox");
-        }
-        
-        if (list.isEmpty()){
-            AccountDAO.createNewAccount(signupUsername, signupPassword);
-        }
-        
-        out.print(gson.toJson(list));
+
     }
     
     @ServeAt(value="/signin", method=ServeMethod.POST)
