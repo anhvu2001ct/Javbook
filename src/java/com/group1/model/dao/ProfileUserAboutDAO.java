@@ -55,13 +55,51 @@ public class ProfileUserAboutDAO {
     
     public static boolean updateName(int accountID, String name) {
         try {
-            String query = "UPDATE AccountProfile"
-                    +  "SET Name = ?"
-                    +  "WHERE AccountUserID = ? ";
+            String query = "UPDATE AccountProfile "
+                    +  "SET Name = ? "
+                    +  "WHERE AccountUserID = ?";
             
             PreparedStatement ps = SQL.prepareStatement(query); // nem cau lenh query tu netbeans sang sql server
             ps.setString(1, name);
             ps.setInt(2,accountID);
+            
+            int affectedRows = ps.executeUpdate(); // execute query va nhan ket qua tra ve
+            return (affectedRows != 0);
+        } catch (SQLException ex) {
+            Logger.getLogger(ProfileUserAboutDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+       
+    }
+    
+    public static boolean updateCareer(int accountID, String career) {
+        try {
+            String query = "UPDATE AccountProfile "
+                    +  "SET Career = ? "
+                    +  "WHERE AccountUserID = ?";
+            
+            PreparedStatement ps = SQL.prepareStatement(query); // nem cau lenh query tu netbeans sang sql server
+            ps.setString(1, career);
+            ps.setInt(2, accountID);
+            
+            int affectedRows = ps.executeUpdate(); // execute query va nhan ket qua tra ve
+            return (affectedRows != 0);
+        } catch (SQLException ex) {
+            Logger.getLogger(ProfileUserAboutDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+       
+    }
+    
+    public static boolean updateAddress(int accountID, String address) {
+        try {
+            String query = "UPDATE AccountProfile "
+                    +  "SET Address = ? "
+                    +  "WHERE AccountUserID = ?";
+            
+            PreparedStatement ps = SQL.prepareStatement(query); // nem cau lenh query tu netbeans sang sql server
+            ps.setString(1, address);
+            ps.setInt(2, accountID);
             
             int affectedRows = ps.executeUpdate(); // execute query va nhan ket qua tra ve
             return (affectedRows != 0);

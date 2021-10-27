@@ -2,7 +2,7 @@
     var message = {
         success: {
             title: "Update Successfully!",
-            message: "You update information <span>successfully</span>!",
+            message: "You update information successfully!",
             type: "success",
             duration: 10000,
         },
@@ -56,6 +56,10 @@
     var selectAudienceInputs = document.querySelectorAll(
         ".js-select-audience-input"
     );
+
+    // Modal Common
+    var modals = document.querySelectorAll(".modal");
+    var bodyModals = document.querySelectorAll(".modal__body");
     var modalCloseBtns = document.querySelectorAll(".modal__close");
 
     // Modal Select Gender
@@ -77,7 +81,7 @@
         let itemContent = this.parentNode;
         let input = itemContent.querySelector(".edit-text");
         let dataItemType = this.dataset.itemType;
-
+        console.log(dataItemType);
         // save edit text
         if (input.classList.contains("active")) {
             input.disabled = true;
@@ -86,10 +90,12 @@
             this.lastElementChild.style.display = "none";
             switch (dataItemType) {
                 case "name":
-                    let query = new QueryData("profileUserAbout/updateName");
-                    query.addParam("name", input.value);
+                    let nameQuery = new QueryData(
+                        "profileUserAbout/updateName"
+                    );
+                    nameQuery.addParam("name", input.value);
 
-                    query.addEvent("load", function () {
+                    nameQuery.addEvent("load", function () {
                         let result = this.response;
 
                         if (result == "success") {
@@ -100,19 +106,65 @@
                         }
                     });
 
-                    query.send("POST");
+                    nameQuery.send("POST");
                     break;
                 case "career":
-                    aboutUpdateCareer();
+                    careerQuery = new QueryData(
+                        "profileUserAbout/updateCareer"
+                    );
+                    careerQuery.addParam("career", input.value);
+
+                    careerQuery.addEvent("load", function () {
+                        let result = this.response;
+
+                        if (result == "success") {
+                            toast(message.success, [message.success.message]);
+                        } else {
+                            input.value = result;
+                            toast(message.fail, [message.fail.message]);
+                        }
+                    });
+
+                    careerQuery.send("POST");
                     break;
                 case "address":
-                    aboutUpdateAddress();
+                    addressQuery = new QueryData(
+                        "profileUserAbout/updateAddress"
+                    );
+                    addressQuery.addParam("address", input.value);
+
+                    addressQuery.addEvent("load", function () {
+                        let result = this.response;
+
+                        if (result == "success") {
+                            toast(message.success, [message.success.message]);
+                        } else {
+                            input.value = result;
+                            toast(message.fail, [message.fail.message]);
+                        }
+                    });
+
+                    addressQuery.send("POST");
                     break;
                 case "dob":
                     aboutUpdateDOB();
                     break;
                 case "phone":
-                    aboutUpdatePhone();
+                    phoneQuery = new QueryData("account/updatePhone");
+                    phoneQuery.addParam("phone", input.value);
+
+                    phoneQuery.addEvent("load", function () {
+                        let result = this.response;
+
+                        if (result == "success") {
+                            toast(message.success, [message.success.message]);
+                        } else {
+                            input.value = result;
+                            toast(message.fail, [message.fail.message]);
+                        }
+                    });
+
+                    phoneQuery.send("POST");
                     break;
                 case "email":
                     aboutUpdateEmail();
@@ -372,6 +424,18 @@
     modalCloseBtns.forEach((modalCloseBtn) => {
         modalCloseBtn.addEventListener("click", (e) => {
             e.target.closest(".modal").style.display = "none";
+        });
+    });
+
+    modals.forEach((modal) => {
+        modal.addEventListener("click", (e) => {
+            e.target.closest(".modal").style.display = "none";
+        });
+    });
+
+    bodyModals.forEach((bodyModal) => {
+        bodyModal.addEventListener("click", (e) => {
+            e.stopPropagation();
         });
     });
 })();
