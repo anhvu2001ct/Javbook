@@ -1,9 +1,5 @@
 package com.group1.controller.processor;
 
-import com.group1.controller.ServerInit;
-import static com.group1.controller.ServerInit.gson;
-import com.group1.misc.Secret;
-import com.group1.misc.Sout;
 import com.group1.model.Account;
 import com.group1.model.ProfileUserAbout;
 import com.group1.model.dao.AccountDAO;
@@ -14,12 +10,8 @@ import com.group1.rest.ServeMethod;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -62,28 +54,44 @@ public class ProfileUserAboutProcessor extends BaseProcessor {
             ProfileUserAbout profileUser = ProfileUserAboutDAO.getProfileUser(uid);
             out.print(profileUser.getName());
         }
-
     }
     
-    @ServeAt(value="/signin", method=ServeMethod.POST)
-    public void serveSignin(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, SQLException {
-        PrintWriter out = response.getWriter();
+    @ServeAt(value="/updateCareer", method=ServeMethod.POST)
+    public void serveUpdateCareer(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         
-        String signinUsername = request.getParameter("signinUsername");
-        String signinPassword = request.getParameter("signinPassword");
-        String signinRememberPassword = request.getParameter("signinRememberPassword");
+        PrintWriter out = response.getWriter();
+
+        String career = request.getParameter("career");
+        
+        HttpSession ses = request.getSession();
+        int uid = (Integer) ses.getAttribute("uid");
         
         // check account exist in database
-        if (!AccountDAO.isAccountExists(signinUsername, signinPassword)){
-            out.print("fail");
-            return;
+        if (ProfileUserAboutDAO.updateCareer(uid, career)){
+            out.print("success");
+        } else {
+            ProfileUserAbout profileUser = ProfileUserAboutDAO.getProfileUser(uid);
+            out.print(profileUser.getCareer());
         }
-        
-        Account account = AccountDAO.getAccountByUsername(signinUsername);
-        Cookie cookie = new Cookie("JBID", Secret.encode1(signinUsername));
-        cookie.setPath("/Javbook");
-       
-        response.addCookie(cookie);
-        out.print("success");
     }
+    
+    @ServeAt(value="/updateAddress", method=ServeMethod.POST)
+    public void serveUpdateAddress(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        
+        PrintWriter out = response.getWriter();
+
+        String address = request.getParameter("address");
+        
+        HttpSession ses = request.getSession();
+        int uid = (Integer) ses.getAttribute("uid");
+        
+        // check account exist in database
+        if (ProfileUserAboutDAO.updateAddress(uid, address)){
+            out.print("success");
+        } else {
+            ProfileUserAbout profileUser = ProfileUserAboutDAO.getProfileUser(uid);
+            out.print(profileUser.getAddress());
+        }
+    }
+    
 }

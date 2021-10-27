@@ -70,7 +70,7 @@
                         </div>
                         <div
                             class="edit-icon js-edit-text-btn"
-                            data-item-type="carrer"
+                            data-item-type="career"
                         >
                             <i class="fas fa-pen"></i>
                             <i class="fas fa-check"></i>

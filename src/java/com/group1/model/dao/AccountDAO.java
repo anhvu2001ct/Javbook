@@ -128,4 +128,23 @@ public class AccountDAO {
         }
         
     }
+    
+    public static boolean updatePhone(int accountID, String phone) {
+        try {
+            String query = "UPDATE AccountUser "
+                    +  "SET Phone = ? "
+                    +  "WHERE AccountUserID = ?";
+            
+            PreparedStatement ps = SQL.prepareStatement(query); // nem cau lenh query tu netbeans sang sql server
+            ps.setString(1, phone);
+            ps.setInt(2, accountID);
+            
+            int affectedRows = ps.executeUpdate(); // execute query va nhan ket qua tra ve
+            return (affectedRows != 0);
+        } catch (SQLException ex) {
+            Logger.getLogger(ProfileUserAboutDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+       
+    }
 }
