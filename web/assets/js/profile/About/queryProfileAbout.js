@@ -1,4 +1,19 @@
 (() => {
+    var message = {
+        success: {
+            title: "Update Successfully!",
+            message: "You update information <span>successfully</span>!",
+            type: "success",
+            duration: 10000,
+        },
+        fail: {
+            title: "Update Failed!",
+            message: "You <span>failed</span> to update your information!",
+            type: "error",
+            duration: 10000,
+        },
+    };
+
     // add active class in selected tab
     const listAboutItems = document.querySelectorAll(
         ".about-main .about-nav .list-item"
@@ -78,9 +93,10 @@
                         let result = this.response;
 
                         if (result == "success") {
-                            // toast({ title = "", type = "info", duration = 3000 }, message = []) {
+                            toast(message.success, [message.success.message]);
                         } else {
                             input.value = result;
+                            toast(message.fail, [message.fail.message]);
                         }
                     });
 
