@@ -36,6 +36,7 @@ body {
     color: var(--primary-color);
     /* max-width: 1920px; */
     /* margin: 0 auto; */
+    background-color: #373e57;
 }
 
 input,

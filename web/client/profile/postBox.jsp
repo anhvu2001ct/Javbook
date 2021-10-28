@@ -12,7 +12,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 
-<%--<c:if test="${statusUser.size()==null}">
+<c:if test="${statusUser.size()==null}">
     <div class="post box">
         <div class="post-item">
             <div class="status-main">
@@ -336,7 +336,7 @@
             </div>
         </div>
     </div>
-</c:if>--%>
+</c:if>
 <c:forEach items="${posts}" var="post" >
     <div class="post box" id="${post.status.statusId}">
         <div class="post-item">
