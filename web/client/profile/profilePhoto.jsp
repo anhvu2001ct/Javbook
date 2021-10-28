@@ -3,27 +3,29 @@
     Created on : Oct 25, 2021, 3:26:04 PM
     Author     : Mr Khang
 --%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<div class="photos-item">
-    <a href="/Javbook/assets/img/test/item1.jpg" data-lightbox="myPhoto">
-        <img src="/Javbook/assets/img/test/item1.jpg" />
-    </a>
-    <a href="/Javbook/assets/img/test/item2.jpg" data-lightbox="myPhoto">
-        <img src="/Javbook/assets/img/test/item2.jpg" />
-    </a>
-    <a href="/Javbook/assets/img/test/item3.jpg" data-lightbox="myPhoto">
-        <img src="/Javbook/assets/img/test/item3.jpg" />
-    </a>
-    <a href="/Javbook/assets/img/test/item4.jpg" data-lightbox="myPhoto">
-        <img src="/Javbook/assets/img/test/item4.jpg" />
-    </a>
-    <a href="/Javbook/assets/img/test/item5.jpg" data-lightbox="myPhoto">
-        <img src="/Javbook/assets/img/test/item5.jpg" />
-    </a>
-    <a href="/Javbook/assets/img/test/item6.jpg" data-lightbox="myPhoto">
-        <img src="/Javbook/assets/img/test/item6.jpg" />
-    </a>
 
-</div>
+<c:choose>
+    <c:when test="${photos.size()==null}">
+        <div class="none-photo">
+            <h1>You don't have any pictures</h1>
+        </div>
+    </c:when>
+
+    <c:otherwise>
+
+        <div class="photos-item">
+            <c:forEach items="${photos}" var="photo" >
+                <c:if test="${photo!=null}">
+                    <a href="${photo}" data-lightbox="myPhoto">
+                        <img src="${photo}" />
+                    </a> 
+                </c:if>
+
+            </c:forEach>
+        </div>
+    </c:otherwise>
+</c:choose>
+
 

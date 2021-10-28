@@ -47,9 +47,9 @@
             <div class="post_ele1 flex flex_ac">
                 <div class="wh_40">
                     <img
-                        class="wh_40 scale circle"
-                        src=${statusUser.get(0).userImage}
-                        alt=""
+                        class="wh_40 scale circle userAvatar"
+                        src="${avarar}"
+                         alt=""
                         />
                 </div>
 

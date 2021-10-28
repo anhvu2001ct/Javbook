@@ -7,7 +7,9 @@ package com.group1.controller.processor;
 
 import com.group1.controller.ServerInit;
 import static com.group1.controller.ServerInit.gson;
+import com.group1.model.Comment;
 import com.group1.model.Status;
+import com.group1.model.dao.CommentDAO;
 import com.group1.model.dao.StatusDAO;
 import com.group1.model.db.IO;
 import com.group1.rest.BaseProcessor;
@@ -34,23 +36,13 @@ public class ProfileProcessor extends BaseProcessor {
     public void changeTimeline(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String value = request.getParameter("key");
         if (value.equals("Photo")) {
+            int accountId = (int) request.getSession().getAttribute("uid");
+            List<String> photos = StatusDAO.getListPhotoUser(accountId);
+            request.setAttribute("photos", photos);
             request.getRequestDispatcher("/client/profile/profilePhoto.jsp").forward(request, response);
         }
         if (value.equals("Post")) {
-            int accountId = (int) request.getSession().getAttribute("uid");
-            List<Status> status = StatusDAO.getListStatusUser(accountId);
-            if (status != null) {
-                Collections.sort(status, new Comparator<Status>() {
-                    @Override
-                    public int compare(Status a, Status b) {
-                        return b.getStatusId() - a.getStatusId();
-                    }
-                });
-                
-            }
-
-            request.setAttribute("statusUser", status);
-            request.getRequestDispatcher("/client/profile/profilePost.jsp").forward(request, response);
+            request.getRequestDispatcher("/process/status/render").forward(request, response);
         }
         if (value.equals("About")) {
             request.getRequestDispatcher("/process/profileUserAbout/index").forward(request, response);
@@ -68,7 +60,7 @@ public class ProfileProcessor extends BaseProcessor {
         if (key.equals("Photo")) {
             List<String> list = IO.getFilesName(ServerInit.webPath, "assets/js/profile/Photo");
             response.getWriter().print(gson.toJson(list));
-            
+
         }
         if (key.equals("Post")) {
             List<String> list = IO.getFilesName(ServerInit.webPath, "assets/js/profile/Post");
@@ -84,7 +76,5 @@ public class ProfileProcessor extends BaseProcessor {
             response.getWriter().print(gson.toJson(list));
         }
     }
-
- 
 
 }

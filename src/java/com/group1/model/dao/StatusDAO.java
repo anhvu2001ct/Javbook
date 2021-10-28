@@ -13,8 +13,6 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -82,15 +80,15 @@ public class StatusDAO {
                     + "from Status s ,AccountProfile a ,AccountUser au\n"
                     + "where a.AccountUserID = ?  and s.AccountUserID =a.AccountUserID and s.AccountUserID =au.AccountUserID";
             PreparedStatement ps = SQL.prepareStatement(query);
-
             ps.setInt(1, acccountID);
             ResultSet rs = ps.executeQuery();
             if (!rs.isBeforeFirst()) {
                 return null;
             } else {
                 while (rs.next()) {
-                    Status status = new Status(rs.getString(1),rs.getString(2), rs.getInt(3), rs.getString(4),
-                            rs.getString(5), rs.getTimestamp(6), rs.getTimestamp(7), rs.getInt(8));
+                    Status status = new Status(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getString(4),
+                            rs.getString(5), String.format("%1$TD %1$TT", rs.getTimestamp(6)),
+                             String.format("%1$TD %1$TT", rs.getTimestamp(7)), rs.getInt(8));
                     list.add(status);
                 }
                 return list;
@@ -101,24 +99,50 @@ public class StatusDAO {
         return null;
     }
 
-    public static List<Status> getListStatus() {
+    public static String getAvatar(int acccountID) {
         try {
-            List<Status> list = new ArrayList<>();
-            String query = "select * from Status";
+            String avatar = "";
+            String query = "select Avatar\n"
+                    + "from AccountUser\n"
+                    + "where AccountUserID = ?;";
             PreparedStatement ps = SQL.prepareStatement(query);
+            ps.setInt(1, acccountID);
             ResultSet rs = ps.executeQuery();
             if (!rs.isBeforeFirst()) {
                 return null;
             } else {
                 while (rs.next()) {
-//                Status status = new Status(rs.getString(1), rs.getInt(2), rs.getString(3),
-//                        rs.getString(4), rs.getTimestamp(5), rs.getTimestamp(6), rs.getInt(7), rs.getInt(8));
-//                list.add(status);
+                    avatar = rs.getString(1);
+                }
+                return avatar;
+
+            }
+        } catch (SQLException ex) {
+            System.err.println("Get Avatar Error");
+        }
+        return null;
+    }
+
+    public static List<String> getListPhotoUser(int accountID) {
+        try {
+            List<String> list = new ArrayList<>();
+            String query = "select StatusImg\n"
+                    + "from Status\n"
+                    + "where AccountUserID =?";
+            PreparedStatement ps = SQL.prepareStatement(query);
+            ps.setInt(1, accountID);
+            ResultSet rs = ps.executeQuery();
+            if (!rs.isBeforeFirst()) {
+                return null;
+            } else {
+                while (rs.next()) {
+                    String photo = rs.getString(1);
+                    list.add(photo);
                 }
                 return list;
             }
         } catch (SQLException ex) {
-            System.err.println("Get All Status Error");
+            System.err.println("Get Photo User Error");
         }
         return null;
     }

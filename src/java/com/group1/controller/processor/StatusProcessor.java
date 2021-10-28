@@ -5,12 +5,9 @@
  */
 package com.group1.controller.processor;
 
-import com.group1.controller.ServerInit;
-import static com.group1.controller.ServerInit.gson;
 import com.group1.model.Status;
 import com.group1.model.dao.CommentDAO;
 import com.group1.model.dao.StatusDAO;
-import com.group1.model.db.IO;
 import com.group1.rest.BaseProcessor;
 import com.group1.rest.ServeAt;
 import com.group1.rest.ServeMethod;
@@ -19,6 +16,8 @@ import java.sql.SQLException;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -71,6 +70,31 @@ public class StatusProcessor extends BaseProcessor {
         int accountId = (int) request.getSession().getAttribute("uid");
         String text = request.getParameter("text");
         CommentDAO.createComment2(commentId, statusId, accountId, text);
+
+    }
+
+    @ServeAt(value = "/render", method = ServeMethod.GET)
+    public void serveRenderPost(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            int accountId = (int) request.getSession().getAttribute("uid");
+            List<Status> status = StatusDAO.getListStatusUser(accountId);
+            if (status != null) {
+                Collections.sort(status, new Comparator<Status>() {
+                    @Override
+                    public int compare(Status a, Status b) {
+                        return b.getStatusId() - a.getStatusId();
+                    }
+                });
+
+            }
+            request.setAttribute("statusUser", status);
+            request.setAttribute("avarar", StatusDAO.getAvatar(accountId));
+            request.getRequestDispatcher("/client/profile/profilePost.jsp").forward(request, response);
+        } catch (ServletException ex) {
+            Logger.getLogger(StatusProcessor.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(StatusProcessor.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 }
