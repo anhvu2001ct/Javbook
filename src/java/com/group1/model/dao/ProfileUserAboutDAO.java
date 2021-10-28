@@ -2,6 +2,7 @@ package com.group1.model.dao;
 
 import com.group1.model.ProfileUserAbout;
 import static com.group1.model.db.SQLConnector.SQL;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -99,6 +100,44 @@ public class ProfileUserAboutDAO {
             
             PreparedStatement ps = SQL.prepareStatement(query); // nem cau lenh query tu netbeans sang sql server
             ps.setString(1, address);
+            ps.setInt(2, accountID);
+            
+            int affectedRows = ps.executeUpdate(); // execute query va nhan ket qua tra ve
+            return (affectedRows != 0);
+        } catch (SQLException ex) {
+            Logger.getLogger(ProfileUserAboutDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+       
+    }
+    
+    public static boolean updateGender(int accountID, String gender) {
+        try {
+            String query = "UPDATE AccountProfile "
+                    +  "SET Gender = ? "
+                    +  "WHERE AccountUserID = ?";
+            
+            PreparedStatement ps = SQL.prepareStatement(query); // nem cau lenh query tu netbeans sang sql server
+            ps.setString(1, gender);
+            ps.setInt(2, accountID);
+            
+            int affectedRows = ps.executeUpdate(); // execute query va nhan ket qua tra ve
+            return (affectedRows != 0);
+        } catch (SQLException ex) {
+            Logger.getLogger(ProfileUserAboutDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+       
+    }
+    
+    public static boolean updateDOB(int accountID, Date DOB) {
+        try {
+            String query = "UPDATE AccountProfile "
+                    +  "SET DOB = ? "
+                    +  "WHERE AccountUserID = ?";
+            
+            PreparedStatement ps = SQL.prepareStatement(query); // nem cau lenh query tu netbeans sang sql server
+            ps.setDate(1, DOB);
             ps.setInt(2, accountID);
             
             int affectedRows = ps.executeUpdate(); // execute query va nhan ket qua tra ve

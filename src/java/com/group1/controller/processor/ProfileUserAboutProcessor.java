@@ -9,7 +9,12 @@ import com.group1.rest.ServeAt;
 import com.group1.rest.ServeMethod;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -47,7 +52,7 @@ public class ProfileUserAboutProcessor extends BaseProcessor {
         HttpSession ses = request.getSession();
         int uid = (Integer) ses.getAttribute("uid");
         
-        // check account exist in database
+        // update Name
         if (ProfileUserAboutDAO.updateName(uid, name)){
             out.print("success");
         } else {
@@ -66,7 +71,7 @@ public class ProfileUserAboutProcessor extends BaseProcessor {
         HttpSession ses = request.getSession();
         int uid = (Integer) ses.getAttribute("uid");
         
-        // check account exist in database
+        // update Career
         if (ProfileUserAboutDAO.updateCareer(uid, career)){
             out.print("success");
         } else {
@@ -85,12 +90,57 @@ public class ProfileUserAboutProcessor extends BaseProcessor {
         HttpSession ses = request.getSession();
         int uid = (Integer) ses.getAttribute("uid");
         
-        // check account exist in database
+        // update Address
         if (ProfileUserAboutDAO.updateAddress(uid, address)){
             out.print("success");
         } else {
             ProfileUserAbout profileUser = ProfileUserAboutDAO.getProfileUser(uid);
             out.print(profileUser.getAddress());
+        }
+    }
+    
+    @ServeAt(value="/updateGender", method=ServeMethod.POST)
+    public void serveUpdateGender(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        
+        PrintWriter out = response.getWriter();
+
+        String gender = request.getParameter("gender");
+        
+        HttpSession ses = request.getSession();
+        int uid = (Integer) ses.getAttribute("uid");
+        
+        // update Gender
+        if (ProfileUserAboutDAO.updateGender(uid, gender)){
+            out.print("success");
+        } else {
+            ProfileUserAbout profileUser = ProfileUserAboutDAO.getProfileUser(uid);
+            out.print(profileUser.getGender());
+        }
+    }
+    
+    @ServeAt(value="/updateDOB", method=ServeMethod.POST)
+    public void serveUpdateDOB(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        
+        PrintWriter out = response.getWriter();
+
+        HttpSession ses = request.getSession();
+        int uid = (Integer) ses.getAttribute("uid");
+
+        String DOB = request.getParameter("dob");
+        long t = 0;
+       
+        try {
+            t = (new SimpleDateFormat("yyyy-MM-dd").parse(DOB)).getTime();
+        } catch (ParseException ex) {
+            Logger.getLogger(ProfileUserAboutProcessor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+          
+        // check account exist in database
+        if (ProfileUserAboutDAO.updateDOB(uid, new Date(t))){
+            out.print("success");
+        } else {
+            ProfileUserAbout profileUser = ProfileUserAboutDAO.getProfileUser(uid);
+            out.print(profileUser.getGender());
         }
     }
     

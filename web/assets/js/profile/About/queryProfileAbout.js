@@ -2,7 +2,7 @@
     var message = {
         success: {
             title: "Update Successfully!",
-            message: "You update information successfully!",
+            message: "You updated information successfully!",
             type: "success",
             duration: 10000,
         },
@@ -21,7 +21,7 @@
         changePassFail: {
             title: "Change Password Failed!",
             type: "error",
-            duration: 10000,
+            duration: 15000,
             errorMessage: {
                 password:
                     "<span>Current Password</span> is <span>incorrect</span>!",
@@ -163,9 +163,24 @@
                     query.send("POST");
                     break;
                 }
-                case "dob":
-                    aboutUpdateDOB();
+                case "dob": {
+                    let query = new QueryData("profileUserAbout/updateDOB");
+                    query.addParam("dob", input.value);
+
+                    query.addEvent("load", function () {
+                        let result = this.response;
+
+                        if (result == "success") {
+                            toast(message.success, [message.success.message]);
+                        } else {
+                            input.value = result;
+                            toast(message.fail, [message.fail.message]);
+                        }
+                    });
+
+                    query.send("POST");
                     break;
+                }
                 case "phone": {
                     let query = new QueryData("account/updatePhone");
                     query.addParam("phone", input.value);
@@ -423,6 +438,23 @@
                 genderInputValue.value = "Others";
             }
             modalSelectGender.style.display = "none";
+
+            // call API to update gender
+            let query = new QueryData("profileUserAbout/updateGender");
+            query.addParam("gender", genderInputValue.value);
+
+            query.addEvent("load", function () {
+                let result = this.response;
+
+                if (result == "success") {
+                    toast(message.success, [message.success.message]);
+                } else {
+                    genderInputValue.value = result;
+                    toast(message.fail, [message.fail.message]);
+                }
+            });
+
+            query.send("POST");
         });
     });
 
