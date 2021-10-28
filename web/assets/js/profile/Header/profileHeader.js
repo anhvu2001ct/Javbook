@@ -36,7 +36,7 @@ profileMenu.forEach((item, index) => {
         listOldJS.forEach(script => script.remove());
         listOldJS = [];
         profileTabChange(index);
-        window.history.replaceState(null, "", `?page=${tabMenu[index]}`);
+        window.history.replaceState(null, "", `${tabMenu[index]}`);
     }
 })
 inputFileCover.addEventListener("change", () => {

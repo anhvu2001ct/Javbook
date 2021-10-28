@@ -1,6 +1,9 @@
 package com.group1.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.StringTokenizer;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -27,7 +30,12 @@ public abstract class BaseServlet extends HttpServlet {
 
     private void processBoth(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // May do something in the future.
+        String pathInfo = "";
+        if (request.getPathInfo() != null) pathInfo = request.getPathInfo();
+        StringTokenizer st = new StringTokenizer(pathInfo, "/");
+        List<String> li = new ArrayList<>(st.countTokens());
+        while (st.hasMoreTokens()) li.add(st.nextToken());
+        request.setAttribute("pathQuery", li);
     }
 
     private void handleError(HttpServletRequest request, HttpServletResponse response, ErrorHandler handler) throws ServletException, IOException {

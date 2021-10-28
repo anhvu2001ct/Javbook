@@ -67,7 +67,7 @@ public class SessionFilter implements Filter {
         else {
             HttpSession ses = request.getSession();
             int uid = account.getAccountID();
-            if (ses.getAttribute("user") == null) ses.setAttribute("uid", uid);
+            if (ses.getAttribute("uid") == null) ses.setAttribute("uid", uid);
             if (!account.isFirstLogin()) {
                 AccountDAO.markFirstLogin(uid);
                 response.sendRedirect("/Javbook/profile?page=About");
