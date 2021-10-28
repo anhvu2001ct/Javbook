@@ -471,7 +471,8 @@
             if (
                 (selectStatusType == "Married" && selectStatusOrder == 1) ||
                 (selectStatusType == "Single" && selectStatusOrder == 2) ||
-                (selectStatusType == "Others" && selectStatusOrder == 3)
+                (selectStatusType == "Dating" && selectStatusOrder == 3) ||
+                (selectStatusType == "Others" && selectStatusOrder == 4)
             ) {
                 selectStatusInput.checked = true;
             }
@@ -489,9 +490,29 @@
             } else if (selectStatusOrder == 2) {
                 statusInputValue.value = "Single";
             } else if (selectStatusOrder == 3) {
+                statusInputValue.value = "Dating";
+            } else if (selectStatusOrder == 4) {
                 statusInputValue.value = "Others";
             }
+
             modalSelectStatus.style.display = "none";
+
+            // call API to update profile status
+            let query = new QueryData("profileUserAbout/updateProfileStatus");
+            query.addParam("profileStatus", statusInputValue.value);
+
+            query.addEvent("load", function () {
+                let result = this.response;
+
+                if (result == "success") {
+                    toast(message.success, [message.success.message]);
+                } else {
+                    statusInputValue.value = result;
+                    toast(message.fail, [message.fail.message]);
+                }
+            });
+
+            query.send("POST");
         });
     });
 

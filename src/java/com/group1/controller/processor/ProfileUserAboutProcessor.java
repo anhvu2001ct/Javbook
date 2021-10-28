@@ -1,8 +1,10 @@
 package com.group1.controller.processor;
 
 import com.group1.model.Account;
+import com.group1.model.ProfileStatus;
 import com.group1.model.ProfileUserAbout;
 import com.group1.model.dao.AccountDAO;
+import com.group1.model.dao.ProfileStatusDAO;
 import com.group1.model.dao.ProfileUserAboutDAO;
 import com.group1.rest.BaseProcessor;
 import com.group1.rest.ServeAt;
@@ -35,10 +37,14 @@ public class ProfileUserAboutProcessor extends BaseProcessor {
         
         ProfileUserAbout profileUser = ProfileUserAboutDAO.getProfileUser(uid);
         Account account = AccountDAO.getAccount(uid);
-        
+        int profileStatusID = profileUser.getProfileStatusID();
+        // get Profile Status
+        ProfileStatus profileStatus = ProfileStatusDAO.getProfileStatus(profileStatusID);
+            
         request.setAttribute("profileUser", profileUser);
+        request.setAttribute("profileStatus", profileStatus);
         request.setAttribute("account", account);
-
+    
         request.getRequestDispatcher("/client/profile/profileAbout.jsp").forward(request, response);
     }
     
@@ -141,6 +147,46 @@ public class ProfileUserAboutProcessor extends BaseProcessor {
         } else {
             ProfileUserAbout profileUser = ProfileUserAboutDAO.getProfileUser(uid);
             out.print(profileUser.getGender());
+        }
+    }
+    
+    @ServeAt(value="/updateProfileStatus", method=ServeMethod.POST)
+    public void serveUpdateProfileStatus(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        
+        PrintWriter out = response.getWriter();
+
+        HttpSession ses = request.getSession();
+        int uid = (Integer) ses.getAttribute("uid");
+
+        String status = request.getParameter("profileStatus");
+        int profileStatusID = 4;
+     
+        switch (status) {
+            case "Married":
+                profileStatusID = 3;
+                break;
+            case "Single":
+                profileStatusID = 1;
+                break;
+            case "Dating":
+                profileStatusID = 2;
+                break;
+            case "Others":
+                profileStatusID = 4;
+                break;
+            default:
+                break;
+        }
+        
+        // update Profile Status ID
+        if (ProfileUserAboutDAO.updateProfileStatusID(uid, profileStatusID)){
+            out.print("success");
+        } else {
+            ProfileUserAbout profileUser = ProfileUserAboutDAO.getProfileUser(uid);
+            profileStatusID = profileUser.getProfileStatusID();
+            // get Profile Status
+            ProfileStatus profileStatus = ProfileStatusDAO.getProfileStatus(profileStatusID);
+            out.print(profileStatus.getStatus());
         }
     }
     

@@ -19,7 +19,7 @@ public class ProfileUserAboutDAO {
         try {
             String query = "INSERT INTO AccountProfile "
                     + "VALUES (?, 'Javbook User', '/Javbook/assets/img/default/avatar.png', "
-                    + "'', '1999-1-1', 'The Earth', 'Others', 'Studies at FPT University', '4', '111111');";
+                    + "'/Javbook/assets/img/default/cover.jpg', '1999-1-1', 'The Earth', 'Others', 'Studies at FPT University', '4', '111111');";
             
             PreparedStatement ps = SQL.prepareStatement(query); // nem cau lenh query tu netbeans sang sql server
             ps.setInt(1, accountID);
@@ -140,6 +140,25 @@ public class ProfileUserAboutDAO {
             
             PreparedStatement ps = SQL.prepareStatement(query); // nem cau lenh query tu netbeans sang sql server
             ps.setDate(1, DOB);
+            ps.setInt(2, accountID);
+            
+            int affectedRows = ps.executeUpdate(); // execute query va nhan ket qua tra ve
+            return (affectedRows != 0);
+        } catch (SQLException ex) {
+            Logger.getLogger(ProfileUserAboutDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+       
+    }
+    
+    public static boolean updateProfileStatusID(int accountID, int profileStatusID) {
+        try {
+            String query = "UPDATE AccountProfile "
+                    +  "SET ProfileStatusID = ? "
+                    +  "WHERE AccountUserID = ?";
+            
+            PreparedStatement ps = SQL.prepareStatement(query); // nem cau lenh query tu netbeans sang sql server
+            ps.setInt(1, profileStatusID);
             ps.setInt(2, accountID);
             
             int affectedRows = ps.executeUpdate(); // execute query va nhan ket qua tra ve

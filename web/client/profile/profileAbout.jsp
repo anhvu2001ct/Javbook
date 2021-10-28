@@ -273,7 +273,7 @@
                                 disabled
                                 class="edit-text js-status-value"
                                 type="text"
-                                value="Others"
+                                value="${profileStatus.status}"
                             />
                         </div>
                         <div class="edit-icon js-edit-select-audience">
@@ -349,6 +349,28 @@
                                         </label>
                                         <label class="choice-item">
                                             <div class="choice-item-icon">
+                                                <i class="fas fa-heartbeat"></i>
+                                            </div>
+                                            <div class="choice-item-text">
+                                                <h3 class="title">Dating</h3>
+                                                <p class="content">
+                                                    Falling in love!
+                                                </p>
+                                            </div>
+                                            <div class="radio-btn">
+                                                <input
+                                                    data-select-status-order="3"
+                                                    type="radio"
+                                                    name="select-status"
+                                                    id=""
+                                                    class="
+                                                        js-select-status-input
+                                                    "
+                                                />
+                                            </div>
+                                        </label>
+                                        <label class="choice-item">
+                                            <div class="choice-item-icon">
                                                 <i class="fas fa-question"></i>
                                             </div>
                                             <div class="choice-item-text">
@@ -357,7 +379,7 @@
                                             </div>
                                             <div class="radio-btn">
                                                 <input
-                                                    data-select-status-order="3"
+                                                    data-select-status-order="4"
                                                     type="radio"
                                                     name="select-status"
                                                     id=""
