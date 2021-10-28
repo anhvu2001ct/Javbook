@@ -19,6 +19,6 @@ public class Account {
     // Primary Key
     private int accountID;
     // Account User
-    private String username, password, avatar, phone, email;
+    private String username, password, phone, email;
     private boolean firstLogin;
 }

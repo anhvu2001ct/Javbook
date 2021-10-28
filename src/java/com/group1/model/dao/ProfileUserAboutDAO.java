@@ -18,7 +18,8 @@ public class ProfileUserAboutDAO {
     public static void createNewProfileUser(int accountID){
         try {
             String query = "INSERT INTO AccountProfile "
-                    + "VALUES (?, 'Javbook User', '1999-1-1', 'The Earth', 'Others', 'Unknown', '4');";
+                    + "VALUES (?, 'Javbook User', '/Javbook/assets/img/default/avatar.png', "
+                    + "'', '1999-1-1', 'The Earth', 'Others', 'Studies at FPT University', '4', '111111');";
             
             PreparedStatement ps = SQL.prepareStatement(query); // nem cau lenh query tu netbeans sang sql server
             ps.setInt(1, accountID);
@@ -45,8 +46,9 @@ public class ProfileUserAboutDAO {
             } else {
                 // if have account
                 rs.next();
-                return new ProfileUserAbout(rs.getInt(1), rs.getString(2), rs.getDate(3),  
-                        rs.getString(4), rs.getString(5), rs.getString(6), rs.getInt(7));
+                return new ProfileUserAbout(rs.getInt(1), rs.getString(2), rs.getString(3),  
+                        rs.getString(4), rs.getDate(5), rs.getString(6), rs.getString(7),
+                        rs.getString(8), rs.getInt(9), rs.getString(10));
             }
         } catch (SQLException ex) {
             Logger.getLogger(ProfileUserAboutDAO.class.getName()).log(Level.SEVERE, null, ex);

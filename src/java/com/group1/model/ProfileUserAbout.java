@@ -19,8 +19,11 @@ import lombok.ToString;
 public class ProfileUserAbout {
     private int accountID;
     // Profile User
-    private String name;
+    private String name, avatar, coverImg;
     private Date DOB;
     private String address, gender, career;
     private int profileStatusID;
+    private String audience;
+    // String audience = "000000"
+    // corresponding to DOB, Address, Gender, Career, ProfileStatusID, Phone
 }

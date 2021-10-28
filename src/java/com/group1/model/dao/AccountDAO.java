@@ -35,8 +35,8 @@ public class AccountDAO {
     
     public static void createNewAccount(String username, String password) {
         try {
-            String query = "INSERT INTO AccountUser(Username, Password, Avatar, Phone, Email) "
-                    + "VALUES (?, ?, '/Javbook/assets/img/default/avatar.png', '0123456789', 'email@gmail.com');";
+            String query = "INSERT INTO AccountUser(Username, Password, Phone, Email) "
+                    + "VALUES (?, ?, '0123456789', 'email@gmail.com');";
             
             PreparedStatement ps = SQL.prepareStatement(query); // nem cau lenh query tu netbeans sang sql server
             ps.setString(1, username);
@@ -81,8 +81,7 @@ public class AccountDAO {
                 // if have account
                 rs.next();
                 return new Account(rs.getInt(1), rs.getString(2), rs.getString(3),
-                        rs.getString(4), rs.getString(5), rs.getString(6),
-                        rs.getBoolean(7));
+                        rs.getString(4), rs.getString(5), rs.getBoolean(6));
             }
         } catch (SQLException ex) {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -107,8 +106,7 @@ public class AccountDAO {
                 // if have account
                 rs.next();
                 return new Account(rs.getInt(1), rs.getString(2), rs.getString(3),
-                        rs.getString(4), rs.getString(5), rs.getString(6),
-                        rs.getBoolean(7));
+                        rs.getString(4), rs.getString(5), rs.getBoolean(6));
             }
         } catch (SQLException ex) {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);

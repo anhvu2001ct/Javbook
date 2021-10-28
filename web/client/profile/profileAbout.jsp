@@ -54,7 +54,7 @@
                             <i class="fas fa-briefcase"></i>
                         </div>
                         <div class="list-item-content">
-                            Studies at
+                            Career
                             <input
                                 disabled
                                 class="edit-text"

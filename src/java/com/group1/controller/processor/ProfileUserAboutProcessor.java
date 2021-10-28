@@ -135,7 +135,7 @@ public class ProfileUserAboutProcessor extends BaseProcessor {
             Logger.getLogger(ProfileUserAboutProcessor.class.getName()).log(Level.SEVERE, null, ex);
         }
           
-        // check account exist in database
+        // update DOB
         if (ProfileUserAboutDAO.updateDOB(uid, new Date(t))){
             out.print("success");
         } else {

@@ -2,9 +2,7 @@ package com.group1.controller.processor;
 
 import static com.group1.controller.ServerInit.gson;
 import com.group1.model.Account;
-import com.group1.model.ProfileUserAbout;
 import com.group1.model.dao.AccountDAO;
-import com.group1.model.dao.ProfileUserAboutDAO;
 import com.group1.rest.BaseProcessor;
 import com.group1.rest.ServeAt;
 import com.group1.rest.ServeMethod;
