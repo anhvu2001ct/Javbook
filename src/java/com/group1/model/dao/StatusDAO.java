@@ -23,7 +23,7 @@ public class StatusDAO {
     public static void createStatus(int accountID, String text, String statusImg, String audience) {
         try {
 
-            String query = "INSERT INTO Status(AccountUserID, Text, StatusImg, Time, StatusModeID)\n"
+            String query = "INSERT INTO Status(AccountUserID, Text, StatusImg, Time, AudienceID)\n"
                     + "Values (?,?,?,?,?);";
             PreparedStatement ps = SQL.prepareStatement(query);
             ps.setInt(1, accountID);
@@ -44,7 +44,7 @@ public class StatusDAO {
             String query = "UPDATE Status\n"
                     + "SET  \n"
                     + "	Text =?\n"
-                    + "	,StatusModeID =?\n"
+                    + "	,AudienceID =?\n"
                     + "	,ActiveTime= ?\n"
                     + "WHERE StatusId= ?;";
             PreparedStatement ps = SQL.prepareStatement(query);
@@ -76,9 +76,9 @@ public class StatusDAO {
     public static List<Status> getListStatusUser(int acccountID) {
         try {
             List<Status> list = new ArrayList<>();
-            String query = "select Name, Avatar, StatusID, Text, StatusImg, Time, ActiveTime, StatusModeID\n"
-                    + "from Status s ,AccountProfile a ,AccountUser au\n"
-                    + "where a.AccountUserID = ?  and s.AccountUserID =a.AccountUserID and s.AccountUserID =au.AccountUserID";
+            String query = "select Name, Avatar, StatusID, Text, StatusImg, Time, ActiveTime, AudienceID\n"
+                    + "from Status s , AccountProfile a \n"
+                    + "where a.AccountUserID = ?  and s.AccountUserID =a.AccountUserID ";
             PreparedStatement ps = SQL.prepareStatement(query);
             ps.setInt(1, acccountID);
             ResultSet rs = ps.executeQuery();
@@ -88,7 +88,7 @@ public class StatusDAO {
                 while (rs.next()) {
                     Status status = new Status(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getString(4),
                             rs.getString(5), String.format("%1$TD %1$TT", rs.getTimestamp(6)),
-                             String.format("%1$TD %1$TT", rs.getTimestamp(7)), rs.getInt(8));
+                            String.format("%1$TD %1$TT", rs.getTimestamp(7)), rs.getInt(8));
                     list.add(status);
                 }
                 return list;
@@ -103,8 +103,8 @@ public class StatusDAO {
         try {
             String avatar = "";
             String query = "select Avatar\n"
-                    + "from AccountUser\n"
-                    + "where AccountUserID = ?;";
+                    + "from AccountProfile\n"
+                    + "where AccountUserID = ?";
             PreparedStatement ps = SQL.prepareStatement(query);
             ps.setInt(1, acccountID);
             ResultSet rs = ps.executeQuery();

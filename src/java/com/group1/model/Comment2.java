@@ -25,8 +25,8 @@ public class Comment2 {
 
     private String userName;
     private String userImage;
-    private int commentId, comment2Id, statusId;
-    private String text, commentImg;
+    private int comment2Id, commentId, statusId;
+    private String text;
     private Timestamp time;
     private int update;
 

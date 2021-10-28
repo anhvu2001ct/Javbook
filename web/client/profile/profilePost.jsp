@@ -48,7 +48,7 @@
                 <div class="wh_40">
                     <img
                         class="wh_40 scale circle userAvatar"
-                        src="${avarar}"
+                        src="${avatar}"
                          alt=""
                         />
                 </div>

@@ -30,5 +30,6 @@ public class Status {
     private String text, statusImg;
     private String time, activeTime;
     private int mood;
+    
 
 }

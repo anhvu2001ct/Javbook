@@ -6,6 +6,7 @@
 package com.group1.model.dao;
 
 import com.group1.model.Comment;
+import com.group1.model.Comment2;
 import com.group1.model.Status;
 import static com.group1.model.db.SQLConnector.SQL;
 import java.sql.PreparedStatement;
@@ -71,10 +72,9 @@ public class CommentDAO {
         try {
             List<Comment> list = new ArrayList<>();
             String query = "select Name,Avatar,CommentID,StatusID,Text,Time,CheckUpdate \n"
-                    + "from Comment c , AccountUser au,AccountProfile ap\n"
-                    + "where c.AccountUserID =au.AccountUserID and c.AccountUserID =ap.AccountUserID and c.StatusID =?";
+                    + "from Comment c ,AccountProfile ap\n"
+                    + "where  c.AccountUserID =ap.AccountUserID and c.StatusID =?";
             PreparedStatement ps = SQL.prepareStatement(query);
-
             ps.setInt(1, StatusID);
             ResultSet rs = ps.executeQuery();
             if (!rs.isBeforeFirst()) {
@@ -93,4 +93,30 @@ public class CommentDAO {
         return null;
     }
 
+    public static List<Comment2> getListComment2(int commentid) {
+        try {
+
+            List<Comment2> list = new ArrayList<>();
+            String query = "select Name ,Avatar,Comment2ID,CommentID,StatusID,Text,Time,CheckUpdate \n"
+                    + "from Comment2 c  , AccountProfile ap\n"
+                    + "where  c.AccountUserID =ap.AccountUserID and c.CommentID =?";
+            PreparedStatement ps = SQL.prepareStatement(query);
+            ps.setInt(1, commentid);
+            ResultSet rs = ps.executeQuery();
+            if (!rs.isBeforeFirst()) {
+                return null;
+            } else {
+                while (rs.next()) {
+
+                    Comment2 comment2 = new Comment2(rs.getString(1), rs.getString(2), rs.getInt(3),
+                            rs.getInt(4), rs.getInt(5), rs.getString(6), rs.getTimestamp(7), rs.getInt(8));
+                    list.add(comment2);
+                }
+                return list;
+            }
+        } catch (SQLException ex) {
+            System.err.println("Get Comment2 Error");
+        }
+        return null;
+    }
 }
