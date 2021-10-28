@@ -1,5 +1,6 @@
 package com.group1.controller.processor;
 
+import com.group1.misc.Pair;
 import com.group1.model.Account;
 import com.group1.model.ProfileStatus;
 import com.group1.model.ProfileUserAbout;
@@ -15,6 +16,7 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -41,11 +43,33 @@ public class ProfileUserAboutProcessor extends BaseProcessor {
         // get Profile Status
         ProfileStatus profileStatus = ProfileStatusDAO.getProfileStatus(profileStatusID);
             
+        // get Audience
+        String audience = profileUser.getAudience();
+        ArrayList<Pair<String, String>> audiences = new ArrayList<>();
+        
+        for (char ch: audience.toCharArray()) {
+            switch (ch) {
+                case '1':
+                    audiences.add(new Pair<>("Global", "fa-globe-asia"));
+                    break;
+                case '2':
+                    audiences.add(new Pair<>("Friends", "fa-user-friends"));
+                    break;
+                case '3':
+                    audiences.add(new Pair<>("OnlyMe", "fa-lock"));
+                    break;
+                default:
+                    break;
+            }
+        }
+        
         request.setAttribute("profileUser", profileUser);
         request.setAttribute("profileStatus", profileStatus);
         request.setAttribute("account", account);
-    
+        request.setAttribute("audiences", audiences);
+
         request.getRequestDispatcher("/client/profile/profileAbout.jsp").forward(request, response);
+       
     }
     
     @ServeAt(value="/updateName", method=ServeMethod.POST)
@@ -187,6 +211,91 @@ public class ProfileUserAboutProcessor extends BaseProcessor {
             // get Profile Status
             ProfileStatus profileStatus = ProfileStatusDAO.getProfileStatus(profileStatusID);
             out.print(profileStatus.getStatus());
+        }
+    }
+    
+    @ServeAt(value="/updateAudience", method=ServeMethod.POST)
+    public void serveUpdateAudience(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        
+        PrintWriter out = response.getWriter();
+
+        HttpSession ses = request.getSession();
+        int uid = (Integer) ses.getAttribute("uid");
+        ProfileUserAbout profileUser = ProfileUserAboutDAO.getProfileUser(uid);
+        
+        // get Audience
+        String audience = profileUser.getAudience();
+        char[] audienceChars = audience.toCharArray();
+        
+        String itemType = request.getParameter("itemType");
+        String audienceType = request.getParameter("audienceType");
+
+        char audienceTypeIndex = '3';
+        switch (audienceType) {
+            case "Global":
+                audienceTypeIndex = '1';
+                break;
+            case "Friends":
+                audienceTypeIndex = '2';
+                break;
+            case "OnlyMe":
+                audienceTypeIndex = '3';
+                break;
+            default:
+                break;
+        }
+ 
+        int itemTypeIndex = 6;
+        
+        switch (itemType) {
+            case "dob":
+                itemTypeIndex = 0;
+                break;
+            case "address":
+                itemTypeIndex = 1;
+                break;
+            case "gender":
+                itemTypeIndex = 2;
+                break;
+            case "career":
+                itemTypeIndex = 3;
+                break;
+            case "status":
+                itemTypeIndex = 4;
+                break;
+            case "phone":
+                itemTypeIndex = 5;
+                break;
+            default:
+                break;
+        }
+        
+        audienceChars[itemTypeIndex] = audienceTypeIndex;
+               
+        // initial value for audience type 
+        String oldAudienceType = "";
+        
+        switch (audience.charAt(itemTypeIndex)) {
+            case '1':
+                oldAudienceType = "Global";
+                break;
+            case '2':
+                oldAudienceType = "Friends";
+                break;
+            case '3':
+                oldAudienceType = "OnlyMe";
+                break;
+            default:
+                break;
+        }
+        
+        audience = String.valueOf(audienceChars);
+        
+        // update Audience
+        if (ProfileUserAboutDAO.updateAudience(uid, audience)){
+            out.print("success");
+        } else {
+            out.print(oldAudienceType);
         }
     }
     

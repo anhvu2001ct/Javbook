@@ -100,7 +100,7 @@
         let itemContent = this.parentNode;
         let input = itemContent.querySelector(".edit-text");
         let dataItemType = this.dataset.itemType;
-        console.log(dataItemType);
+
         // save edit text
         if (input.classList.contains("active")) {
             input.disabled = true;
@@ -334,6 +334,7 @@
         }
     }
 
+    // Select Audience
     let arrFn = [];
     function editSelectAudience() {
         let selectAudienceType = this.getAttribute("data-select-audience-type");
@@ -370,38 +371,90 @@
         selectAudienceInput,
         editSelectAudienceBtn
     ) {
-        let selectAudienceOrder = selectAudienceInput.getAttribute(
-            "data-select-audience-order"
-        );
-
-        let icon = editSelectAudienceBtn.querySelector("i");
-        icon.classList.remove("fa-globe-asia");
-        icon.classList.remove("fa-user-friends");
-        icon.classList.remove("fa-lock");
-        if (selectAudienceOrder == 1) {
-            editSelectAudienceBtn.setAttribute(
-                "data-select-audience-type",
-                "Global"
-            );
-            icon.classList.add("fa-globe-asia");
-        } else if (selectAudienceOrder == 2) {
-            editSelectAudienceBtn.setAttribute(
-                "data-select-audience-type",
-                "Friends"
-            );
-            icon.classList.add("fa-user-friends");
-        } else if (selectAudienceOrder == 3) {
-            editSelectAudienceBtn.setAttribute(
-                "data-select-audience-type",
-                "OnlyMe"
-            );
-            icon.classList.add("fa-lock");
-        }
         modalSelectAudience.style.display = "none";
 
         selectAudienceInputs.forEach((selectAudienceInput, index) => {
             selectAudienceInput.removeEventListener("click", arrFn[index]);
         });
+
+        let selectAudienceOrder = selectAudienceInput.getAttribute(
+            "data-select-audience-order"
+        );
+        // initial value
+        let selectedAudienceValue = "OnlyMe";
+
+        if (selectAudienceOrder == 1) {
+            selectedAudienceValue = "Global";
+        } else if (selectAudienceOrder == 2) {
+            selectedAudienceValue = "Friends";
+        } else if (selectAudienceOrder == 3) {
+            selectedAudienceValue = "OnlyMe";
+        }
+
+        // call API to update audience
+        let dataItemType = editSelectAudienceBtn.dataset.itemType;
+        console.log(dataItemType);
+        let query = new QueryData("profileUserAbout/updateAudience");
+        query.addParam("itemType", dataItemType);
+        query.addParam("audienceType", selectedAudienceValue);
+        query.addEvent("load", function () {
+            let result = this.response;
+            selectedAudienceValue =
+                result == "success" ? selectedAudienceValue : result;
+
+            editSelectAudienceBtn.setAttribute(
+                "data-select-audience-type",
+                selectedAudienceValue
+            );
+
+            // Toast Message
+            if (result == "success") {
+                toast(
+                    {
+                        title: "Select Audience Successfully!",
+                        type: "success",
+                        duration: 10000,
+                    },
+                    ["You selected audience successfully!"]
+                );
+            } else {
+                toast(
+                    {
+                        title: "Select Audience Failed!",
+                        type: "error",
+                        duration: 10000,
+                    },
+                    ["You <span>failed</span> to selecte audience!"]
+                );
+            }
+
+            // Front End
+            let icon = editSelectAudienceBtn.querySelector("i");
+            icon.classList.remove("fa-globe-asia");
+            icon.classList.remove("fa-user-friends");
+            icon.classList.remove("fa-lock");
+            if (selectedAudienceValue == "Global") {
+                editSelectAudienceBtn.setAttribute(
+                    "data-select-audience-type",
+                    "Global"
+                );
+                icon.classList.add("fa-globe-asia");
+            } else if (selectedAudienceValue == "Friends") {
+                editSelectAudienceBtn.setAttribute(
+                    "data-select-audience-type",
+                    "Friends"
+                );
+                icon.classList.add("fa-user-friends");
+            } else if (selectedAudienceValue == "OnlyMe") {
+                editSelectAudienceBtn.setAttribute(
+                    "data-select-audience-type",
+                    "OnlyMe"
+                );
+                icon.classList.add("fa-lock");
+            }
+        });
+
+        query.send("POST");
     }
 
     // Process Select Gender

@@ -64,9 +64,10 @@
                         </div>
                         <div
                             class="edit-icon js-edit-select-audience"
-                            data-select-audience-type="Global"
+                            data-select-audience-type="${audiences.get(3).first}"
+                            data-item-type="career"
                         >
-                            <i class="fas fa-globe-asia"></i>
+                            <i class="fas ${audiences.get(3).second}"></i>
                         </div>
                         <div
                             class="edit-icon js-edit-text-btn"
@@ -91,9 +92,10 @@
                         </div>
                         <div
                             class="edit-icon js-edit-select-audience"
-                            data-select-audience-type="Global"
+                            data-select-audience-type="${audiences.get(1).first}"
+                            data-item-type="address"
                         >
-                            <i class="fas fa-globe-asia"></i>
+                            <i class="fas ${audiences.get(1).second}"></i>
                         </div>
                         <div
                             class="edit-icon js-edit-text-btn"
@@ -118,9 +120,10 @@
                         </div>
                         <div
                             class="edit-icon js-edit-select-audience"
-                            data-select-audience-type="Global"
+                            data-select-audience-type="${audiences.get(0).first}"
+                            data-item-type="dob"
                         >
-                            <i class="fas fa-globe-asia"></i>
+                            <i class="fas ${audiences.get(0).second}"></i>
                         </div>
                         <div
                             class="edit-icon js-edit-text-btn"
@@ -142,8 +145,12 @@
                                 value="${profileUser.gender}"
                             />
                         </div>
-                        <div class="edit-icon js-edit-select-audience">
-                            <i class="fas fa-globe-asia"></i>
+                        <div
+                            class="edit-icon js-edit-select-audience"
+                            data-select-audience-type="${audiences.get(2).first}"
+                            data-item-type="gender"
+                        >
+                            <i class="fas ${audiences.get(2).second}"></i>
                         </div>
                         <div class="edit-icon js-edit-gender-btn">
                             <i class="fas fa-pen"></i>
@@ -252,9 +259,10 @@
                         </div>
                         <div
                             class="edit-icon js-edit-select-audience"
-                            data-select-audience-type="Global"
+                            data-select-audience-type="${audiences.get(5).first}"
+                            data-item-type="phone"
                         >
-                            <i class="fas fa-globe-asia"></i>
+                            <i class="fas ${audiences.get(5).second}"></i>
                         </div>
                         <div
                             class="edit-icon js-edit-text-btn"
@@ -276,8 +284,12 @@
                                 value="${profileStatus.status}"
                             />
                         </div>
-                        <div class="edit-icon js-edit-select-audience">
-                            <i class="fas fa-globe-asia"></i>
+                        <div
+                            class="edit-icon js-edit-select-audience"
+                            data-select-audience-type="${audiences.get(4).first}"
+                            data-item-type="status"
+                        >
+                            <i class="fas ${audiences.get(4).second}"></i>
                         </div>
                         <div class="edit-icon js-edit-status-btn">
                             <i class="fas fa-pen"></i>

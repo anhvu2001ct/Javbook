@@ -166,8 +166,25 @@ public class ProfileUserAboutDAO {
         } catch (SQLException ex) {
             Logger.getLogger(ProfileUserAboutDAO.class.getName()).log(Level.SEVERE, null, ex);
             return false;
+        }     
+    }
+    
+    public static boolean updateAudience(int accountID, String audience) {
+        try {
+            String query = "UPDATE AccountProfile "
+                    +  "SET Audience = ? "
+                    +  "WHERE AccountUserID = ?";
+            
+            PreparedStatement ps = SQL.prepareStatement(query); // nem cau lenh query tu netbeans sang sql server
+            ps.setString(1, audience);
+            ps.setInt(2, accountID);
+            
+            int affectedRows = ps.executeUpdate(); // execute query va nhan ket qua tra ve
+            return (affectedRows != 0);
+        } catch (SQLException ex) {
+            Logger.getLogger(ProfileUserAboutDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
-       
     }
     
 }

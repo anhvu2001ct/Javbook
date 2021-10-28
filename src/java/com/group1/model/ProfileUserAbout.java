@@ -24,6 +24,7 @@ public class ProfileUserAbout {
     private String address, gender, career;
     private int profileStatusID;
     private String audience;
-    // String audience = "000000"
-    // corresponding to DOB, Address, Gender, Career, ProfileStatusID, Phone
+    // String audience = "111111"
+    // corresponding to DOB, Address, Gender, Career, ProfileStatus, Phone
+    // 1 ~ Public, 2 ~ Friends, 3 ~ OnlyMe
 }
