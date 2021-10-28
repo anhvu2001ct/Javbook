@@ -80,7 +80,6 @@ signupBtn.onclick = function () {
             });
             toast(message.fail, msg);
         }
-        console.log(result);
     });
 
     query.send("POST");

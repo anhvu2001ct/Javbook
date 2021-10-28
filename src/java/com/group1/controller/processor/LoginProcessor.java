@@ -37,7 +37,7 @@ public class LoginProcessor extends BaseProcessor {
     }
     
     @ServeAt(value="/createNewAccount", method=ServeMethod.POST)
-    public void serveCreateNewAccount(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, SQLException {
+    public void serveCreateNewAccount(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         PrintWriter out = response.getWriter();
         
         String signupUsername = request.getParameter("signupUsername");
