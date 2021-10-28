@@ -30,6 +30,7 @@ input[type="file"] {
 
 body {
     /* font-family: ; */
+    font-family: Arial, Helvetica, sans-serif;
     font-size: 16px;
     line-height: 1;
     color: var(--primary-color);
@@ -48,8 +49,10 @@ select {
     box-sizing: border-box;
     /*khang*/
     resize: none;
-
+    font-family: inherit;
 }
+
+
 textarea{
     caret-color: #ffffff;
 }
