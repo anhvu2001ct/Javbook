@@ -36,7 +36,7 @@ profileMenu.forEach((item, index) => {
         listOldJS.forEach(script => script.remove());
         listOldJS = [];
         profileTabChange(index);
-        window.history.replaceState(null, "", `${tabMenu[index]}`);
+        window.history.replaceState(null, "", `${index ? tabMenu[index] : '.'}`);
     }
 })
 inputFileCover.addEventListener("change", () => {
@@ -61,11 +61,8 @@ inputFileAvatar.addEventListener("change", () => {
 {
     let map = {};
     tabMenu.forEach((val, idx) => {map[val] = idx;});
-    let params = new URLSearchParams(window.location.search);
-    let tabPage = "Post";
-    if (params.has("page")) {
-        let page = params.get("page");
-        if (map[page] != undefined) tabPage = page;
-    }
-    profileTabChange(map[tabPage]);
+    let page = window.location.pathname.split("/");
+    page = page[page.length-1];
+    if (map[page] == undefined) page = "Post";
+    profileTabChange(map[page]);
 }

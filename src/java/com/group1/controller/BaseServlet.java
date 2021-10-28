@@ -1,9 +1,7 @@
 package com.group1.controller;
 
+import com.group1.misc.PathInfo;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.StringTokenizer;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -30,12 +28,7 @@ public abstract class BaseServlet extends HttpServlet {
 
     private void processBoth(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String pathInfo = "";
-        if (request.getPathInfo() != null) pathInfo = request.getPathInfo();
-        StringTokenizer st = new StringTokenizer(pathInfo, "/");
-        List<String> li = new ArrayList<>(st.countTokens());
-        while (st.hasMoreTokens()) li.add(st.nextToken());
-        request.setAttribute("pathQuery", li);
+        request.setAttribute("pathInfo", new PathInfo(request.getPathInfo()));
     }
 
     private void handleError(HttpServletRequest request, HttpServletResponse response, ErrorHandler handler) throws ServletException, IOException {
@@ -68,9 +61,13 @@ public abstract class BaseServlet extends HttpServlet {
         });
     }
     
+    
+    @SuppressWarnings("unchecked")
     protected abstract void processGET(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException;
 
+    
+    @SuppressWarnings("unchecked")
     protected abstract void processPOST(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException;
 }

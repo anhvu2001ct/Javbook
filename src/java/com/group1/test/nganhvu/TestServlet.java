@@ -1,8 +1,8 @@
 package com.group1.test.nganhvu;
 
 import com.group1.controller.BaseServlet;
+import com.group1.misc.PathInfo;
 import java.io.IOException;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -26,8 +26,8 @@ public class TestServlet extends BaseServlet {
     @Override
     protected void processGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println(++cnt);
-        List<String> li = (List)request.getAttribute("pathQuery");
-        System.out.println(li + " " + li.size());
+        PathInfo path = (PathInfo)request.getAttribute("pathInfo");
+        System.out.println(path.path + " " + path.size);
 //        request.getRequestDispatcher("/test/nganhvu/websocket.jsp").forward(request, response);
     }
 

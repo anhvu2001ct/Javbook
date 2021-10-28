@@ -70,7 +70,7 @@ public class SessionFilter implements Filter {
             if (ses.getAttribute("uid") == null) ses.setAttribute("uid", uid);
             if (!account.isFirstLogin()) {
                 AccountDAO.markFirstLogin(uid);
-                response.sendRedirect("/Javbook/profile?page=About");
+                response.sendRedirect("/Javbook/profile/About");
             } else chain.doFilter(request, response);
         }
     }

@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Mr Khang
  */
-@WebServlet("/profile/")
+@WebServlet("/profile/*")
 public class ProfileServlet extends BaseServlet {
 
     @Override
