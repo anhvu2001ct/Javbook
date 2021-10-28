@@ -5,7 +5,7 @@ import static com.group1.controller.ServerInit.gson;
 import com.group1.misc.Secret;
 import com.group1.model.Account;
 import com.group1.model.dao.AccountDAO;
-import com.group1.model.dao.ProfileUserDAO;
+import com.group1.model.dao.ProfileUserAboutDAO;
 import com.group1.rest.BaseProcessor;
 import com.group1.rest.ServeAt;
 import com.group1.rest.ServeMethod;
@@ -37,7 +37,7 @@ public class LoginProcessor extends BaseProcessor {
     }
     
     @ServeAt(value="/createNewAccount", method=ServeMethod.POST)
-    public void serveCreateNewAccount(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, SQLException {
+    public void serveCreateNewAccount(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         PrintWriter out = response.getWriter();
         
         String signupUsername = request.getParameter("signupUsername");
@@ -82,7 +82,7 @@ public class LoginProcessor extends BaseProcessor {
         if (list.isEmpty()){
             AccountDAO.createNewAccount(signupUsername, signupPassword);
             Account account = AccountDAO.getAccountByUsername(signupUsername);
-            ProfileUserDAO.createNewProfileUser(account.getAccountID());
+            ProfileUserAboutDAO.createNewProfileUser(account.getAccountID());
         }
         
         out.print(gson.toJson(list));

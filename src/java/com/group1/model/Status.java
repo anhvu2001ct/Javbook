@@ -28,7 +28,7 @@ public class Status {
     private String userImage;
     private int statusId;
     private String text, statusImg;
-    private Timestamp time, activeTime;
+    private String time, activeTime;
     private int mood;
 
 }

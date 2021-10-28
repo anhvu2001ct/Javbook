@@ -9,7 +9,6 @@
   const userEditContent = document.querySelector(".status_content  .enter");
   const select = document.querySelector("#select");
   let option = 1;
-
   select.addEventListener("change", () => {
     option = select.options[select.selectedIndex].value;
 
@@ -19,7 +18,9 @@
   document.getElementById("input").addEventListener("click", function () {
     document.querySelector(".popup-main-post").style.display = "flex";
     statusPhoto.src = "";
-    console.log("hi");
+    let userAvatarPopup = document.querySelector(".popup-main-post .wh_40 img");
+    let userAvatar = document.querySelector(".userAvatar");
+    userAvatarPopup.src = userAvatar.src;
 
   });
   closePopUp.addEventListener("click", function () {
@@ -48,55 +49,67 @@
 
   function sendFile() {
 
-    let uploadImg = new QueryUpload("upload/image");
-    let uploadData = new QueryData("/profile/crateStatus");
+    let uploadData = new QueryData("/status/crateStatus");
     //uploadImage
     let name = "user" + Date.now() + ".png";
-    uploadImg.addParam("file", inputFile.files[0]);
-    uploadImg.addParam("savePath", name);
-
-    uploadImg.addEvent("progress", function (e) {
-      let percent = e.loaded / e.total * 100;
-      console.log('upload process: ' + Math.floor(percent) + '%');
-    });
-
     // uploadData
-
     uploadData.addParam("content", userEditContent.value);
-    uploadData.addParam("link", "/Javbook/assets/img/user/" + name);
-
+    
+    let userNamePost = document.querySelector(".profile-name");
+    let userImgPost = document.querySelector(".profile-img");
     uploadData.addParam("audience", option);
-    uploadImg.addEvent("load", function () {
-      window.setTimeout(() => {
-        renderNewPost(userEditContent.value, name, option);
-      }, 2000);
-    });
+    if (inputFile.files[0] != undefined) {
+      uploadData.addParam("link", "/Javbook/assets/img/user/" + name);
+      let uploadImg = new QueryUpload("upload/image");
+      uploadImg.addParam("file", inputFile.files[0]);
+      uploadImg.addParam("savePath", name);
+      let link ="/Javbook/assets/img/user/" + name;
+      uploadImg.addEvent("progress", function (e) {
+        let percent = e.loaded / e.total * 100;
+        console.log('upload process: ' + Math.floor(percent) + '%');
+      });
+      uploadImg.addEvent("load", function () {
+        window.setTimeout(() => {
+          renderNewPost(userEditContent, link, option, userNamePost.textContent, userImgPost.src);
+        }, 2000);
+      });
+      uploadImg.send();
+    }
+    else {
+      renderNewPost(userEditContent, "", option, userNamePost.textContent, userImgPost.src);
+    }
 
 
     document.querySelector(".popup_model").style.display = "none";
-    uploadImg.send();
+
     uploadData.send("POST");
+    statusPhoto.src = "";
+    deletePhoto.style.display = "none";
 
   }
 
-  function renderNewPost(text, img, option) {
+  function renderNewPost(text, img, option, name, url) {
+
+    let today = new Date();
+    let date = (today.getMonth() + 1) + '/' + today.getDate() + '/' + today.getFullYear();
+    let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    let dateTime = date + ' ' + time;
 
     let postbox = document.createElement("div");
     postbox.classList.add("post");
     postbox.classList.add("box");
-
     let html = `
         
   <div class="post-item">
     <div class="status-main">
-      <img src="/Javbook/assets/img/default/avatar.png" class="status-img" />
+      <img src="${url}" class="status-img" />
       <div class="post-detail">
         <div class="post-title">
-          <a href="">Test</a>
+          <a href="">${name}</a>
         </div>
 
         <div class="post-state">
-          <span class="post-date">6 hours ago</span>
+          <span class="post-date">${dateTime}</span>
 ${(option === 1) ? "<i class='fas fa-globe-asia'></i>" : (option === 2) ? " <i class='fas fa-user-friends'></i>" : " <i class='fas fa-lock'></i>"}
           
          
@@ -114,11 +127,11 @@ ${(option === 1) ? "<i class='fas fa-globe-asia'></i>" : (option === 2) ? " <i c
       </div>
     </div>
     <div class="post-content">
-      <p class="content">${text}</p>
+      <p class="content">${text.value}</p>
     </div>
     <div class="post-photos">
       <img
-        src="/Javbook/assets/img/user/${img}"
+        src="${img}"
         alt=""
         class="post-photo"
       />
@@ -223,7 +236,7 @@ ${(option === 1) ? "<i class='fas fa-globe-asia'></i>" : (option === 2) ? " <i c
     <div class="comment-box">
       <div class="send-comment-box">
         <img
-          src="/Javbook/assets/img/default/avatar.png"
+          src="${url}"
           alt=""
           class="ava_cmt user-avatar-send"
         />
@@ -247,6 +260,7 @@ ${(option === 1) ? "<i class='fas fa-globe-asia'></i>" : (option === 2) ? " <i c
            `;
     postbox.innerHTML = html;
     document.querySelector(".list-post").prepend(postbox);
+    text.value = "";
     postBox();
 
   }

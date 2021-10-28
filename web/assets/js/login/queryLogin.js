@@ -5,7 +5,7 @@ var message = {
         type: "success",
         duration: 10000,
     },
-    fail: {
+    signUpFail: {
         title: "Sign Up Failed!",
         type: "error",
         duration: 15000,
@@ -17,8 +17,13 @@ var message = {
                 "Password must only contains <span>a-z, A-Z, 0-9</span> with <span>first letter is a-z, A-Z</span> and is between <span>6 and 20 characters long</span>!",
             repassword: "Password must be <span>the same</span>!",
             checkbox: "You must agree <span>all terms & conditions</span>!",
-            account: "Username or password <span>incorrect</span>!",
         },
+    },
+    signInFail: {
+        title: "Sign In Failed!",
+        type: "error",
+        duration: 15000,
+        message: "Username or password <span>incorrect</span>!",
     },
 };
 
@@ -76,11 +81,10 @@ signupBtn.onclick = function () {
             displaySignin();
         } else {
             result.forEach((element) => {
-                msg.push(message.fail.errorMessage[element]);
+                msg.push(message.signUpFail.errorMessage[element]);
             });
-            toast(message.fail, msg);
+            toast(message.signUpFail, msg);
         }
-        console.log(result);
     });
 
     query.send("POST");
@@ -103,7 +107,7 @@ signinBtn.onclick = function () {
     setTimeout(() => {
         this.disabled = false;
         this.classList.remove("btn--disabled");
-        this.innerHTML = "Sign up";
+        this.innerHTML = "Sign in";
         clearInterval(timerId);
     }, 6000);
 
@@ -125,11 +129,9 @@ signinBtn.onclick = function () {
 
     query.addEvent("load", function () {
         let result = this.response;
-        let msg = [];
         if (result == "fail") {
-            msg.push(message.fail.errorMessage.account);
-            toast(message.fail, msg);
-        } else {
+            toast(message.signInFail, [message.signInFail.message]);
+        } else if (result == "success") {
             window.location = ".";
         }
     });

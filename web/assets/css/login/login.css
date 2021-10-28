@@ -224,6 +224,7 @@ body {
 .sisu .form__input-item-text {
     margin-bottom: 20px;
     display: block;
+    cursor: pointer;
 }
 
 .input-checkbox {
@@ -234,6 +235,7 @@ body {
     -webkit-appearance: none;
     outline: none;
     transition: 0.5s;
+    cursor: pointer;
 }
 
 .input-checkbox:before {

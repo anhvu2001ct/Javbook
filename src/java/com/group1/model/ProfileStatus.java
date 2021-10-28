@@ -1,6 +1,6 @@
 package com.group1.model;
 
-import java.util.Date;
+import java.sql.Date;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,11 +16,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class ProfileUser {
-    private int accountID;
-    // Profile User
-    private String name;
-    private Date DOB;
-    private String address, career, gender;
+public class ProfileStatus {
     private int profileStatusID;
+    private String status, description;
 }

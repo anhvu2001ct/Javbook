@@ -7,7 +7,9 @@ package com.group1.controller.processor;
 
 import com.group1.controller.ServerInit;
 import static com.group1.controller.ServerInit.gson;
+import com.group1.model.Comment;
 import com.group1.model.Status;
+import com.group1.model.dao.CommentDAO;
 import com.group1.model.dao.StatusDAO;
 import com.group1.model.db.IO;
 import com.group1.rest.BaseProcessor;
@@ -34,27 +36,16 @@ public class ProfileProcessor extends BaseProcessor {
     public void changeTimeline(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String value = request.getParameter("key");
         if (value.equals("Photo")) {
+            int accountId = (int) request.getSession().getAttribute("uid");
+            List<String> photos = StatusDAO.getListPhotoUser(accountId);
+            request.setAttribute("photos", photos);
             request.getRequestDispatcher("/client/profile/profilePhoto.jsp").forward(request, response);
         }
         if (value.equals("Post")) {
-            int accountId = (int) request.getSession().getAttribute("uid");
-            List<Status> status = StatusDAO.getListStatusUser(accountId);
-            if (status != null) {
-                Collections.sort(status, new Comparator<Status>() {
-                    @Override
-                    public int compare(Status a, Status b) {
-                        return b.getStatusId() - a.getStatusId();
-                    }
-                });
-                System.out.println(status.size());
-            }
-
-            request.setAttribute("statusUser", status);
-            request.getRequestDispatcher("/client/profile/profilePost.jsp").forward(request, response);
+            request.getRequestDispatcher("/process/status/render").forward(request, response);
         }
         if (value.equals("About")) {
-
-            request.getRequestDispatcher("/process/profileUser/index").forward(request, response);
+            request.getRequestDispatcher("/process/profileUserAbout/index").forward(request, response);
         }
         if (value.equals("Friends")) {
             request.getRequestDispatcher("/client/profile/profileFriends.jsp").forward(request, response);
@@ -69,7 +60,7 @@ public class ProfileProcessor extends BaseProcessor {
         if (key.equals("Photo")) {
             List<String> list = IO.getFilesName(ServerInit.webPath, "assets/js/profile/Photo");
             response.getWriter().print(gson.toJson(list));
-            System.out.println(list);
+
         }
         if (key.equals("Post")) {
             List<String> list = IO.getFilesName(ServerInit.webPath, "assets/js/profile/Post");
@@ -84,36 +75,6 @@ public class ProfileProcessor extends BaseProcessor {
             List<String> list = IO.getFilesName(ServerInit.webPath, "assets/js/profile/");
             response.getWriter().print(gson.toJson(list));
         }
-    }
-
-    @ServeAt(value = "/crateStatus", method = ServeMethod.POST)
-    public void serveCreateStatus(HttpServletRequest request, HttpServletResponse response) throws SQLException {
-        String content = request.getParameter("content");
-        String link = request.getParameter("link");
-        String audience = request.getParameter("audience");
-        int accountId = (int) request.getSession().getAttribute("uid");
-        StatusDAO.createStatus(accountId, content, link, audience);
-
-    }
-
- @ServeAt(value = "/editStatus", method = ServeMethod.POST)
-    public void serveEditStatus(HttpServletRequest request, HttpServletResponse response) throws SQLException {
-        String text = request.getParameter("text");
-        String mood = request.getParameter("mood");
-        String statusId = request.getParameter("id");
-        StatusDAO.editStatus(statusId, text, mood);
-    }
-
-    @ServeAt(value = "/deleteStatus", method = ServeMethod.POST)
-    public void serveDeleteStatus(HttpServletRequest request, HttpServletResponse response) throws SQLException {
-        String statusId = request.getParameter("id");
-        System.out.println(statusId);
-        StatusDAO.deleteStatus(statusId);
-    }
-
-    @ServeAt(value = "/createComment", method = ServeMethod.POST)
-    public void serveCreateComment(HttpServletRequest request, HttpServletResponse response) throws SQLException {
-
     }
 
 }

@@ -47,9 +47,9 @@
             <div class="post_ele1 flex flex_ac">
                 <div class="wh_40">
                     <img
-                        class="wh_40 scale circle"
-                        src="/Javbook/assets/img/default/avatar.png"
-                        alt=""
+                        class="wh_40 scale circle userAvatar"
+                        src="${avarar}"
+                         alt=""
                         />
                 </div>
 
@@ -76,7 +76,7 @@
 
     </div>
     <div class="list-post">
-        <%@include file="../common/postBox.jsp" %>
+        <%@include file="postBox.jsp" %>
     </div>
     </div>
 </div>

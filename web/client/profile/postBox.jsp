@@ -4,6 +4,7 @@
     Author     : Mr Khang
 --%>
 
+
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
@@ -19,22 +20,14 @@
                     </div>
 
                     <div class="post-state">
-                        <span class="post-date">6 hours ago</span>
+                        <span class="post-date"> 6 hours ago</span>
 
                         <i class="fas fa-globe-asia"></i>
                         <i class="fas fa-lock"></i>
                         <i class="fas fa-user-friends"></i>
                     </div>
                 </div>
-                <div class="edit-post">
-                    <i class="fas fa-ellipsis-h"></i>
-                    <div class="edit-post-item">
-                        <ul>
-                            <li class="edit"><i class="fas fa-pen-nib"> </i> Edit</li>
-                            <li class="delete"><i class="far fa-trash-alt"></i> Delete</li>
-                        </ul>
-                    </div>
-                </div>
+               
             </div>
             <div class="post-content">
                 <p class="content">Hi everybody =))</p>
@@ -155,7 +148,9 @@
                         <i class="fas fa-paper-plane"></i>
                     </button>
                 </div>
+
                 <div class="comment-item">
+
                     <div class="main-comment">
                         <div class="comment-user">
                             <img
@@ -339,20 +334,11 @@
         </div>
     </div>
 </c:if>
-
 <c:forEach items="${statusUser}" var="status" >
     <div class="post box" id="${status.statusId}">
         <div class="post-item">
             <div class="status-main">
-
-                <c:choose>
-                    <c:when test="${empty status.userImage}">
-                        <img src="/Javbook/assets/img/default/avatar.png" class="status-img" />
-                    </c:when>
-                    <c:otherwise>
-                        <img src="${status.userImage}" class="status-img" />
-                    </c:otherwise>
-                </c:choose>
+                <img src="${status.userImage}" class="status-img" />
                 <div class="post-detail">
                     <div class="post-title">
                         <a href="">${status.userName}</a>
@@ -360,8 +346,7 @@
 
                     <div class="post-state">
                         <span class="post-date">
-                            12
-                            hours ago
+                            ${status.time}
                         </span>
                         <c:if test="${status.mood==1}">
                             <i class="fas fa-globe-asia"></i>
@@ -393,7 +378,7 @@
             <div class="post-photos">
                 <img
                     src="${status.statusImg}"
-                    alt="Image"
+                    alt=""
                     class="post-photo"
                     />
             </div>
@@ -493,7 +478,7 @@
             <div class="comment-box">
                 <div class="send-comment-box">
                     <img
-                        src="/Javbook/assets/img/default/avatar.png"
+                        src="${status.userImage}"
                         alt=""
                         class="ava_cmt user-avatar-send"
                         />
@@ -507,6 +492,9 @@
                     </button>
                 </div>
                 <div class="comment-item">
+
+
+
                     <div class="main-comment">
                         <div class="comment-user">
                             <img
@@ -685,6 +673,8 @@
 
                         </div>
                     </div>
+
+
                 </div>
             </div>
         </div>
