@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css?family=DM+Sans:400,500,700|Source+Sans+Pro:300,400,600,700&display=swap");
+
 
 
 
@@ -7,11 +7,7 @@ html {
   -webkit-font-smoothing: antialiased;
 }
 
-body {
-  font-family: "Source Sans Pro", sans-serif;
-  background-color: #373e57;
-  color: #ccc8db;
-}
+
 
 .main-container {
   padding: 20px;

@@ -48,8 +48,11 @@ select {
     box-sizing: border-box;
     /*khang*/
     resize: none;
-}
 
+}
+textarea{
+    caret-color: #ffffff;
+}
 input {
     line-height: normal;
 }
