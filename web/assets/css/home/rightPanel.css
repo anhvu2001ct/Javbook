@@ -9,7 +9,7 @@
   flex-direction: column;
   color: var(--white-color);
   height: 92vh;
-  border-left: 2px solid grey;
+  /* border-left: 2px solid grey; */
 }
 
 .right-title {
@@ -18,14 +18,14 @@
   display: flex;
   align-items: center;
   border-bottom: 1px solid grey;
-  padding: 10px;
+  padding: 23px 10px;
 }
 .right-title h3 {
   margin-left: 1rem;
 }
 .friendList {
   height: auto;
-  max-height: 80vh;
+  max-height: 78vh;
   overflow: auto;
   padding-top: 10px;
 }
