@@ -111,7 +111,7 @@ Khang --%> <%@page contentType="text/html" pageEncoding="UTF-8"%>
             <div class="timeline"></div>
         </div>
         <!-- popup  -->
-        <div class="popup_model flex_center popup-main-post">
+        <div class="popup_model flex_center-post popup-main-post">
             <div class="post_popup" id="post_popup">
                 <div class="pop_ele1 flex_center">
                     <span class="pop_title">Create Post</span>
@@ -165,7 +165,7 @@ Khang --%> <%@page contentType="text/html" pageEncoding="UTF-8"%>
                 </div>
             </div>
         </div>
-        <div class="popup_model flex_center popup-post-box">
+        <div class="popup_model flex_center-post popup-post-box">
             <div class="post_popup" id="post_popup">
                 <div class="pop_ele1 flex_center">
                     <span class="pop_title">Edit Post</span>
@@ -206,6 +206,9 @@ Khang --%> <%@page contentType="text/html" pageEncoding="UTF-8"%>
             </div>
         </div>
 
-        <script src="/Javbook/assets/js/profile/Header/profileHeader.js"></script>
+        <script src="/Javbook/assets/js/profile/Header/profileHeader.js"></script> 
+        <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+        <script src="/Javbook/assets/js/common/header.js"></script>
+
     </body>
 </html>
