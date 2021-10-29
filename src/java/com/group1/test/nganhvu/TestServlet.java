@@ -19,7 +19,7 @@ class Account {
  *
  * @author Anh Vu Nguyen {@literal <nganhvu>}
  */
-@WebServlet("/test/nganhvu/*")
+@WebServlet("/test/nganhvu1/*")
 public class TestServlet extends BaseServlet {
     int cnt = 0;
     

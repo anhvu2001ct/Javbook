@@ -132,7 +132,7 @@ signinBtn.onclick = function () {
         if (result == "fail") {
             toast(message.signInFail, [message.signInFail.message]);
         } else if (result == "success") {
-            window.location = ".";
+            window.location.reload();
         }
     });
 
