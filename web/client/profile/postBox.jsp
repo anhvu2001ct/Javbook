@@ -12,7 +12,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 
-<c:if test="${statusUser.size()==null}">
+<c:if test="${posts.isEmpty()}">
     <div class="post box">
         <div class="post-item">
             <div class="status-main">
@@ -23,11 +23,8 @@
                     </div>
 
                     <div class="post-state">
-                        <span class="post-date"> 6 hours ago</span>
-
+                        <span class="post-date"> 1 minute ago</span>
                         <i class="fas fa-globe-asia"></i>
-                        <i class="fas fa-lock"></i>
-                        <i class="fas fa-user-friends"></i>
                     </div>
                 </div>
 
@@ -147,7 +144,7 @@
                         class="send-text-comment"
                         placeholder="Write a comment…"
                         ></textarea>
-                    <button class="send-comment main-send">
+                    <button class="send-comment ">
                         <i class="fas fa-paper-plane"></i>
                     </button>
                 </div>
@@ -232,7 +229,7 @@
                                         </div>
                                     </div>
                                     <span class="reply-main">Reply</span>
-                                    <span>1 hour</span>
+                                    <span>1 m</span>
                                 </div>
                             </div>
                         </div>
@@ -325,7 +322,7 @@
                                             </div>
                                         </div>
                                         <span class="reply-level">Reply</span>
-                                        <span>1 hour</span>
+                                        <span>1 m</span>
                                     </div>
                                 </div>
                             </div>
@@ -510,7 +507,7 @@
                                                 <div class="comment-main-title">
                                                     <a href="" class="main-user-name">${comment.first.userName}</a>
                                                 </div>
-                                                <p>${comment.first.text}</p>
+                                                    <p class="text-comment" >${comment.first.text}</p>
                                                 <div class="display-comment-emoji">
                                                     <ul>
                                                         <li>
@@ -576,7 +573,7 @@
                                                     </div>
                                                 </div>
                                                 <span class="reply-main">Reply</span>
-                                                <span>1 hour</span>
+                                                <span>${comment.first.time}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -671,7 +668,7 @@
                                                                 </div>
                                                             </div>
                                                             <span class="reply-level">Reply</span>
-                                                            <span>1 hour</span>
+                                                            <span>${comment2.time}</span>
                                                         </div>
                                                     </div>
                                                 </div>

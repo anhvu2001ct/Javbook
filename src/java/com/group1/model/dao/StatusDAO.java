@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,6 +38,30 @@ public class StatusDAO {
         } catch (SQLException ex) {
             System.err.println("Create Status Error");
         }
+    }
+
+    public static int getStatusId(int accountID) {
+        try {
+            int statusId = 0;
+            String query = "SELECT TOP 1 StatusID \n"
+                    + "FROM Status\n"
+                    + "WHERE AccountUserID = ?\n"
+                    + "ORDER BY StatusID DESC";
+            PreparedStatement ps = SQL.prepareStatement(query);
+            ps.setInt(1, accountID);
+            ResultSet rs = ps.executeQuery();
+            if (!rs.isBeforeFirst()) {
+                return -1;
+            } else {
+                while (rs.next()) {
+                    statusId = rs.getInt(1);
+                }
+                return statusId;
+            }
+        } catch (SQLException ex) {
+            System.err.println("Get Status User Error");
+        }
+        return -1;
     }
 
     public static void editStatus(String statusId, String text, String mood) {
@@ -82,12 +107,13 @@ public class StatusDAO {
             PreparedStatement ps = SQL.prepareStatement(query);
             ps.setInt(1, acccountID);
             ResultSet rs = ps.executeQuery();
+            SimpleDateFormat s = new SimpleDateFormat("MM/dd/yyyy HH:mm");
             if (!rs.isBeforeFirst()) {
                 return null;
             } else {
                 while (rs.next()) {
                     Status status = new Status(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getString(4),
-                            rs.getString(5), String.format("%1$TD %1$TT", rs.getTimestamp(6)),
+                            rs.getString(5), s.format(rs.getTimestamp(6)),
                             String.format("%1$TD %1$TT", rs.getTimestamp(7)), rs.getInt(8));
                     list.add(status);
                 }

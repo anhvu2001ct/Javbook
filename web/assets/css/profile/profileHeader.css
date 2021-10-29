@@ -1,13 +1,6 @@
-
-
-
-
 html {
-  
   -webkit-font-smoothing: antialiased;
 }
-
-
 
 .main-container {
   padding: 20px;
@@ -17,6 +10,8 @@ html {
   max-width: 940px;
   margin: 0 auto;
   caret-color: rgba(0, 0, 0, 0);
+  position: relative;
+  top: 60px;
 }
 
 .profile {
@@ -58,14 +53,13 @@ html {
 }
 .edit-cover-img:hover {
   background-color: rgba(100, 100, 100, 0.8);
-  box-shadow:  2px 4px 8px 2px rgba(100, 100, 100, 0.5);
-
+  box-shadow: 2px 4px 8px 2px rgba(100, 100, 100, 0.5);
 }
 
-.photo-profile-cover:hover .edit-cover-img{
+.photo-profile-cover:hover .edit-cover-img {
   visibility: visible;
 }
-.photo-profile-cover:hover .profile-cover{
+.photo-profile-cover:hover .profile-cover {
   opacity: 0.6;
 }
 .profile-name-background {
@@ -125,7 +119,7 @@ html {
   margin-left: 24px;
   margin-bottom: 24px;
   font-size: 22px;
-  color: var(--white-color);;
+  color: var(--white-color);
   font-weight: 600;
   font-family: "DM Sans", sans-serif;
 }

@@ -13,48 +13,52 @@ Khang --%> <%@page contentType="text/html" pageEncoding="UTF-8"%>
             href="/Javbook/assets/img/logo/Javbook_black.png"
             type="image/gif"
             sizes="16x16"
-        />
+            />
         <link
             rel="stylesheet"
             href="/Javbook/assets/css/common/variables.css"
-        />
+            />
         <link rel="stylesheet" href="/Javbook/assets/css/common/base.css" />
         <link
             rel="stylesheet"
             href="/Javbook/assets/css/profile/profileHeader.css"
-        />
+            />
         <link
             rel="stylesheet"
             href="/Javbook/assets/css/profile/profilePost.css"
-        />
+            />
         <link rel="stylesheet" href="/Javbook/assets/css/common/postBox.css" />
         <link
             rel="stylesheet"
             href="/Javbook/assets/css/profile/profilePhoto.css"
-        />
+            />
         <link
             rel="stylesheet"
             href="/Javbook/assets/css/profile/profileAbout.css"
-        />
+            />
         <!-- Toast Message -->
         <link
             rel="stylesheet"
             href="/Javbook/assets/css/common/toastMessage.css"
-        />
+            />
         <link
             rel="stylesheet"
             href="/Javbook/assets/css/profile/profileFriends.css"
-        />
-
+            />
+        <link
+            rel="stylesheet"
+            href="/Javbook/assets/css/common/header.css"
+            />
         <link
             rel="stylesheet"
             href="/Javbook/assets/fonts/fontawesome-5.15.4/css/all.min.css"
-        />
+            />
         <script src="/Javbook/assets/js/common/query.js"></script>
         <!-- Toast Message -->
         <script src="/Javbook/assets/js/common/toastMessage.js"></script>
     </head>
     <body>
+        <%@include file="../common/header.jsp" %>
         <div class="main-container">
             <div class="profile">
                 <div class="profile-name-background"></div>
@@ -63,7 +67,7 @@ Khang --%> <%@page contentType="text/html" pageEncoding="UTF-8"%>
                         src="/Javbook/assets/img/default/avatar.png"
                         alt=""
                         class="profile-img"
-                    />
+                        />
 
                     <div class="profile-name">Javbook User</div>
                 </div>
@@ -76,7 +80,7 @@ Khang --%> <%@page contentType="text/html" pageEncoding="UTF-8"%>
                         name="photo-file"
                         id="header-avatar-file"
                         accept="image/* "
-                    />
+                        />
                 </div>
                 <div class="photo-profile-cover">
                     <div class="edit-cover-img">
@@ -88,13 +92,13 @@ Khang --%> <%@page contentType="text/html" pageEncoding="UTF-8"%>
                             name="photo-file"
                             id="header-photo-file"
                             accept="image/* "
-                        />
+                            />
                     </div>
                     <img
                         src="/Javbook/assets/img/default/cover.jpg"
                         alt=""
                         class="profile-cover"
-                    />
+                        />
                 </div>
 
                 <div class="profile-menu">
@@ -120,7 +124,7 @@ Khang --%> <%@page contentType="text/html" pageEncoding="UTF-8"%>
                             class="wh_40 scale circle"
                             src="/Javbook/assets/img/default/avatar.png"
                             alt=""
-                        />
+                            />
                     </div>
                     <div class="status_content flex_gr1">
                         <textarea
@@ -129,12 +133,12 @@ Khang --%> <%@page contentType="text/html" pageEncoding="UTF-8"%>
                             rows=""
                             class="enter"
                             placeholder="What's your mind?"
-                        ></textarea>
+                            ></textarea>
                         <div class="display-img">
                             <img src="" alt="" id="status-img" />
                             <span class="close-img"
-                                ><i class="fas fa-times"></i
-                            ></span>
+                                  ><i class="fas fa-times"></i
+                                ></span>
                         </div>
                     </div>
                 </div>
@@ -151,7 +155,7 @@ Khang --%> <%@page contentType="text/html" pageEncoding="UTF-8"%>
                             name="file"
                             id="file"
                             accept="image/*"
-                        />
+                            />
                         <label for="file" class="photo pointer">
                             <i class="far fa-images"></i>
                             <span class="p_l5">Photo/Video</span>
@@ -174,7 +178,7 @@ Khang --%> <%@page contentType="text/html" pageEncoding="UTF-8"%>
                             class="wh_40 scale circle"
                             src="/Javbook/assets/img/default/avatar.png"
                             alt=""
-                        />
+                            />
                     </div>
                     <div class="status_content flex_gr1">
                         <textarea
@@ -183,7 +187,7 @@ Khang --%> <%@page contentType="text/html" pageEncoding="UTF-8"%>
                             rows=""
                             class="enter"
                             placeholder="What's your mind?"
-                        ></textarea>
+                            ></textarea>
                         <div class="display-img">
                             <img src="" alt="" id="status-img" />
                         </div>

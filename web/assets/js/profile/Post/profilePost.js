@@ -54,29 +54,33 @@
     let name = "user" + Date.now() + ".png";
     // uploadData
     uploadData.addParam("content", userEditContent.value);
-    
+    let statusID;
     let userNamePost = document.querySelector(".profile-name");
     let userImgPost = document.querySelector(".profile-img");
     uploadData.addParam("audience", option);
+    uploadData.addEvent("load", function () {
+      statusID = this.response;
+    })
     if (inputFile.files[0] != undefined) {
       uploadData.addParam("link", "/Javbook/assets/img/user/" + name);
       let uploadImg = new QueryUpload("upload/image");
       uploadImg.addParam("file", inputFile.files[0]);
       uploadImg.addParam("savePath", name);
-      let link ="/Javbook/assets/img/user/" + name;
+      let link = "/Javbook/assets/img/user/" + name;
       uploadImg.addEvent("progress", function (e) {
         let percent = e.loaded / e.total * 100;
         console.log('upload process: ' + Math.floor(percent) + '%');
       });
+
       uploadImg.addEvent("load", function () {
         window.setTimeout(() => {
-          renderNewPost(userEditContent, link, option, userNamePost.textContent, userImgPost.src);
+          renderNewPost(userEditContent, link, option, userNamePost.textContent, userImgPost.src, statusID);
         }, 2000);
       });
       uploadImg.send();
     }
     else {
-      renderNewPost(userEditContent, "", option, userNamePost.textContent, userImgPost.src);
+      renderNewPost(userEditContent, "", option, userNamePost.textContent, userImgPost.src, statusID);
     }
 
 
@@ -88,19 +92,20 @@
 
   }
 
-  function renderNewPost(text, img, option, name, url) {
-
+  function renderNewPost(text, img, option, name, url, statusID) {
+    console.log(statusID)
     let today = new Date();
     let date = (today.getMonth() + 1) + '/' + today.getDate() + '/' + today.getFullYear();
-    let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    let time = today.getHours() + ":" + today.getMinutes() ;
     let dateTime = date + ' ' + time;
 
     let postbox = document.createElement("div");
     postbox.classList.add("post");
     postbox.classList.add("box");
+    postbox.setAttribute("id", statusID);
     let html = `
         
-  <div class="post-item">
+  <div class="post-item" >
     <div class="status-main">
       <img src="${url}" class="status-img" />
       <div class="post-detail">

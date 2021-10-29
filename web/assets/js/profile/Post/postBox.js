@@ -38,6 +38,7 @@ function postBox() {
   const selectPostBox = document.querySelector(".popup-post-box #select");
   let optionPostBox = 1;
   let parentBox;
+
   selectPostBox.addEventListener("change", () => {
     optionPostBox = selectPostBox.selectedIndex;
   });
@@ -45,7 +46,6 @@ function postBox() {
   deletePost.forEach((deletePost, index) => {
     deletePost.onclick = () => {
       let deletePostUser = deletePost.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
-      console.log(deletePostUser.id)
       let query = new QueryData("/status/deleteStatus");
       query.addParam("id", deletePostUser.id);
       query.send("POST");
@@ -60,18 +60,32 @@ function postBox() {
   mainSend.forEach((mainSend, index) => {
 
     mainSend.addEventListener("click", () => {
-      renderMainComment(mainSend);
+
+      let value = mainSend.parentNode.querySelector(".send-text-comment");
+      let commentId = 0;
+      let query = new QueryData("/status/createComment");
+      query.addParam("text", value.value.trim());
+      query.addParam("id", mainSend.parentNode.parentNode.parentNode.parentNode.id);
+      query.addEvent("load", function () {
+        commentId = this.response;
+
+        renderMainComment(mainSend, value, commentId);
+      });
+
+
+      query.send("POST");
+
     });
   });
-  function renderMainComment(mainSend) {
+  function renderMainComment(mainSend, value, commentId) {
     let displayMainComment = mainSend.parentNode.parentNode.querySelector(".comment-item");
-
-    let value = mainSend.parentNode.querySelector(".send-text-comment");
+    console.log("ben ngoai" + commentId);
+    let createComment = document.createElement("div");
+    createComment.classList.add("main-comment");
+    createComment.setAttribute("id", commentId);
     if (value.value.trim() === "") {
       return false;
     }
-    let createComment = document.createElement("div");
-    createComment.classList.add("main-comment");
     let html = `
     
     <div class="comment-user">
@@ -149,7 +163,7 @@ function postBox() {
             </div>
           </div>
           <span class="reply-main">Reply</span>
-          <span>1 hour</span>
+          <span>1 m</span>
         </div>
       </div>
     </div>
@@ -168,11 +182,7 @@ function postBox() {
     checkEmojiCount();
     noneDisplayEmoji();
     replyMain();
-    let query = new QueryData("/status/createComment");
-    query.addParam("text", value.value.trim());
-    query.addParam("id", mainSend.parentNode.parentNode.parentNode.parentNode.id);
 
-    query.send("POST");
     value.value = "";
 
 
@@ -182,27 +192,40 @@ function postBox() {
   function loopLevelComment(levelSend) {
 
     levelSend.addEventListener("click", () => {
+      let avatar = levelSend.parentNode.parentNode.querySelector(".user-avatar-send").src;
+      let value = levelSend.parentNode.querySelector(".send-text-comment");
+      let comment2Id = 0;
+      let query = new QueryData("/status/createComment2");
+      query.addParam("text", value.value.trim());
+      query.addParam("id", levelSend.parentNode.parentNode.parentNode.id);
+      query.addEvent("load", function () {
+        comment2Id = this.response;
+        renderLevelComment(levelSend, value, avatar,comment2Id);
+      });
 
-      renderLevelComment(levelSend);
+
+      query.send("POST");
+     
 
     });
 
   }
 
-  function renderLevelComment(level) {
+  function renderLevelComment(level, value, avatar,comment2Id) {
     let displayLevelComment = level.parentNode.parentNode;
     let Box = displayLevelComment.querySelector(".send-comment-box");
 
-    let value = level.parentNode.querySelector(".send-text-comment");
+
     if (value.value.trim() === "") {
       return false;
     }
     let createComment = document.createElement("div");
     createComment.classList.add("comment-level");
+    createComment.setAttribute("id", comment2Id)
     let html = `
    
     <img
-      src="./assets/image/avatar.jpg"
+      src="${avatar}"
       alt=""
       class="ava_cmt_rep avatar-level-comment"
     />
@@ -287,7 +310,7 @@ function postBox() {
           </div>
         </div>
         <span class="reply-level">Reply</span>
-        <span>1 hour</span>
+        <span>1 m</span>
       </div>
     </div>
  
@@ -462,14 +485,15 @@ function postBox() {
 
       let parentNode = btn.parentNode.parentNode.parentNode.parentNode;
       let parentBox = btn.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
-      let avatar = parentBox.querySelector(".status-img");
+    
       btn.onclick = () => {
+        console.log()
         if (parentNode.querySelector(".send-comment-box") === null) {
 
           let sendComment = document.createElement("div");
           sendComment.classList.add("send-comment-box");
           let html = `<img
-                   src = ""
+                   src = "${parentBox.querySelector(".user-avatar-send").src}"
                    alt = ""
                    class="ava_cmt user-avatar-send"
                        />
@@ -615,5 +639,6 @@ function postBox() {
   commentBTn.onclick = () => {
     commentBox.style.display = 'block';
   };
+
 }
 postBox();

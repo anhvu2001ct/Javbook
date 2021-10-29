@@ -1,9 +1,6 @@
-
 input[type="file"] {
   display: none;
 }
-
-
 
 .box {
   background-color: #151728;
@@ -11,7 +8,7 @@ input[type="file"] {
 }
 .post {
   max-width: 515px;
-  
+
   caret-color: rgba(0, 0, 0, 0);
   padding-bottom: 20px;
 }
@@ -182,7 +179,6 @@ input[type="file"] {
 }
 .post-state i {
   margin-left: 2px;
-  
 }
 .post-content {
   padding: 0 20px 20px;
@@ -216,7 +212,6 @@ input[type="file"] {
 .post-count-left {
   display: flex;
   cursor: pointer;
-
 }
 .post-count-left :hover {
   text-decoration: underline;
@@ -413,6 +408,17 @@ input[type="file"] {
   line-height: 1.3;
   position: relative;
 }
+.content-main-comment p {
+  max-width: 370px;
+  word-wrap: break-word;
+}
+.text-comment {
+  max-width: 410px !important;
+}
+.main-user-name {
+  font-weight: bold;
+  font-size: 14px;
+}
 .display-comment-emoji {
   display: flex;
   position: absolute;
@@ -424,9 +430,8 @@ input[type="file"] {
   border-radius: 15px;
   padding: 2px 3px;
   font-size: 13px;
-
 }
-.display-comment-emoji:hover{
+.display-comment-emoji:hover {
   text-decoration: underline;
 }
 .display-comment-emoji p {
@@ -439,11 +444,11 @@ input[type="file"] {
 .display-comment-emoji ul li {
   height: 16px;
 }
-.display-comment-emoji li img{
+.display-comment-emoji li img {
   height: 16px;
 }
 .reply_user {
-    color: #00bfff;
+  color: #00bfff;
 }
 .comment-main-title:hover,
 .main-comment-action > span:hover,
@@ -464,7 +469,9 @@ input[type="file"] {
 .main-comment-action span {
   margin-right: 10px;
 }
-
+.main-comment-action span:last-child {
+  letter-spacing: -2px;
+}
 .comment-level-item {
   display: flex;
   flex-direction: column;
@@ -554,7 +561,7 @@ input[type="file"] {
 
 .timeline-right {
   width: 100%;
-  
+
   margin-left: 20px;
   padding: 20px;
   border-radius: 4px;
@@ -702,6 +709,6 @@ input[type="file"] {
   width: 0;
   height: 0;
 }
-.activeState{
-    display: block;
+.activeState {
+  display: block;
 }

@@ -20,6 +20,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -34,11 +36,16 @@ public class StatusProcessor extends BaseProcessor {
 
     @ServeAt(value = "/crateStatus", method = ServeMethod.POST)
     public void serveCreateStatus(HttpServletRequest request, HttpServletResponse response) throws SQLException {
-        String content = request.getParameter("content");
-        String link = request.getParameter("link");
-        String audience = request.getParameter("audience");
-        int accountId = (int) request.getSession().getAttribute("uid");
-        StatusDAO.createStatus(accountId, content, link, audience);
+        try {
+            String content = request.getParameter("content");
+            String link = request.getParameter("link");
+            String audience = request.getParameter("audience");
+            int accountId = (int) request.getSession().getAttribute("uid");
+            StatusDAO.createStatus(accountId, content, link, audience);
+            response.getWriter().print(StatusDAO.getStatusId(accountId));
+        } catch (IOException ex) {
+            System.out.println("Save Post Data Erorr ");
+        }
 
     }
 
@@ -53,25 +60,36 @@ public class StatusProcessor extends BaseProcessor {
     @ServeAt(value = "/deleteStatus", method = ServeMethod.POST)
     public void serveDeleteStatus(HttpServletRequest request, HttpServletResponse response) throws SQLException {
         String statusId = request.getParameter("id");
+        System.out.println(statusId);
         StatusDAO.deleteStatus(statusId);
     }
 
     @ServeAt(value = "/createComment", method = ServeMethod.POST)
     public void serveCreateComment(HttpServletRequest request, HttpServletResponse response) throws SQLException {
-        String statusId = request.getParameter("id");
-        int accountId = (int) request.getSession().getAttribute("uid");
-        String text = request.getParameter("text");
-        CommentDAO.createComment(statusId, accountId, text);
+        try {
+            String statusId = request.getParameter("id");
+            int accountId = (int) request.getSession().getAttribute("uid");
+            String text = request.getParameter("text");
+            CommentDAO.createComment(statusId, accountId, text);
+            response.getWriter().print(CommentDAO.getCommentID(Integer.parseInt(statusId)));
+
+        } catch (IOException ex) {
+            System.out.println("Save Comment Data Erorr");
+        }
 
     }
 
     @ServeAt(value = "/createComment2", method = ServeMethod.POST)
     public void serveCreateComment2(HttpServletRequest request, HttpServletResponse response) throws SQLException {
-        String commentId = request.getParameter("commnetId");
-        String statusId = request.getParameter("statusId");
-        int accountId = (int) request.getSession().getAttribute("uid");
-        String text = request.getParameter("text");
-        CommentDAO.createComment2(commentId, statusId, accountId, text);
+        try {
+            String commentId = request.getParameter("id");
+            int accountId = (int) request.getSession().getAttribute("uid");
+            String text = request.getParameter("text");
+            CommentDAO.createComment2(commentId, accountId, text);
+            response.getWriter().print(CommentDAO.getComment2ID(Integer.parseInt(commentId)));
+        } catch (IOException ex) {
+            System.out.println("Save Comment2 Data Erorr");
+        }
 
     }
 
@@ -83,7 +101,7 @@ public class StatusProcessor extends BaseProcessor {
             List<Post> posts = new ArrayList<>();
             if (status != null) {
                 Collections.sort(status, (Status a, Status b) -> b.getStatusId() - a.getStatusId());
-                
+
                 for (Status stt : status) {
                     Post post = new Post();
                     post.setStatus(stt);
