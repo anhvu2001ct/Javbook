@@ -1,9 +1,8 @@
 * {
-  font-family: roboto, arial, helvetica;
+  font-family: Arial, Helvetica, sans-serif;
 }
 body {
-  /* background-color: #24273b; */
-  background-color: var(--background-color);
+  background-color: #272a3a;
 }
 .flex {
   display: flex;
@@ -53,7 +52,7 @@ body {
 }
 
 .hov:hover {
-  background-color: var(--background-color-hover);
+  background-color: rgba(128, 128, 128, 0.3);
 }
 .more_icon {
   transition: transform 0.2s;
@@ -65,8 +64,7 @@ body {
   margin-right: auto;
   overflow: auto;
   color: white;
-  background-color: var(--background-color);
-  /* border-right: 2px solid grey; */
+  background-color: #272a3a;
   position: relative;
   padding-top: 10px;
   cursor: pointer;

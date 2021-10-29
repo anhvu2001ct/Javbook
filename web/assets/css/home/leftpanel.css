@@ -1,10 +1,3 @@
-* {
-  font-family: roboto, arial, helvetica;
-}
-body {
-  /* background-color: #24273b; */
-  background-color: var(--background-color);
-}
 .flex {
   display: flex;
 }
@@ -53,21 +46,21 @@ body {
 }
 
 .hov:hover {
-  background-color: var(--background-color-hover);
+  background-color: rgba(128, 128, 128, 0.3);
 }
 .more_icon {
   transition: transform 0.2s;
 }
 
 .leftpanel {
+  position: fixed;
+  top: 56px !important;
   width: 280px;
   height: 100vh;
   margin-right: auto;
   overflow: auto;
   color: white;
-  background-color: var(--background-color);
-  /* border-right: 2px solid grey; */
-  position: relative;
+  background-color: #272a3a;
   padding-top: 10px;
   cursor: pointer;
 }

@@ -1,9 +1,9 @@
 * {
-  font-family: roboto, arial, helvetica;
+  font-family: Arial, Helvetica, sans-serif;
   box-sizing: border-box;
 }
 body {
-  background-color: var(--background-color);
+  background-color: #272a3a;
   color: #fff;
 }
 .flex {
@@ -37,15 +37,16 @@ body {
   width: 40px;
   height: 40px;
 }
+
 .header_container {
-  position: relative;
+  position: fixed;
+  width: 100%;
 }
 .header {
   height: 56px;
   width: 100%;
   border-bottom: 1px solid white;
-  /* background-color of navbar */
-  background-color: var(--header-background-color);
+  background-color: #444558;
 }
 .header_element {
   margin: 0px 16px;
@@ -146,7 +147,7 @@ body {
   position: absolute;
   right: 80px;
   top: 110%;
-  background-color: var(--header-background-color);
+  background-color: #444558;
   width: 280px;
   height: auto;
   max-height: 88vh;
@@ -155,6 +156,7 @@ body {
   border-radius: 6px;
   display: none;
   transition: all 0.3s;
+  z-index: 10;
 }
 .popup_title {
   margin-bottom: 15px;
@@ -271,5 +273,5 @@ body {
 }
 
 .popup_container:hover::-webkit-scrollbar-thumb {
-  background-color: var(--background-color);
+  background-color: #272a3a;
 }

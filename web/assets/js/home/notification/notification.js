@@ -4,9 +4,10 @@ function toast({
   message = "",
   image = "",
   type = "",
-  link= "#",
+  link = "#",
   duration = 3000,
 }) {
+  console.log(title, message);
   const main = document.getElementById("toast");
   if (main) {
     const toast = document.createElement("div");
@@ -32,11 +33,11 @@ function toast({
 
     toast.innerHTML = `
                       <div class="toast__icon">
-                        <a class="wh_40" href="${link}"
+                        <a class="wh_50" href="${link}"
                             ><img
                                 src="${srcimg}"
                                 alt=""
-                                class="scale wh_40 circle"
+                                class="scale wh_50 circle"
                         /></a>
                       </div>
                       <div class="toast__body">

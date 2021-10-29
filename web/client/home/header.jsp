@@ -1,34 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Javbook</title>
-    <!-- link css  -->
-     <script src="https://kit.fontawesome.com/ff4d20b881.js" crossorigin="anonymous"></script>
+<%-- 
+    Document   : header
+    Created on : 29 Oct 2021, 14:13:50
+    Author     : ASUS
+--%>
 
-    <link
-      rel="stylesheet"
-      href="/Javbook/test/nhatquynh/header/assets/css/variables.css"
-    />
-
-    <link
-      rel="stylesheet"
-      href="/Javbook/test/nhatquynh/header/assets/css/base.css"
-    />
-
-    <link
-      rel="stylesheet"
-      href="/Javbook/test/nhatquynh/header/assets/css/header.css"
-    />
-  </head>
-  <body>
-    <div class="header_container">
-      <!-- header navbar  -->
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!--header-->
+<div class="header_container">
       <div class="header flex flex_jsb flex_ac">
         <div class="header_element flex_center">
-          <!-- sửa đường dẫn ở đây -->
           <a class="header_brand wh_40" href="#"
             ><img
               src="/Javbook/test/nhatquynh/header/assets/img/logo/Javbook_white.png"
@@ -81,7 +61,6 @@
           </div>
 
           <div class="profile_border"></div>
-          <!-- sửa đường dẫn ở đây -->
           <a class="imageuser" href="#"
             ><img
               src="/Javbook/test/nhatquynh/header/assets/img/logo/logo.jpg"
@@ -92,29 +71,22 @@
       </div>
       <!-- popup_container  -->
       <div class="popup_container">
-        <!-- popup_container title -->
         <div class="popup_title">
           <h2 class="popup_mess">Friend request</h2>
         </div>
 
-        <!--popup_container inner  -->
         <div class="popup_inner flex" id="popup_inner">
-          <!-- popup_container inner item  -->
           <div class="popup_item flex flex_ac friend">
-            <!-- popup_container inner item image -->
             <a class="popup_item_img wh_40" href="#"
               ><img
                 src="/Javbook/test/nhatquynh/header/assets/img/logo/logo.jpg"
                 alt=""
                 class="scale wh_40 circle"
             /></a>
-            <!-- popup_container inner item information -->
             <div class="popup_item_info">
-              <!-- name user  -->
               <a class="popup_item_info_name" href="#"
                 ><strong>Le Nhat Quynh 1</strong>
               </a>
-              <!-- confirm of user  -->
               <div class="popup_item_info_confirm flex">
                 <button class="button accept">Accept</button>
                 <button class="button rejeinfo">Reject</button>
@@ -122,9 +94,7 @@
             </div>
           </div>
 
-          <!-- popup_container inner item  -->
           <div class="popup_item message mess_active">
-            <!-- popup_container inner item image -->
             <a class="popup_item_img wh_40 message_logo" href="#"
               ><img
                 src="/Javbook/test/nhatquynh/header/assets/img/logo/logo.jpg"
@@ -132,9 +102,25 @@
                 class="scale wh_40 circle"
               />
             </a>
-            <!-- popup_container inner item information -->
             <div class="popup_item_info message_content">
-              <!-- name user  -->
+              <span class="message_user"><strong>Hoang Khang</strong></span>
+              <span class="message_cp">
+                <span class="message_text"
+                  ><strong>Khang:</strong> đã bình luận về bài viết của
+                  bạn</span
+                >
+              </span>
+            </div>
+          </div>
+          <div class="popup_item message mess_active">
+            <a class="popup_item_img wh_40 message_logo" href="#"
+              ><img
+                src="/Javbook/test/nhatquynh/header/assets/img/logo/logo.jpg"
+                alt=""
+                class="scale wh_40 circle"
+              />
+            </a>
+            <div class="popup_item_info message_content">
               <span class="message_user"><strong>Hoang Khang</strong></span>
               <span class="message_cp">
                 <span class="message_text"
@@ -145,9 +131,7 @@
             </div>
           </div>
 
-          <!-- popup_container inner item  -->
           <div class="popup_item notification notifi_active">
-            <!-- popup_container inner item image -->
             <a class="popup_item_img wh_40 notification_logo" href="#"
               ><img
                 src="/Javbook/test/nhatquynh/header/assets/img/logo/logo.jpg"
@@ -155,15 +139,31 @@
                 class="scale wh_40 circle"
               />
               <span class="notification_icon">
-                <!-- thay icon tại đây -->
                 <i class="fas fa-grin"></i>
               </span>
             </a>
-            <!-- popup_container inner item information -->
             <div class="popup_item_info notification_content">
-              <!-- name user  -->
               <span class="notification_text"
                 ><strong>Nhat Quynh</strong> đã bày tỏ cảm xúc về bài viết của
+                bạn</span
+              >
+              <span class="notification_time">khoảng 1 giờ trước</span>
+            </div>
+          </div>
+          <div class="popup_item notification notifi_active">
+            <a class="popup_item_img wh_40 notification_logo" href="#"
+              ><img
+                src="/Javbook/test/nhatquynh/header/assets/img/logo/logo.jpg"
+                alt=""
+                class="scale wh_40 circle"
+              />
+              <span class="notification_icon">
+                <i class="fas fa-comment-alt"></i>
+              </span>
+            </a>
+            <div class="popup_item_info notification_content">
+              <span class="notification_text"
+                ><strong>Nhat Quynh</strong> đã bình luận về bài viết của
                 bạn</span
               >
               <span class="notification_time">khoảng 1 giờ trước</span>
@@ -172,11 +172,3 @@
         </div>
       </div>
     </div>
-
-    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-    <script
-      src="/Javbook/test/nhatquynh/header/assets/js/header.js"
-      async
-    ></script>
-  </body>
-</html>

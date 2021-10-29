@@ -1,19 +1,9 @@
-* {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-}
-
-body {
-  height: 100vh;
+.notification_message_popup {
+  height: auto;
   display: flex;
   flex-direction: column;
-  font-family: roboto, arial, helvetica;
-  background-color: #f4f4f5;
-}
-
-body > div {
-  margin: auto;
+  position: fixed;
+  bottom: 0;
 }
 
 /* ======= Toast message ======== */
@@ -24,7 +14,7 @@ body > div {
 .circle {
   border-radius: 50%;
 }
-.wh_40 {
+.wh_50 {
   width: 50px;
   height: 50px;
 }
@@ -35,7 +25,7 @@ body > div {
   bottom: 20px;
   left: 20px;
   cursor: pointer;
-  z-index: 999999;
+  z-index: 20;
 }
 
 .toast {
@@ -93,6 +83,7 @@ body > div {
 
 .toast__msg {
   font-size: 16px;
+  color: #000;
 }
 .notification_time {
   font-size: 13px;
