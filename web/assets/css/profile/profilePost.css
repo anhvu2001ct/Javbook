@@ -75,7 +75,7 @@
 .flex {
   display: flex;
 }
-.flex_center {
+.flex_center-post {
   display: flex;
   justify-content: center;
   align-items: center;

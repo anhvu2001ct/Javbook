@@ -2,10 +2,10 @@
   font-family: Arial, Helvetica, sans-serif;
   box-sizing: border-box;
 }
-body {
+/*body {
   background-color: #272a3a;
   color: #fff;
-}
+}*/
 .flex {
   display: flex;
 }
@@ -41,6 +41,7 @@ body {
 .header_container {
   position: fixed;
   width: 100%;
+  z-index: 10;
 }
 .header {
   height: 56px;
