@@ -9,7 +9,7 @@ function postBox() {
   let listEmojiComment = document.querySelectorAll(".comment-item .tooltip  img");
   let iconTextComment = document.querySelectorAll(".comment-item  .emoji>span");
   const likePost = document.querySelectorAll(".post-action .emoji");
-  const likeComment = document.querySelectorAll(".comment-item .emoji span");
+  let likeComment = document.querySelectorAll(".comment-item .emoji span");
   const commentText = document.querySelector(".send-text-comment");
   const commentBox = document.querySelector(".comment");
   const commentBTn = document.querySelector(".comment-status");
@@ -38,7 +38,9 @@ function postBox() {
   const selectPostBox = document.querySelector(".popup-post-box #select");
   let optionPostBox = 1;
   let parentBox;
-
+  let postCountLeft = document.querySelectorAll(".post-count-left");
+  let mainCommentEmojiPopup = document.querySelectorAll(".main-display-comment-emoji");
+  let levelCommentEmojiPopup = document.querySelectorAll(".level-display-comment-emoji");
   selectPostBox.addEventListener("change", () => {
     optionPostBox = selectPostBox.selectedIndex;
   });
@@ -79,7 +81,6 @@ function postBox() {
   });
   function renderMainComment(mainSend, value, commentId) {
     let displayMainComment = mainSend.parentNode.parentNode.querySelector(".comment-item");
-    console.log("ben ngoai" + commentId);
     let createComment = document.createElement("div");
     createComment.classList.add("main-comment");
     createComment.setAttribute("id", commentId);
@@ -100,7 +101,7 @@ function postBox() {
             <a href="" class="main-user-name">Nguyễn Hoàng Khang</a>
           </div>
           <p>${value.value.trim()}</p>
-          <div class="display-comment-emoji">
+          <div class="display-comment-emoji main-display-comment-emoji">
             <ul>
               <li>
                 <img src="/Javbook/assets/img/emoji/like.svg" alt="0" />
@@ -178,13 +179,14 @@ function postBox() {
     replyMainBtn = document.querySelectorAll(".main-comment-action >.reply-main");
     replyLevelBtn = document.querySelectorAll(".main-comment-action .reply-level");
     displaySendComment = document.querySelectorAll(".comment-level-item");
+    likeComment = document.querySelectorAll(".comment-item .emoji span");
     clickEmojiComment();
     checkEmojiCount();
     noneDisplayEmoji();
     replyMain();
 
     value.value = "";
-
+    deleteAndCreateEmoji();
 
 
   }
@@ -200,18 +202,18 @@ function postBox() {
       query.addParam("id", levelSend.parentNode.parentNode.parentNode.id);
       query.addEvent("load", function () {
         comment2Id = this.response;
-        renderLevelComment(levelSend, value, avatar,comment2Id);
+        renderLevelComment(levelSend, value, avatar, comment2Id);
       });
 
 
       query.send("POST");
-     
+
 
     });
 
   }
 
-  function renderLevelComment(level, value, avatar,comment2Id) {
+  function renderLevelComment(level, value, avatar, comment2Id) {
     let displayLevelComment = level.parentNode.parentNode;
     let Box = displayLevelComment.querySelector(".send-comment-box");
 
@@ -237,7 +239,7 @@ function postBox() {
         <p>
           <span class="reply_user"></span> ${value.value.trim()}
         </p>
-        <div class="display-comment-emoji">
+        <div class="display-comment-emoji level-display-comment-emoji">
           <ul>
             <li>
               <img src="/Javbook/assets/img/emoji/like.svg" alt="0" />
@@ -318,7 +320,7 @@ function postBox() {
     createComment.innerHTML = html;
     Box.remove();
     displayLevelComment.appendChild(createComment);
-
+    likeComment = document.querySelectorAll(".comment-item .emoji span");
     countCommentEmoji = document.querySelectorAll(".count-comment-enmoji");
     listEmojiComment = document.querySelectorAll(".comment-item .tooltip  img");
     iconTextComment = document.querySelectorAll(".comment-item  .emoji>span");
@@ -329,18 +331,19 @@ function postBox() {
     checkEmojiCount();
     noneDisplayEmoji();
     replyLevel();
+    deleteAndCreateEmoji();
     value.value = "";
   }
   function noneDisplayEmoji() {
     let countDisplayEmojiPost = document.querySelectorAll(".post-count-left ul li img");
     let countDisplayEmojiComment = document.querySelectorAll(".display-comment-emoji ul li img");
     countDisplayEmojiPost.forEach((emoji, index) => {
-      if (emoji.alt === 0) {
+      if (emoji.alt === '0') {
         emoji.style.display = "none";
       }
     });
     countDisplayEmojiComment.forEach((emoji, index) => {
-      if (emoji.alt === 0) {
+      if (emoji.alt === '0') {
         emoji.style.display = "none";
       }
     });
@@ -404,7 +407,6 @@ function postBox() {
     let query = new QueryData("/status/editStatus");
     query.addParam("text", userEditContent.value);
     query.addParam("mood", optionPostBox + 1);
-    console.log(optionPostBox + 1);
     query.addParam("id", parentBox.id);
     query.send("POST");
     let stateBox = parentBox.querySelector(".post-state i");
@@ -424,7 +426,6 @@ function postBox() {
   editPost.forEach((edit, index) => {
     edit.onclick = () => {
       parentBox = edit.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
-      console.log(parentBox);
       let state = document.querySelector(".post-state i");
       if (state.className.includes("globe")) {
         selectPostBox.value = selectPostBox.options[0].value;
@@ -485,9 +486,8 @@ function postBox() {
 
       let parentNode = btn.parentNode.parentNode.parentNode.parentNode;
       let parentBox = btn.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
-    
+
       btn.onclick = () => {
-        console.log()
         if (parentNode.querySelector(".send-comment-box") === null) {
 
           let sendComment = document.createElement("div");
@@ -520,15 +520,14 @@ function postBox() {
   listEmoji.forEach((emoji, indexList) => {
 
     emoji.onclick = () => {
-
       let index = Math.floor(indexList / 6);
-
-
       emojiPost[index].src = `/Javbook/assets/img/emoji/${icon[indexList % 6]}.svg`;
       iconText[index].innerText = nameIcon[indexList % 6];
       iconText[index].style.color = iconTextColor[indexList % 6];
-
+      let query = new QueryData("/emotion/createStatusEmoji");
       let postBox = emoji.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
+      query.addParam("id", postBox.id);
+      query.addParam("emoji", (indexList % 6) + 1)
       let countEmoji = postBox.querySelector(".count-emoji");
       let title = postBox.querySelector(".post-title").textContent.trim();
       let emojiNumber = parseInt(countEmoji.textContent);
@@ -537,6 +536,8 @@ function postBox() {
         postBox.querySelector(".name-display").remove();
       }
       postReaction(emojiNumber, img, indexList, index, title, postBox);
+      query.send("POST");
+
     };
   });
   function postReaction(emojiNumber, img, indexList, index, title, postBox) {
@@ -574,6 +575,20 @@ function postBox() {
         let commentBox = emoji.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
         let img = commentBox.querySelector(".display-comment-emoji li img");
         let content = commentBox.querySelector(".display-comment-emoji  p");
+        let mainComment = emoji.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
+        let levelComment = emoji.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
+        if (mainComment.className.includes("main-comment")) {
+          let uploadData = new QueryData("/emotion/createCommentEmoji");
+          uploadData.addParam("id", mainComment.id);
+          uploadData.addParam("emoji", (indexList % 6) + 1);
+          uploadData.send("POST")
+        }
+        if (levelComment.className.includes("comment-level")) {
+          let uploadData2 = new QueryData("/emotion/createComment2Emoji");
+          uploadData2.addParam("id", levelComment.id);
+          uploadData2.addParam("emoji", (indexList % 6) + 1);
+          uploadData2.send("POST")
+        }
         commentReaction(index, indexList, img, content);
       };
     });
@@ -584,8 +599,8 @@ function postBox() {
     img.style.display = "block";
     if (!content.className.includes("liked")) {
       content.innerText = parseInt(content.textContent) + 1;
+      img.alt = parseInt(content.textContent) + 1;
     }
-
     content.classList.add("liked");
     content.style.display = "block";
     content.parentNode.style.display = "flex";
@@ -595,22 +610,30 @@ function postBox() {
   iconText.forEach((like, index) => {
 
     like.onclick = () => {
+      let query = new QueryData("/emotion/createStatusEmoji");
+
       let postBox = like.parentNode.parentNode.parentNode.parentNode;
-      let countEmoji = postBox.querySelector(".count-emoji");
-      let title = postBox.querySelector(".post-title").textContent.trim();
-      let emojiNumber = parseInt(countEmoji.textContent);
-      let img = postBox.querySelector(".post-count-left > ul > li img");
+      query.addParam("id", postBox.id);
       if (!emojiPost[index].src.includes("unlike.png")) {
-        emojiPost[index].src = "/Javbook/assets/img/emoji/unlike.svg";
+        emojiPost[index].src = "/Javbook/assets/img/emoji/unlike.png";
         like.innerText = nameIcon[0];
         like.style.color = "";
+        let query2 = new QueryData("/emotion/deleteStatusEmoji");
+        query2.addParam("id", postBox.id);
+        query2.send("POST")
         postBox.querySelector(".post-count-left> ul").style.display = "none";
         postBox.querySelector(".post-count-left> p").style.display = "none";
-        postBox.querySelector(".name-display").remove();
+
+        if (postBox.querySelector(".name-display")) {
+          postBox.querySelector(".name-display").remove();
+        }
+
       } else {
 
+        query.addParam("emoji", 1);
         emojiPost[index].src = `/Javbook/assets/img/emoji/${icon[0]}.svg`;
         like.innerText = nameIcon[0];
+        query.send("POST")
         like.style.color = iconTextColor[0];
         let postBox = like.parentNode.parentNode.parentNode.parentNode;
         let countEmoji = postBox.querySelector(".count-emoji");
@@ -621,24 +644,98 @@ function postBox() {
           postBox.querySelector(".name-display").remove();
         }
         postReaction(emojiNumber, img, 0, 0, title, postBox);
+
       }
     };
   });
 
-  likeComment.forEach((like, index) => {
-    like.onclick = () => {
-      if (window.getComputedStyle(like).getPropertyValue("color") === "rgb(204, 200, 219)") {
+  function deleteAndCreateEmoji() {
+    likeComment.forEach((like, index) => {
+      like.onclick = () => {
 
-        like.style.color = iconTextColor[0];
-      } else {
-        like.style.color = "rgb(204, 200, 219)";
-      }
-    };
-  });
+        let displayEmojiLocation = like.parentNode.parentNode.parentNode.querySelector(".display-comment-emoji");
+        let mainComment = like.parentNode.parentNode.parentNode.parentNode.parentNode;
+        let levelComment = like.parentNode.parentNode.parentNode.parentNode;
+        if (window.getComputedStyle(like).getPropertyValue("color") === "rgb(204, 200, 219)") {
 
+          if (mainComment.className.includes("main-comment")) {
+            let uploadData = new QueryData("/emotion/createCommentEmoji");
+            uploadData.addParam("id", mainComment.id);
+            uploadData.addParam("emoji", 1);
+            uploadData.send("POST")
+          }
+          if (levelComment.className.includes("comment-level")) {
+            let uploadData2 = new QueryData("/emotion/createComment2Emoji");
+            uploadData2.addParam("id", levelComment.id);
+            uploadData2.addParam("emoji", 1);
+            uploadData2.send("POST")
+          }
+          let pTag = displayEmojiLocation.querySelector("p");
+          displayEmojiLocation.querySelector("li img").style.display = "block"
+          if (!pTag.className.includes("liked")) {
+            pTag.innerText = parseInt(pTag.textContent) + 1;
+            displayEmojiLocation.querySelector("li img").alt = parseInt(pTag.textContent) + 1;
+          }
+          pTag.classList.add("liked");
+          pTag.style.display = "block"
+          like.style.color = iconTextColor[0];
+          displayEmojiLocation.style.display = "flex"
+
+        } else {
+          if (mainComment.className.includes("main-comment")) {
+            let uploadData = new QueryData("/emotion/deleteCommentEmoji");
+            uploadData.addParam("id", mainComment.id);
+            uploadData.send("POST")
+          }
+          if (levelComment.className.includes("comment-level")) {
+            let uploadData2 = new QueryData("/emotion/deleteComment2Emoji");
+            uploadData2.addParam("id", levelComment.id);
+            uploadData2.send("POST")
+          }
+          like.style.color = "rgb(204, 200, 219)";
+          like.innerText = "Like"
+          displayEmojiLocation.style.display = "none"
+        }
+      };
+    });
+  }
   commentBTn.onclick = () => {
     commentBox.style.display = 'block';
   };
+  deleteAndCreateEmoji()
+
+  postCountLeft.forEach((emoji) => {
+    emoji.onclick = () => {
+      let statusID = emoji.parentNode.parentNode.id;
+      displayPopupEmoji(statusID, "status");
+
+    }
+  })
+  mainCommentEmojiPopup.forEach((comment) => {
+    comment.onclick = () => {
+      let commentId = comment.parentNode.parentNode.parentNode.parentNode;
+      displayPopupEmoji(commentId.id, "comment")
+
+    }
+  })
+  levelCommentEmojiPopup.forEach((comment) => {
+    comment.onclick = () => {
+      let comment2Id = comment.parentNode.parentNode.parentNode;
+      displayPopupEmoji(comment2Id.id, "comment2")
+    }
+  })
+  function displayPopupEmoji(value, type) {
+    let uploadData = new QueryData("/emotion/renderPopup");
+
+    uploadData.addParam("id", value);
+    uploadData.addParam("type", type);
+    uploadData.addEvent("load", function () {
+      document.querySelector(".popup-emoji-box").innerHTML = this.response;
+      document.querySelector(".popup-emoji").style.display = "block";
+      popupEmoji();
+    })
+    uploadData.send("GET");
+  }
 
 }
 postBox();

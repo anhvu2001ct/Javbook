@@ -10,6 +10,7 @@ import static com.group1.model.db.SQLConnector.SQL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -21,45 +22,24 @@ import java.util.List;
  */
 public class StatusDAO {
 
-    public static void createStatus(int accountID, String text, String statusImg, String audience) {
+    public static int createStatus(int accountID, String text, String statusImg, String audience) {
         try {
 
             String query = "INSERT INTO Status(AccountUserID, Text, StatusImg, Time, AudienceID)\n"
                     + "Values (?,?,?,?,?);";
-            PreparedStatement ps = SQL.prepareStatement(query);
+            PreparedStatement ps = SQL.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, accountID);
             ps.setString(2, text);
             ps.setString(3, statusImg);
             Timestamp time = new Timestamp(System.currentTimeMillis());
             ps.setTimestamp(4, time);
             ps.setInt(5, Integer.parseInt(audience));
-
             ps.executeUpdate();
+            ResultSet rs = ps.getGeneratedKeys();
+            rs.next();
+            return rs.getInt(1);
         } catch (SQLException ex) {
             System.err.println("Create Status Error");
-        }
-    }
-
-    public static int getStatusId(int accountID) {
-        try {
-            int statusId = 0;
-            String query = "SELECT TOP 1 StatusID \n"
-                    + "FROM Status\n"
-                    + "WHERE AccountUserID = ?\n"
-                    + "ORDER BY StatusID DESC";
-            PreparedStatement ps = SQL.prepareStatement(query);
-            ps.setInt(1, accountID);
-            ResultSet rs = ps.executeQuery();
-            if (!rs.isBeforeFirst()) {
-                return -1;
-            } else {
-                while (rs.next()) {
-                    statusId = rs.getInt(1);
-                }
-                return statusId;
-            }
-        } catch (SQLException ex) {
-            System.err.println("Get Status User Error");
         }
         return -1;
     }

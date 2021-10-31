@@ -469,8 +469,8 @@ input[type="file"] {
 .main-comment-action span {
   margin-right: 10px;
 }
-.main-comment-action span:last-child {
-  letter-spacing: -2px;
+.time-comment{
+  letter-spacing: -1px;
 }
 .comment-level-item {
   display: flex;

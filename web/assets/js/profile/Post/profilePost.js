@@ -60,40 +60,41 @@
     uploadData.addParam("audience", option);
     uploadData.addEvent("load", function () {
       statusID = this.response;
+      if (inputFile.files[0] != undefined) {
+        uploadData.addParam("link", "/Javbook/assets/img/user/" + name);
+        let uploadImg = new QueryUpload("upload/image");
+        uploadImg.addParam("file", inputFile.files[0]);
+        uploadImg.addParam("savePath", name);
+        let link = "/Javbook/assets/img/user/" + name;
+        uploadImg.addEvent("progress", function (e) {
+          let percent = e.loaded / e.total * 100;
+          console.log('upload process: ' + Math.floor(percent) + '%');
+        });
+  
+        uploadImg.addEvent("load", function () {
+          window.setTimeout(() => {
+            renderNewPost(userEditContent, link, option, userNamePost.textContent, userImgPost.src, statusID);
+          }, 2000);
+        });
+        uploadImg.send();
+      }
+      else {
+        renderNewPost(userEditContent, "", option, userNamePost.textContent, userImgPost.src, statusID);
+      }
+  
+  
+      document.querySelector(".popup_model").style.display = "none";
+  
+     
+      statusPhoto.src = "";
+      deletePhoto.style.display = "none";
     })
-    if (inputFile.files[0] != undefined) {
-      uploadData.addParam("link", "/Javbook/assets/img/user/" + name);
-      let uploadImg = new QueryUpload("upload/image");
-      uploadImg.addParam("file", inputFile.files[0]);
-      uploadImg.addParam("savePath", name);
-      let link = "/Javbook/assets/img/user/" + name;
-      uploadImg.addEvent("progress", function (e) {
-        let percent = e.loaded / e.total * 100;
-        console.log('upload process: ' + Math.floor(percent) + '%');
-      });
-
-      uploadImg.addEvent("load", function () {
-        window.setTimeout(() => {
-          renderNewPost(userEditContent, link, option, userNamePost.textContent, userImgPost.src, statusID);
-        }, 2000);
-      });
-      uploadImg.send();
-    }
-    else {
-      renderNewPost(userEditContent, "", option, userNamePost.textContent, userImgPost.src, statusID);
-    }
-
-
-    document.querySelector(".popup_model").style.display = "none";
-
+   
     uploadData.send("POST");
-    statusPhoto.src = "";
-    deletePhoto.style.display = "none";
 
   }
 
   function renderNewPost(text, img, option, name, url, statusID) {
-    console.log(statusID)
     let today = new Date();
     let date = (today.getMonth() + 1) + '/' + today.getDate() + '/' + today.getFullYear();
     let time = today.getHours() + ":" + today.getMinutes() ;

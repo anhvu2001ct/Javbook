@@ -12,6 +12,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -24,83 +25,43 @@ import java.util.concurrent.TimeUnit;
  */
 public class CommentDAO {
 
-    public static void createComment(String statusId, int accountId, String text) {
+    public static int createComment(String statusId, int accountId, String text) {
         try {
 
             String query = "INSERT INTO Comment(StatusID, AccountUserID, Text, Time)\n"
                     + "Values (?,?,?,?);";
-            PreparedStatement ps = SQL.prepareStatement(query);
+            PreparedStatement ps = SQL.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, Integer.parseInt(statusId));
             ps.setInt(2, accountId);
             ps.setString(3, text);
             Timestamp time = new Timestamp(System.currentTimeMillis());
             ps.setTimestamp(4, time);
             ps.executeUpdate();
+            ResultSet rs = ps.getGeneratedKeys();
+            rs.next();
+            return rs.getInt(1);
         } catch (SQLException ex) {
             System.err.println("Create Comment Error");
-        }
-    }
-
-    public static int getCommentID(int StatusID) {
-        try {
-            int commentId = 0;
-            String query = "SELECT TOP 1 CommentID\n"
-                    + "FROM Comment\n"
-                    + "WHERE StatusID = ?  \n"
-                    + "ORDER BY CommentID DESC";
-            PreparedStatement ps = SQL.prepareStatement(query);
-            ps.setInt(1, StatusID);
-            ResultSet rs = ps.executeQuery();
-            if (!rs.isBeforeFirst()) {
-                return -1;
-            } else {
-                while (rs.next()) {
-                    commentId = rs.getInt(1);
-                }
-                return commentId;
-            }
-        } catch (SQLException ex) {
-            System.err.println("Get CommentID Error");
         }
         return -1;
     }
 
-    public static void createComment2(String commentId, int accountId, String text) {
+    public static int createComment2(String commentId, int accountId, String text) {
         try {
             String query = "INSERT INTO Comment2(CommentID, AccountUserID, Text, Time)\n"
                     + "Values (?,?,?,?)";
-            PreparedStatement ps = SQL.prepareStatement(query);
+            PreparedStatement ps = SQL.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, Integer.parseInt(commentId));
             ps.setInt(2, accountId);
             ps.setString(3, text);
             Timestamp time = new Timestamp(System.currentTimeMillis());
             ps.setTimestamp(4, time);
             ps.executeUpdate();
+            ResultSet rs = ps.getGeneratedKeys();
+            rs.next();
+            return rs.getInt(1);
         } catch (SQLException ex) {
             System.err.println("Create Comment2 Error");
-        }
-    }
-
-    public static int getComment2ID(int commentId) {
-        try {
-            int comment2Id = 0;
-            String query = "SELECT TOP 1 Comment2ID\n"
-                    + "FROM Comment2\n"
-                    + "WHERE CommentID = ?\n"
-                    + "ORDER BY Comment2ID DESC";
-            PreparedStatement ps = SQL.prepareStatement(query);
-            ps.setInt(1, commentId);
-            ResultSet rs = ps.executeQuery();
-            if (!rs.isBeforeFirst()) {
-                return -1;
-            } else {
-                while (rs.next()) {
-                    comment2Id = rs.getInt(1);
-                }
-                return comment2Id;
-            }
-        } catch (SQLException ex) {
-            System.err.println("Get Comment2ID Error");
         }
         return -1;
     }
@@ -158,7 +119,7 @@ public class CommentDAO {
                 while (rs.next()) {
 
                     Comment2 comment2 = new Comment2(rs.getString(1), rs.getString(2), rs.getInt(3),
-                            rs.getInt(4),  rs.getString(5), calculateTime(rs.getTimestamp(6)), rs.getInt(7));
+                            rs.getInt(4), rs.getString(5), calculateTime(rs.getTimestamp(6)), rs.getInt(7));
                     list.add(comment2);
                 }
                 return list;

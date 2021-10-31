@@ -8,9 +8,12 @@ package com.group1.controller.processor;
 import com.group1.misc.Pair;
 import com.group1.model.Comment;
 import com.group1.model.Comment2;
+import com.group1.model.CountEmoji;
+import com.group1.model.Emoji;
 import com.group1.model.Post;
 import com.group1.model.Status;
 import com.group1.model.dao.CommentDAO;
+import com.group1.model.dao.EmojiDAO;
 import com.group1.model.dao.StatusDAO;
 import com.group1.rest.BaseProcessor;
 import com.group1.rest.ServeAt;
@@ -20,8 +23,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -41,10 +42,9 @@ public class StatusProcessor extends BaseProcessor {
             String link = request.getParameter("link");
             String audience = request.getParameter("audience");
             int accountId = (int) request.getSession().getAttribute("uid");
-            StatusDAO.createStatus(accountId, content, link, audience);
-            response.getWriter().print(StatusDAO.getStatusId(accountId));
+            response.getWriter().print(StatusDAO.createStatus(accountId, content, link, audience));
         } catch (IOException ex) {
-            System.out.println("Save Post Data Erorr ");
+            System.out.println("Create Status Erorr");
         }
 
     }
@@ -60,7 +60,6 @@ public class StatusProcessor extends BaseProcessor {
     @ServeAt(value = "/deleteStatus", method = ServeMethod.POST)
     public void serveDeleteStatus(HttpServletRequest request, HttpServletResponse response) throws SQLException {
         String statusId = request.getParameter("id");
-        System.out.println(statusId);
         StatusDAO.deleteStatus(statusId);
     }
 
@@ -70,8 +69,7 @@ public class StatusProcessor extends BaseProcessor {
             String statusId = request.getParameter("id");
             int accountId = (int) request.getSession().getAttribute("uid");
             String text = request.getParameter("text");
-            CommentDAO.createComment(statusId, accountId, text);
-            response.getWriter().print(CommentDAO.getCommentID(Integer.parseInt(statusId)));
+            response.getWriter().print(CommentDAO.createComment(statusId, accountId, text));
 
         } catch (IOException ex) {
             System.out.println("Save Comment Data Erorr");
@@ -85,13 +83,13 @@ public class StatusProcessor extends BaseProcessor {
             String commentId = request.getParameter("id");
             int accountId = (int) request.getSession().getAttribute("uid");
             String text = request.getParameter("text");
-            CommentDAO.createComment2(commentId, accountId, text);
-            response.getWriter().print(CommentDAO.getComment2ID(Integer.parseInt(commentId)));
+            response.getWriter().print(CommentDAO.createComment2(commentId, accountId, text));
         } catch (IOException ex) {
             System.out.println("Save Comment2 Data Erorr");
         }
 
     }
+
 
     @ServeAt(value = "/render", method = ServeMethod.GET)
     public void serveRenderPost(HttpServletRequest request, HttpServletResponse response) {
@@ -128,4 +126,6 @@ public class StatusProcessor extends BaseProcessor {
         }
 
     }
+
+   
 }

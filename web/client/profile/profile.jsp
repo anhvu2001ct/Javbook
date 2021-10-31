@@ -51,6 +51,10 @@ Khang --%> <%@page contentType="text/html" pageEncoding="UTF-8"%>
             />
         <link
             rel="stylesheet"
+            href="/Javbook/assets/css/profile/popupEmoji.css"
+            />
+        <link
+            rel="stylesheet"
             href="/Javbook/assets/fonts/fontawesome-5.15.4/css/all.min.css"
             />
         <script src="/Javbook/assets/js/common/query.js"></script>
@@ -205,7 +209,9 @@ Khang --%> <%@page contentType="text/html" pageEncoding="UTF-8"%>
                 </div>
             </div>
         </div>
-
+        <div class="popup-emoji-box">
+            <%@include file="popupEmoji.jsp" %>
+        </div>
         <script src="/Javbook/assets/js/profile/Header/profileHeader.js"></script> 
         <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
         <script src="/Javbook/assets/js/common/header.js"></script>

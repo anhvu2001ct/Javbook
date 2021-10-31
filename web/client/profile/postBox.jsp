@@ -5,9 +5,6 @@
 --%>
 
 
-<%@page import="com.group1.model.dao.CommentDAO"%>
-<%@page import="com.group1.model.Comment"%>
-<%@page import="java.util.List"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
@@ -164,7 +161,7 @@
                                         <a href="" class="main-user-name">Javbook</a>
                                     </div>
                                     <p>Welcome to Javbook</p>
-                                    <div class="display-comment-emoji">
+                                    <div class="display-comment-emoji ">
                                         <ul>
                                             <li>
                                                 <img src="/Javbook/assets/img/emoji/like.svg" alt="0" />
@@ -507,8 +504,8 @@
                                                 <div class="comment-main-title">
                                                     <a href="" class="main-user-name">${comment.first.userName}</a>
                                                 </div>
-                                                    <p class="text-comment" >${comment.first.text}</p>
-                                                <div class="display-comment-emoji">
+                                                <p class="text-comment" >${comment.first.text}</p>
+                                                <div class="display-comment-emoji main-display-comment-emoji">
                                                     <ul>
                                                         <li>
                                                             <img src="/Javbook/assets/img/emoji/like.svg" alt="0" />
@@ -573,7 +570,7 @@
                                                     </div>
                                                 </div>
                                                 <span class="reply-main">Reply</span>
-                                                <span>${comment.first.time}</span>
+                                                <span class="time-comment">${comment.first.time}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -595,7 +592,7 @@
                                                             <p>
                                                                 <span class="reply_user">Javbook</span> ${comment2.text}
                                                             </p>
-                                                            <div class="display-comment-emoji">
+                                                            <div class="display-comment-emoji level-display-comment-emoji">
                                                                 <ul>
                                                                     <li>
                                                                         <img src="/Javbook/assets/img/emoji/like.svg" alt="0" />
@@ -668,7 +665,7 @@
                                                                 </div>
                                                             </div>
                                                             <span class="reply-level">Reply</span>
-                                                            <span>${comment2.time}</span>
+                                                            <span class="time-comment">${comment2.time}</span>
                                                         </div>
                                                     </div>
                                                 </div>

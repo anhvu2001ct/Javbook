@@ -7,18 +7,11 @@ package com.group1.controller.processor;
 
 import com.group1.controller.ServerInit;
 import static com.group1.controller.ServerInit.gson;
-import com.group1.model.Comment;
-import com.group1.model.Status;
-import com.group1.model.dao.CommentDAO;
 import com.group1.model.dao.StatusDAO;
 import com.group1.model.db.IO;
 import com.group1.rest.BaseProcessor;
 import com.group1.rest.ServeAt;
-import com.group1.rest.ServeMethod;
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -50,6 +43,7 @@ public class ProfileProcessor extends BaseProcessor {
         if (value.equals("Friends")) {
             request.getRequestDispatcher("/client/profile/profileFriends.jsp").forward(request, response);
         }
+       
 
     }
 
@@ -75,6 +69,7 @@ public class ProfileProcessor extends BaseProcessor {
             List<String> list = IO.getFilesName(ServerInit.webPath, "assets/js/profile/");
             response.getWriter().print(gson.toJson(list));
         }
+      
     }
 
 }
