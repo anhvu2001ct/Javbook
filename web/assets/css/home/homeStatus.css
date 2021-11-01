@@ -7,10 +7,12 @@ input[type="file"] {
   border-radius: 6px;
 }
 .post {
-  max-width: 515px;
-
+  max-width: 590px;
   caret-color: rgba(0, 0, 0, 0);
   padding-bottom: 20px;
+  margin: 0 auto;
+  position: relative;
+  top: 80px;
 }
 .status-img {
   width: 50px;

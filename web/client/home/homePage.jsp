@@ -33,6 +33,14 @@
             rel="stylesheet"
             href="/Javbook/assets/css/common/notification.css"
             />
+        <link
+            rel="stylesheet"
+            href="/Javbook/assets/css/home/homeStatus.css"
+            />
+        <link
+            rel="stylesheet"
+            href="/Javbook/assets/css/home/homePost.css"
+            />
 
     </head>
     <body>
@@ -40,13 +48,17 @@
         <%@include file="rightPanel.jsp" %>
         <%@include file="../common/header.jsp" %>
         <%@include file="../common/notification.jsp" %>
+        <%@include file="homePost.jsp" %>
+        <%@include file="homeStatus.jsp" %>
 
 
         <script src="/Javbook/assets/js/common/query.js"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-        <script src="/Javbook/assets/js/home/leftPanel/leftpanel.js"></script>
+        <script src="/Javbook/assets/js/home/LeftPanel/leftpanel.js"></script>
         <script src="/Javbook/assets/js/common/header.js"></script>
         <script src="/Javbook/assets/js/common/notification.js"></script>
+        <script src="/Javbook/assets/js/home/HomePost/homePost.js"></script>
+        <script src="/Javbook/assets/js/home/HomeStatus/homeStatus.js"></script>
 
 
     </body>

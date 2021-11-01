@@ -3,8 +3,4 @@
     <session-config>
         <session-timeout>300</session-timeout>
     </session-config>
-
-    <welcome-file-list>  
-        <welcome-file>/client/home/homePage.jsp</welcome-file>
-    </welcome-file-list>  
 </web-app>

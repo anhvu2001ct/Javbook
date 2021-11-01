@@ -1,0 +1,707 @@
+<%-- 
+    Document   : status
+    Created on : 29 Oct 2021, 22:23:39
+    Author     : ASUS
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!--status-->
+ <div class="post box">
+      <div class="post-item">
+        <div class="status-main">
+          <img src="/Javbook/assets/img/default/avatar.png" class="status-img" />
+          <div class="post-detail">
+            <div class="post-title">
+              <a href="">Nguyễn Hoàng Khang</a>
+            </div>
+
+            <div class="post-state">
+              <span class="post-date">6 hours ago</span>
+              <i class="fas fa-lock"></i>
+            </div>
+          </div>
+          <div class="edit-post">
+            <i class="fas fa-ellipsis-h"></i>
+            <div class="edit-post-item">
+              <ul>
+                <li class="edit"><i class="fas fa-pen-nib"> </i> Edit</li>
+                <li><i class="far fa-trash-alt"></i> Delete</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="post-content">
+          <p class="content">Làm nhẹ cái ảnh bìa</p>
+        </div>
+        <div class="post-photos">
+          <img
+            src="https://scontent.fvca1-2.fna.fbcdn.net/v/t1.6435-9/153880781_1269206826834221_640873498255439976_n.jpg?_nc_cat=100&ccb=1-5&_nc_sid=e3f864&_nc_ohc=TSfn9YA190wAX-S5rLI&_nc_ht=scontent.fvca1-2.fna&oh=f93eb6f75dc683485e9368c55058ae26&oe=61721FE1"
+            alt=""
+            class="post-photo"
+          />
+        </div>
+      </div>
+      <div class="post-count">
+        <div class="post-count-left">
+          <ul>
+            <li>
+              <img src="/Javbook/assets/img/emoji/like.svg" alt="" />
+            </li>
+
+            <li>
+              <img src="/Javbook/assets/img/emoji/love.svg" alt="" />
+            </li>
+
+            <li>
+              <img src="/Javbook/assets/img/emoji/care.svg" alt="" />
+            </li>
+
+          </ul>
+          <p class="count-emoji">1</p>
+        </div>
+        <div class="post-count-right">
+          <span> <p>10</p> comments</span>
+          <span><p>0</p>share</span>
+        </div>
+      </div>
+      <div class="post-action">
+        <div class="actions">
+          <div class="emoji">
+            <img src="/Javbook/assets/img/emoji/unlike.png" alt="" class="icon-status" />
+            <p>Like</p>
+            <div class="list-icon">
+              <ul>
+                <li>
+                  <div class="tooltip">
+                    <img src="/Javbook/assets/img/emoji/like.svg" alt="" />
+                    <span class="toolTipText">Like</span>
+                  </div>
+                </li>
+
+                <li>
+                  <div class="tooltip">
+                    <img src="/Javbook/assets/img/emoji/love.svg" alt="" />
+                    <span class="toolTipText tooltipIcon2">Love</span>
+                  </div>
+                </li>
+
+                <li>
+                  <div class="tooltip">
+                    <img src="/Javbook/assets/img/emoji/care.svg" alt="" />
+                    <span class="toolTipText tooltipIcon3">Care</span>
+                  </div>
+                </li>
+
+                <li>
+                  <div class="tooltip">
+                    <img src="/Javbook/assets/img/emoji/haha.svg" alt="" />
+                    <span class="toolTipText tooltipIcon4">Haha</span>
+                  </div>
+                </li>
+
+                <li>
+                  <div class="tooltip">
+                    <img src="/Javbook/assets/img/emoji/sad.svg" alt="" />
+                    <span class="toolTipText tooltipIcon5">Sad</span>
+                  </div>
+                </li>
+
+                <li>
+                  <div class="tooltip">
+                    <img src="/Javbook/assets/img/emoji/angry.svg" alt="" />
+                    <span class="toolTipText tooltipIcon6">Angry</span>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="comment-status">
+            <i class="far fa-comment-alt"></i>
+            Comment
+          </div>
+          <div class="share">
+            <i class="fas fa-share"></i>
+            Share
+          </div>
+        </div>
+      </div>
+
+      <div class="comment box">
+        <div class="comment-box">
+          <div class="send-comment-box">
+            <img
+              src="/Javbook/assets/img/default/avatar.png"
+              alt=""
+              class="ava_cmt user-avatar-send"
+            />
+            <textarea
+              name="send=comment"
+              class="send-text-comment"
+              placeholder="Write a comment…"
+            ></textarea>
+            <button class="send-comment">
+              <i class="fas fa-paper-plane"></i>
+            </button>
+          </div>
+          <div class="comment-item">
+            <div class="main-comment">
+              <div class="comment-user">
+                <img
+                  src="/Javbook/assets/img/default/avatar.png"
+                  alt=""
+                  class="ava_cmt avatar-main-comment"
+                />
+                <div class="comment-content-box">
+                  <div class="content-main-comment">
+                    <div class="comment-main-title">
+                      <a href="" class="main-user-name">Nguyễn Hoàng Khang</a>
+                    </div>
+                    <p>Cái quần què gì zậy</p>
+                  </div>
+                  <div class="main-comment-action">
+                    <div class="emoji commnent-emoji">
+                      <span>Like</span>
+                      <div class="list-icon">
+                        <ul>
+                          <li>
+                            <div class="tooltip">
+                              <img src="/Javbook/assets/img/emoji/like.svg" alt="" />
+                              <span class="toolTipText">Like</span>
+                            </div>
+                          </li>
+
+                          <li>
+                            <div class="tooltip">
+                              <img src="/Javbook/assets/img/emoji/love.svg" alt="" />
+                              <span class="toolTipText tooltipIcon2">Love</span>
+                            </div>
+                          </li>
+
+                          <li>
+                            <div class="tooltip">
+                              <img src="/Javbook/assets/img/emoji/care.svg" alt="" />
+                              <span class="toolTipText tooltipIcon3">Care</span>
+                            </div>
+                          </li>
+
+                          <li>
+                            <div class="tooltip">
+                              <img src="/Javbook/assets/img/emoji/haha.svg" alt="" />
+                              <span class="toolTipText tooltipIcon4">Haha</span>
+                            </div>
+                          </li>
+
+                          <li>
+                            <div class="tooltip">
+                              <img src="/Javbook/assets/img/emoji/sad.svg" alt="" />
+                              <span class="toolTipText tooltipIcon5">Sad</span>
+                            </div>
+                          </li>
+
+                          <li>
+                            <div class="tooltip">
+                              <img src="/Javbook/assets/img/emoji/angry.svg" alt="" />
+                              <span class="toolTipText tooltipIcon6"
+                                >Angry</span
+                              >
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                    <span class="reply-main">Reply</span>
+                    <span>1 hour</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="comment-level-item">
+                <div class="comment-level">
+                  <img
+                    src="/Javbook/assets/img/default/avatar.png"
+                    alt=""
+                    class="ava_cmt_rep avatar-level-comment"
+                  />
+                  <div class="comment-content-box">
+                    <div class="content-main-comment">
+                      <div class="comment-main-title">
+                        <a href="" class="main-user-name">Nguyễn Hoàng Khang</a>
+                      </div>
+                      <p>
+                        <span class="reply_user">Nguyen Khang</span> chúng ta
+                        không thuộc về nhau không nhau ohoh
+                      </p>
+                    </div>
+                    <div class="main-comment-action">
+                      <div class="emoji commnent-emoji">
+                        <span>Like</span>
+                        <div class="list-icon">
+                          <ul>
+                            <li>
+                              <div class="tooltip">
+                                <img src="/Javbook/assets/img/emoji/like.svg" alt="" />
+                                <span class="toolTipText">Like</span>
+                              </div>
+                            </li>
+
+                            <li>
+                              <div class="tooltip">
+                                <img src="/Javbook/assets/img/emoji/love.svg" alt="" />
+                                <span class="toolTipText tooltipIcon2"
+                                  >Love</span
+                                >
+                              </div>
+                            </li>
+
+                            <li>
+                              <div class="tooltip">
+                                <img src="/Javbook/assets/img/emoji/care.svg" alt="" />
+                                <span class="toolTipText tooltipIcon3"
+                                  >Care</span
+                                >
+                              </div>
+                            </li>
+
+                            <li>
+                              <div class="tooltip">
+                                <img src="/Javbook/assets/img/emoji/haha.svg" alt="" />
+                                <span class="toolTipText tooltipIcon4"
+                                  >Haha</span
+                                >
+                              </div>
+                            </li>
+
+                            <li>
+                              <div class="tooltip">
+                                <img src="/Javbook/assets/img/emoji/sad.svg" alt="" />
+                                <span class="toolTipText tooltipIcon5"
+                                  >Sad</span
+                                >
+                              </div>
+                            </li>
+
+                            <li>
+                              <div class="tooltip">
+                                <img src="/Javbook/assets/img/emoji/angry.svg" alt="" />
+                                <span class="toolTipText tooltipIcon6"
+                                  >Angry</span
+                                >
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                      <span class="reply-level">Reply</span>
+                      <span>1 hour</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="comment-level">
+                  <img
+                    src="/Javbook/assets/img/default/avatar.png"
+                    alt=""
+                    class="ava_cmt_rep avatar-level-comment"
+                  />
+                  <div class="comment-content-box">
+                    <div class="content-main-comment">
+                      <div class="comment-main-title">
+                        <a href="" class="main-user-name">Nguyễn Hoàng Khang</a>
+                      </div>
+                      <p>
+                        <span class="reply_user">Nguyen Khang</span> chúng ta
+                        không thuộc về nhau không nhau ohoh
+                      </p>
+                    </div>
+                    <div class="main-comment-action">
+                      <div class="emoji commnent-emoji">
+                        <span>Like</span>
+                        <div class="list-icon">
+                          <ul>
+                            <li>
+                              <div class="tooltip">
+                                <img src="/Javbook/assets/img/emoji/like.svg" alt="" />
+                                <span class="toolTipText">Like</span>
+                              </div>
+                            </li>
+
+                            <li>
+                              <div class="tooltip">
+                                <img src="/Javbook/assets/img/emoji/love.svg" alt="" />
+                                <span class="toolTipText tooltipIcon2"
+                                  >Love</span
+                                >
+                              </div>
+                            </li>
+
+                            <li>
+                              <div class="tooltip">
+                                <img src="/Javbook/assets/img/emoji/care.svg" alt="" />
+                                <span class="toolTipText tooltipIcon3"
+                                  >Care</span
+                                >
+                              </div>
+                            </li>
+
+                            <li>
+                              <div class="tooltip">
+                                <img src="/Javbook/assets/img/emoji/haha.svg" alt="" />
+                                <span class="toolTipText tooltipIcon4"
+                                  >Haha</span
+                                >
+                              </div>
+                            </li>
+
+                            <li>
+                              <div class="tooltip">
+                                <img src="/Javbook/assets/img/emoji/sad.svg" alt="" />
+                                <span class="toolTipText tooltipIcon5"
+                                  >Sad</span
+                                >
+                              </div>
+                            </li>
+
+                            <li>
+                              <div class="tooltip">
+                                <img src="/Javbook/assets/img/emoji/angry.svg" alt="" />
+                                <span class="toolTipText tooltipIcon6"
+                                  >Angry</span
+                                >
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                      <span class="reply-level">Reply</span>
+                      <span>1 hour</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<div class="post box">
+      <div class="post-item">
+        <div class="status-main">
+          <img src="/Javbook/assets/img/default/avatar.png" class="status-img" />
+          <div class="post-detail">
+            <div class="post-title">
+              <a href="">Nguyễn Hoàng Khang</a>
+            </div>
+
+            <div class="post-state">
+              <span class="post-date">6 hours ago</span>
+              <i class="fas fa-lock"></i>
+            </div>
+          </div>
+          <div class="edit-post">
+            <i class="fas fa-ellipsis-h"></i>
+            <div class="edit-post-item">
+              <ul>
+                <li class="edit"><i class="fas fa-pen-nib"> </i> Edit</li>
+                <li><i class="far fa-trash-alt"></i> Delete</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="post-content">
+          <p class="content">Làm nhẹ cái ảnh bìa</p>
+        </div>
+        <div class="post-photos">
+          <img
+            src="https://scontent.fvca1-2.fna.fbcdn.net/v/t1.6435-9/153880781_1269206826834221_640873498255439976_n.jpg?_nc_cat=100&ccb=1-5&_nc_sid=e3f864&_nc_ohc=TSfn9YA190wAX-S5rLI&_nc_ht=scontent.fvca1-2.fna&oh=f93eb6f75dc683485e9368c55058ae26&oe=61721FE1"
+            alt=""
+            class="post-photo"
+          />
+        </div>
+      </div>
+      <div class="post-action">
+        <div class="actions">
+          <div class="emoji">
+            <img src="/Javbook/assets/img/emoji/unlike.png" alt="" class="icon-status" />
+            <p>Like</p>
+            <div class="list-icon">
+              <ul>
+                <li>
+                  <div class="tooltip">
+                    <img src="/Javbook/assets/img/emoji/like.svg" alt="" />
+                    <span class="toolTipText">Like</span>
+                  </div>
+                </li>
+
+                <li>
+                  <div class="tooltip">
+                    <img src="/Javbook/assets/img/emoji/love.svg" alt="" />
+                    <span class="toolTipText tooltipIcon2">Love</span>
+                  </div>
+                </li>
+
+                <li>
+                  <div class="tooltip">
+                    <img src="/Javbook/assets/img/emoji/care.svg" alt="" />
+                    <span class="toolTipText tooltipIcon3">Care</span>
+                  </div>
+                </li>
+
+                <li>
+                  <div class="tooltip">
+                    <img src="/Javbook/assets/img/emoji/haha.svg" alt="" />
+                    <span class="toolTipText tooltipIcon4">Haha</span>
+                  </div>
+                </li>
+
+                <li>
+                  <div class="tooltip">
+                    <img src="/Javbook/assets/img/emoji/sad.svg" alt="" />
+                    <span class="toolTipText tooltipIcon5">Sad</span>
+                  </div>
+                </li>
+
+                <li>
+                  <div class="tooltip">
+                    <img src="/Javbook/assets/img/emoji/angry.svg" alt="" />
+                    <span class="toolTipText tooltipIcon6">Angry</span>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="comment-status">
+            <i class="far fa-comment-alt"></i>
+            Comment
+          </div>
+          <div class="share">
+            <i class="fas fa-share"></i>
+            Share
+          </div>
+        </div>
+      </div>
+
+      <div class="comment box">
+        <div class="comment-box">
+          <div class="send-comment-box">
+            <img
+              src="/Javbook/assets/img/default/avatar.png"
+              alt=""
+              class="ava_cmt user-avatar-send"
+            />
+
+            <textarea
+              name="send=comment"
+              class="send-text-comment"
+              placeholder="Write a comment…"
+            ></textarea>
+            <button class="send-comment">
+              <i class="fas fa-paper-plane"></i>
+            </button>
+          </div>
+          <div class="comment-item">
+            <div class="main-comment">
+              <div class="comment-user">
+                <img
+                  src="/Javbook/assets/img/default/avatar.png"
+                  alt=""
+                  class="ava_cmt avatar-main-comment"
+                />
+                <div class="comment-content-box">
+                  <div class="content-main-comment">
+                    <div class="comment-main-title">
+                      <a href="" class="main-user-name">Nguyễn Hoàng Khang</a>
+                    </div>
+                    <p>
+                      chúng ta không thuộc về nhau không thuộc về nhau không
+                      thuộc về nhau ohoh
+                    </p>
+                  </div>
+                  <div class="main-comment-action">
+                    <div class="emoji commnent-emoji">
+                      <span>Like</span>
+                      <div class="list-icon">
+                        <ul>
+                          <li>
+                            <div class="tooltip">
+                              <img src="/Javbook/assets/img/emoji/like.svg" alt="" />
+                              <span class="toolTipText">Like</span>
+                            </div>
+                          </li>
+
+                          <li>
+                            <div class="tooltip">
+                              <img src="/Javbook/assets/img/emoji/love.svg" alt="" />
+                              <span class="toolTipText tooltipIcon2">Love</span>
+                            </div>
+                          </li>
+
+                          <li>
+                            <div class="tooltip">
+                              <img src="/Javbook/assets/img/emoji/care.svg" alt="" />
+                              <span class="toolTipText tooltipIcon3">Care</span>
+                            </div>
+                          </li>
+
+                          <li>
+                            <div class="tooltip">
+                              <img src="/Javbook/assets/img/emoji/haha.svg" alt="" />
+                              <span class="toolTipText tooltipIcon4">Haha</span>
+                            </div>
+                          </li>
+
+                          <li>
+                            <div class="tooltip">
+                              <img src="/Javbook/assets/img/emoji/sad.svg" alt="" />
+                              <span class="toolTipText tooltipIcon5">Sad</span>
+                            </div>
+                          </li>
+
+                          <li>
+                            <div class="tooltip">
+                              <img src="/Javbook/assets/img/emoji/angry.svg" alt="" />
+                              <span class="toolTipText tooltipIcon6"
+                                >Angry</span
+                              >
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                    <span class="reply-main">Reply</span>
+                    <span>1 hour</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="comment-level-item">
+                <div class="comment-level">
+                  <img
+                    src="/Javbook/assets/img/default/avatar.png"
+                    alt=""
+                    class="ava_cmt_rep avatar-level-comment"
+                  />
+                  <div class="comment-content-box">
+                    <div class="content-main-comment">
+                      <div class="comment-main-title">
+                        <a href="" class="main-user-name">Nguyễn Hoàng Khang</a>
+                      </div>
+                      <p>
+                        <span class="reply_user">Nguyen Khang</span> chúng ta
+                        không thuộc về nhau không nhau ohoh
+                      </p>
+                    </div>
+                    <div class="main-comment-action">
+                      <div class="emoji commnent-emoji">
+                        <span>Like</span>
+                        <div class="list-icon">
+                          <ul>
+                            <li>
+                              <div class="tooltip">
+                                <img src="/Javbook/assets/img/emoji/like.svg" alt="" />
+                                <span class="toolTipText">Like</span>
+                              </div>
+                            </li>
+
+                            <li>
+                              <div class="tooltip">
+                                <img src="/Javbook/assets/img/emoji/love.svg" alt="" />
+                                <span class="toolTipText tooltipIcon2"
+                                  >Love</span
+                                >
+                              </div>
+                            </li>
+
+                            <li>
+                              <div class="tooltip">
+                                <img src="/Javbook/assets/img/emoji/care.svg" alt="" />
+                                <span class="toolTipText tooltipIcon3"
+                                  >Care</span
+                                >
+                              </div>
+                            </li>
+
+                            <li>
+                              <div class="tooltip">
+                                <img src="/Javbook/assets/img/emoji/haha.svg" alt="" />
+                                <span class="toolTipText tooltipIcon4"
+                                  >Haha</span
+                                >
+                              </div>
+                            </li>
+
+                            <li>
+                              <div class="tooltip">
+                                <img src="/Javbook/assets/img/emoji/sad.svg" alt="" />
+                                <span class="toolTipText tooltipIcon5"
+                                  >Sad</span
+                                >
+                              </div>
+                            </li>
+
+                            <li>
+                              <div class="tooltip">
+                                <img src="/Javbook/assets/img/emoji/angry.svg" alt="" />
+                                <span class="toolTipText tooltipIcon6"
+                                  >Angry</span
+                                >
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                      <span class="reply-level">Reply</span>
+                      <span>1 hour</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- popup  -->
+
+    <!-- popup  -->
+    <div class="popup_model flex_center">
+      <div class="post_popup" id="post_popup">
+        <div class="pop_ele1 flex_center">
+          <span class="pop_title">Create Post</span>
+          <span class="close pointer">+</span>
+        </div>
+
+        <div class="pop_ele2 flex">
+          <div class="wh_40">
+            <img
+              class="wh_40 scale circle"
+              src="/Javbook/assets/img/default/avatar.png"
+              alt=""
+            />
+          </div>
+          <div class="status_content flex_gr1">
+            <textarea
+              name="input_field"
+              cols=""
+              rows=""
+              class="enter"
+              placeholder="What's your mind?"
+            ></textarea>
+            <div class="display-img">
+              <img src="" alt="" id="status-img" />
+            </div>
+          </div>
+        </div>
+
+        <div class="pop_ele3 flex">
+          <select name="object" id="select" class="popup_btn pointer">
+            <option value="public">Public</option>
+            <option value="friends">Friends</option>
+            <option value="only_me">Only me</option>
+          </select>
+
+          <span class="share popup_btn pointer">Save</span>
+        </div>
+      </div>
+    </div>
