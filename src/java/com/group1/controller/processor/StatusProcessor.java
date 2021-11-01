@@ -8,8 +8,6 @@ package com.group1.controller.processor;
 import com.group1.misc.Pair;
 import com.group1.model.Comment;
 import com.group1.model.Comment2;
-import com.group1.model.CountEmoji;
-import com.group1.model.Emoji;
 import com.group1.model.Post;
 import com.group1.model.Status;
 import com.group1.model.dao.CommentDAO;
@@ -101,10 +99,12 @@ public class StatusProcessor extends BaseProcessor {
                 Collections.sort(status, (Status a, Status b) -> b.getStatusId() - a.getStatusId());
 
                 for (Status stt : status) {
+                    stt.setNumberOfEmoji(EmojiDAO.getStatusNumberOfEmojis(stt.getStatusId()));
                     Post post = new Post();
                     post.setStatus(stt);
                     List<Pair<Comment, List<Comment2>>> li = new ArrayList<>();
                     List<Comment> comments = CommentDAO.getListComment(stt.getStatusId());
+                    
                     if (comments != null) {
                         Collections.sort(comments, (Comment a, Comment b) -> b.getCommentId() - a.getCommentId());
                         for (Comment comment : comments) {

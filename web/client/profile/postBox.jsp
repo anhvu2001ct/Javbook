@@ -333,6 +333,7 @@
 </c:if>
 <c:forEach items="${posts}" var="post" >
     <div class="post box" id="${post.status.statusId}">
+        <h1>${post.status.numberOfEmoji}</h1>
         <div class="post-item">
             <div class="status-main">
                 <img src="${post.status.userImage}" class="status-img" />

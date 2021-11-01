@@ -94,7 +94,7 @@ public class StatusDAO {
                 while (rs.next()) {
                     Status status = new Status(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getString(4),
                             rs.getString(5), s.format(rs.getTimestamp(6)),
-                            String.format("%1$TD %1$TT", rs.getTimestamp(7)), rs.getInt(8));
+                            String.format("%1$TD %1$TT", rs.getTimestamp(7)), rs.getInt(8), 0, 0, 0);
                     list.add(status);
                 }
                 return list;

@@ -184,11 +184,12 @@ function postBox() {
     checkEmojiCount();
     noneDisplayEmoji();
     replyMain();
-
+    postCountLeft = document.querySelectorAll(".post-count-left");
+    mainCommentEmojiPopup = document.querySelectorAll(".main-display-comment-emoji");
+    levelCommentEmojiPopup = document.querySelectorAll(".level-display-comment-emoji");
     value.value = "";
     deleteAndCreateEmoji();
-
-
+    popupEmotion()
   }
 
   function loopLevelComment(levelSend) {
@@ -332,7 +333,11 @@ function postBox() {
     noneDisplayEmoji();
     replyLevel();
     deleteAndCreateEmoji();
+    postCountLeft = document.querySelectorAll(".post-count-left");
+    mainCommentEmojiPopup = document.querySelectorAll(".main-display-comment-emoji");
+    levelCommentEmojiPopup = document.querySelectorAll(".level-display-comment-emoji");
     value.value = "";
+    popupEmotion();
   }
   function noneDisplayEmoji() {
     let countDisplayEmojiPost = document.querySelectorAll(".post-count-left ul li img");
@@ -704,26 +709,31 @@ function postBox() {
   };
   deleteAndCreateEmoji()
 
-  postCountLeft.forEach((emoji) => {
-    emoji.onclick = () => {
-      let statusID = emoji.parentNode.parentNode.id;
-      displayPopupEmoji(statusID, "status");
+  function popupEmotion() {
 
-    }
-  })
-  mainCommentEmojiPopup.forEach((comment) => {
-    comment.onclick = () => {
-      let commentId = comment.parentNode.parentNode.parentNode.parentNode;
-      displayPopupEmoji(commentId.id, "comment")
+    postCountLeft.forEach((emoji) => {
+      emoji.onclick = () => {
+        let statusID = emoji.parentNode.parentNode.id;
+        displayPopupEmoji(statusID, "status");
 
-    }
-  })
-  levelCommentEmojiPopup.forEach((comment) => {
-    comment.onclick = () => {
-      let comment2Id = comment.parentNode.parentNode.parentNode;
-      displayPopupEmoji(comment2Id.id, "comment2")
-    }
-  })
+      }
+    })
+    mainCommentEmojiPopup.forEach((comment) => {
+      comment.onclick = () => {
+        let commentId = comment.parentNode.parentNode.parentNode.parentNode;
+        displayPopupEmoji(commentId.id, "comment")
+
+      }
+    })
+    levelCommentEmojiPopup.forEach((comment) => {
+      comment.onclick = () => {
+        let comment2Id = comment.parentNode.parentNode.parentNode;
+        displayPopupEmoji(comment2Id.id, "comment2")
+      }
+    })
+  }
+
+  popupEmotion();
   function displayPopupEmoji(value, type) {
     let uploadData = new QueryData("/emotion/renderPopup");
 

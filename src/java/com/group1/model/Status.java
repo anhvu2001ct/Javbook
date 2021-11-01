@@ -5,8 +5,6 @@
  */
 package com.group1.model;
 
-import java.sql.Timestamp;
-import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,6 +28,8 @@ public class Status {
     private String text, statusImg;
     private String time, activeTime;
     private int mood;
+    private int numberOfEmoji;
+    private int max1,max2;
     
 
 }

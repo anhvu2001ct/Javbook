@@ -29,5 +29,5 @@ public class Comment {
     private String text;
     private String time;
     private int update;
-
+    private int numberOfEmoji;
 }
