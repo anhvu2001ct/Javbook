@@ -67,10 +67,11 @@ public class SessionFilter implements Filter {
         else {
             HttpSession ses = request.getSession();
             int uid = account.getAccountID();
-            if (ses.getAttribute("uid") == null) ses.setAttribute("uid", uid);
+            ses.setAttribute("uid", uid);
+            ses.setAttribute("uid2", Secret.encode2(String.valueOf(uid)));
             if (!account.isFirstLogin()) {
                 AccountDAO.markFirstLogin(uid);
-                response.sendRedirect("/Javbook/profile/" + Secret.encode2(String.valueOf(uid)) + "/About");
+                response.sendRedirect("/Javbook/profile/" + ses.getAttribute("uid2") + "/About");
             } else chain.doFilter(request, response);
         }
     }
