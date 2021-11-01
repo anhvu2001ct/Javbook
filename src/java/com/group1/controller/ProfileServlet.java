@@ -22,7 +22,14 @@ public class ProfileServlet extends BaseServlet {
 
     @Override
     protected void processGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-       IndexServlet.setInfoHeader(request);
+        int userId = (int) request.getSession().getAttribute("uid");
+        PathInfo path = (PathInfo) request.getAttribute("pathInfo");
+        if (Secret.decode2(path.path[0]).equals(String.valueOf(userId))) {
+            request.getRequestDispatcher("/client/profile/profile.jsp").forward(request, response);
+        } else {
+
+        }
+        IndexServlet.setInfoHeader(request);
         request.getRequestDispatcher("/client/profile/profile.jsp").forward(request, response);
     }
 
