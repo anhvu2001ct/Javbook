@@ -20,7 +20,7 @@ public class ProfileServlet extends BaseServlet {
 
     @Override
     protected void processGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-       
+       IndexServlet.setInfoHeader(request);
         request.getRequestDispatcher("/client/profile/profile.jsp").forward(request, response);
     }
 

@@ -26,6 +26,11 @@ public class IndexServlet extends BaseServlet {
 
     @Override
     protected void processGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        setInfoHeader(request);
+        request.getRequestDispatcher("/client/home/homePage.jsp").forward(request, response);
+    }
+
+    public static void setInfoHeader(HttpServletRequest request) {
         int accountId = (int) request.getSession().getAttribute("uid");
         List<HeaderNotification> notifications = HeaderNotificationDAO.getListEmotionNotification(accountId);
         List<HeaderNotification> notificomments = HeaderNotificationDAO.getListCommentNotification(accountId);
@@ -34,7 +39,6 @@ public class IndexServlet extends BaseServlet {
         request.setAttribute("notifications", notifications);
         request.setAttribute("userinfo", userinfo);
         request.setAttribute("uid2", Secret.encode2(String.valueOf(accountId)));
-        request.getRequestDispatcher("/client/home/homePage.jsp").forward(request, response);
     }
 
     @Override
