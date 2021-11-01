@@ -9,7 +9,7 @@
 <div class="header_container">
     <div class="header flex flex_jsb flex_ac">
         <div class="header_element flex_center">
-            <a class="header_brand wh_40" href="#"
+            <a class="header_brand wh_40" href="/Javbook/"
                ><img
                     src="/Javbook/test/nhatquynh/header/assets/img/logo/Javbook_white.png"
                     alt=""
