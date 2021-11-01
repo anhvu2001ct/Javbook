@@ -10,15 +10,16 @@
 <!--leftPanel-->
 <div class="leftpanel flex flex_column">
 
-    <div class="profile flex hov m_10 bd_rd p_element h_52 flex_al_ct">
-        <div class="profile_img m_10">
-            <img
-                src="${userinfo.avatar}"
-                alt="" class="bd_circle w_icon h_icon scale"
-                />
+    <a href="/Javbook/profile/${uid2}/">
+        <div class="profile flex hov m_10 bd_rd p_element h_52 flex_al_ct">
+            <div class="profile_img m_10"><img
+                    src="${userinfo.avatar}"
+                    alt="" class="bd_circle w_icon h_icon scale"
+                    />
+            </div>
+            <div class="profile_name font_weight">${userinfo.name}</div>
         </div>
-        <div class="profile_name font_weight">${userinfo.name}</div>
-    </div>
+    </a>
 
     <div class="leftpanel_friend flex hov p_element  m_10 bd_rd h_52 flex_al_ct">
         <div class="friend_icon m_10"><i class="fas fa-user-friends w_icon h_auto font_icon"></i></div>
