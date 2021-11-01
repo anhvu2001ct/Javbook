@@ -4,19 +4,19 @@
             title: "Update Successfully!",
             message: "You updated information successfully!",
             type: "success",
-            duration: 10000,
+            duration: 3000,
         },
         fail: {
             title: "Update Failed!",
             message: "You <span>failed</span> to update your information!",
             type: "error",
-            duration: 10000,
+            duration: 7000,
         },
         changePassSuccess: {
             title: "Change Password Successfully!",
             message: "You changed password successfully!",
             type: "success",
-            duration: 10000,
+            duration: 3000,
         },
         changePassFail: {
             title: "Change Password Failed!",
@@ -94,6 +94,15 @@
     var statusInputValue = document.querySelector(".js-status-value");
     var selectStatusInputs = document.querySelectorAll(
         ".js-select-status-input"
+    );
+    // Modal Select Language
+    var modalSelectLanguageBtn = document.querySelector(
+        ".js-edit-language-btn"
+    );
+    var modalSelectLanguage = document.querySelector(".modal-language");
+    var languageInputValue = document.querySelector(".js-language-value");
+    var selectLanguageInputs = document.querySelectorAll(
+        ".js-select-language-input"
     );
 
     function editText() {
@@ -411,18 +420,18 @@
             if (result == "success") {
                 toast(
                     {
-                        title: "Select Audience Successfully!",
+                        title: "Successfully!",
                         type: "success",
-                        duration: 10000,
+                        duration: 3000,
                     },
                     ["You selected audience successfully!"]
                 );
             } else {
                 toast(
                     {
-                        title: "Select Audience Failed!",
+                        title: "Failed!",
                         type: "error",
-                        duration: 10000,
+                        duration: 5000,
                     },
                     ["You <span>failed</span> to selecte audience!"]
                 );
@@ -569,6 +578,48 @@
         });
     });
 
+    // Process Select Language
+    function editSelectLanguage() {
+        let selectLanguageType = languageInputValue.value;
+
+        modalSelectLanguage.style.display = "flex";
+
+        selectLanguageInputs.forEach((selectLanguageInput) => {
+            let selectLanguageOrder = selectLanguageInput.getAttribute(
+                "data-select-language-order"
+            );
+            if (
+                (selectLanguageType == "English" && selectLanguageOrder == 1) ||
+                (selectLanguageType == "Vietnamese" &&
+                    selectLanguageOrder == 2) ||
+                (selectLanguageType == "Japanese" && selectLanguageOrder == 3)
+            ) {
+                selectLanguageInput.checked = true;
+            }
+        });
+    }
+
+    selectLanguageInputs.forEach((selectLanguageInput) => {
+        selectLanguageInput.addEventListener("click", () => {
+            let selectLanguageOrder = selectLanguageInput.getAttribute(
+                "data-select-language-order"
+            );
+
+            if (selectLanguageOrder == 1) {
+                languageInputValue.value = "English";
+            } else if (selectLanguageOrder == 2) {
+                languageInputValue.value = "Vietnamese";
+            } else if (selectLanguageOrder == 3) {
+                languageInputValue.value = "Japanese";
+            }
+
+            modalSelectLanguage.style.display = "none";
+
+            // call API to update language
+            // processing...
+        });
+    });
+
     editTextBtns.forEach((editTextBtn) => {
         editTextBtn.addEventListener("click", editText);
     });
@@ -583,6 +634,8 @@
     modalSelectGenderBtn.addEventListener("click", editSelectGender);
     // Modal Select Status
     modalSelectStatusBtn.addEventListener("click", editSelectStatus);
+    // Modal Select Language
+    modalSelectLanguageBtn.addEventListener("click", editSelectLanguage);
 
     modalCloseBtns.forEach((modalCloseBtn) => {
         modalCloseBtn.addEventListener("click", (e) => {

@@ -239,7 +239,8 @@
 /* Modal select audience */
 .modal-select-audience,
 .modal-gender,
-.modal-status {
+.modal-status,
+.modal-language {
     display: none;
 }
 

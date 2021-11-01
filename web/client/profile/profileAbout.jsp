@@ -598,6 +598,124 @@
                             />
                         </div>
                     </li>
+                    <li class="list-item">
+                        <div class="icon">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <div class="list-item-content">
+                            Language
+                            <input
+                                disabled
+                                class="edit-text js-language-value"
+                                type="text"
+                                value="English"
+                            />
+                        </div>
+                        <div class="edit-icon js-edit-language-btn">
+                            <i class="fas fa-pen"></i>
+                        </div>
+                        <div class="modal modal-language">
+                            <div class="modal__overlay"></div>
+                            <div class="modal__body">
+                                <div class="modal__body-container">
+                                    <div class="modal__header">
+                                        <h3 class="modal__title">
+                                            Select language
+                                        </h3>
+                                        <div class="modal__close">
+                                            <i
+                                                class="
+                                                    modal__close-icon
+                                                    fas
+                                                    fa-times
+                                                "
+                                            ></i>
+                                        </div>
+                                    </div>
+                                    <div class="choices">
+                                        <label class="choice-item">
+                                            <div class="choice-item-icon">
+                                                <i class="fas fa-flag-usa"></i>
+                                            </div>
+                                            <div class="choice-item-text">
+                                                <h3 class="title">English</h3>
+                                                <p class="content">English</p>
+                                            </div>
+                                            <div class="radio-btn">
+                                                <input
+                                                    data-select-language-order="1"
+                                                    type="radio"
+                                                    name="select-language"
+                                                    id=""
+                                                    class="
+                                                        js-select-language-input
+                                                    "
+                                                />
+                                            </div>
+                                        </label>
+                                        <label class="choice-item">
+                                            <div class="choice-item-icon">
+                                                <i class="fab fa-angellist"></i>
+                                            </div>
+                                            <div class="choice-item-text">
+                                                <h3 class="title">
+                                                    Vietnamese
+                                                </h3>
+                                                <p class="content">
+                                                    Vietnamese
+                                                </p>
+                                            </div>
+                                            <div class="radio-btn">
+                                                <input
+                                                    data-select-language-order="2"
+                                                    type="radio"
+                                                    name="select-language"
+                                                    id=""
+                                                    class="
+                                                        js-select-language-input
+                                                    "
+                                                />
+                                            </div>
+                                        </label>
+                                        <label class="choice-item">
+                                            <div class="choice-item-icon">
+                                                <i class="fab fa-angellist"></i>
+                                            </div>
+                                            <div class="choice-item-text">
+                                                <h3 class="title">Japanese</h3>
+                                                <p class="content">Japanese</p>
+                                            </div>
+                                            <div class="radio-btn">
+                                                <input
+                                                    data-select-language-order="3"
+                                                    type="radio"
+                                                    name="select-language"
+                                                    id=""
+                                                    class="
+                                                        js-select-language-input
+                                                    "
+                                                />
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-item">
+                        <div class="icon">
+                            <i class="fas fa-sign-out-alt"></i>
+                        </div>
+                        <div class="list-item-content">Logout</div>
+                        <div class="dark-mode">
+                            <input
+                                class="dark-mode-btn"
+                                type="checkbox"
+                                name=""
+                                id=""
+                            />
+                        </div>
+                    </li>
                 </ul>
             </div>
         </div>
