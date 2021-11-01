@@ -19,7 +19,7 @@ class Account {
  *
  * @author Anh Vu Nguyen {@literal <nganhvu>}
  */
-@WebServlet("/test/nganhvu1/*")
+@WebServlet("/test/nganhvu/")
 public class TestServlet extends BaseServlet {
     int cnt = 0;
     
@@ -28,7 +28,7 @@ public class TestServlet extends BaseServlet {
         System.out.println(++cnt);
         PathInfo path = (PathInfo)request.getAttribute("pathInfo");
         System.out.println(path.path + " " + path.size);
-//        request.getRequestDispatcher("/test/nganhvu/websocket.jsp").forward(request, response);
+        request.getRequestDispatcher("/test/nganhvu/websocket.jsp").forward(request, response);
     }
 
     @Override
