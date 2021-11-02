@@ -589,9 +589,9 @@
                             <i class="fas fa-adjust"></i>
                         </div>
                         <div class="list-item-content">Dark Mode</div>
-                        <div class="dark-mode">
+                        <div class="check-box">
                             <input
-                                class="dark-mode-btn"
+                                class="check-box-btn"
                                 type="checkbox"
                                 name=""
                                 id=""
@@ -707,12 +707,12 @@
                             <i class="fas fa-sign-out-alt"></i>
                         </div>
                         <div class="list-item-content">Logout</div>
-                        <div class="dark-mode">
+                        <div class="check-box">
                             <input
-                                class="dark-mode-btn"
+                                class="check-box-btn"
                                 type="checkbox"
                                 name=""
-                                id=""
+                                id="js-logout"
                             />
                         </div>
                     </li>

@@ -14,6 +14,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -107,5 +108,24 @@ public class AccountProcessor extends BaseProcessor {
         }
          
         out.print(gson.toJson(list));
+    }
+    
+    @ServeAt(value="/logout", method=ServeMethod.POST)
+    public void serveLogout(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        
+        PrintWriter out = response.getWriter();
+
+        // remove cookie("JBID");
+        Cookie ck = new Cookie("JBID", ""); // deleting value of cookie  
+        ck.setMaxAge(0); //changing the maximum age to 0 seconds  
+        ck.setPath("/Javbook");
+        response.addCookie(ck); //adding cookie in the response  
+        
+        // remove all attribute of sesstion
+        HttpSession ses = request.getSession();
+        ses.invalidate();  
+
+        out.print("success");
+       
     }
 }

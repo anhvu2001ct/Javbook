@@ -654,4 +654,30 @@
             e.stopPropagation();
         });
     });
+    // Logout
+    logoutBtn = document.querySelector("#js-logout");
+
+    logoutBtn.addEventListener("click", function () {
+        let query = new QueryData("account/logout");
+
+        query.addEvent("load", function () {
+            let result = this.response;
+
+            if (result == "success") {
+                window.location = "/Javbook/";
+                // console.log("ok");
+            } else {
+                toast(
+                    {
+                        title: "Logout Failed!",
+                        type: "error",
+                        duration: 10000,
+                    },
+                    ["<span>Unknown fault</span>!"]
+                );
+            }
+        });
+
+        query.send("POST");
+    });
 })();

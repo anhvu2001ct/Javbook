@@ -201,7 +201,7 @@
     background-color: var(--primary-color);
 }
 
-.about .about-content .dark-mode .dark-mode-btn {
+.about .about-content .check-box .check-box-btn {
     position: relative;
     width: 40px;
     height: 20px;
@@ -214,11 +214,11 @@
     cursor: pointer;
 }
 
-.about .about-content .dark-mode .dark-mode-btn:checked {
+.about .about-content .check-box .check-box-btn:checked {
     background: #4187f6;
 }
 
-.about .about-content .dark-mode .dark-mode-btn::before {
+.about .about-content .check-box .check-box-btn::before {
     content: "";
     position: absolute;
     width: 20px;
@@ -232,7 +232,7 @@
     transition: 0.5s;
 }
 
-.about .about-content .dark-mode .dark-mode-btn:checked::before {
+.about .about-content .check-box .check-box-btn:checked::before {
     left: 20px;
 }
 
