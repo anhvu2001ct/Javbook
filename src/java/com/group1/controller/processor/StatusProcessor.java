@@ -9,9 +9,13 @@ import com.group1.misc.Pair;
 import com.group1.model.Comment;
 import com.group1.model.Comment2;
 import com.group1.model.Post;
+import com.group1.model.ProfileStatus;
+import com.group1.model.ProfileUserAbout;
 import com.group1.model.Status;
 import com.group1.model.dao.CommentDAO;
 import com.group1.model.dao.EmojiDAO;
+import com.group1.model.dao.ProfileStatusDAO;
+import com.group1.model.dao.ProfileUserAboutDAO;
 import com.group1.model.dao.StatusDAO;
 import com.group1.rest.BaseProcessor;
 import com.group1.rest.ServeAt;
@@ -25,6 +29,7 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -91,7 +96,21 @@ public class StatusProcessor extends BaseProcessor {
     @ServeAt(value = "/render", method = ServeMethod.GET)
     public void serveRenderPost(HttpServletRequest request, HttpServletResponse response) {
         try {
-            int accountId = (int) request.getSession().getAttribute("uid");
+            // Canh
+            HttpSession ses = request.getSession();
+            int accountId = (Integer) ses.getAttribute("uid");
+
+            ProfileUserAbout profileUser = ProfileUserAboutDAO.getProfileUser(accountId);
+
+            int profileStatusID = profileUser.getProfileStatusID();
+            // get Profile Status
+            ProfileStatus profileStatus = ProfileStatusDAO.getProfileStatus(profileStatusID);
+
+            request.setAttribute("profileUser", profileUser);
+            request.setAttribute("profileStatus", profileStatus);
+
+            // --------------------------
+            
             List<Status> status = StatusDAO.getListStatusUser(accountId);
             List<Post> posts = new ArrayList<>();
             if (status != null) {

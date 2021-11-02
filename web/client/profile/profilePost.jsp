@@ -17,25 +17,26 @@
                 <div class="info-item">
                     <i class="fas fa-briefcase"></i>
                     <p>
-                        Studied ? at
-                        <a href="#">?</a>
+                        <span>Career</span> ${profileUser.career} 
                     </p>
                 </div>
                 <div class="info-item">
                     <i class="fas fa-home"></i>
-                    <p>Live in <a href="#">?</a></p>
+                    <p>
+                        <span>Live in</span> ${profileUser.address}
+                    </p>
                 </div>
                 <div class="info-item">
                     <i class="fas fa-birthday-cake"></i>
-                    <p>?</p>
+                    <p>${profileUser.DOB}</p>
                 </div>
                 <div class="info-item">
                     <i class="fas fa-transgender-alt"></i>
-                    <p>Male</p>
+                    <p>${profileUser.gender}</p>
                 </div>
                 <div class="info-item">
                     <i class="fas fa-heart"></i>
-                    <p>?</p>
+                    <p>${profileStatus.status}</p>
                 </div>
             </div>
         </div>
