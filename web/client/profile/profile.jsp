@@ -96,7 +96,7 @@ Khang --%> <%@page contentType="text/html" pageEncoding="UTF-8"%>
                         />
                     </div>
                     <img
-                        src="/Javbook/assets/img/default/cover.jpg"
+                        src="${profileUser.coverImg}"
                         alt=""
                         class="profile-cover"
                     />

@@ -324,4 +324,22 @@ public class ProfileUserAboutProcessor extends BaseProcessor {
         }
     }   
     
+    @ServeAt(value="/updateCoverImg", method=ServeMethod.POST)
+    public void serveUpdateCoverImg(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            
+        PrintWriter out = response.getWriter();
+
+        HttpSession ses = request.getSession();
+        int uid = (Integer) ses.getAttribute("uid");    
+        
+        String coverImg = request.getParameter("urlImg");
+        
+        // update Avatar
+        if (ProfileUserAboutDAO.updateCoverImg(uid, coverImg)){
+            out.print("success");
+        } else {
+            out.print("/Javbook/assets/img/default/cover.jpg");
+        }
+    }   
+    
 }

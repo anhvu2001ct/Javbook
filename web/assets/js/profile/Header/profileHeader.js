@@ -42,13 +42,44 @@ profileMenu.forEach((item, index) => {
         );
     };
 });
+
 inputFileCover.addEventListener("change", () => {
-    var oFReader = new FileReader();
-    oFReader.readAsDataURL(inputFileCover.files[0]);
-    oFReader.onload = (oFREvent) => {
-        displayPhotoCover.src = oFREvent.target.result;
-    };
+    // Call API
+    let name = "user" + Date.now() + ".png";
+    let urlImg = "/Javbook/assets/img/user/" + name;
+
+    let query = new QueryUpload("upload/image");
+    query.addParam("file", inputFileCover.files[0]);
+    query.addParam("savePath", name);
+
+    query.addEvent("progress", function (e) {
+        let percent = (e.loaded / e.total) * 100;
+        console.log("upload process: " + Math.floor(percent) + "%");
+    });
+
+    query.addEvent("load", function () {
+        let query2 = new QueryData("profileUserAbout/updateCoverImg");
+        query2.addParam("urlImg", urlImg);
+
+        query2.addEvent("load", function () {
+            let result = this.response;
+
+            if (result == "success") {
+                // maybe do something in a future
+            } else {
+                urlImg = result;
+            }
+            window.setTimeout(() => {
+                displayPhotoCover.src = urlImg;
+            }, 2000);
+        });
+
+        query2.send("POST");
+    });
+
+    query.send();
 });
+
 inputFileAvatar.addEventListener("change", () => {
     // Call API
     let name = "user" + Date.now() + ".png";
