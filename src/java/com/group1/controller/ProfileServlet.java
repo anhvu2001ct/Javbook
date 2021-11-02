@@ -7,11 +7,14 @@ package com.group1.controller;
 
 import com.group1.misc.PathInfo;
 import com.group1.misc.Secret;
+import com.group1.model.ProfileUserAbout;
+import com.group1.model.dao.ProfileUserAboutDAO;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -22,16 +25,25 @@ public class ProfileServlet extends BaseServlet {
 
     @Override
     protected void processGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int userId = (int) request.getSession().getAttribute("uid");
+        
+        HttpSession ses = request.getSession();
+        int uid = (Integer) ses.getAttribute("uid");
+        
+        ProfileUserAbout profileUser = ProfileUserAboutDAO.getProfileUser(uid);
+        
+        request.setAttribute("profileUser", profileUser);
+
         PathInfo path = (PathInfo) request.getAttribute("pathInfo");
         IndexServlet.setInfoHeader(request);
-        if (Secret.decode2(path.path[0]).equals(String.valueOf(userId))) {
+        if (Secret.decode2(path.path[0]).equals(String.valueOf(uid))) {
             request.getRequestDispatcher("/client/profile/profile.jsp").forward(request, response);
         } else {
 
         }
-        System.out.println("uid2: "+ request.getAttribute("uid2"));
+        
+        request.setAttribute("profileUser", profileUser);
         request.getRequestDispatcher("/client/profile/profile.jsp").forward(request, response);
+
     }
 
     @Override

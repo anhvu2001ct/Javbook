@@ -73,7 +73,7 @@ Khang --%> <%@page contentType="text/html" pageEncoding="UTF-8"%>
                         class="profile-img"
                         />
 
-                    <div class="profile-name">Javbook User</div>
+                    <div class="profile-name">${profileUser.name}</div>
                 </div>
                 <div class="edit-header-avatar">
                     <label for="header-avatar-file">

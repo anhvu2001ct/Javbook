@@ -126,6 +126,9 @@
 
                         if (result == "success") {
                             toast(message.success, [message.success.message]);
+                            profileName =
+                                document.querySelector(".profile-name");
+                            profileName.innerHTML = input.value;
                         } else {
                             input.value = result;
                             toast(message.fail, [message.fail.message]);
