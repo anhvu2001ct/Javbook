@@ -10,6 +10,11 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Javbook</title>
+        <link
+            rel="icon"
+            href="/Javbook/assets/img/icon/Javbook.ico"
+            type="image/x-icon"
+        />
         <script src="https://kit.fontawesome.com/ff4d20b881.js" crossorigin="anonymous"></script>
         <link
             rel="stylesheet"
