@@ -77,6 +77,7 @@ inputFileAvatar.addEventListener("change", () => {
             }
             window.setTimeout(() => {
                 displayPhotoAvatar.src = urlImg;
+                window.location.reload();
             }, 2000);
         });
 
