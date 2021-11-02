@@ -29,7 +29,7 @@ public class Status {
     private String time, activeTime;
     private int mood;
     private int numberOfEmoji;
-    private int max1,max2;
-    
+    private String max1, max2;
+    private int userEmotion;
 
 }

@@ -83,29 +83,31 @@ public class EmojiDAO {
         return -1;
     }
 
-    public static int getListStatusMaxEmojis(String StatusID) {
+    public static List<String> getListStatusMaxEmojis(int StatusID) {
         try {
-            int numberOfEmoji = 0;
-            String query = "SELECT Top(2) EmojiID\n"
-                    + "FROM StatusEmotion \n"
-                    + "WHere StatusID = ?\n"
-                    + "GROUP BY EmojiID\n"
-                    + "Order BY COUNT(EmojiID) DESC ";
+            List<String> list = new ArrayList<>();
+
+            String query = "SELECT Top(2) EmojiImg\n"
+                    + "FROM StatusEmotion se , Emoji e\n"
+                    + "WHere StatusID = ? and se.EmojiID =e.EmojiID\n"
+                    + "GROUP BY EmojiImg\n"
+                    + "Order BY COUNT(EmojiImg) DESC ";
             PreparedStatement ps = SQL.prepareStatement(query);
-            ps.setInt(1, Integer.parseInt(StatusID));
+            ps.setInt(1, StatusID);
             ResultSet rs = ps.executeQuery();
             if (!rs.isBeforeFirst()) {
-                return -1;
+                return null;
             } else {
                 while (rs.next()) {
-                    numberOfEmoji = rs.getInt(1);
+                    String count = rs.getString(1);
+                    list.add(count);
                 }
-                return numberOfEmoji;
+                return list;
             }
         } catch (SQLException ex) {
             System.err.println("Get Max Emoji Error");
         }
-        return -1;
+        return null;
     }
 
     public static List<Emoji> getListStatusEmoji(String StatusID) {
@@ -197,14 +199,14 @@ public class EmojiDAO {
         return null;
     }
 
-    public static int getCommentNumberOfEmojis(String CommentID) {
+    public static int getCommentNumberOfEmojis(int CommentID) {
         try {
             int numberOfEmoji = 0;
             String query = "select count(*) \n"
-                    + "from StatusEmotion\n"
-                    + "where StatusID = ?";
+                    + "from CommentEmotion\n"
+                    + "where CommentID = ? ";
             PreparedStatement ps = SQL.prepareStatement(query);
-            ps.setInt(1, Integer.parseInt(CommentID));
+            ps.setInt(1, CommentID);
             ResultSet rs = ps.executeQuery();
             if (!rs.isBeforeFirst()) {
                 return -1;
@@ -215,32 +217,35 @@ public class EmojiDAO {
                 return numberOfEmoji;
             }
         } catch (SQLException ex) {
-            System.err.println("Get Status Emoji Error");
+            System.err.println("Get Comment Emoji Error");
         }
         return -1;
     }
 
-    public static int getListCommentMaxEmojis(String CommentID) {
+    public static List<String> getListCommentMaxEmojis(int CommentID) {
         try {
-            int numberOfEmoji = 0;
-            String query = "select count(*) \n"
-                    + "from StatusEmotion\n"
-                    + "where StatusID = ?";
+            List<String> list = new ArrayList<>();
+            String query = "SELECT Top(2) EmojiImg\n"
+                    + "FROM CommentEmotion ce , Emoji e\n"
+                    + "WHere CommentID = ? and ce.EmojiID =e.EmojiID\n"
+                    + "GROUP BY EmojiImg\n"
+                    + "Order BY COUNT(EmojiImg) DESC ";
             PreparedStatement ps = SQL.prepareStatement(query);
-            ps.setInt(1, Integer.parseInt(CommentID));
+            ps.setInt(1, CommentID);
             ResultSet rs = ps.executeQuery();
             if (!rs.isBeforeFirst()) {
-                return -1;
+                return null;
             } else {
                 while (rs.next()) {
-                    numberOfEmoji = rs.getInt(1);
+                    String count = rs.getString(1);
+                    list.add(count);
                 }
-                return numberOfEmoji;
+                return list;
             }
         } catch (SQLException ex) {
             System.err.println("Get Max Emoji Error");
         }
-        return -1;
+        return null;
     }
 
     public static void createComment2Emoji(String comment2Id, int accountId, String emojiID) {
@@ -308,14 +313,14 @@ public class EmojiDAO {
         return null;
     }
 
-    public static int getComment2NumberOfEmojis(String Comment2ID) {
+    public static int getComment2NumberOfEmojis(int Comment2ID) {
         try {
             int numberOfEmoji = 0;
             String query = "select count(*) \n"
-                    + "from StatusEmotion\n"
-                    + "where StatusID = ?";
+                    + "from Comment2Emotion\n"
+                    + "where Comment2ID = ?";
             PreparedStatement ps = SQL.prepareStatement(query);
-            ps.setInt(1, Integer.parseInt(Comment2ID));
+            ps.setInt(1, Comment2ID);
             ResultSet rs = ps.executeQuery();
             if (!rs.isBeforeFirst()) {
                 return -1;
@@ -326,31 +331,106 @@ public class EmojiDAO {
                 return numberOfEmoji;
             }
         } catch (SQLException ex) {
-            System.err.println("Get Status Emoji Error");
+            System.err.println("Get Comment2 Emoji Error");
         }
         return -1;
     }
 
-    public static int getListComment2MaxEmojis(String Comment2ID) {
+    public static List<String> getListComment2MaxEmojis(int Comment2ID) {
         try {
-            int numberOfEmoji = 0;
-            String query = "select count(*) \n"
-                    + "from StatusEmotion\n"
-                    + "where StatusID = ?";
+            List<String> list = new ArrayList<>();
+            String query = "SELECT Top(2) EmojiImg\n"
+                    + "FROM Comment2Emotion ce , Emoji e\n"
+                    + "WHere Comment2ID = ? and ce.EmojiID =e.EmojiID\n"
+                    + "GROUP BY EmojiImg\n"
+                    + "Order BY COUNT(EmojiImg) DESC ";
             PreparedStatement ps = SQL.prepareStatement(query);
-            ps.setInt(1, Integer.parseInt(Comment2ID));
+            ps.setInt(1, Comment2ID);
             ResultSet rs = ps.executeQuery();
             if (!rs.isBeforeFirst()) {
-                return -1;
+                return null;
             } else {
                 while (rs.next()) {
-                    numberOfEmoji = rs.getInt(1);
+                    String count = rs.getString(1);
+                    list.add(count);
                 }
-                return numberOfEmoji;
+                return list;
             }
         } catch (SQLException ex) {
             System.err.println("Get Max Emoji Error");
         }
-        return -1;
+        return null;
+    }
+
+    public static int isStatusUserEmojis(int StatusID, int accountID) {
+        try {
+            int emoji = 0;
+            String query = "SELECT * \n"
+                    + "FROM StatusEmotion\n"
+                    + "WHERE StatusID = ? and AccountUserID = ?";
+            PreparedStatement ps = SQL.prepareStatement(query);
+            ps.setInt(1, StatusID);
+            ps.setInt(2, accountID);
+            ResultSet rs = ps.executeQuery();
+            if (!rs.isBeforeFirst()) {
+                return 0;
+            } else {
+                while (rs.next()) {
+                    emoji = rs.getInt(3);
+                }
+                return emoji;
+            }
+        } catch (SQLException ex) {
+            System.err.println("Get Is User Status Emoji Error");
+        }
+        return 0;
+    }
+
+    public static int isCommentUserEmojis(int commentID, int accountID) {
+        try {
+            int emoji = 0;
+            String query = "SELECT * \n"
+                    + "FROM CommentEmotion\n"
+                    + "WHERE CommentID = ? and AccountUserID = ?";
+            PreparedStatement ps = SQL.prepareStatement(query);
+            ps.setInt(1, commentID);
+            ps.setInt(2, accountID);
+            ResultSet rs = ps.executeQuery();
+            if (!rs.isBeforeFirst()) {
+                return 0;
+            } else {
+                while (rs.next()) {
+                    emoji = rs.getInt(3);
+                }
+                return emoji;
+            }
+        } catch (SQLException ex) {
+            System.err.println("Get Is User Comment Emoji Error");
+        }
+        return 0;
+    }
+
+    public static int isComment2UserEmojis(int comment2ID, int accountID) {
+        try {
+            int emoji = 0;
+            String query = "SELECT * \n"
+                    + "FROM Comment2Emotion\n"
+                    + "WHERE Comment2ID = ? and AccountUserID = ?";
+            PreparedStatement ps = SQL.prepareStatement(query);
+            ps.setInt(1, comment2ID);
+            ps.setInt(2, accountID);
+            ResultSet rs = ps.executeQuery();
+            if (!rs.isBeforeFirst()) {
+                return 0;
+            } else {
+                while (rs.next()) {
+                    emoji = rs.getInt(3);
+                }
+                return emoji;
+            }
+        } catch (SQLException ex) {
+            System.err.println("Get Is User Comment2 Emoji Error");
+        }
+        return 0;
     }
 }

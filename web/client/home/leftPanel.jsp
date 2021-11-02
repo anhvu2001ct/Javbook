@@ -45,6 +45,11 @@
         <div class="more_icon m_10"><i class="fas fa-angle-right w_icon h_auto font_icon "></i></div>
         <div class="more_title font_weight">More</div>
     </div>
+    <div class="leftpanel_logout hov m_10 bd_rd p_element h_52 flex_al_ct ">
+        <div class="more_icon m_10"><i class="fas fa-sign-out-alt  w_icon h_auto font_icon "></i></div>
+        <div class="more_title font_weight">Log Out</div>
+    </div>
+   
 
 
 </div>

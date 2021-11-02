@@ -30,4 +30,6 @@ public class Comment2 {
     private String time;
     private int update;
     private int numberOfEmoji;
+    private String max1, max2;
+    private int userEmotion;
 }

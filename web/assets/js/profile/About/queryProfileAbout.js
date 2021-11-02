@@ -4,19 +4,19 @@
             title: "Update Successfully!",
             message: "You updated information successfully!",
             type: "success",
-            duration: 10000,
+            duration: 3000,
         },
         fail: {
             title: "Update Failed!",
             message: "You <span>failed</span> to update your information!",
             type: "error",
-            duration: 10000,
+            duration: 7000,
         },
         changePassSuccess: {
             title: "Change Password Successfully!",
             message: "You changed password successfully!",
             type: "success",
-            duration: 10000,
+            duration: 3000,
         },
         changePassFail: {
             title: "Change Password Failed!",
@@ -95,6 +95,15 @@
     var selectStatusInputs = document.querySelectorAll(
         ".js-select-status-input"
     );
+    // Modal Select Language
+    var modalSelectLanguageBtn = document.querySelector(
+        ".js-edit-language-btn"
+    );
+    var modalSelectLanguage = document.querySelector(".modal-language");
+    var languageInputValue = document.querySelector(".js-language-value");
+    var selectLanguageInputs = document.querySelectorAll(
+        ".js-select-language-input"
+    );
 
     function editText() {
         let itemContent = this.parentNode;
@@ -117,6 +126,9 @@
 
                         if (result == "success") {
                             toast(message.success, [message.success.message]);
+                            profileName =
+                                document.querySelector(".profile-name");
+                            profileName.innerHTML = input.value;
                         } else {
                             input.value = result;
                             toast(message.fail, [message.fail.message]);
@@ -411,18 +423,18 @@
             if (result == "success") {
                 toast(
                     {
-                        title: "Select Audience Successfully!",
+                        title: "Successfully!",
                         type: "success",
-                        duration: 10000,
+                        duration: 3000,
                     },
                     ["You selected audience successfully!"]
                 );
             } else {
                 toast(
                     {
-                        title: "Select Audience Failed!",
+                        title: "Failed!",
                         type: "error",
-                        duration: 10000,
+                        duration: 5000,
                     },
                     ["You <span>failed</span> to selecte audience!"]
                 );
@@ -569,6 +581,48 @@
         });
     });
 
+    // Process Select Language
+    function editSelectLanguage() {
+        let selectLanguageType = languageInputValue.value;
+
+        modalSelectLanguage.style.display = "flex";
+
+        selectLanguageInputs.forEach((selectLanguageInput) => {
+            let selectLanguageOrder = selectLanguageInput.getAttribute(
+                "data-select-language-order"
+            );
+            if (
+                (selectLanguageType == "English" && selectLanguageOrder == 1) ||
+                (selectLanguageType == "Vietnamese" &&
+                    selectLanguageOrder == 2) ||
+                (selectLanguageType == "Japanese" && selectLanguageOrder == 3)
+            ) {
+                selectLanguageInput.checked = true;
+            }
+        });
+    }
+
+    selectLanguageInputs.forEach((selectLanguageInput) => {
+        selectLanguageInput.addEventListener("click", () => {
+            let selectLanguageOrder = selectLanguageInput.getAttribute(
+                "data-select-language-order"
+            );
+
+            if (selectLanguageOrder == 1) {
+                languageInputValue.value = "English";
+            } else if (selectLanguageOrder == 2) {
+                languageInputValue.value = "Vietnamese";
+            } else if (selectLanguageOrder == 3) {
+                languageInputValue.value = "Japanese";
+            }
+
+            modalSelectLanguage.style.display = "none";
+
+            // call API to update language
+            // processing...
+        });
+    });
+
     editTextBtns.forEach((editTextBtn) => {
         editTextBtn.addEventListener("click", editText);
     });
@@ -583,6 +637,8 @@
     modalSelectGenderBtn.addEventListener("click", editSelectGender);
     // Modal Select Status
     modalSelectStatusBtn.addEventListener("click", editSelectStatus);
+    // Modal Select Language
+    modalSelectLanguageBtn.addEventListener("click", editSelectLanguage);
 
     modalCloseBtns.forEach((modalCloseBtn) => {
         modalCloseBtn.addEventListener("click", (e) => {
@@ -600,5 +656,31 @@
         bodyModal.addEventListener("click", (e) => {
             e.stopPropagation();
         });
+    });
+    // Logout
+    logoutBtn = document.querySelector("#js-logout");
+
+    logoutBtn.addEventListener("click", function () {
+        let query = new QueryData("account/logout");
+
+        query.addEvent("load", function () {
+            let result = this.response;
+
+            if (result == "success") {
+                window.location = "/Javbook/";
+                // console.log("ok");
+            } else {
+                toast(
+                    {
+                        title: "Logout Failed!",
+                        type: "error",
+                        duration: 10000,
+                    },
+                    ["<span>Unknown fault</span>!"]
+                );
+            }
+        });
+
+        query.send("POST");
     });
 })();

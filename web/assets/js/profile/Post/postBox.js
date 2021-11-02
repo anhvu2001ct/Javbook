@@ -41,6 +41,28 @@ function postBox() {
   let postCountLeft = document.querySelectorAll(".post-count-left");
   let mainCommentEmojiPopup = document.querySelectorAll(".main-display-comment-emoji");
   let levelCommentEmojiPopup = document.querySelectorAll(".level-display-comment-emoji");
+  let isEmojiMain = document.querySelectorAll(".emoji-main");
+  let isEmojiLevel = document.querySelectorAll(".commnent-emoji");
+  isEmojiLevel.forEach((emoji) => {
+    index = parseInt(emoji.id);
+    let pTag = emoji.parentNode.parentNode.querySelector(".count-comment-enmoji");
+    if (index != 0) {
+      pTag.classList.add("liked")
+      emoji.querySelector("span").innerText = nameIcon[index - 1];
+      emoji.querySelector("span").style.color = iconTextColor[index - 1];
+    }
+  })
+  isEmojiMain.forEach((box) => {
+    let pTag = box.parentNode.parentNode.parentNode.querySelector(".post-count-left p ");
+
+    index = parseInt(box.id);
+    if (index != 0) {
+      pTag.classList.add("liked");
+      box.querySelector(".icon-status").src = `/Javbook/assets/img/emoji/${icon[index - 1]}.svg`
+      box.querySelector("p").innerText = nameIcon[index - 1];
+      box.querySelector("p").style.color = iconTextColor[index - 1];
+    }
+  })
   selectPostBox.addEventListener("change", () => {
     optionPostBox = selectPostBox.selectedIndex;
   });
@@ -526,129 +548,180 @@ function postBox() {
 
     emoji.onclick = () => {
       let index = Math.floor(indexList / 6);
-      emojiPost[index].src = `/Javbook/assets/img/emoji/${icon[indexList % 6]}.svg`;
-      iconText[index].innerText = nameIcon[indexList % 6];
-      iconText[index].style.color = iconTextColor[indexList % 6];
       let query = new QueryData("/emotion/createStatusEmoji");
       let postBox = emoji.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
       query.addParam("id", postBox.id);
       query.addParam("emoji", (indexList % 6) + 1)
-      let countEmoji = postBox.querySelector(".count-emoji");
-      let title = postBox.querySelector(".post-title").textContent.trim();
-      let emojiNumber = parseInt(countEmoji.textContent);
-      let img = postBox.querySelector(".post-count-left > ul > li img");
-      if (postBox.querySelector(".name-display")) {
-        postBox.querySelector(".name-display").remove();
-      }
-      postReaction(emojiNumber, img, indexList, index, title, postBox);
+      postReaction(emojiPost[index], iconText[index], iconText[index], postBox, "create", indexList);
       query.send("POST");
 
     };
   });
-  function postReaction(emojiNumber, img, indexList, index, title, postBox) {
-
-    postBox.querySelector(".count-emoji").style.display = "none";
-    let pTag = document.createElement("p");
-    pTag.classList.add("name-display");
-    if (emojiNumber === 0) {
-      postBox.querySelector(".post-count-left> ul").style.display = "flex";
-      img.src = `/Javbook/assets/img/emoji/${icon[indexList % 6]}.svg`;
-      for (let i = 1; i < img.length; i++) {
-        img[i].style.display = "none";
+  function postReaction(image, text, color, postBox, type, indexList) {
+    let query = new QueryData("/status/getTopStatusEmoji");
+    let count = postBox.querySelector(".count-emoji");
+    let imgStatus = postBox.querySelectorAll(".post-count-left img")
+    let string = "";
+    let list = null;
+    query.addParam("id", postBox.id);
+    query.addEvent("load", function () {
+      string = this.response;
+      string = string.replace("[", "")
+      list = string.replace("]", "")
+      list = list.split(",")
+      count.innerText = list[0];
+      if (list[1] !== undefined) {
+        imgStatus[0].src = `/Javbook/assets/img/emoji/${list[1].trim()}`
       }
-      pTag.innerText = title;
-      postBox.querySelectorAll(".post-count-left > ul > li")[0].style.display = "block";
-      postBox.querySelector(".post-count-left ul li img").style.display = "block";
+      if (list[2] !== undefined) {
+        imgStatus[1].src = `/Javbook/assets/img/emoji/${list[2].trim()}`
+      }
+      if (type == "create") {
+        image.src = `/Javbook/assets/img/emoji/${icon[indexList % 6]}.svg`;
+        text.innerText = nameIcon[indexList % 6];
+        color.style.color = iconTextColor[indexList % 6];
+        postBox.querySelector(".post-count-left ul ").style.display = "flex"
+        postBox.querySelector(".post-count-left ul li").style.display = "block"
+        postBox.querySelector(".post-count-left ul img").style.display = "block"
+        postBox.querySelector(".post-count-left p").style.display = "block"
+      } else {
+        image.src = "/Javbook/assets/img/emoji/unlike.png";
+        text.innerText = nameIcon[0];
+        color.style.color = "";
+        if (parseInt(list[0]) == 0) {
+          postBox.querySelector(".post-count-left ul ").style.display = "none"
+          postBox.querySelector(".post-count-left ul li").style.display = "none"
+          postBox.querySelector(".post-count-left ul img").style.display = "none"
+          postBox.querySelector(".post-count-left p").style.display = "none"
+        }
+      }
 
-    }
-    if (emojiNumber === 1) {
-      pTag.innerText = `You and Nguyễn Anh Vũ `;
-    }
-    if (emojiNumber !== 0 && emojiNumber !== 1) {
-      pTag.innerText = `You and ${emojiNumber} others`;
-    }
-    postBox.querySelector(".count-emoji").parentNode.appendChild(pTag);
+    })
 
-
+    query.send("GET");
   }
   function clickEmojiComment() {
     listEmojiComment.forEach((emoji, indexList) => {
       emoji.onclick = () => {
         let index = Math.floor(indexList / 6);
-        iconTextComment[index].innerText = nameIcon[indexList % 6];
-        iconTextComment[index].style.color = iconTextColor[indexList % 6];
         let commentBox = emoji.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
         let img = commentBox.querySelector(".display-comment-emoji li img");
-        let content = commentBox.querySelector(".display-comment-emoji  p");
         let mainComment = emoji.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
         let levelComment = emoji.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
         if (mainComment.className.includes("main-comment")) {
           let uploadData = new QueryData("/emotion/createCommentEmoji");
           uploadData.addParam("id", mainComment.id);
           uploadData.addParam("emoji", (indexList % 6) + 1);
-          uploadData.send("POST")
+          uploadData.send("POST");
+          commentReaction(iconTextComment[index], iconTextComment[index], indexList, img, mainComment, "create");
         }
         if (levelComment.className.includes("comment-level")) {
           let uploadData2 = new QueryData("/emotion/createComment2Emoji");
           uploadData2.addParam("id", levelComment.id);
           uploadData2.addParam("emoji", (indexList % 6) + 1);
           uploadData2.send("POST")
+          commentReaction(iconTextComment[index], iconTextComment[index], indexList, img, levelComment, "create");
         }
-        commentReaction(index, indexList, img, content);
+
       };
     });
   }
   clickEmojiComment();
-  function commentReaction(index, indexList, img, content) {
-    img.src = `/Javbook/assets/img/emoji/${icon[indexList % 6]}.svg`;
-    img.style.display = "block";
-    if (!content.className.includes("liked")) {
-      content.innerText = parseInt(content.textContent) + 1;
-      img.alt = parseInt(content.textContent) + 1;
-    }
-    content.classList.add("liked");
-    content.style.display = "block";
-    content.parentNode.style.display = "flex";
+  function commentReaction(name, color, indexList, like, content, type) {
+    if (content.className.includes("main-comment")) {
+      let uploadData = new QueryData("/status/getTopCommentEmoji");
+      uploadData.addParam("id", content.id);
+      let count = content.querySelector(".count-comment-enmoji");
+      let img = content.querySelectorAll(".comment-user .main-display-comment-emoji img")
+      uploadData.addEvent("load", function () {
+        string = this.response;
+        string = string.replace("[", "")
+        list = string.replace("]", "")
+        list = list.split(",")
+        count.innerText = list[0];
+        if (list[1] !== undefined) {
+          img[0].src = `/Javbook/assets/img/emoji/${list[1].trim()}`
+        }
+        if (list[2] !== undefined) {
+          img[1].src = `/Javbook/assets/img/emoji/${list[2].trim()}`
+        }
+        if (type == "create") {
+          name.innerText = nameIcon[indexList % 6];
+          console.log(indexList)
+          color.style.color = iconTextColor[indexList % 6];
+          content.querySelector(".comment-user .main-display-comment-emoji").style.display = "flex"
+          content.querySelector(".comment-user .main-display-comment-emoji img").style.display = "block"
+          content.querySelector(".comment-user .main-display-comment-emoji p").style.display = "block"
+        } else {
+          like.style.color = "rgb(204, 200, 219)";
+          like.innerText = "Like"
+          if (parseInt(list[0]) == 0) {
+            content.querySelector(".comment-user .main-display-comment-emoji").style.display = "none"
+            content.querySelector(".comment-user .main-display-comment-emoji img").style.display = "none"
+            content.querySelector(".comment-user .main-display-comment-emoji p").style.display = "none"
+          }
+        }
+      })
+      uploadData.send("GET")
 
+
+    }
+    if (content.className.includes("comment-level")) {
+      let uploadData2 = new QueryData("/status/getTopComment2Emoji");
+      uploadData2.addParam("id", content.id);
+      let count = content.querySelector(".count-comment-enmoji");
+      let img = content.querySelectorAll(".level-display-comment-emoji img")
+      uploadData2.addEvent("load", function () {
+        string = this.response;
+        string = string.replace("[", "")
+        list = string.replace("]", "")
+        list = list.split(",")
+        count.innerText = list[0];
+        if (list[1] !== undefined) {
+          img[0].src = `/Javbook/assets/img/emoji/${list[1].trim()}`
+        }
+        if (list[2] !== undefined) {
+          img[1].src = `/Javbook/assets/img/emoji/${list[2].trim()}`
+        }
+        if (type == "create") {
+          name.innerText = nameIcon[indexList % 6];
+          color.style.color = iconTextColor[indexList % 6];
+          content.querySelector(".level-display-comment-emoji").style.display = "flex"
+          content.querySelector(".level-display-comment-emoji img").style.display = "block"
+          content.querySelector(".level-display-comment-emoji p").style.display = "block"
+        } else {
+          like.style.color = "rgb(204, 200, 219)";
+          like.innerText = "Like"
+          if (parseInt(list[0]) == 0) {
+            content.querySelector(".level-display-comment-emoji").style.display = "none"
+            content.querySelector(".level-display-comment-emoji img").style.display = "none"
+            content.querySelector(".level-display-comment-emoji p").style.display = "none"
+          }
+        }
+      })
+      uploadData2.send("GET")
+
+    }
 
   }
   iconText.forEach((like, index) => {
 
     like.onclick = () => {
       let query = new QueryData("/emotion/createStatusEmoji");
-
       let postBox = like.parentNode.parentNode.parentNode.parentNode;
       query.addParam("id", postBox.id);
       if (!emojiPost[index].src.includes("unlike.png")) {
-        emojiPost[index].src = "/Javbook/assets/img/emoji/unlike.png";
-        like.innerText = nameIcon[0];
-        like.style.color = "";
         let query2 = new QueryData("/emotion/deleteStatusEmoji");
         query2.addParam("id", postBox.id);
         query2.send("POST")
-        postBox.querySelector(".post-count-left> ul").style.display = "none";
-        postBox.querySelector(".post-count-left> p").style.display = "none";
 
-        if (postBox.querySelector(".name-display")) {
-          postBox.querySelector(".name-display").remove();
-        }
+        postReaction(emojiPost[index], like, like, postBox, "delete", 0);
 
       } else {
-
         query.addParam("emoji", 1);
-        emojiPost[index].src = `/Javbook/assets/img/emoji/${icon[0]}.svg`;
-        like.innerText = nameIcon[0];
         query.send("POST")
-        like.style.color = iconTextColor[0];
         let postBox = like.parentNode.parentNode.parentNode.parentNode;
-        let countEmoji = postBox.querySelector(".count-emoji");
-        let title = postBox.querySelector(".post-title").textContent.trim();
-        let emojiNumber = parseInt(countEmoji.textContent);
-        let img = postBox.querySelector(".post-count-left > ul > li img");
-        if (postBox.querySelector(".name-display")) {
-          postBox.querySelector(".name-display").remove();
-        }
-        postReaction(emojiNumber, img, 0, 0, title, postBox);
+        postReaction(emojiPost[index], like, like, postBox, "create", 0);
 
       }
     };
@@ -667,39 +740,31 @@ function postBox() {
             let uploadData = new QueryData("/emotion/createCommentEmoji");
             uploadData.addParam("id", mainComment.id);
             uploadData.addParam("emoji", 1);
-            uploadData.send("POST")
+            uploadData.send("POST");
+            commentReaction(like, like, 0, like, mainComment, "create")
+
           }
           if (levelComment.className.includes("comment-level")) {
             let uploadData2 = new QueryData("/emotion/createComment2Emoji");
             uploadData2.addParam("id", levelComment.id);
             uploadData2.addParam("emoji", 1);
             uploadData2.send("POST")
+            commentReaction(like, like, 0, like, levelComment, "create")
           }
-          let pTag = displayEmojiLocation.querySelector("p");
-          displayEmojiLocation.querySelector("li img").style.display = "block"
-          if (!pTag.className.includes("liked")) {
-            pTag.innerText = parseInt(pTag.textContent) + 1;
-            displayEmojiLocation.querySelector("li img").alt = parseInt(pTag.textContent) + 1;
-          }
-          pTag.classList.add("liked");
-          pTag.style.display = "block"
-          like.style.color = iconTextColor[0];
-          displayEmojiLocation.style.display = "flex"
-
         } else {
           if (mainComment.className.includes("main-comment")) {
             let uploadData = new QueryData("/emotion/deleteCommentEmoji");
             uploadData.addParam("id", mainComment.id);
             uploadData.send("POST")
+            commentReaction(0, 0, 0, like, mainComment, "delete")
           }
           if (levelComment.className.includes("comment-level")) {
             let uploadData2 = new QueryData("/emotion/deleteComment2Emoji");
             uploadData2.addParam("id", levelComment.id);
             uploadData2.send("POST")
+            commentReaction(0, 0, 0, like, levelComment, "delete")
           }
-          like.style.color = "rgb(204, 200, 219)";
-          like.innerText = "Like"
-          displayEmojiLocation.style.display = "none"
+
         }
       };
     });

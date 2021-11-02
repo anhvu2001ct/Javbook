@@ -92,7 +92,7 @@ public class CommentDAO {
             } else {
                 while (rs.next()) {
                     Comment comment = new Comment(rs.getString(1), rs.getString(2), rs.getInt(3),
-                            rs.getInt(4), rs.getString(5), calculateTime(rs.getTimestamp(6)), rs.getInt(7), 0);
+                            rs.getInt(4), rs.getString(5), calculateTime(rs.getTimestamp(6)), rs.getInt(7), 0, "", "", 0);
                     list.add(comment);
                 }
                 return list;
@@ -119,7 +119,7 @@ public class CommentDAO {
                 while (rs.next()) {
 
                     Comment2 comment2 = new Comment2(rs.getString(1), rs.getString(2), rs.getInt(3),
-                            rs.getInt(4), rs.getString(5), calculateTime(rs.getTimestamp(6)), rs.getInt(7), 0);
+                            rs.getInt(4), rs.getString(5), calculateTime(rs.getTimestamp(6)), rs.getInt(7), 0, "", "", 0);
                     list.add(comment2);
                 }
                 return list;

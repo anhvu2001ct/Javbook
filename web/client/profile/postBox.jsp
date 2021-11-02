@@ -333,7 +333,6 @@
 </c:if>
 <c:forEach items="${posts}" var="post" >
     <div class="post box" id="${post.status.statusId}">
-        <h1>${post.status.numberOfEmoji}</h1>
         <div class="post-item">
             <div class="status-main">
                 <img src="${post.status.userImage}" class="status-img" />
@@ -385,18 +384,28 @@
             <div class="post-count-left">
                 <ul>
                     <li>
-                        <img src="/Javbook/assets/img/emoji/like.svg" alt="0" />
+                        <c:choose>
+                            <c:when test="${empty post.status.max1}">
+                                <img src="/Javbook/assets/img/emoji/like.svg" alt="0" />
+                            </c:when>
+                            <c:otherwise>
+                                <img src="/Javbook/assets/img/emoji/${post.status.max1}" alt="1" />
+                            </c:otherwise>
+                        </c:choose>
                     </li>
-
                     <li>
-                        <img src="/Javbook/assets/img/emoji/love.svg" alt="0" />
-                    </li>
+                        <c:choose>
+                            <c:when test="${empty post.status.max2}">
+                                <img src="/Javbook/assets/img/emoji/like.svg" alt="0" />
+                            </c:when>
+                            <c:otherwise>
+                                <img src="/Javbook/assets/img/emoji/${post.status.max2}" alt="1" />
+                            </c:otherwise>
+                        </c:choose>
 
-                    <li>
-                        <img src="/Javbook/assets/img/emoji/care.svg" alt="0" />
                     </li>
                 </ul>
-                <p class="count-emoji">0</p>
+                <p class="count-emoji">${post.status.numberOfEmoji}</p>
             </div>
             <div class="post-count-right">
                 <span>
@@ -411,7 +420,7 @@
         </div>
         <div class="post-action">
             <div class="actions">
-                <div class="emoji">
+                <div class="emoji emoji-main" id="${post.status.userEmotion}">
                     <img src="/Javbook/assets/img/emoji/unlike.png" alt="" class="icon-status" />
                     <p>Like</p>
                     <div class="list-icon">
@@ -509,18 +518,32 @@
                                                 <div class="display-comment-emoji main-display-comment-emoji">
                                                     <ul>
                                                         <li>
-                                                            <img src="/Javbook/assets/img/emoji/like.svg" alt="0" />
+                                                            <c:choose>
+                                                                <c:when test="${empty comment.first.max1}">
+                                                                    <img src="/Javbook/assets/img/emoji/like.svg" alt="0" />
+                                                                </c:when>
+                                                                <c:otherwise>
+                                                                    <img src="/Javbook/assets/img/emoji/${comment.first.max1}" alt="1" />
+                                                                </c:otherwise>
+                                                            </c:choose>
+                                                        </li>
+                                                        <li>
+                                                            <c:choose>
+                                                                <c:when test="${empty comment.first.max2}">
+                                                                    <img src="/Javbook/assets/img/emoji/like.svg" alt="0" />
+                                                                </c:when>
+                                                                <c:otherwise>
+                                                                    <img src="/Javbook/assets/img/emoji/${comment.first.max2}" alt="1" />
+                                                                </c:otherwise>
+                                                            </c:choose>
                                                         </li>
 
-                                                        <li>
-                                                            <img src="/Javbook/assets/img/emoji/love.svg" alt="0" />
-                                                        </li>
                                                     </ul>
-                                                    <p class="count-comment-enmoji">0</p>
+                                                    <p class="count-comment-enmoji">${comment.first.numberOfEmoji}</p>
                                                 </div>
                                             </div>
                                             <div class="main-comment-action">
-                                                <div class="emoji commnent-emoji">
+                                                <div class="emoji commnent-emoji" id="${comment.first.userEmotion}">
                                                     <span>Like</span>
                                                     <div class="list-icon">
                                                         <ul>
@@ -591,23 +614,36 @@
                                                                 <a href="" class="main-user-name">${comment2.userName}</a>
                                                             </div>
                                                             <p>
-                                                                <span class="reply_user">Javbook</span> ${comment2.text}
+                                                                <span class="reply_user"></span> ${comment2.text}
                                                             </p>
                                                             <div class="display-comment-emoji level-display-comment-emoji">
                                                                 <ul>
                                                                     <li>
-                                                                        <img src="/Javbook/assets/img/emoji/like.svg" alt="0" />
+                                                                        <c:choose>
+                                                                            <c:when test="${empty comment2.max1}">
+                                                                                <img src="/Javbook/assets/img/emoji/like.svg" alt="0" />
+                                                                            </c:when>
+                                                                            <c:otherwise>
+                                                                                <img src="/Javbook/assets/img/emoji/${comment2.max1}" alt="1" />
+                                                                            </c:otherwise>
+                                                                        </c:choose>
                                                                     </li>
-
                                                                     <li>
-                                                                        <img src="/Javbook/assets/img/emoji/love.svg" alt="0" />
+                                                                        <c:choose>
+                                                                            <c:when test="${empty comment2.max2}">
+                                                                                <img src="/Javbook/assets/img/emoji/like.svg" alt="0" />
+                                                                            </c:when>
+                                                                            <c:otherwise>
+                                                                                <img src="/Javbook/assets/img/emoji/${comment2.max2}" alt="1" />
+                                                                            </c:otherwise>
+                                                                        </c:choose>
                                                                     </li>
                                                                 </ul>
-                                                                <p class="count-comment-enmoji">0</p>
+                                                                <p class="count-comment-enmoji">${comment2.numberOfEmoji}</p>
                                                             </div>
                                                         </div>
                                                         <div class="main-comment-action">
-                                                            <div class="emoji commnent-emoji">
+                                                            <div class="emoji commnent-emoji" id="${comment2.userEmotion}">
                                                                 <span>Like</span>
                                                                 <div class="list-icon">
                                                                     <ul>

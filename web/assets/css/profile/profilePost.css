@@ -68,6 +68,11 @@
   padding: 10px;
   line-height: 1.4;
 }
+
+.info-item p span {
+  font-weight: bold;
+}
+
 .info-item a {
   color: #1771d6;
 }
