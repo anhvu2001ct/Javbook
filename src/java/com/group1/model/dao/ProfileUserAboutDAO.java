@@ -187,4 +187,22 @@ public class ProfileUserAboutDAO {
         }
     }
     
+    public static boolean updateAvatar(int accountID, String avatar) {
+        try {
+            String query = "UPDATE AccountProfile "
+                    +  "SET Avatar = ? "
+                    +  "WHERE AccountUserID = ?";
+            
+            PreparedStatement ps = SQL.prepareStatement(query); // nem cau lenh query tu netbeans sang sql server
+            ps.setString(1, avatar);
+            ps.setInt(2, accountID);
+            
+            int affectedRows = ps.executeUpdate(); // execute query va nhan ket qua tra ve
+            return (affectedRows != 0);
+        } catch (SQLException ex) {
+            Logger.getLogger(ProfileUserAboutDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+    
 }
