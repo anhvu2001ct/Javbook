@@ -5,11 +5,14 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Stream;
 
 /**
@@ -67,5 +70,14 @@ public class IO {
             e.printStackTrace();
         }
         return res;
+    }
+    
+   public static boolean delete(String basePath, String subPath, String fileName) {
+        try {
+            return Files.deleteIfExists(Paths.get(basePath, subPath, fileName));
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return false;
     }
 }

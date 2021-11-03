@@ -18,15 +18,16 @@ import javax.servlet.http.Part;
  * @author Anh Vu Nguyen {@literal <nganhvu>}
  */
 @MultipartConfig(fileSizeThreshold = 1024*1024,
-        maxFileSize = 1024*1024*2,
-        maxRequestSize = 1024*1024*4)
+        maxFileSize = 1024*1024*3,
+        maxRequestSize = 1024*1024*6)
 @WebServlet("/process/upload/*")
 public class UploadProcessor extends BaseProcessor {
     @ServeAt(value="/image", method=ServeMethod.POST)
     public void serve(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Part part = request.getPart("file");
         String savePath = request.getParameter("savePath");
-        part.write(IO.getPathToFile(ServerInit.imgPath, "user", savePath).toString());
+        String fileName = request.getParameter("fileName");
+        part.write(IO.getPathToFile(ServerInit.imgPath, savePath, fileName).toString());
         response.getWriter().print("done");
     }
 }
