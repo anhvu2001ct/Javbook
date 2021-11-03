@@ -20,6 +20,4 @@ public class Post {
 
     private Status status;
     private List<Pair<Comment,List<Comment2>>> comment;
-    
-   
 }

@@ -25,22 +25,23 @@ public class ProfileServlet extends BaseServlet {
 
     @Override
     protected void processGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
+
         HttpSession ses = request.getSession();
         int uid = (Integer) ses.getAttribute("uid");
-        
+
         ProfileUserAbout profileUser = ProfileUserAboutDAO.getProfileUser(uid);
-        
+
         request.setAttribute("profileUser", profileUser);
 
         PathInfo path = (PathInfo) request.getAttribute("pathInfo");
         IndexServlet.setInfoHeader(request);
-        if (Secret.decode2(path.path[0]).equals(String.valueOf(uid))) {
+        String curID = Secret.decode2(path.path[0]);
+        if (curID.equals(String.valueOf(uid))) {
             request.getRequestDispatcher("/client/profile/profile.jsp").forward(request, response);
         } else {
 
         }
-        
+
         request.setAttribute("profileUser", profileUser);
         request.getRequestDispatcher("/client/profile/profile.jsp").forward(request, response);
 

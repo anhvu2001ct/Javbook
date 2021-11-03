@@ -169,6 +169,7 @@ public class StatusDAO {
                     Status status = new Status(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getString(4),
                             rs.getString(5), s.format(rs.getTimestamp(6)),
                             String.format("%1$TD %1$TT", rs.getTimestamp(7)), rs.getInt(8), 0, "", "", 0, rs.getInt(9));
+                    
                     list.add(status);
                 }
                 return list;
