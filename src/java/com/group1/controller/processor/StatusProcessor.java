@@ -110,7 +110,6 @@ public class StatusProcessor extends BaseProcessor {
             request.setAttribute("profileStatus", profileStatus);
 
             // --------------------------
-            
             List<Status> status = StatusDAO.getListStatusUser(accountId);
             List<Post> posts = new ArrayList<>();
             if (status != null) {
