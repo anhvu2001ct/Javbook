@@ -98,7 +98,8 @@ public class StatusProcessor extends BaseProcessor {
         try {
             // Canh
             HttpSession ses = request.getSession();
-            int accountId = (Integer) ses.getAttribute("uid");
+            int userID = (Integer) ses.getAttribute("uid");
+            int accountId = (Integer) request.getAttribute("id");
 
             ProfileUserAbout profileUser = ProfileUserAboutDAO.getProfileUser(accountId);
 
@@ -117,7 +118,7 @@ public class StatusProcessor extends BaseProcessor {
 
                 for (Status stt : status) {
                     stt.setNumberOfEmoji(EmojiDAO.getStatusNumberOfEmojis(stt.getStatusId()));
-                    stt.setUserEmotion(EmojiDAO.isStatusUserEmojis(stt.getStatusId(), accountId));
+                    stt.setUserEmotion(EmojiDAO.isStatusUserEmojis(stt.getStatusId(), userID));
                     if (EmojiDAO.getListStatusMaxEmojis(stt.getStatusId()) != null) {
                         stt.setMax1(EmojiDAO.getListStatusMaxEmojis(stt.getStatusId()).get(0));
                         if (EmojiDAO.getListStatusMaxEmojis(stt.getStatusId()).size() == 2) {
@@ -133,7 +134,7 @@ public class StatusProcessor extends BaseProcessor {
                         Collections.sort(comments, (Comment a, Comment b) -> b.getCommentId() - a.getCommentId());
                         for (Comment comment : comments) {
                             comment.setNumberOfEmoji(EmojiDAO.getCommentNumberOfEmojis(comment.getCommentId()));
-                            comment.setUserEmotion(EmojiDAO.isCommentUserEmojis(comment.getCommentId(), accountId));
+                            comment.setUserEmotion(EmojiDAO.isCommentUserEmojis(comment.getCommentId(), userID));
                             if (EmojiDAO.getListCommentMaxEmojis(comment.getCommentId()) != null) {
                                 comment.setMax1(EmojiDAO.getListCommentMaxEmojis(comment.getCommentId()).get(0));
                                 if (EmojiDAO.getListCommentMaxEmojis(comment.getCommentId()).size() == 2) {
@@ -144,7 +145,7 @@ public class StatusProcessor extends BaseProcessor {
                             if (comments2 != null) {
                                 Collections.sort(comments2, (Comment2 a, Comment2 b) -> b.getComment2Id() - a.getComment2Id());
                                 for (Comment2 comment2 : comments2) {
-                                    comment2.setUserEmotion(EmojiDAO.isComment2UserEmojis(comment2.getComment2Id(), accountId));
+                                    comment2.setUserEmotion(EmojiDAO.isComment2UserEmojis(comment2.getComment2Id(), userID));
                                     comment2.setNumberOfEmoji(EmojiDAO.getComment2NumberOfEmojis(comment2.getComment2Id()));
                                     if (EmojiDAO.getListComment2MaxEmojis(comment2.getComment2Id()) != null) {
                                         comment2.setMax1(EmojiDAO.getListComment2MaxEmojis(comment2.getComment2Id()).get(0));
@@ -164,7 +165,12 @@ public class StatusProcessor extends BaseProcessor {
             }
             request.setAttribute("posts", posts);
             request.setAttribute("avatar", StatusDAO.getAvatar(accountId));
-            request.getRequestDispatcher("/client/profile/profilePost.jsp").forward(request, response);
+            if (userID == accountId) {
+                request.getRequestDispatcher("/client/profile/profilePost.jsp").forward(request, response);
+            } else {
+                request.getRequestDispatcher("/client/otherProfile/profilePost.jsp").forward(request, response);
+            }
+
         } catch (ServletException ex) {
             System.out.println("Render ServletException");
         } catch (IOException ex) {

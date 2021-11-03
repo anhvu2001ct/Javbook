@@ -28,22 +28,17 @@ public class ProfileServlet extends BaseServlet {
 
         HttpSession ses = request.getSession();
         int uid = (Integer) ses.getAttribute("uid");
-
-        ProfileUserAbout profileUser = ProfileUserAboutDAO.getProfileUser(uid);
-
-        request.setAttribute("profileUser", profileUser);
-
         PathInfo path = (PathInfo) request.getAttribute("pathInfo");
         IndexServlet.setInfoHeader(request);
         String curID = Secret.decode2(path.path[0]);
+        request.setAttribute("curId", path.path[0]);
+        ProfileUserAbout profileUser = ProfileUserAboutDAO.getProfileUser(Integer.parseInt(curID));
+        request.setAttribute("profileUser", profileUser);
         if (curID.equals(String.valueOf(uid))) {
             request.getRequestDispatcher("/client/profile/profile.jsp").forward(request, response);
         } else {
-
+            request.getRequestDispatcher("/client/otherProfile/profile.jsp").forward(request, response);
         }
-
-        request.setAttribute("profileUser", profileUser);
-        request.getRequestDispatcher("/client/profile/profile.jsp").forward(request, response);
 
     }
 

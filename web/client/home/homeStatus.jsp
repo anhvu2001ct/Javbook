@@ -16,7 +16,7 @@
                     <img src="${post.status.userImage}" class="status-img" />
                     <div class="post-detail">
                         <div class="post-title">
-                            <a href="${post.status.getID()}">${post.status.userName}</a>
+                            <a href="/Javbook/profile/${post.status.getID()}/">${post.status.userName}</a>
                         </div>
 
                         <div class="post-state">
