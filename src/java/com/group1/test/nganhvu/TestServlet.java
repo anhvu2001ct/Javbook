@@ -1,7 +1,9 @@
 package com.group1.test.nganhvu;
 
 import com.group1.controller.BaseServlet;
+import com.group1.controller.ServerInit;
 import com.group1.misc.PathInfo;
+import com.group1.model.db.IO;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -26,9 +28,8 @@ public class TestServlet extends BaseServlet {
     @Override
     protected void processGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println(++cnt);
-        PathInfo path = (PathInfo)request.getAttribute("pathInfo");
-        System.out.println(path.path + " " + path.size);
-        request.getRequestDispatcher("/test/nganhvu/websocket.jsp").forward(request, response);
+        IO.delete(ServerInit.imgPath, "profile", "avatar.png");
+        request.getRequestDispatcher("/test/nganhvu/upfile.jsp").forward(request, response);
     }
 
     @Override

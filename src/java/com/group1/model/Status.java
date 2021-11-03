@@ -31,5 +31,5 @@ public class Status {
     private int numberOfEmoji;
     private String max1, max2;
     private int userEmotion;
-
+    private int accountID;
 }

@@ -1,4 +1,9 @@
-
+.home-post {
+  position: relative;
+  margin: 0 auto;
+  top: 80px;
+  width: 550px;
+}
 
 .main-container {
   padding: 20px;
@@ -286,6 +291,16 @@
   display: none;
   justify-content: center;
 }
-.list-post{
-    margin-left: 20px;
+.list-post {
+  margin-left: 20px;
+}
+.timeline-home {
+  width: 100% !important;
+  margin-left: 0 !important;
+  max-width: 550px;
+}
+.home-box {
+  width: 100% !important;
+  max-width: 550px !important;
+  margin-left:0 !important
 }

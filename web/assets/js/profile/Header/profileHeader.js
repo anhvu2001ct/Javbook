@@ -107,8 +107,15 @@ inputFileAvatar.addEventListener("change", () => {
                 urlImg = result;
             }
             window.setTimeout(() => {
+                let oldImg = displayPhotoAvatar.src;
                 displayPhotoAvatar.src = urlImg;
-                window.location.reload();
+                // Replace all img
+                let imgs = document.querySelectorAll("img");
+                imgs.forEach((img) => {
+                    if (img.src === oldImg) {
+                        img.src = urlImg;
+                    }
+                });
             }, 2000);
         });
 

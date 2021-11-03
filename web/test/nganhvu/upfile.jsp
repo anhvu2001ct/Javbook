@@ -22,9 +22,10 @@
     <script>
         function sendFile() {
             let query = new QueryUpload("upload/image");
-            let name = "user" + Date.now() + ".png";
+            let name = "avatar" + Date.now() + ".png";
             query.addParam("file", document.getElementById("myFile").files[0]);
-            query.addParam("savePath", name);
+            query.addParam("savePath", "profile");
+            query.addParam("fileName", name);
             
             query.addEvent("progress", function(e) {
                 let percent = e.loaded / e.total * 100;
@@ -33,7 +34,8 @@
             
             query.addEvent("load", function() {
                 window.setTimeout(() => {
-                    document.querySelector("#userAvatar").src = "/Javbook/assets/img/user/" + name;
+                    document.querySelector("#userAvatar").src = "/Javbook/assets/img/profile/" + name;
+                    //query2
                 }, 4000);
             });
             
