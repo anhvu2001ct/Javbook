@@ -150,6 +150,8 @@
                                 />
                             <span class="notification_icon">
                                 <i class="fas fa-${nc.typeicon}"></i>
+                                <!--<img src="/Javbook/assets/img/emoji/message.svg" alt="">-->
+
                             </span>
                         </a>
                         <div class="popup_item_info notification_content">
