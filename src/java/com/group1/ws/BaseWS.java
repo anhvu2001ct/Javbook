@@ -3,6 +3,7 @@ package com.group1.ws;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import static com.group1.controller.ServerInit.gson;
+import com.group1.misc.Secret;
 import java.io.IOException;
 import javax.websocket.CloseReason;
 import javax.websocket.OnClose;
@@ -16,11 +17,11 @@ import javax.websocket.Session;
  * @author Anh Vu Nguyen {@literal <nganhvu>}
  */
 public abstract class BaseWS {
-    protected String id;
+    protected String id, id2;
     
     @OnOpen
     public void open(Session session) {
-        System.out.printf("New connection. SID = %s\n", session.getId());
+//        System.out.printf("New connection. SID = %s\n", session.getId());
         onOpen(session);
     }
 
@@ -29,6 +30,7 @@ public abstract class BaseWS {
        JsonArray arr = gson.fromJson(msg, JsonArray.class);
        if (arr.size() == 2) {
            id = arr.get(1).getAsString();
+           id2 = Secret.decode2(id);
            addClient(session);
            return;
        }
@@ -44,7 +46,7 @@ public abstract class BaseWS {
 
     @OnClose
     public void close(Session session, CloseReason reason) {
-        System.out.printf("Connection closed. SID = %s, id = %s\n", session.getId(), id);
+//        System.out.printf("Connection closed. SID = %s, id = %s\n", session.getId(), id);
         onClose(session, reason);
     }
     

@@ -1,6 +1,7 @@
 package com.group1.ws;
 
 import com.google.gson.JsonObject;
+import com.group1.misc.Secret;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -18,21 +19,21 @@ public class MessageHandler extends BaseWS {
 
     @Override
     protected void addClient(Session session) {
-        clients.putIfAbsent(id, ConcurrentHashMap.newKeySet());
-        clients.get(id).add(session);
+        clients.putIfAbsent(id2, ConcurrentHashMap.newKeySet());
+        clients.get(id2).add(session);
     }
     
     @Override
     protected void removeClient(Session session) {
-        Set<Session> client = clients.get(id);
+        Set<Session> client = clients.get(id2);
         client.remove(session);
-        if (client.isEmpty()) clients.remove(id);
+        if (client.isEmpty()) clients.remove(id2);
     }
 
     @Override
     protected void onMessage(Session session, JsonObject msg) {
         String to = msg.getAsJsonPrimitive("to").getAsString();
-        Set<Session> client = clients.get(to);
+        Set<Session> client = clients.get(Secret.decode2(to));
         if (client != null) {
             msg.remove("to");
             msg.addProperty("from", id);

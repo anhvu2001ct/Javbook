@@ -1,5 +1,9 @@
 class SocketConnector {
-    constructor(path, id) {
+    constructor(path) {
+        let tmp = document.querySelector("#tmp-id");
+        if (tmp == null) return;
+        let id = tmp.getAttribute("m-id");
+        tmp.remove();
         this.ws = new WebSocket(`ws://localhost:8080/Javbook/ws/${path}`);
         this.ws.onopen = () => {
             this.ws.send(JSON.stringify(["i", id]));

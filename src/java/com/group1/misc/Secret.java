@@ -43,8 +43,8 @@ public class Secret {
     
     static {
         String secret = ServerInit.config.get("secret").getAsString();
-        FIRST = Integer.valueOf(secret.substring(0, 1));
-        LAST = Integer.valueOf(secret.substring(2, 3));
+        FIRST = Integer.valueOf(secret.substring(0, 2));
+        LAST = Integer.valueOf(secret.substring(2, 4));
     }
     
     public static String encode2(String s) {
@@ -55,7 +55,7 @@ public class Secret {
         str.append(s);
         for (int i = 0; i < LAST; ++i) str.append(rng.nextInt(10));
         str.reverse();
-        str = new StringBuilder(ec.encodeToString(ec.encode(str.toString().getBytes())));
+        str = new StringBuilder(ec.encodeToString(str.toString().getBytes()));
         return str.reverse().toString();
     }
     
@@ -63,7 +63,6 @@ public class Secret {
         Decoder dc = Base64.getUrlDecoder();
         StringBuilder str = new StringBuilder(s);
         s = str.reverse().toString();
-        s = decode(dc, s, false);
         s = decode(dc, s, true);
         return s.substring(FIRST, s.length() - LAST);
     }
