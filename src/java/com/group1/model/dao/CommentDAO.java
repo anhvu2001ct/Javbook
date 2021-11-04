@@ -14,7 +14,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -68,9 +67,23 @@ public class CommentDAO {
 
     public static void deleteComment(String commentId) {
         try {
-            String query = ";";
+            String query = "DELETE  FROM Comment\n"
+                    + "WHERE CommentID = ?";
             PreparedStatement ps = SQL.prepareStatement(query);
             ps.setInt(1, Integer.parseInt(commentId));
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            System.err.println("Delete Comment Error");
+        }
+
+    }
+
+    public static void deleteComment2(String comment2Id) {
+        try {
+            String query = "DELETE  FROM Comment2\n"
+                    + "WHERE Comment2ID = ?";
+            PreparedStatement ps = SQL.prepareStatement(query);
+            ps.setInt(1, Integer.parseInt(comment2Id));
             ps.executeUpdate();
         } catch (SQLException ex) {
             System.err.println("Delete Comment Error");
@@ -81,7 +94,7 @@ public class CommentDAO {
     public static List<Comment> getListComment(int StatusID) {
         try {
             List<Comment> list = new ArrayList<>();
-            String query = "select Name,Avatar,CommentID,StatusID,Text,Time,CheckUpdate \n"
+            String query = "select Name,Avatar,CommentID,StatusID,Text,Time,CheckUpdate,c.AccountUserID \n"
                     + "from Comment c ,AccountProfile ap\n"
                     + "where  c.AccountUserID =ap.AccountUserID and c.StatusID =?";
             PreparedStatement ps = SQL.prepareStatement(query);
@@ -92,7 +105,7 @@ public class CommentDAO {
             } else {
                 while (rs.next()) {
                     Comment comment = new Comment(rs.getString(1), rs.getString(2), rs.getInt(3),
-                            rs.getInt(4), rs.getString(5), calculateTime(rs.getTimestamp(6)), rs.getInt(7), 0, "", "", 0);
+                            rs.getInt(4), rs.getString(5), calculateTime(rs.getTimestamp(6)), rs.getInt(7), 0, "", "", 0, rs.getInt(8));
                     list.add(comment);
                 }
                 return list;
@@ -107,7 +120,7 @@ public class CommentDAO {
         try {
 
             List<Comment2> list = new ArrayList<>();
-            String query = "select Name ,Avatar,Comment2ID ,CommentID,Text,Time,CheckUpdate \n"
+            String query = "select Name ,Avatar,Comment2ID ,CommentID,Text,Time,CheckUpdate,c.AccountUserID \n"
                     + "from Comment2 c  , AccountProfile ap\n"
                     + "where  c.AccountUserID =ap.AccountUserID and c.CommentID =?";
             PreparedStatement ps = SQL.prepareStatement(query);
@@ -119,7 +132,7 @@ public class CommentDAO {
                 while (rs.next()) {
 
                     Comment2 comment2 = new Comment2(rs.getString(1), rs.getString(2), rs.getInt(3),
-                            rs.getInt(4), rs.getString(5), calculateTime(rs.getTimestamp(6)), rs.getInt(7), 0, "", "", 0);
+                            rs.getInt(4), rs.getString(5), calculateTime(rs.getTimestamp(6)), rs.getInt(7), 0, "", "", 0, rs.getInt(8));
                     list.add(comment2);
                 }
                 return list;

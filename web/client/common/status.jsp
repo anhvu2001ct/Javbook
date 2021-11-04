@@ -1,89 +1,86 @@
 <%-- 
-    Document   : postBox
-    Created on : Oct 24, 2021, 10:38:18 PM
+    Document   : status
+    Created on : Nov 3, 2021, 11:43:12 PM
     Author     : Mr Khang
 --%>
 
-
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
-<c:forEach items="${posts}" var="post" >
-    <c:if test="${post.status.mood!=3}">
-        <div class="post box home-box" id="${post.status.statusId}">
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Javbook</title>
+       
+    </head>
+    <body>
+    <c:forEach items="${posts}" var="post">
+        <div class="post box" id="${post.status.statusId}">
             <div class="post-item">
                 <div class="status-main">
                     <img src="${post.status.userImage}" class="status-img" />
                     <div class="post-detail">
                         <div class="post-title">
-                            <a href="/Javbook/profile/${post.status.getID()}/">${post.status.userName}</a>
+                            <a href="">${post.status.userName}</a>
                         </div>
 
                         <div class="post-state">
-                            <span class="post-date">
-                                ${post.status.time}
-                            </span>
+                            <span class="post-date"> ${post.status.time} </span>
                             <c:if test="${post.status.mood==1}">
                                 <i class="fas fa-globe-asia"></i>
-
                             </c:if>
                             <c:if test="${post.status.mood==3}">
                                 <i class="fas fa-lock"></i>
-
                             </c:if>
                             <c:if test="${post.status.mood==2}">
                                 <i class="fas fa-user-friends"></i>
-
                             </c:if>
                         </div>
                     </div>
-                    <c:if test="${post.status.accountID==userID}">
-                        <div class="edit-post">
-                            <i class="fas fa-ellipsis-h"></i>
-                            <div class="edit-post-item">
-                                <ul>
-                                    <li class="edit"><i class="fas fa-pen-nib"> </i> Edit</li>
-                                    <li class="delete"><i class="far fa-trash-alt"></i> Delete</li>
-                                </ul>
-                            </div>
+                    <div class="edit-post">
+                        <i class="fas fa-ellipsis-h"></i>
+                        <div class="edit-post-item">
+                            <ul>
+                                <li class="edit"><i class="fas fa-pen-nib"> </i> Edit</li>
+                                <li class="delete"><i class="far fa-trash-alt"></i> Delete</li>
+                            </ul>
                         </div>
-                    </c:if>
-
+                    </div>
                 </div>
                 <div class="post-content">
                     <p class="content">${post.status.text}</p>
                 </div>
                 <div class="post-photos">
-                    <img
-                        src="${post.status.statusImg}"
-                        alt=""
-                        class="post-photo"
-                        />
+                    <img src="${post.status.statusImg}" alt="" class="post-photo" />
                 </div>
             </div>
             <div class="post-count">
                 <div class="post-count-left">
                     <ul>
                         <li>
-                            <c:choose>
-                                <c:when test="${empty post.status.max1}">
-                                    <img src="/Javbook/assets/img/emoji/like.svg" alt="0" />
-                                </c:when>
-                                <c:otherwise>
-                                    <img src="/Javbook/assets/img/emoji/${post.status.max1}" alt="1" />
-                                </c:otherwise>
-                            </c:choose>
+                        <c:choose>
+                            <c:when test="${empty post.status.max1}">
+                                <img src="/Javbook/assets/img/emoji/like.svg" alt="0" />
+                            </c:when>
+                            <c:otherwise>
+                                <img
+                                    src="/Javbook/assets/img/emoji/${post.status.max1}"
+                                    alt="1"
+                                    />
+                            </c:otherwise>
+                        </c:choose>
                         </li>
                         <li>
-                            <c:choose>
-                                <c:when test="${empty post.status.max2}">
-                                    <img src="/Javbook/assets/img/emoji/like.svg" alt="0" />
-                                </c:when>
-                                <c:otherwise>
-                                    <img src="/Javbook/assets/img/emoji/${post.status.max2}" alt="1" />
-                                </c:otherwise>
-                            </c:choose>
-
+                        <c:choose>
+                            <c:when test="${empty post.status.max2}">
+                                <img src="/Javbook/assets/img/emoji/like.svg" alt="0" />
+                            </c:when>
+                            <c:otherwise>
+                                <img
+                                    src="/Javbook/assets/img/emoji/${post.status.max2}"
+                                    alt="1"
+                                    />
+                            </c:otherwise>
+                        </c:choose>
                         </li>
                     </ul>
                     <p class="count-emoji">${post.status.numberOfEmoji}</p>
@@ -102,7 +99,11 @@
             <div class="post-action">
                 <div class="actions">
                     <div class="emoji emoji-main" id="${post.status.userEmotion}">
-                        <img src="/Javbook/assets/img/emoji/unlike.png" alt="" class="icon-status" />
+                        <img
+                            src="/Javbook/assets/img/emoji/unlike.png"
+                            alt=""
+                            class="icon-status"
+                            />
                         <p>Like</p>
                         <div class="list-icon">
                             <ul>
@@ -165,11 +166,7 @@
             <div class="comment box">
                 <div class="comment-box">
                     <div class="send-comment-box">
-                        <img
-                            src="${userinfo.avatar}"
-                            alt=""
-                            class="ava_cmt user-avatar-send"
-                            />
+                        <img src="${avatar}" alt="" class="ava_cmt user-avatar-send" />
                         <textarea
                             name="send=comment"
                             class="send-text-comment"
@@ -193,84 +190,126 @@
                                             <div class="comment-content-box">
                                                 <div class="content-main-comment">
                                                     <div class="comment-main-title">
-                                                        <a href="" class="main-user-name">${comment.first.userName}</a>
+                                                        <a href="" class="main-user-name"
+                                                           >${comment.first.userName}</a
+                                                        >
                                                     </div>
-                                                    <p class="text-comment" >${comment.first.text}</p>
+                                                    <p class="text-comment">${comment.first.text}</p>
                                                     <div class="display-comment-emoji main-display-comment-emoji">
                                                         <ul>
                                                             <li>
-                                                                <c:choose>
-                                                                    <c:when test="${empty comment.first.max1}">
-                                                                        <img src="/Javbook/assets/img/emoji/like.svg" alt="0" />
-                                                                    </c:when>
-                                                                    <c:otherwise>
-                                                                        <img src="/Javbook/assets/img/emoji/${comment.first.max1}" alt="1" />
-                                                                    </c:otherwise>
-                                                                </c:choose>
+                                                            <c:choose>
+                                                                <c:when test="${empty comment.first.max1}">
+                                                                    <img
+                                                                        src="/Javbook/assets/img/emoji/like.svg"
+                                                                        alt="0"
+                                                                        />
+                                                                </c:when>
+                                                                <c:otherwise>
+                                                                    <img
+                                                                        src="/Javbook/assets/img/emoji/${comment.first.max1}"
+                                                                        alt="1"
+                                                                        />
+                                                                </c:otherwise>
+                                                            </c:choose>
                                                             </li>
                                                             <li>
-                                                                <c:choose>
-                                                                    <c:when test="${empty comment.first.max2}">
-                                                                        <img src="/Javbook/assets/img/emoji/like.svg" alt="0" />
-                                                                    </c:when>
-                                                                    <c:otherwise>
-                                                                        <img src="/Javbook/assets/img/emoji/${comment.first.max2}" alt="1" />
-                                                                    </c:otherwise>
-                                                                </c:choose>
+                                                            <c:choose>
+                                                                <c:when test="${empty comment.first.max2}">
+                                                                    <img
+                                                                        src="/Javbook/assets/img/emoji/like.svg"
+                                                                        alt="0"
+                                                                        />
+                                                                </c:when>
+                                                                <c:otherwise>
+                                                                    <img
+                                                                        src="/Javbook/assets/img/emoji/${comment.first.max2}"
+                                                                        alt="1"
+                                                                        />
+                                                                </c:otherwise>
+                                                            </c:choose>
                                                             </li>
-
                                                         </ul>
-                                                        <p class="count-comment-enmoji">${comment.first.numberOfEmoji}</p>
+                                                        <p class="count-comment-enmoji">
+                                                            ${comment.first.numberOfEmoji}
+                                                        </p>
                                                     </div>
-                                                    <c:if test="${comment.first.userID == userID}">
-                                                        <div class="delete-comment">
-                                                            <i class="far fa-trash-alt fa-lg"></i>
-                                                        </div>
-                                                    </c:if>
+                                                    <div class="delete-comment">
+                                                        <i class="far fa-trash-alt fa-lg"></i>
+                                                    </div>
                                                 </div>
                                                 <div class="main-comment-action">
-                                                    <div class="emoji commnent-emoji" id="${comment.first.userEmotion}">
+                                                    <div
+                                                        class="emoji commnent-emoji"
+                                                        id="${comment.first.userEmotion}"
+                                                        >
                                                         <span>Like</span>
                                                         <div class="list-icon">
                                                             <ul>
                                                                 <li>
                                                                     <div class="tooltip">
-                                                                        <img src="/Javbook/assets/img/emoji/like.svg" alt="" />
+                                                                        <img
+                                                                            src="/Javbook/assets/img/emoji/like.svg"
+                                                                            alt=""
+                                                                            />
                                                                         <span class="toolTipText">Like</span>
                                                                     </div>
                                                                 </li>
 
                                                                 <li>
                                                                     <div class="tooltip">
-                                                                        <img src="/Javbook/assets/img/emoji/love.svg" alt="" />
-                                                                        <span class="toolTipText tooltipIcon2">Love</span>
+                                                                        <img
+                                                                            src="/Javbook/assets/img/emoji/love.svg"
+                                                                            alt=""
+                                                                            />
+                                                                        <span class="toolTipText tooltipIcon2"
+                                                                              >Love</span
+                                                                        >
                                                                     </div>
                                                                 </li>
 
                                                                 <li>
                                                                     <div class="tooltip">
-                                                                        <img src="/Javbook/assets/img/emoji/care.svg" alt="" />
-                                                                        <span class="toolTipText tooltipIcon3">Care</span>
+                                                                        <img
+                                                                            src="/Javbook/assets/img/emoji/care.svg"
+                                                                            alt=""
+                                                                            />
+                                                                        <span class="toolTipText tooltipIcon3"
+                                                                              >Care</span
+                                                                        >
                                                                     </div>
                                                                 </li>
 
                                                                 <li>
                                                                     <div class="tooltip">
-                                                                        <img src="/Javbook/assets/img/emoji/haha.svg" alt="" />
-                                                                        <span class="toolTipText tooltipIcon4">Haha</span>
+                                                                        <img
+                                                                            src="/Javbook/assets/img/emoji/haha.svg"
+                                                                            alt=""
+                                                                            />
+                                                                        <span class="toolTipText tooltipIcon4"
+                                                                              >Haha</span
+                                                                        >
                                                                     </div>
                                                                 </li>
 
                                                                 <li>
                                                                     <div class="tooltip">
-                                                                        <img src="/Javbook/assets/img/emoji/sad.svg" alt="" />
-                                                                        <span class="toolTipText tooltipIcon5">Sad</span>
+                                                                        <img
+                                                                            src="/Javbook/assets/img/emoji/sad.svg"
+                                                                            alt=""
+                                                                            />
+                                                                        <span class="toolTipText tooltipIcon5"
+                                                                              >Sad</span
+                                                                        >
                                                                     </div>
                                                                 </li>
 
                                                                 <li>
                                                                     <div class="tooltip">
-                                                                        <img src="/Javbook/assets/img/emoji/angry.svg" alt="" />
+                                                                        <img
+                                                                            src="/Javbook/assets/img/emoji/angry.svg"
+                                                                            alt=""
+                                                                            />
                                                                         <span class="toolTipText tooltipIcon6"
                                                                               >Angry</span
                                                                         >
@@ -288,7 +327,7 @@
                                         <div class="comment-level-item">
                                             <c:if test="${comment.second!=null}">
                                                 <c:forEach items="${comment.second}" var="comment2">
-                                                    <div class="comment-level" id="${comment2.comment2Id}" >
+                                                    <div class="comment-level" id="${comment2.comment2Id}">
                                                         <img
                                                             src="${comment2.userImage}"
                                                             alt=""
@@ -297,57 +336,81 @@
                                                         <div class="comment-content-box">
                                                             <div class="content-main-comment">
                                                                 <div class="comment-main-title">
-                                                                    <a href="" class="main-user-name">${comment2.userName}</a>
+                                                                    <a href="" class="main-user-name"
+                                                                       >${comment2.userName}</a
+                                                                    >
                                                                 </div>
                                                                 <p>
-                                                                    <span class="reply_user"></span> ${comment2.text}
+                                                                    <span class="reply_user"></span>
+                                                                    ${comment2.text}
                                                                 </p>
                                                                 <div class="display-comment-emoji level-display-comment-emoji">
                                                                     <ul>
                                                                         <li>
-                                                                            <c:choose>
-                                                                                <c:when test="${empty comment2.max1}">
-                                                                                    <img src="/Javbook/assets/img/emoji/like.svg" alt="0" />
-                                                                                </c:when>
-                                                                                <c:otherwise>
-                                                                                    <img src="/Javbook/assets/img/emoji/${comment2.max1}" alt="1" />
-                                                                                </c:otherwise>
-                                                                            </c:choose>
+                                                                        <c:choose>
+                                                                            <c:when test="${empty comment2.max1}">
+                                                                                <img
+                                                                                    src="/Javbook/assets/img/emoji/like.svg"
+                                                                                    alt="0"
+                                                                                    />
+                                                                            </c:when>
+                                                                            <c:otherwise>
+                                                                                <img
+                                                                                    src="/Javbook/assets/img/emoji/${comment2.max1}"
+                                                                                    alt="1"
+                                                                                    />
+                                                                            </c:otherwise>
+                                                                        </c:choose>
                                                                         </li>
                                                                         <li>
-                                                                            <c:choose>
-                                                                                <c:when test="${empty comment2.max2}">
-                                                                                    <img src="/Javbook/assets/img/emoji/like.svg" alt="0" />
-                                                                                </c:when>
-                                                                                <c:otherwise>
-                                                                                    <img src="/Javbook/assets/img/emoji/${comment2.max2}" alt="1" />
-                                                                                </c:otherwise>
-                                                                            </c:choose>
+                                                                        <c:choose>
+                                                                            <c:when test="${empty comment2.max2}">
+                                                                                <img
+                                                                                    src="/Javbook/assets/img/emoji/like.svg"
+                                                                                    alt="0"
+                                                                                    />
+                                                                            </c:when>
+                                                                            <c:otherwise>
+                                                                                <img
+                                                                                    src="/Javbook/assets/img/emoji/${comment2.max2}"
+                                                                                    alt="1"
+                                                                                    />
+                                                                            </c:otherwise>
+                                                                        </c:choose>
                                                                         </li>
                                                                     </ul>
-                                                                    <p class="count-comment-enmoji">${comment2.numberOfEmoji}</p>
+                                                                    <p class="count-comment-enmoji">
+                                                                        ${comment2.numberOfEmoji}
+                                                                    </p>
                                                                 </div>
-                                                                <c:if test="${comment2.userID == userID}">
-                                                                    <div class="delete-comment">
-                                                                        <i class="far fa-trash-alt fa-lg"></i>
-                                                                    </div>
-                                                                </c:if>
+                                                                <div class="delete-comment">
+                                                                    <i class="far fa-trash-alt fa-lg"></i>
+                                                                </div>
                                                             </div>
                                                             <div class="main-comment-action">
-                                                                <div class="emoji commnent-emoji" id="${comment2.userEmotion}">
+                                                                <div
+                                                                    class="emoji commnent-emoji"
+                                                                    id="${comment2.userEmotion}"
+                                                                    >
                                                                     <span>Like</span>
                                                                     <div class="list-icon">
                                                                         <ul>
                                                                             <li>
                                                                                 <div class="tooltip">
-                                                                                    <img src="/Javbook/assets/img/emoji/like.svg" alt="" />
+                                                                                    <img
+                                                                                        src="/Javbook/assets/img/emoji/like.svg"
+                                                                                        alt=""
+                                                                                        />
                                                                                     <span class="toolTipText">Like</span>
                                                                                 </div>
                                                                             </li>
 
                                                                             <li>
                                                                                 <div class="tooltip">
-                                                                                    <img src="/Javbook/assets/img/emoji/love.svg" alt="" />
+                                                                                    <img
+                                                                                        src="/Javbook/assets/img/emoji/love.svg"
+                                                                                        alt=""
+                                                                                        />
                                                                                     <span class="toolTipText tooltipIcon2"
                                                                                           >Love</span
                                                                                     >
@@ -356,7 +419,10 @@
 
                                                                             <li>
                                                                                 <div class="tooltip">
-                                                                                    <img src="/Javbook/assets/img/emoji/care.svg" alt="" />
+                                                                                    <img
+                                                                                        src="/Javbook/assets/img/emoji/care.svg"
+                                                                                        alt=""
+                                                                                        />
                                                                                     <span class="toolTipText tooltipIcon3"
                                                                                           >Care</span
                                                                                     >
@@ -365,7 +431,10 @@
 
                                                                             <li>
                                                                                 <div class="tooltip">
-                                                                                    <img src="/Javbook/assets/img/emoji/haha.svg" alt="" />
+                                                                                    <img
+                                                                                        src="/Javbook/assets/img/emoji/haha.svg"
+                                                                                        alt=""
+                                                                                        />
                                                                                     <span class="toolTipText tooltipIcon4"
                                                                                           >Haha</span
                                                                                     >
@@ -374,7 +443,10 @@
 
                                                                             <li>
                                                                                 <div class="tooltip">
-                                                                                    <img src="/Javbook/assets/img/emoji/sad.svg" alt="" />
+                                                                                    <img
+                                                                                        src="/Javbook/assets/img/emoji/sad.svg"
+                                                                                        alt=""
+                                                                                        />
                                                                                     <span class="toolTipText tooltipIcon5"
                                                                                           >Sad</span
                                                                                     >
@@ -383,7 +455,10 @@
 
                                                                             <li>
                                                                                 <div class="tooltip">
-                                                                                    <img src="/Javbook/assets/img/emoji/angry.svg" alt="" />
+                                                                                    <img
+                                                                                        src="/Javbook/assets/img/emoji/angry.svg"
+                                                                                        alt=""
+                                                                                        />
                                                                                     <span class="toolTipText tooltipIcon6"
                                                                                           >Angry</span
                                                                                     >
@@ -408,5 +483,9 @@
                 </div>
             </div>
         </div>
-    </c:if>
-</c:forEach>
+    </c:forEach>
+
+
+
+</body>
+</html>

@@ -5,7 +5,6 @@
  */
 package com.group1.model;
 
-import java.sql.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,4 +31,5 @@ public class Comment2 {
     private int numberOfEmoji;
     private String max1, max2;
     private int userEmotion;
+    private int userID;
 }
