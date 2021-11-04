@@ -51,31 +51,31 @@ public class ProfileUserAboutProcessor extends BaseProcessor {
         // get Profile Status
         ProfileStatus profileStatus = ProfileStatusDAO.getProfileStatus(profileStatusID);
 
-        // get Audience
-        String audience = profileUser.getAudience();
-        ArrayList<Pair<String, String>> audiences = new ArrayList<>();
-
-        for (char ch : audience.toCharArray()) {
-            switch (ch) {
-                case '1':
-                    audiences.add(new Pair<>("Global", "fa-globe-asia"));
-                    break;
-                case '2':
-                    audiences.add(new Pair<>("Friends", "fa-user-friends"));
-                    break;
-                case '3':
-                    audiences.add(new Pair<>("OnlyMe", "fa-lock"));
-                    break;
-                default:
-                    break;
-            }
-        }
-
         request.setAttribute("profileUser", profileUser);
         request.setAttribute("profileStatus", profileStatus);
         request.setAttribute("account", account);
-        request.setAttribute("audiences", audiences);
         if (accountID == uid) {
+            // get Audience
+            String audience = profileUser.getAudience();
+            ArrayList<Pair<String, String>> audiences = new ArrayList<>();
+
+            for (char ch : audience.toCharArray()) {
+                switch (ch) {
+                    case '1':
+                        audiences.add(new Pair<>("Global", "fa-globe-asia"));
+                        break;
+                    case '2':
+                        audiences.add(new Pair<>("Friends", "fa-user-friends"));
+                        break;
+                    case '3':
+                        audiences.add(new Pair<>("OnlyMe", "fa-lock"));
+                        break;
+                    default:
+                        break;
+                }
+            }
+            request.setAttribute("audiences", audiences);
+
             request.getRequestDispatcher("/client/profile/profileAbout.jsp").forward(request, response);
         } else {
             request.getRequestDispatcher("/client/otherProfile/profileAbout.jsp").forward(request, response);
