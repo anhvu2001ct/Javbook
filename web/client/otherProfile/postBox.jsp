@@ -533,6 +533,12 @@
                                                     </ul>
                                                     <p class="count-comment-enmoji">${comment.first.numberOfEmoji}</p>
                                                 </div>
+                                                <c:if test="${comment.first.userID == userID}">
+                                                    <div class="delete-comment">
+                                                        <i class="far fa-trash-alt fa-lg"></i>
+                                                    </div>
+                                                </c:if>
+
                                             </div>
                                             <div class="main-comment-action">
                                                 <div class="emoji commnent-emoji" id="${comment.first.userEmotion}">
@@ -633,6 +639,11 @@
                                                                 </ul>
                                                                 <p class="count-comment-enmoji">${comment2.numberOfEmoji}</p>
                                                             </div>
+                                                            <c:if test="${comment2.userID == userID}">
+                                                                <div class="delete-comment">
+                                                                    <i class="far fa-trash-alt fa-lg"></i>
+                                                                </div>
+                                                            </c:if>
                                                         </div>
                                                         <div class="main-comment-action">
                                                             <div class="emoji commnent-emoji" id="${comment2.userEmotion}">

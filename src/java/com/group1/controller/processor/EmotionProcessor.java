@@ -8,6 +8,7 @@ package com.group1.controller.processor;
 import com.group1.model.CountEmoji;
 import com.group1.model.Emoji;
 import com.group1.model.dao.EmojiDAO;
+import com.group1.model.dao.NotificationDAO;
 import com.group1.rest.BaseProcessor;
 import com.group1.rest.ServeAt;
 import com.group1.rest.ServeMethod;
@@ -33,6 +34,7 @@ public class EmotionProcessor extends BaseProcessor {
         int accountId = (int) request.getSession().getAttribute("uid");
         String emojiId = request.getParameter("emoji");
         EmojiDAO.createStatusEmoji(statusId, accountId, emojiId);
+        NotificationDAO.insertNotification(accountId, emojiId, statusId);
     }
 
     @ServeAt(value = "/deleteStatusEmoji", method = ServeMethod.POST)
@@ -40,6 +42,7 @@ public class EmotionProcessor extends BaseProcessor {
         String statusId = request.getParameter("id");
         int accountId = (int) request.getSession().getAttribute("uid");
         EmojiDAO.deleteStatusEmoji(statusId, accountId);
+        NotificationDAO.deleteNotification(accountId, statusId, "1");
     }
 
     @ServeAt(value = "/createCommentEmoji", method = ServeMethod.POST)

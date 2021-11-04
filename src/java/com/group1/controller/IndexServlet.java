@@ -9,13 +9,13 @@ import com.group1.misc.Pair;
 import com.group1.misc.Secret;
 import com.group1.model.Comment;
 import com.group1.model.Comment2;
-import com.group1.model.HeaderNotification;
+import com.group1.model.Notification;
 import com.group1.model.Post;
 import com.group1.model.ProfileUserAbout;
 import com.group1.model.Status;
 import com.group1.model.dao.CommentDAO;
 import com.group1.model.dao.EmojiDAO;
-import com.group1.model.dao.HeaderNotificationDAO;
+import com.group1.model.dao.NotificationDAO;
 import com.group1.model.dao.ProfileUserAboutDAO;
 import com.group1.model.dao.StatusDAO;
 import java.io.IOException;
@@ -104,10 +104,8 @@ public class IndexServlet extends BaseServlet {
 
     public static void setInfoHeader(HttpServletRequest request) {
         int accountId = (int) request.getSession().getAttribute("uid");
-        List<HeaderNotification> notifications = HeaderNotificationDAO.getListEmotionNotification(accountId);
-        List<HeaderNotification> notificomments = HeaderNotificationDAO.getListCommentNotification(accountId);
+        List<Notification> notifications = NotificationDAO.getListNotification(accountId);
         ProfileUserAbout userinfo = ProfileUserAboutDAO.getProfileUser(accountId);
-        request.setAttribute("notificomments", notificomments);
         request.setAttribute("notifications", notifications);
         request.setAttribute("userinfo", userinfo);
         request.setAttribute("uid2", Secret.encode2(String.valueOf(accountId)));

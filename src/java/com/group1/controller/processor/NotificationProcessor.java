@@ -5,12 +5,13 @@
  */
 package com.group1.controller.processor;
 
-import com.group1.model.HeaderNotification;
-import com.group1.model.dao.HeaderNotificationDAO;
+import com.group1.model.Notification;
+import com.group1.model.dao.NotificationDAO;
 import com.group1.rest.BaseProcessor;
 import com.group1.rest.ServeAt;
 import com.group1.rest.ServeMethod;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,21 +26,10 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet("/process/notification/*")
 public class NotificationProcessor extends BaseProcessor {
-//
-//    @ServeAt(value = "/header", method = ServeMethod.GET)
-//    public void serveHeaderNotification(HttpServletRequest request, HttpServletResponse response) {
-//        try {
-//
-//            int accountId = (int) request.getSession().getAttribute("uid");
-//            List<HeaderNotification> notifications = HeaderNotificationDAO.getListEmotionNotification(accountId);
-//            request.setAttribute("notifications", notifications);
-//            request.getRequestDispatcher("/client/common/header.jsp").forward(request, response);
-//
-//        } catch (ServletException ex) {
-//            Logger.getLogger(NotificationProcessor.class.getName()).log(Level.SEVERE, null, ex);
-//        } catch (IOException ex) {
-//            Logger.getLogger(NotificationProcessor.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//
-//    }
+
+    @ServeAt(value = "/isSeenNotification", method = ServeMethod.POST)
+    public void serveIsSeenNotification(HttpServletRequest request, HttpServletResponse response) throws SQLException {
+        String notificationid = request.getParameter("notificationid");
+        NotificationDAO.isSeenNotification(Integer.parseInt(notificationid));
+    }
 }

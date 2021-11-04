@@ -2,6 +2,7 @@ package com.group1.controller.processor;
 
 import com.group1.controller.ServerInit;
 import com.group1.misc.Pair;
+import com.group1.misc.PathInfo;
 import com.group1.model.Account;
 import com.group1.model.ProfileStatus;
 import com.group1.model.ProfileUserAbout;
@@ -50,31 +51,31 @@ public class ProfileUserAboutProcessor extends BaseProcessor {
         // get Profile Status
         ProfileStatus profileStatus = ProfileStatusDAO.getProfileStatus(profileStatusID);
 
-        // get Audience
-        String audience = profileUser.getAudience();
-        ArrayList<Pair<String, String>> audiences = new ArrayList<>();
-
-        for (char ch : audience.toCharArray()) {
-            switch (ch) {
-                case '1':
-                    audiences.add(new Pair<>("Global", "fa-globe-asia"));
-                    break;
-                case '2':
-                    audiences.add(new Pair<>("Friends", "fa-user-friends"));
-                    break;
-                case '3':
-                    audiences.add(new Pair<>("OnlyMe", "fa-lock"));
-                    break;
-                default:
-                    break;
-            }
-        }
-
         request.setAttribute("profileUser", profileUser);
         request.setAttribute("profileStatus", profileStatus);
         request.setAttribute("account", account);
-        request.setAttribute("audiences", audiences);
         if (accountID == uid) {
+            // get Audience
+            String audience = profileUser.getAudience();
+            ArrayList<Pair<String, String>> audiences = new ArrayList<>();
+
+            for (char ch : audience.toCharArray()) {
+                switch (ch) {
+                    case '1':
+                        audiences.add(new Pair<>("Global", "fa-globe-asia"));
+                        break;
+                    case '2':
+                        audiences.add(new Pair<>("Friends", "fa-user-friends"));
+                        break;
+                    case '3':
+                        audiences.add(new Pair<>("OnlyMe", "fa-lock"));
+                        break;
+                    default:
+                        break;
+                }
+            }
+            request.setAttribute("audiences", audiences);
+
             request.getRequestDispatcher("/client/profile/profileAbout.jsp").forward(request, response);
         } else {
             request.getRequestDispatcher("/client/otherProfile/profileAbout.jsp").forward(request, response);
@@ -318,7 +319,12 @@ public class ProfileUserAboutProcessor extends BaseProcessor {
         int uid = (Integer) ses.getAttribute("uid");
 
         String avatar = request.getParameter("urlImg");
-
+        String deleteAvatar = request.getParameter("oldUrlImg");
+        
+        PathInfo pathInfo = new PathInfo(deleteAvatar);
+        
+        IO.delete(ServerInit.imgPath, "avatar", pathInfo.path[pathInfo.size-1]);
+        
         // update Avatar
         if (ProfileUserAboutDAO.updateAvatar(uid, avatar)) {
             out.print("success");
@@ -336,7 +342,12 @@ public class ProfileUserAboutProcessor extends BaseProcessor {
         int uid = (Integer) ses.getAttribute("uid");
 
         String coverImg = request.getParameter("urlImg");
-
+        String deleteCoverImg = request.getParameter("oldUrlImg");
+        
+        PathInfo pathInfo = new PathInfo(deleteCoverImg);
+        
+        IO.delete(ServerInit.imgPath, "cover", pathInfo.path[pathInfo.size-1]);
+        
         // update Avatar
         if (ProfileUserAboutDAO.updateCoverImg(uid, coverImg)) {
             out.print("success");

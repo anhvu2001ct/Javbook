@@ -14,6 +14,7 @@ import com.group1.model.ProfileUserAbout;
 import com.group1.model.Status;
 import com.group1.model.dao.CommentDAO;
 import com.group1.model.dao.EmojiDAO;
+import com.group1.model.dao.NotificationDAO;
 import com.group1.model.dao.ProfileStatusDAO;
 import com.group1.model.dao.ProfileUserAboutDAO;
 import com.group1.model.dao.StatusDAO;
@@ -25,6 +26,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -64,6 +67,7 @@ public class StatusProcessor extends BaseProcessor {
     public void serveDeleteStatus(HttpServletRequest request, HttpServletResponse response) throws SQLException {
         String statusId = request.getParameter("id");
         StatusDAO.deleteStatus(statusId);
+        NotificationDAO.deleteAllNotificationOfStatus(statusId);
     }
 
     @ServeAt(value = "/createComment", method = ServeMethod.POST)
@@ -72,6 +76,7 @@ public class StatusProcessor extends BaseProcessor {
             String statusId = request.getParameter("id");
             int accountId = (int) request.getSession().getAttribute("uid");
             String text = request.getParameter("text");
+            NotificationDAO.insertNotification(accountId, "7", statusId);
             response.getWriter().print(CommentDAO.createComment(statusId, accountId, text));
 
         } catch (IOException ex) {
@@ -164,6 +169,7 @@ public class StatusProcessor extends BaseProcessor {
 
             }
             request.setAttribute("posts", posts);
+            request.setAttribute("userID", userID);
             request.setAttribute("avatar", StatusDAO.getAvatar(accountId));
             if (userID == accountId) {
                 request.getRequestDispatcher("/client/profile/profilePost.jsp").forward(request, response);
@@ -235,4 +241,30 @@ public class StatusProcessor extends BaseProcessor {
         }
 
     }
+
+    @ServeAt(value = "/getUserName", method = ServeMethod.GET)
+    public void serveGetUserName(HttpServletRequest request, HttpServletResponse response) throws SQLException {
+        try {
+            int uid = (int) request.getSession().getAttribute("uid");
+            ProfileUserAbout profile = ProfileUserAboutDAO.getProfileUser(uid);
+            response.getWriter().print(profile.getName());
+        } catch (IOException ex) {
+            System.out.println("Get User Name");
+        }
+
+    }
+
+    @ServeAt(value = "/deleteComment", method = ServeMethod.POST)
+    public void serveDeleteComment(HttpServletRequest request, HttpServletResponse response) {
+        String id = request.getParameter("id");
+        CommentDAO.deleteComment(id);
+    }
+
+    @ServeAt(value = "/deleteComment2", method = ServeMethod.POST)
+    public void serveDeleteComment2(HttpServletRequest request, HttpServletResponse response) {
+        String id = request.getParameter("id");
+        CommentDAO.deleteComment2(id);
+    }
+
+   
 }
