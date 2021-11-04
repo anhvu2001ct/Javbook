@@ -46,12 +46,13 @@ profileMenu.forEach((item, index) => {
 
 inputFileCover.addEventListener("change", () => {
     // Call API
-    let name = "user" + Date.now() + ".png";
-    let urlImg = "/Javbook/assets/img/user/" + name;
+    let name = "cover" + Date.now() + ".png";
+    let urlImg = "/Javbook/assets/img/cover/" + name;
 
     let query = new QueryUpload("upload/image");
     query.addParam("file", inputFileCover.files[0]);
-    query.addParam("savePath", name);
+    query.addParam("savePath", "cover");
+    query.addParam("fileName", name);
 
     query.addEvent("progress", function (e) {
         let percent = (e.loaded / e.total) * 100;
@@ -61,6 +62,7 @@ inputFileCover.addEventListener("change", () => {
     query.addEvent("load", function () {
         let query2 = new QueryData("profileUserAbout/updateCoverImg");
         query2.addParam("urlImg", urlImg);
+        query2.addParam("oldUrlImg", displayPhotoCover.src);
 
         query2.addEvent("load", function () {
             let result = this.response;
@@ -72,7 +74,7 @@ inputFileCover.addEventListener("change", () => {
             }
             window.setTimeout(() => {
                 displayPhotoCover.src = urlImg;
-            }, 2000);
+            }, 3000);
         });
 
         query2.send("POST");
@@ -83,12 +85,13 @@ inputFileCover.addEventListener("change", () => {
 
 inputFileAvatar.addEventListener("change", () => {
     // Call API
-    let name = "user" + Date.now() + ".png";
-    let urlImg = "/Javbook/assets/img/user/" + name;
+    let name = "avatar" + Date.now() + ".png";
+    let urlImg = "/Javbook/assets/img/avatar/" + name;
 
     let query = new QueryUpload("upload/image");
     query.addParam("file", inputFileAvatar.files[0]);
-    query.addParam("savePath", name);
+    query.addParam("savePath", "avatar");
+    query.addParam("fileName", name);
 
     query.addEvent("progress", function (e) {
         let percent = (e.loaded / e.total) * 100;
@@ -98,6 +101,7 @@ inputFileAvatar.addEventListener("change", () => {
     query.addEvent("load", function () {
         let query2 = new QueryData("profileUserAbout/updateAvatar");
         query2.addParam("urlImg", urlImg);
+        query2.addParam("oldUrlImg", displayPhotoAvatar.src);
 
         query2.addEvent("load", function () {
             let result = this.response;
@@ -107,6 +111,7 @@ inputFileAvatar.addEventListener("change", () => {
             } else {
                 urlImg = result;
             }
+
             window.setTimeout(() => {
                 let oldImg = displayPhotoAvatar.src;
                 displayPhotoAvatar.src = urlImg;
@@ -117,7 +122,7 @@ inputFileAvatar.addEventListener("change", () => {
                         img.src = urlImg;
                     }
                 });
-            }, 2000);
+            }, 3000);
         });
 
         query2.send("POST");

@@ -2,6 +2,7 @@ package com.group1.controller.processor;
 
 import com.group1.controller.ServerInit;
 import com.group1.misc.Pair;
+import com.group1.misc.PathInfo;
 import com.group1.model.Account;
 import com.group1.model.ProfileStatus;
 import com.group1.model.ProfileUserAbout;
@@ -318,7 +319,12 @@ public class ProfileUserAboutProcessor extends BaseProcessor {
         int uid = (Integer) ses.getAttribute("uid");
 
         String avatar = request.getParameter("urlImg");
-
+        String deleteAvatar = request.getParameter("oldUrlImg");
+        
+        PathInfo pathInfo = new PathInfo(deleteAvatar);
+        
+        IO.delete(ServerInit.imgPath, "avatar", pathInfo.path[pathInfo.size-1]);
+        
         // update Avatar
         if (ProfileUserAboutDAO.updateAvatar(uid, avatar)) {
             out.print("success");
@@ -336,7 +342,12 @@ public class ProfileUserAboutProcessor extends BaseProcessor {
         int uid = (Integer) ses.getAttribute("uid");
 
         String coverImg = request.getParameter("urlImg");
-
+        String deleteCoverImg = request.getParameter("oldUrlImg");
+        
+        PathInfo pathInfo = new PathInfo(deleteCoverImg);
+        
+        IO.delete(ServerInit.imgPath, "cover", pathInfo.path[pathInfo.size-1]);
+        
         // update Avatar
         if (ProfileUserAboutDAO.updateCoverImg(uid, coverImg)) {
             out.print("success");
