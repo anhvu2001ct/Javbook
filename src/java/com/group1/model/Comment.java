@@ -31,4 +31,5 @@ public class Comment {
     private int numberOfEmoji;
     private String max1, max2;
     private int userEmotion;
+    private int userID;
 }

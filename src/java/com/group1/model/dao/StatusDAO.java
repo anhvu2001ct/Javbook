@@ -21,10 +21,10 @@ import java.util.List;
  * @author Mr Khang
  */
 public class StatusDAO {
-
+    
     public static int createStatus(int accountID, String text, String statusImg, String audience) {
         try {
-
+            
             String query = "INSERT INTO Status(AccountUserID, Text, StatusImg, Time, AudienceID)\n"
                     + "Values (?,?,?,?,?);";
             PreparedStatement ps = SQL.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
@@ -43,7 +43,7 @@ public class StatusDAO {
         }
         return -1;
     }
-
+    
     public static void editStatus(String statusId, String text, String mood) {
         try {
             String query = "UPDATE Status\n"
@@ -62,9 +62,9 @@ public class StatusDAO {
         } catch (SQLException ex) {
             System.err.println("Edit Status Error");
         }
-
+        
     }
-
+    
     public static void deleteStatus(String statusId) {
         try {
             String query = "DELETE  FROM Status\n"
@@ -75,9 +75,9 @@ public class StatusDAO {
         } catch (SQLException ex) {
             System.err.println("Delete Status Error");
         }
-
+        
     }
-
+    
     public static List<Status> getListStatusUser(int acccountID) {
         try {
             List<Status> list = new ArrayList<>();
@@ -104,7 +104,7 @@ public class StatusDAO {
         }
         return null;
     }
-
+    
     public static String getAvatar(int acccountID) {
         try {
             String avatar = "";
@@ -121,14 +121,14 @@ public class StatusDAO {
                     avatar = rs.getString(1);
                 }
                 return avatar;
-
+                
             }
         } catch (SQLException ex) {
             System.err.println("Get Avatar Error");
         }
         return null;
     }
-
+    
     public static List<String> getListPhotoUser(int accountID) {
         try {
             List<String> list = new ArrayList<>();
@@ -152,7 +152,7 @@ public class StatusDAO {
         }
         return null;
     }
-
+    
     public static List<Status> getAllStatus() {
         try {
             List<Status> list = new ArrayList<>();
@@ -176,6 +176,33 @@ public class StatusDAO {
             }
         } catch (SQLException ex) {
             System.err.println("Get Status User Error");
+        }
+        return null;
+    }
+    
+    public static Status getStatus(String statusID) {
+        try {
+            Status status = null;
+            String query = "select Name, Avatar, StatusID, Text, StatusImg, Time, ActiveTime, AudienceID, s.AccountUserID\n"
+                    + "from Status s , AccountProfile a \n"
+                    + "where s.StatusID= ? and s.AccountUserID =a.AccountUserID ";
+            PreparedStatement ps = SQL.prepareStatement(query);
+            ps.setInt(1, Integer.parseInt(statusID));
+            ResultSet rs = ps.executeQuery();
+            SimpleDateFormat s = new SimpleDateFormat("MM/dd/yyyy HH:mm");
+            if (!rs.isBeforeFirst()) {
+                return null;
+            } else {
+                while (rs.next()) {
+                    status = new Status(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getString(4),
+                            rs.getString(5), s.format(rs.getTimestamp(6)),
+                            String.format("%1$TD %1$TT", rs.getTimestamp(7)), rs.getInt(8), 0, "", "", 0, rs.getInt(9));
+                    
+                }
+                return status;
+            }
+        } catch (SQLException ex) {
+            System.err.println("Get Status  Error");
         }
         return null;
     }

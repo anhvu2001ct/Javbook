@@ -43,6 +43,8 @@ function postBox() {
   let levelCommentEmojiPopup = document.querySelectorAll(".level-display-comment-emoji");
   let isEmojiMain = document.querySelectorAll(".emoji-main");
   let isEmojiLevel = document.querySelectorAll(".commnent-emoji");
+  let deleteComment = document.querySelectorAll(".delete-comment");
+
   isEmojiLevel.forEach((emoji) => {
     index = parseInt(emoji.id);
     let pTag = emoji.parentNode.parentNode.querySelector(".count-comment-enmoji");
@@ -90,18 +92,20 @@ function postBox() {
       let query = new QueryData("/status/createComment");
       query.addParam("text", value.value.trim());
       query.addParam("id", mainSend.parentNode.parentNode.parentNode.parentNode.id);
+      let query2 = new QueryData("/status/getUserName");
+      let userName = "";
       query.addEvent("load", function () {
         commentId = this.response;
-
-        renderMainComment(mainSend, value, commentId);
+        query2.addEvent("load", function () {
+          userName = this.response;
+          renderMainComment(mainSend, value, commentId, userName.trim());
+        })
+        query2.send("GET")
       });
-
-
       query.send("POST");
-
     });
   });
-  function renderMainComment(mainSend, value, commentId) {
+  function renderMainComment(mainSend, value, commentId, userName) {
     let displayMainComment = mainSend.parentNode.parentNode.querySelector(".comment-item");
     let createComment = document.createElement("div");
     createComment.classList.add("main-comment");
@@ -120,7 +124,7 @@ function postBox() {
       <div class="comment-content-box">
         <div class="content-main-comment">
           <div class="comment-main-title">
-            <a href="" class="main-user-name">Nguyễn Hoàng Khang</a>
+            <a href="" class="main-user-name">${userName}</a>
           </div>
           <p>${value.value.trim()}</p>
           <div class="display-comment-emoji main-display-comment-emoji">
@@ -135,6 +139,9 @@ function postBox() {
             </ul>
             <p class="count-comment-enmoji">0</p>
           </div>
+          <div class="delete-comment">
+            <i class="far fa-trash-alt fa-lg" ></i>
+           </div>
         </div>
         <div class="main-comment-action">
           <div class="emoji commnent-emoji">
@@ -202,6 +209,8 @@ function postBox() {
     replyLevelBtn = document.querySelectorAll(".main-comment-action .reply-level");
     displaySendComment = document.querySelectorAll(".comment-level-item");
     likeComment = document.querySelectorAll(".comment-item .emoji span");
+    deleteComment = document.querySelectorAll(".delete-comment");
+    deleteCommentData();
     clickEmojiComment();
     checkEmojiCount();
     noneDisplayEmoji();
@@ -221,22 +230,24 @@ function postBox() {
       let value = levelSend.parentNode.querySelector(".send-text-comment");
       let comment2Id = 0;
       let query = new QueryData("/status/createComment2");
+      let query2 = new QueryData("/status/getUserName");
       query.addParam("text", value.value.trim());
       query.addParam("id", levelSend.parentNode.parentNode.parentNode.id);
+      let userName = "";
       query.addEvent("load", function () {
         comment2Id = this.response;
-        renderLevelComment(levelSend, value, avatar, comment2Id);
+        query2.addEvent("load", function () {
+          userName = this.response;
+          renderLevelComment(levelSend, value, avatar, comment2Id, userName);
+        })
+        query2.send("GET");
       });
-
-
       query.send("POST");
-
-
     });
 
   }
 
-  function renderLevelComment(level, value, avatar, comment2Id) {
+  function renderLevelComment(level, value, avatar, comment2Id, userName) {
     let displayLevelComment = level.parentNode.parentNode;
     let Box = displayLevelComment.querySelector(".send-comment-box");
 
@@ -257,7 +268,7 @@ function postBox() {
     <div class="comment-content-box">
       <div class="content-main-comment">
         <div class="comment-main-title">
-          <a href="" class="main-user-name">Nguyễn Hoàng Khang</a>
+          <a href="" class="main-user-name">${userName}</a>
         </div>
         <p>
           <span class="reply_user"></span> ${value.value.trim()}
@@ -273,6 +284,9 @@ function postBox() {
             </li>
           </ul>
           <p class="count-comment-enmoji">0</p>
+        </div>
+        <div class="delete-comment">
+          <i class="far fa-trash-alt fa-lg" ></i>
         </div>
       </div>
       <div class="main-comment-action">
@@ -350,6 +364,8 @@ function postBox() {
     replyMainBtn = document.querySelectorAll(".main-comment-action >.reply-main");
     replyLevelBtn = document.querySelectorAll(".main-comment-action .reply-level");
     displaySendComment = document.querySelectorAll(".comment-level-item");
+    deleteComment = document.querySelectorAll(".delete-comment");
+    deleteCommentData();
     clickEmojiComment();
     checkEmojiCount();
     noneDisplayEmoji();
@@ -647,7 +663,6 @@ function postBox() {
         }
         if (type == "create") {
           name.innerText = nameIcon[indexList % 6];
-          console.log(indexList)
           color.style.color = iconTextColor[indexList % 6];
           content.querySelector(".comment-user .main-display-comment-emoji").style.display = "flex"
           content.querySelector(".comment-user .main-display-comment-emoji img").style.display = "block"
@@ -811,6 +826,33 @@ function postBox() {
     })
     uploadData.send("GET");
   }
+  function deleteCommentData() {
+    deleteComment.forEach((comment) => {
+      comment.onclick = () => {
+        let mainComment = comment.parentNode.parentNode.parentNode.parentNode;
+        let levelComment = comment.parentNode.parentNode.parentNode;
+        if (mainComment.className.includes("main-comment")) {
+          let uploadData = new QueryData("/status/deleteComment");
+          uploadData.addParam("id", mainComment.id);
+          uploadData.send("POST")
+          mainComment.remove();
+        }
+        if (levelComment.className.includes("comment-level")) {
+          let uploadData2 = new QueryData("/status/deleteComment2");
+          uploadData2.addParam("id", levelComment.id);
+          uploadData2.send("POST")
+          levelComment.remove();
+
+        }
+      }
+    })
+  }
+  deleteCommentData();
+  userImage.forEach((image) => {
+    image.onclick = () => {
+      window.location = "/Javbook/status?id=4"
+    }
+  })
 
 }
 postBox();
