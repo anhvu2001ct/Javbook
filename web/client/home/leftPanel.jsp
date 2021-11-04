@@ -17,7 +17,7 @@
                     alt="" class="bd_circle w_icon h_icon scale"
                     />
             </div>
-            <div class="profile_name font_weight">${userinfo.name}</div>
+            <div class="profile-name font_weight">${userinfo.name}</div>
         </div>
     </a>
 

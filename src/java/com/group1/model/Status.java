@@ -5,6 +5,7 @@
  */
 package com.group1.model;
 
+import com.group1.misc.Secret;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,5 +32,9 @@ public class Status {
     private int numberOfEmoji;
     private String max1, max2;
     private int userEmotion;
+    private int accountID;
 
+    public String getID() {
+        return Secret.encode2(String.valueOf(accountID));
+    }
 }

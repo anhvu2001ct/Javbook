@@ -10,6 +10,7 @@ let listOldJS = [];
 function profileTabChange(index) {
     let query = new QueryData("/profile/changeItem");
     query.addParam("key", tabMenu[index]);
+    query.addParam("id", timeLine.id);
     let query2 = new QueryData("/profile/changeJs", "json");
     query2.addParam("key", tabMenu[index]);
     let path = `/Javbook/assets/js/profile/${tabMenu[index]}`;

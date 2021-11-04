@@ -56,21 +56,25 @@
     uploadData.addParam("content", userEditContent.value);
     let statusID;
     let userNamePost = document.querySelector(".profile-name");
-    let userImgPost = document.querySelector(".profile-img");
+    let userImgPost = document.querySelector(".userAvatar");
     uploadData.addParam("audience", option);
+    if (inputFile.files[0] != undefined) {
+      uploadData.addParam("link", "/Javbook/assets/img/post/" + name);
+    }
     uploadData.addEvent("load", function () {
       statusID = this.response;
       if (inputFile.files[0] != undefined) {
-        uploadData.addParam("link", "/Javbook/assets/img/user/" + name);
         let uploadImg = new QueryUpload("upload/image");
         uploadImg.addParam("file", inputFile.files[0]);
-        uploadImg.addParam("savePath", name);
-        let link = "/Javbook/assets/img/user/" + name;
+        uploadImg.addParam("savePath", "post");
+        uploadImg.addParam("fileName", name);
+        let link = "/Javbook/assets/img/post/" + name;
+        console.log(link)
+        // uploadData.addParam("link", link);
         uploadImg.addEvent("progress", function (e) {
           let percent = e.loaded / e.total * 100;
           console.log('upload process: ' + Math.floor(percent) + '%');
         });
-  
         uploadImg.addEvent("load", function () {
           window.setTimeout(() => {
             renderNewPost(userEditContent, link, option, userNamePost.textContent, userImgPost.src, statusID);
@@ -81,15 +85,13 @@
       else {
         renderNewPost(userEditContent, "", option, userNamePost.textContent, userImgPost.src, statusID);
       }
-  
-  
       document.querySelector(".popup_model").style.display = "none";
-  
-     
+
+
       statusPhoto.src = "";
       deletePhoto.style.display = "none";
     })
-   
+
     uploadData.send("POST");
 
   }
@@ -97,11 +99,12 @@
   function renderNewPost(text, img, option, name, url, statusID) {
     let today = new Date();
     let date = (today.getMonth() + 1) + '/' + today.getDate() + '/' + today.getFullYear();
-    let time = today.getHours() + ":" + today.getMinutes() ;
+    let time = today.getHours() + ":" + today.getMinutes();
     let dateTime = date + ' ' + time;
 
     let postbox = document.createElement("div");
     postbox.classList.add("post");
+    postbox.classList.add("home-box");
     postbox.classList.add("box");
     postbox.setAttribute("id", statusID);
     let html = `

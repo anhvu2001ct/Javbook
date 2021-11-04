@@ -13,7 +13,32 @@ html {
   position: relative;
   top: 60px;
 }
-
+.friendAndMess {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.friendAndMess div {
+  margin-right: 30px;
+  background-color: #1877f2;
+  color: #fff;
+  padding: 12px;
+  height: 36px;
+  border: 1px;
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
+  cursor: pointer;
+  min-width: 120px;
+}
+.friendAndMess div:first-child {
+  background-color: #ffffff;
+  color: #000000;
+}
+.friendAndMess div i {
+  margin-right: 5px;
+}
 .profile {
   position: relative;
   height: 50vh;

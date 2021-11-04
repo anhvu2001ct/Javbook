@@ -94,7 +94,7 @@ public class StatusDAO {
                 while (rs.next()) {
                     Status status = new Status(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getString(4),
                             rs.getString(5), s.format(rs.getTimestamp(6)),
-                            String.format("%1$TD %1$TT", rs.getTimestamp(7)), rs.getInt(8), 0, "", "", 0);
+                            String.format("%1$TD %1$TT", rs.getTimestamp(7)), rs.getInt(8), 0, "", "", 0, 0);
                     list.add(status);
                 }
                 return list;
@@ -153,4 +153,30 @@ public class StatusDAO {
         return null;
     }
 
+    public static List<Status> getAllStatus() {
+        try {
+            List<Status> list = new ArrayList<>();
+            String query = "select Name, Avatar, StatusID, Text, StatusImg, Time, ActiveTime, AudienceID ,  s.AccountUserID\n"
+                    + "from Status s , AccountProfile a \n"
+                    + "where s.AccountUserID =a.AccountUserID";
+            PreparedStatement ps = SQL.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            SimpleDateFormat s = new SimpleDateFormat("MM/dd/yyyy HH:mm");
+            if (!rs.isBeforeFirst()) {
+                return null;
+            } else {
+                while (rs.next()) {
+                    Status status = new Status(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getString(4),
+                            rs.getString(5), s.format(rs.getTimestamp(6)),
+                            String.format("%1$TD %1$TT", rs.getTimestamp(7)), rs.getInt(8), 0, "", "", 0, rs.getInt(9));
+                    
+                    list.add(status);
+                }
+                return list;
+            }
+        } catch (SQLException ex) {
+            System.err.println("Get Status User Error");
+        }
+        return null;
+    }
 }

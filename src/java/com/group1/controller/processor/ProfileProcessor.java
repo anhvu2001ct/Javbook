@@ -5,8 +5,11 @@
  */
 package com.group1.controller.processor;
 
+import com.group1.controller.IndexServlet;
 import com.group1.controller.ServerInit;
 import static com.group1.controller.ServerInit.gson;
+import com.group1.misc.PathInfo;
+import com.group1.misc.Secret;
 import com.group1.model.dao.StatusDAO;
 import com.group1.model.db.IO;
 import com.group1.rest.BaseProcessor;
@@ -28,9 +31,12 @@ public class ProfileProcessor extends BaseProcessor {
     @ServeAt("/changeItem")
     public void changeTimeline(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String value = request.getParameter("key");
+        int accountId = (int) request.getSession().getAttribute("uid");
+        String curId = Secret.decode2(request.getParameter("id"));
+        request.setAttribute("id", Integer.parseInt(curId));
         if (value.equals("Photo")) {
-            int accountId = (int) request.getSession().getAttribute("uid");
-            List<String> photos = StatusDAO.getListPhotoUser(accountId);
+
+            List<String> photos = StatusDAO.getListPhotoUser(Integer.parseInt(curId));
             request.setAttribute("photos", photos);
             request.getRequestDispatcher("/client/profile/profilePhoto.jsp").forward(request, response);
         }
@@ -43,7 +49,6 @@ public class ProfileProcessor extends BaseProcessor {
         if (value.equals("Friends")) {
             request.getRequestDispatcher("/client/profile/profileFriends.jsp").forward(request, response);
         }
-       
 
     }
 
@@ -69,7 +74,7 @@ public class ProfileProcessor extends BaseProcessor {
             List<String> list = IO.getFilesName(ServerInit.webPath, "assets/js/profile/");
             response.getWriter().print(gson.toJson(list));
         }
-      
+
     }
 
 }
