@@ -20,12 +20,17 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class HeaderNotification {
+public class Notification {
 
-    private String username;
-    private String useravatar;
-    private String timenotifi;
+    private int notificationid;
+    private int senderid;
+    private String sendername;
+    private String senderavatar;
+    private String time;
+    private String emoji; 
+    private int reference;
+    private int seen;
     private String messnotifi;
-    private String typeicon;
+   
 
 }

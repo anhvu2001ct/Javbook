@@ -14,6 +14,7 @@ import com.group1.model.ProfileUserAbout;
 import com.group1.model.Status;
 import com.group1.model.dao.CommentDAO;
 import com.group1.model.dao.EmojiDAO;
+import com.group1.model.dao.NotificationDAO;
 import com.group1.model.dao.ProfileStatusDAO;
 import com.group1.model.dao.ProfileUserAboutDAO;
 import com.group1.model.dao.StatusDAO;
@@ -64,6 +65,7 @@ public class StatusProcessor extends BaseProcessor {
     public void serveDeleteStatus(HttpServletRequest request, HttpServletResponse response) throws SQLException {
         String statusId = request.getParameter("id");
         StatusDAO.deleteStatus(statusId);
+        NotificationDAO.deleteAllNotificationOfStatus(statusId);
     }
 
     @ServeAt(value = "/createComment", method = ServeMethod.POST)
@@ -72,6 +74,7 @@ public class StatusProcessor extends BaseProcessor {
             String statusId = request.getParameter("id");
             int accountId = (int) request.getSession().getAttribute("uid");
             String text = request.getParameter("text");
+            NotificationDAO.insertNotification(accountId, "7", statusId);
             response.getWriter().print(CommentDAO.createComment(statusId, accountId, text));
 
         } catch (IOException ex) {
