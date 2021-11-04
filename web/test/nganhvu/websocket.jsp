@@ -40,7 +40,7 @@
                     return ('unknown');
             }
 
-            let socket = new SocketConnector("test", getBrowser());
+            let socket = new SocketConnector("test");
 
             document.forms.publish.onsubmit = function() {
                 let msg = this.message.value;
