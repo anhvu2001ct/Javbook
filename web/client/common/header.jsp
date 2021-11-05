@@ -57,7 +57,7 @@
             </div>
 
             <div class="profile_border"></div>
-            <a class="imageuser" href="/Javbook/profile/${uid2}/"
+            <a class="imageuser" href="/Javbook/profile/${uid2}/"              
                ><img
                     src="${userinfo.avatar}"
                     alt=""
@@ -113,59 +113,59 @@
 
             <c:if test="${!notifications.isEmpty()}">
                 <c:forEach items="${notifications}" var="notifi">
-                    <c:if test="${notifi.seen == 1}">
-                        <a href="#">
-                        <div class="popup_item notification  seen" id="${notifi.notificationid}">
-                            <span
-                                class="popup_item_img wh_40 notification_logo"
+                    <c:if test="${notifi.seen == 1}">                       
+                        <a href="/Javbook/status?${notifi.url}">
+                            <div class="popup_item notification  seen" id="${notifi.notificationid}">
+                                <span
+                                    class="popup_item_img wh_40 notification_logo"
 
-                                ><img
-                                    src="${notifi.senderavatar}"
-                                    alt=""
-                                    class="scale wh_40 circle"
-                                    />
-                                <span class="notification_icon">
-                                    <img src="/Javbook/assets/img/emoji/${notifi.emoji}" alt="">
+                                    ><img
+                                        src="${notifi.senderavatar}"
+                                        alt=""
+                                        class="scale wh_40 circle"
+                                        />
+                                    <span class="notification_icon">
+                                        <img src="/Javbook/assets/img/emoji/${notifi.emoji}" alt="">
+                                    </span>
                                 </span>
-                            </span>
-                            <div class="popup_item_info notification_content">
-                                <span class="notification_text"
-                                      ><strong>${notifi.sendername}</strong
-                                    >${notifi.messnotifi}</span
-                                >
-                                <span class="notification_time seen"
-                                      >${notifi.time}</span
-                                >
+                                <div class="popup_item_info notification_content">
+                                    <span class="notification_text"
+                                          ><strong>${notifi.sendername}</strong
+                                        >${notifi.messnotifi}</span
+                                    >
+                                    <span class="notification_time seen"
+                                          >${notifi.time}</span
+                                    >
+                                </div>
                             </div>
-                        </div>
-                    </a>
+                        </a>
                     </c:if>
                     <c:if test="${notifi.seen == 0}">
-                        <a href="#">
-                        <div class="popup_item notification notifi_active " id="${notifi.notificationid}">
-                            <span
-                                class="popup_item_img wh_40 notification_logo"
+                        <a href="/Javbook/status?${notifi.url}">
+                            <div class="popup_item notification notifi_active " id="${notifi.notificationid}">
+                                <span
+                                    class="popup_item_img wh_40 notification_logo"
 
-                                ><img
-                                    src="${notifi.senderavatar}"
-                                    alt=""
-                                    class="scale wh_40 circle"
-                                    />
-                                <span class="notification_icon">
-                                    <img src="/Javbook/assets/img/emoji/${notifi.emoji}" alt="">
+                                    ><img
+                                        src="${notifi.senderavatar}"
+                                        alt=""
+                                        class="scale wh_40 circle"
+                                        />
+                                    <span class="notification_icon">
+                                        <img src="/Javbook/assets/img/emoji/${notifi.emoji}" alt="">
+                                    </span>
                                 </span>
-                            </span>
-                            <div class="popup_item_info notification_content">
-                                <span class="notification_text"
-                                      ><strong>${notifi.sendername}</strong
-                                    >${notifi.messnotifi}</span
-                                >
-                                <span class="notification_time "
-                                      >${notifi.time}</span
-                                >
+                                <div class="popup_item_info notification_content">
+                                    <span class="notification_text"
+                                          ><strong>${notifi.sendername}</strong
+                                        >${notifi.messnotifi}</span
+                                    >
+                                    <span class="notification_time "
+                                          >${notifi.time}</span
+                                    >
+                                </div>
                             </div>
-                        </div>
-                    </a>
+                        </a>
                     </c:if>
                 </c:forEach>
             </c:if>

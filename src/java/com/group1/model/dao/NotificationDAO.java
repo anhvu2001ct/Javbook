@@ -5,6 +5,8 @@
  */
 package com.group1.model.dao;
 
+import com.group1.misc.PathInfo;
+import com.group1.misc.Secret;
 import com.group1.model.Notification;
 import static com.group1.model.db.SQLConnector.SQL;
 import java.sql.PreparedStatement;
@@ -13,6 +15,8 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 /**
  *
@@ -68,9 +72,16 @@ public class NotificationDAO {
                             emoji = "message.svg";
                             break;
                     }
+                    Map<String, String> map = PathInfo.getUrlParams(rs.getString(7));
+                    for (Entry<String, String> entry : map.entrySet()) {
+                        map.put(entry.getKey(), Secret.encode1(entry.getValue()));
+                    }
+                    System.out.println(PathInfo.toUrlParams(map));;
 
-                    Notification nf = new Notification(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), time, emoji, rs.getString(7), rs.getInt(8), message);
+                    Notification nf = new Notification(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), time, emoji, rs.getString(7), rs.getInt(8), message,PathInfo.toUrlParams(map));
                     list.add(nf);
+                   
+                        
                 }
 
                 return list;

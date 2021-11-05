@@ -31,6 +31,7 @@ public class Notification {
     private String reference;
     private int seen;
     private String messnotifi;
+    private String url;
    
 
 }
