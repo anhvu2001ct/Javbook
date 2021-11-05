@@ -385,6 +385,7 @@
                     <i class="fas fa-ellipsis-h"></i>
                     <div class="edit-post-item">
                         <ul>
+                            <li class="edit"><i class="fas fa-pen-nib"> </i> View</li>
                             <li class="edit"><i class="fas fa-pen-nib"> </i> Edit</li>
                             <li class="delete"><i class="far fa-trash-alt"></i> Delete</li>
                         </ul>

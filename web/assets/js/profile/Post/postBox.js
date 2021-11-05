@@ -73,8 +73,11 @@ function postBox() {
     deletePost.onclick = () => {
       let deletePostUser = deletePost.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
       let query = new QueryData("/status/deleteStatus");
+      let query2 = new QueryData("/notification/deleteAllNotificationOfStatus");
+      query2.addParam("reference", `status=${deletePostUser.id}`)
       query.addParam("id", deletePostUser.id);
       query.send("POST");
+      query2.send("POST");
       deletePostUser.remove();
 
 
@@ -96,6 +99,14 @@ function postBox() {
       let userName = "";
       query.addEvent("load", function () {
         commentId = this.response;
+        let postBox = mainSend.parentNode.parentNode.parentNode.parentNode;
+        console.log(postBox);
+        console.log(postBox.id);
+        let query3 = new QueryData("/notification/insertNotification");
+        query3.addParam("emojiid", 7)
+        query3.addParam("reference", `status=${postBox.id}&comment=${commentId}`);
+        query3.addParam("statusid", postBox.id)
+        query3.send("POST")
         query2.addEvent("load", function () {
           userName = this.response;
           renderMainComment(mainSend, value, commentId, userName.trim());
@@ -537,7 +548,13 @@ function postBox() {
       query.addParam("id", postBox.id);
       query.addParam("emoji", (indexList % 6) + 1)
       postReaction(emojiPost[index], iconText[index], iconText[index], postBox, "create", indexList);
+      let query2 = new QueryData("/notification/insertNotification");
+      query2.addParam("emojiid", (indexList % 6) + 1)
+      query2.addParam("reference", `status=${postBox.id}`)
+      query2.addParam("statusid", postBox.id)
+
       query.send("POST");
+      query2.send("POST")
 
     };
   });
@@ -702,8 +719,12 @@ function postBox() {
       if (!emojiPost[index].src.includes("unlike.png")) {
         let query2 = new QueryData("/emotion/deleteStatusEmoji");
         query2.addParam("id", postBox.id);
-        query2.send("POST")
+        let query3 = new QueryData("/notification/deleteNotification");
+        query3.addParam("emojiid", 1)
+        query3.addParam("reference", `status=${postBox.id}`)
 
+        query2.send("POST")
+        query3.send("POST")
         postReaction(emojiPost[index], like, like, postBox, "delete", 0);
 
       } else {
@@ -732,6 +753,8 @@ function postBox() {
             uploadData.send("POST");
             commentReaction(like, like, 0, like, mainComment, "create")
 
+
+
           }
           if (levelComment.className.includes("comment-level")) {
             let uploadData2 = new QueryData("/emotion/createComment2Emoji");
@@ -744,6 +767,7 @@ function postBox() {
           if (mainComment.className.includes("main-comment")) {
             let uploadData = new QueryData("/emotion/deleteCommentEmoji");
             uploadData.addParam("id", mainComment.id);
+
             uploadData.send("POST")
             commentReaction(0, 0, 0, like, mainComment, "delete")
           }
@@ -828,7 +852,12 @@ function postBox() {
         if (mainComment.className.includes("main-comment")) {
           let uploadData = new QueryData("/status/deleteComment");
           uploadData.addParam("id", mainComment.id);
+          let postBox = mainComment.parentNode.parentNode.parentNode.parentNode;
+          let query2 = new QueryData("/notification/deleteNotification");
+          query2.addParam("emojiid", 7)
+          query2.addParam("reference", `status=${postBox.id}&comment=${mainComment.id}`)
           uploadData.send("POST")
+          query2.send("POST")
           mainComment.remove();
         }
         if (levelComment.className.includes("comment-level")) {

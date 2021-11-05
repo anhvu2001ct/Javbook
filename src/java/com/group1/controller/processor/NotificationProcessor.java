@@ -33,6 +33,8 @@ public class NotificationProcessor extends BaseProcessor {
         String emojiid = request.getParameter("emojiid");
         String reference = request.getParameter("reference");
         String statusid = request.getParameter("statusid");
+        System.out.println(emojiid+" "+reference+" "+statusid);
+        
         NotificationDAO.insertNotification(String.valueOf(senderid), emojiid, reference, statusid);
     }
 
