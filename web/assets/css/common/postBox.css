@@ -209,6 +209,7 @@ input[type="file"] {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 .post-count-left {
   display: flex;
@@ -238,6 +239,7 @@ input[type="file"] {
 }
 .post-action {
   position: relative;
+  margin-top: 10px;
 }
 .actions {
   padding: 0 20px;
@@ -723,4 +725,16 @@ input[type="file"] {
 .content-main-comment:hover .delete-comment {
   display: block;
   cursor: pointer;
+}
+.body-post {
+  display: flex;
+  justify-content: center;
+}
+.post-list {
+  position: absolute;
+  top: 40px;
+  width: 600px;
+}
+.post-page {
+  max-width: 600px !important;
 }

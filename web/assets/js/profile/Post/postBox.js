@@ -209,6 +209,7 @@ function postBox() {
   
     <div class="comment-level-item"></div>
     `;
+<<<<<<< HEAD
         createComment.innerHTML = html;
         displayMainComment.prepend(createComment);
         countCommentEmoji = document.querySelectorAll(".count-comment-enmoji");
@@ -253,6 +254,36 @@ function postBox() {
             });
             query.send("POST");
         });
+=======
+    createComment.innerHTML = html;
+    displayMainComment.prepend(createComment);
+
+    value.value = "";
+    reLoad();
+  }
+
+  function loopLevelComment(levelSend) {
+
+    levelSend.addEventListener("click", () => {
+      let avatar = levelSend.parentNode.parentNode.querySelector(".user-avatar-send").src;
+      let value = levelSend.parentNode.querySelector(".send-text-comment");
+      let comment2Id = 0;
+      let query = new QueryData("/status/createComment2");
+      let query2 = new QueryData("/status/getUserName");
+      query.addParam("text", value.value.trim());
+      query.addParam("id", levelSend.parentNode.parentNode.parentNode.id);
+      let userName = "";
+      query.addEvent("load", function () {
+        comment2Id = this.response;
+        query2.addEvent("load", function () {
+          userName = this.response;
+          renderLevelComment(levelSend, value, avatar, comment2Id, userName);
+        })
+        query2.send("GET");
+      });
+      query.send("POST");
+    });
+>>>>>>> eb5fdf2ecdf4515031e891dd1daadae235bb82d6
 
     }
 
@@ -363,6 +394,7 @@ function postBox() {
     </div>
  
         `;
+<<<<<<< HEAD
         createComment.innerHTML = html;
         Box.remove();
         displayLevelComment.appendChild(createComment);
@@ -413,6 +445,55 @@ function postBox() {
         });
     }
     noneDisplayEmoji();
+=======
+    createComment.innerHTML = html;
+    Box.remove();
+    displayLevelComment.appendChild(createComment);
+
+    value.value = "";
+    reLoad();
+  }
+  function noneDisplayEmoji() {
+    let countDisplayEmojiPost = document.querySelectorAll(".post-count-left ul li img");
+    let countDisplayEmojiComment = document.querySelectorAll(".display-comment-emoji ul li img");
+    countDisplayEmojiPost.forEach((emoji, index) => {
+      if (emoji.alt === '0') {
+        emoji.style.display = "none";
+      }
+    });
+    countDisplayEmojiComment.forEach((emoji, index) => {
+      if (emoji.alt === '0') {
+        emoji.style.display = "none";
+      }
+    });
+    numberOfEmoji.forEach((numberOfEmoji, index) => {
+      let emojiNumber = parseInt(numberOfEmoji.textContent);
+      if (emojiNumber > 99) {
+        document.querySelector(".count-emoji")[index].innerText = "99+";
+      }
+      if (emojiNumber === 0) {
+        document.querySelectorAll(".post-count-left> ul")[index].style.display = "none";
+        document.querySelectorAll(".post-count-left> p")[index].style.display = "none";
+
+
+      }
+    });
+  }
+  noneDisplayEmoji();
+
+  function checkEmojiCount() {
+    countCommentEmoji.forEach((emoji, index) => {
+      let countEmoji = parseInt(emoji.textContent);
+      if (countEmoji === 0) {
+        emoji.style.display = "none";
+        emoji.parentNode.style.display = "none";
+      }
+    });
+    countShare.forEach((countShare, index) => {
+      let sharenumber = parseInt(countShare.textContent);
+      if (sharenumber === 0) {
+        document.querySelectorAll(".post-count-right span .count-share")[index].parentNode.style.display = "none";
+>>>>>>> eb5fdf2ecdf4515031e891dd1daadae235bb82d6
 
     function checkEmojiCount() {
         countCommentEmoji.forEach((emoji, index) => {
@@ -625,7 +706,52 @@ function postBox() {
                 }
             }
 
+<<<<<<< HEAD
         })
+=======
+    };
+  });
+  function postReaction(image, text, color, postBox, type, indexList) {
+    let query = new QueryData("/status/getTopStatusEmoji");
+    let count = postBox.querySelector(".count-emoji");
+    let imgStatus = postBox.querySelectorAll(".post-count-left img")
+    let string = "";
+    let list = null;
+    query.addParam("id", postBox.id);
+    query.addEvent("load", function () {
+      string = this.response;
+      string = string.replace("[", "")
+      list = string.replace("]", "")
+      list = list.split(",")
+      count.innerText = list[0];
+      if (list[1] !== undefined) {
+        imgStatus[0].src = `/Javbook/assets/img/emoji/${list[1].trim()}`
+        imgStatus[0].alt = 1;
+      }
+      if (list[2] !== undefined) {
+        imgStatus[1].src = `/Javbook/assets/img/emoji/${list[2].trim()}`
+        imgStatus[1].alt = 1;
+      }
+      if (type == "create") {
+        image.src = `/Javbook/assets/img/emoji/${icon[indexList % 6]}.svg`;
+        text.innerText = nameIcon[indexList % 6];
+        color.style.color = iconTextColor[indexList % 6];
+        postBox.querySelector(".post-count-left ul ").style.display = "flex"
+        postBox.querySelector(".post-count-left ul li").style.display = "block"
+        postBox.querySelector(".post-count-left ul img").style.display = "block"
+        postBox.querySelector(".post-count-left p").style.display = "block"
+      } else {
+        image.src = "/Javbook/assets/img/emoji/unlike.png";
+        text.innerText = nameIcon[0];
+        color.style.color = "";
+        if (parseInt(list[0]) == 0) {
+          postBox.querySelector(".post-count-left ul ").style.display = "none"
+          postBox.querySelector(".post-count-left ul li").style.display = "none"
+          postBox.querySelector(".post-count-left ul img").style.display = "none"
+          postBox.querySelector(".post-count-left p").style.display = "none"
+        }
+      }
+>>>>>>> eb5fdf2ecdf4515031e891dd1daadae235bb82d6
 
         query.send("GET");
     }
@@ -693,6 +819,7 @@ function postBox() {
             uploadData.send("GET")
 
 
+<<<<<<< HEAD
         }
         if (content.className.includes("comment-level")) {
             let uploadData2 = new QueryData("/status/getTopComment2Emoji");
@@ -729,6 +856,85 @@ function postBox() {
             })
             uploadData2.send("GET")
 
+=======
+      };
+    });
+  }
+  clickEmojiComment();
+  function commentReaction(name, color, indexList, like, content, type) {
+    if (content.className.includes("main-comment")) {
+      let uploadData = new QueryData("/status/getTopCommentEmoji");
+      uploadData.addParam("id", content.id);
+      let count = content.querySelector(".count-comment-enmoji");
+      let img = content.querySelectorAll(".comment-user .main-display-comment-emoji img")
+      uploadData.addEvent("load", function () {
+        string = this.response;
+        string = string.replace("[", "")
+        list = string.replace("]", "")
+        list = list.split(",")
+        count.innerText = list[0];
+        if (list[1] !== undefined) {
+          img[0].src = `/Javbook/assets/img/emoji/${list[1].trim()}`
+          img[0].alt = 1;
+        }
+        if (list[2] !== undefined) {
+          img[1].src = `/Javbook/assets/img/emoji/${list[2].trim()}`
+          img[1].alt = 1;
+        }
+        if (type == "create") {
+          name.innerText = nameIcon[indexList % 6];
+          color.style.color = iconTextColor[indexList % 6];
+          content.querySelector(".comment-user .main-display-comment-emoji").style.display = "flex"
+          content.querySelector(".comment-user .main-display-comment-emoji img").style.display = "block"
+          content.querySelector(".comment-user .main-display-comment-emoji p").style.display = "block"
+        } else {
+          like.style.color = "rgb(204, 200, 219)";
+          like.innerText = "Like"
+          if (parseInt(list[0]) == 0) {
+            content.querySelector(".comment-user .main-display-comment-emoji").style.display = "none"
+            content.querySelector(".comment-user .main-display-comment-emoji img").style.display = "none"
+            content.querySelector(".comment-user .main-display-comment-emoji p").style.display = "none"
+          }
+        }
+      })
+      uploadData.send("GET")
+
+
+    }
+    if (content.className.includes("comment-level")) {
+      let uploadData2 = new QueryData("/status/getTopComment2Emoji");
+      uploadData2.addParam("id", content.id);
+      let count = content.querySelector(".count-comment-enmoji");
+      let img = content.querySelectorAll(".level-display-comment-emoji img")
+      uploadData2.addEvent("load", function () {
+        string = this.response;
+        string = string.replace("[", "")
+        list = string.replace("]", "")
+        list = list.split(",")
+        count.innerText = list[0];
+        if (list[1] !== undefined) {
+          img[0].src = `/Javbook/assets/img/emoji/${list[1].trim()}`
+          img[0].alt = 1;
+        }
+        if (list[2] !== undefined) {
+          img[1].src = `/Javbook/assets/img/emoji/${list[2].trim()}`
+          img[1].alt = 1;
+        }
+        if (type == "create") {
+          name.innerText = nameIcon[indexList % 6];
+          color.style.color = iconTextColor[indexList % 6];
+          content.querySelector(".level-display-comment-emoji").style.display = "flex"
+          content.querySelector(".level-display-comment-emoji img").style.display = "block"
+          content.querySelector(".level-display-comment-emoji p").style.display = "block"
+        } else {
+          like.style.color = "rgb(204, 200, 219)";
+          like.innerText = "Like"
+          if (parseInt(list[0]) == 0) {
+            content.querySelector(".level-display-comment-emoji").style.display = "none"
+            content.querySelector(".level-display-comment-emoji img").style.display = "none"
+            content.querySelector(".level-display-comment-emoji p").style.display = "none"
+          }
+>>>>>>> eb5fdf2ecdf4515031e891dd1daadae235bb82d6
         }
 
     }
@@ -820,6 +1026,7 @@ function postBox() {
                 let commentId = comment.parentNode.parentNode.parentNode.parentNode;
                 displayPopupEmoji(commentId.id, "comment")
 
+<<<<<<< HEAD
             }
         })
         levelCommentEmojiPopup.forEach((comment) => {
@@ -829,6 +1036,67 @@ function postBox() {
             }
         })
     }
+=======
+      }
+    })
+    levelCommentEmojiPopup.forEach((comment) => {
+      comment.onclick = () => {
+        let comment2Id = comment.parentNode.parentNode.parentNode;
+        displayPopupEmoji(comment2Id.id, "comment2")
+      }
+    })
+  }
+  function reLoad() {
+    countCommentEmoji = document.querySelectorAll(".count-comment-enmoji");
+    listEmojiComment = document.querySelectorAll(".comment-item .tooltip  img");
+    iconTextComment = document.querySelectorAll(".comment-item  .emoji>span");
+    replyMainBtn = document.querySelectorAll(".main-comment-action >.reply-main");
+    replyLevelBtn = document.querySelectorAll(".main-comment-action .reply-level");
+    displaySendComment = document.querySelectorAll(".comment-level-item");
+    likeComment = document.querySelectorAll(".comment-item .emoji span");
+    deleteComment = document.querySelectorAll(".delete-comment");
+    deleteCommentData();
+    clickEmojiComment();
+    checkEmojiCount();
+    noneDisplayEmoji();
+    replyMain();
+    postCountLeft = document.querySelectorAll(".post-count-left");
+    mainCommentEmojiPopup = document.querySelectorAll(".main-display-comment-emoji");
+    levelCommentEmojiPopup = document.querySelectorAll(".level-display-comment-emoji");
+    replyLevel();
+    deleteAndCreateEmoji();
+    popupEmotion();
+  }
+  popupEmotion();
+  function displayPopupEmoji(value, type) {
+    let uploadData = new QueryData("/emotion/renderPopup");
+
+    uploadData.addParam("id", value);
+    uploadData.addParam("type", type);
+    uploadData.addEvent("load", function () {
+      document.querySelector(".popup-emoji-box").innerHTML = this.response;
+      document.querySelector(".popup-emoji").style.display = "block";
+      popupEmoji();
+    })
+    uploadData.send("GET");
+  }
+  function deleteCommentData() {
+    deleteComment.forEach((comment) => {
+      comment.onclick = () => {
+        let mainComment = comment.parentNode.parentNode.parentNode.parentNode;
+        let levelComment = comment.parentNode.parentNode.parentNode;
+        if (mainComment.className.includes("main-comment")) {
+          let uploadData = new QueryData("/status/deleteComment");
+          uploadData.addParam("id", mainComment.id);
+          uploadData.send("POST")
+          mainComment.remove();
+        }
+        if (levelComment.className.includes("comment-level")) {
+          let uploadData2 = new QueryData("/status/deleteComment2");
+          uploadData2.addParam("id", levelComment.id);
+          uploadData2.send("POST")
+          levelComment.remove();
+>>>>>>> eb5fdf2ecdf4515031e891dd1daadae235bb82d6
 
     popupEmotion();
     function displayPopupEmoji(value, type) {
@@ -874,7 +1142,20 @@ function postBox() {
         image.onclick = () => {
             window.location = "/Javbook/status?id=4"
         }
+<<<<<<< HEAD
     })
+=======
+        reLoad();
+      }
+    })
+  }
+  deleteCommentData();
+  userImage.forEach((image) => {
+    image.onclick = () => {
+      window.location = `/Javbook/status?status=${image.id}`
+    }
+  })
+>>>>>>> eb5fdf2ecdf4515031e891dd1daadae235bb82d6
 
 }
 postBox();

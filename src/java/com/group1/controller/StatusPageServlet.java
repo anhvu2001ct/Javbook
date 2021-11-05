@@ -6,12 +6,17 @@
 package com.group1.controller;
 
 import com.group1.misc.Pair;
+import com.group1.misc.Secret;
 import com.group1.model.Comment;
 import com.group1.model.Comment2;
+import com.group1.model.Notification;
 import com.group1.model.Post;
+import com.group1.model.ProfileUserAbout;
 import com.group1.model.Status;
 import com.group1.model.dao.CommentDAO;
 import com.group1.model.dao.EmojiDAO;
+import com.group1.model.dao.NotificationDAO;
+import com.group1.model.dao.ProfileUserAboutDAO;
 import com.group1.model.dao.StatusDAO;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -26,16 +31,18 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Mr Khang
  */
-@WebServlet("/status/*")
+@WebServlet("/status")
 public class StatusPageServlet extends BaseServlet {
 
     @Override
     protected void processGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Status stt = StatusDAO.getStatus("4");
+        setInfoHeader(request);
+        String statusID = Secret.decode1((String) request.getParameter("status"));
+        Status stt = StatusDAO.getStatus(statusID);
         int accountId = (int) request.getSession().getAttribute("uid");
         List<Post> posts = new ArrayList<>();
         if (stt != null) {
-            stt.setNumberOfEmoji(EmojiDAO.getStatusNumberOfEmojis(4));
+            stt.setNumberOfEmoji(EmojiDAO.getStatusNumberOfEmojis(stt.getStatusId()));
             stt.setUserEmotion(EmojiDAO.isStatusUserEmojis(stt.getStatusId(), accountId));
             if (EmojiDAO.getListStatusMaxEmojis(stt.getStatusId()) != null) {
                 stt.setMax1(EmojiDAO.getListStatusMaxEmojis(stt.getStatusId()).get(0));
@@ -82,8 +89,22 @@ public class StatusPageServlet extends BaseServlet {
         }
         request.setAttribute("posts", posts);
         request.setAttribute("userID", accountId);
-        request.getRequestDispatcher("/client/common/statusPage.jsp").forward(request, response);
+        request.setAttribute("avatar", StatusDAO.getAvatar(accountId));
+//        if (stt.getStatusImg().isEmpty()) {
+        request.getRequestDispatcher("/client/common/statusBox.jsp").forward(request, response);
+//        } else {
+//            request.getRequestDispatcher("/client/common/statusPage.jsp").forward(request, response);
+//        }
 
+    }
+
+    public static void setInfoHeader(HttpServletRequest request) {
+        int accountId = (int) request.getSession().getAttribute("uid");
+        List<Notification> notifications = NotificationDAO.getListNotification(accountId);
+        ProfileUserAbout userinfo = ProfileUserAboutDAO.getProfileUser(accountId);
+        request.setAttribute("notifications", notifications);
+        request.setAttribute("userinfo", userinfo);
+        request.setAttribute("uid2", Secret.encode2(String.valueOf(accountId)));
     }
 
     @Override

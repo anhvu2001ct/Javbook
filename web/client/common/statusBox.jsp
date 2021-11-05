@@ -1,9 +1,9 @@
 <%-- 
-    Document   : statusPage
-    Created on : Nov 3, 2021, 11:14:26 PM
+    Document   : StatusBox
+    Created on : Nov 4, 2021, 11:29:08 PM
     Author     : Mr Khang
 --%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -18,7 +18,7 @@
             />
         <link
             rel="stylesheet"
-            href="/Javbook/assets/css/common/postPage.css"
+            href="/Javbook/assets/css/common/postBox.css"
             />
         <link
             rel="stylesheet"
@@ -34,27 +34,27 @@
             rel="stylesheet"
             href="/Javbook/assets/css/profile/popupEmoji.css"
             />
+        <link
+            rel="stylesheet"
+            href="/Javbook/assets/css/profile/profilePost.css"
+            />
     </head>
     <body>
         <%@include file="../common/header.jsp" %>
-
-        <c:forEach items="${posts}" var="post">
-            <div class="post-page">
-                <div class="post-page-img">
-                    <img src="${post.status.statusImg}" alt="" />
-                </div>
-                <div class="post-page-box">
-                    <div class="post box" id="${post.status.statusId}">
+        <div class="body-post">
+            <div class="list-post post-list">
+                <c:forEach items="${posts}" var="post">
+                    <div class="post box post-page" id="${post.status.statusId}">
                         <div class="post-item">
                             <div class="status-main">
                                 <img src="${post.status.userImage}" class="status-img" />
                                 <div class="post-detail">
                                     <div class="post-title">
-                                        <a href="">${post.status.userName}</a>
+                                        <a href="/Javbook/profile/${post.status.getID()}/">${post.status.userName}</a>
                                     </div>
 
                                     <div class="post-state">
-                                        <span class="post-date">${post.status.time}</span>
+                                        <span class="post-date"> ${post.status.time} </span>
                                         <c:if test="${post.status.mood==1}">
                                             <i class="fas fa-globe-asia"></i>
                                         </c:if>
@@ -66,26 +66,21 @@
                                         </c:if>
                                     </div>
                                 </div>
-
-                            </div>
-                            <div class="post-content">
-                                <div class="content-before">
-                                    <p class="content" contenteditable="false">
-                                        ${post.status.text}
-                                    </p>
-                                    <c:if test="${post.status.accountID == userID}">
-                                        <button class="edit-post">Edit</button>  
-                                    </c:if>
-
-                                </div>
-
-                                <div class="edit-content">
-                                    <textarea class="edit-text-content"></textarea>
-                                    <div>
-                                        <button class="save-content">Finished Editing</button>
-                                        <button class="cancel-edit">Cancel</button>
+                                <div class="edit-post">
+                                    <i class="fas fa-ellipsis-h"></i>
+                                    <div class="edit-post-item">
+                                        <ul>
+                                            <li class="edit"><i class="fas fa-pen-nib"> </i> Edit</li>
+                                            <li class="delete"><i class="far fa-trash-alt"></i> Delete</li>
+                                        </ul>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="post-content">
+                                <p class="content">${post.status.text}</p>
+                            </div>
+                            <div class="post-photos">
+                                <img src="${post.status.statusImg}" alt="" class="post-photo" id="${post.status.getIDStatus()}" />
                             </div>
                         </div>
                         <div class="post-count">
@@ -225,7 +220,7 @@
                                                         <div class="comment-content-box">
                                                             <div class="content-main-comment">
                                                                 <div class="comment-main-title">
-                                                                    <a href="" class="main-user-name"
+                                                                    <a href="/Javbook/profile/${comment.first.getID()}/" class="main-user-name"
                                                                        >${comment.first.userName}</a
                                                                     >
                                                                 </div>
@@ -373,7 +368,7 @@
                                                                     <div class="comment-content-box">
                                                                         <div class="content-main-comment">
                                                                             <div class="comment-main-title">
-                                                                                <a href="" class="main-user-name"
+                                                                                <a href="/Javbook/profile/${comment2.getID()}/" class="main-user-name"
                                                                                    >${comment2.userName}</a
                                                                                 >
                                                                             </div>
@@ -522,14 +517,111 @@
                             </div>
                         </div>
                     </div>
+                </c:forEach>
+            </div>
+            <!-- popup  -->
+            <div class="popup_model flex_center-post popup-main-post">
+                <div class="post_popup" id="post_popup">
+                    <div class="pop_ele1 flex_center">
+                        <span class="pop_title">Create Post</span>
+                        <span class="close pointer">+</span>
+                    </div>
+
+                    <div class="pop_ele2 flex">
+                        <div class="wh_40">
+                            <img
+                                class="wh_40 scale circle"
+                                src="/Javbook/assets/img/default/avatar.png"
+                                alt=""
+                                />
+                        </div>
+                        <div class="status_content flex_gr1">
+                            <textarea
+                                name="input_field"
+                                cols=""
+                                rows=""
+                                class="enter"
+                                placeholder="What's your mind?"
+                                ></textarea>
+                            <div class="display-img">
+                                <img src="" alt="" id="status-img" />
+                                <span class="close-img"
+                                      ><i class="fas fa-times"></i
+                                    ></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pop_ele3 flex">
+                        <select name="object" id="select" class="popup_btn pointer">
+                            <option value="1">Public</option>
+                            <option value="2">Friends</option>
+                            <option value="3">Only me</option>
+                        </select>
+                        <div class="input_file popup_btn pointer">
+                            <input
+                                type="file"
+                                name="file"
+                                id="file"
+                                accept="image/*"
+                                />
+                            <label for="file" class="photo pointer">
+                                <i class="far fa-images"></i>
+                                <span class="p_l5">Photo/Video</span>
+                            </label>
+                        </div>
+                        <span class="share popup_btn pointer">Post</span>
+                    </div>
                 </div>
             </div>
-        </c:forEach>
+            <div class="popup_model flex_center-post popup-post-box">
+                <div class="post_popup" id="post_popup">
+                    <div class="pop_ele1 flex_center">
+                        <span class="pop_title">Edit Post</span>
+                        <span class="close pointer">+</span>
+                    </div>
+
+                    <div class="pop_ele2 flex">
+                        <div class="wh_40">
+                            <img
+                                class="wh_40 scale circle"
+                                src="/Javbook/assets/img/default/avatar.png"
+                                alt=""
+                                />
+                        </div>
+                        <div class="status_content flex_gr1">
+                            <textarea
+                                name="input_field"
+                                cols=""
+                                rows=""
+                                class="enter"
+                                placeholder="What's your mind?"
+                                ></textarea>
+                            <div class="display-img">
+                                <img src="" alt="" id="status-img" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pop_ele3 flex">
+                        <select name="object" id="select" class="popup_btn pointer">
+                            <option value="public">Public</option>
+                            <option value="friends">Friends</option>
+                            <option value="only_me">Only me</option>
+                        </select>
+
+                        <span class="share popup_btn pointer">Save</span>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
         <div class="popup-emoji-box"><%@include file="../profile/popupEmoji.jsp" %></div>
         <script src="/Javbook/assets/js/common/query.js"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
         <script src="/Javbook/assets/js/common/header.js"></script>
-        <script src="/Javbook/assets/js/common/statusPage.js"></script>     
+        <script src="/Javbook/assets/js/profile/Post/postBox.js"></script>     
         <script src="/Javbook/assets/js/profile/Post/popupEmoji.js"></script>
 
     </body>

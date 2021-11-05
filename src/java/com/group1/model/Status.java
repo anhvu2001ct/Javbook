@@ -37,4 +37,8 @@ public class Status {
     public String getID() {
         return Secret.encode2(String.valueOf(accountID));
     }
+
+    public String getIDStatus() {
+        return Secret.encode1(String.valueOf(statusId));
+    }
 }
