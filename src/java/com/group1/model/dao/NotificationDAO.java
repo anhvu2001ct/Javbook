@@ -7,6 +7,7 @@ package com.group1.model.dao;
 
 import com.group1.misc.PathInfo;
 import com.group1.misc.Secret;
+import com.group1.model.FriendRequest;
 import com.group1.model.Notification;
 import static com.group1.model.db.SQLConnector.SQL;
 import java.sql.PreparedStatement;
@@ -181,6 +182,48 @@ public class NotificationDAO {
             ps.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Can not is seen notification!");
+        }
+    }
+
+    //notification friend dao
+    public static List<FriendRequest> getListFriendRequests(int userid) {
+        try {
+            List<FriendRequest> list = new ArrayList<>();
+            String sql = "select nf.SenderID, ap.Name, ap.Avatar, nf.Time\n"
+                    + "from NotificationFriend nf, AccountProfile ap\n"
+                    + "where nf.ReceiverID = ? and nf.SenderID = ap.AccountUserID";
+            PreparedStatement ps = SQL.prepareStatement(sql);
+            ps.setInt(1, userid);
+            ResultSet rs = ps.executeQuery();
+
+            if (!rs.isBeforeFirst()) {
+                return null;
+
+            } else {
+                while (rs.next()) {
+                    String time = "about " + CommentDAO.calculateTime(rs.getTimestamp(4)) + " ago";
+                    String senderid = Secret.encode2(String.valueOf(rs.getInt(1)));
+                    FriendRequest fr = new FriendRequest(senderid, rs.getString(2), rs.getString(3), time);
+                    list.add(fr);
+                }
+                return list;
+            }
+
+        } catch (SQLException e) {
+            System.out.println("can not get list friend request!");
+        }
+        return null;
+    }
+
+    public static void deleteFriendRequest(int userid, int sender) {
+        try {
+            String sql = "delete from NotificationFriend where ReceiverID = ? and SenderID = ?";
+            PreparedStatement ps = SQL.prepareStatement(sql);
+            ps.setInt(1, userid);
+            ps.setInt(2, sender);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println("Can not delete friend request!");
         }
     }
 

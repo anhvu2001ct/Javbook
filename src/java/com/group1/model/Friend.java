@@ -16,7 +16,10 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class Friend {
+
     // Primary Key
-    private int accountID;
- 
+    private int accountidA;
+    private int accountidB;
+    private String time;
+
 }

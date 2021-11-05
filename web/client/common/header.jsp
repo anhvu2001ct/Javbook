@@ -72,23 +72,28 @@
         </div>
 
         <div class="popup_inner flex" id="popup_inner">
-            <div class="popup_item flex flex_ac friend">
-                <a class="popup_item_img wh_40" href="#"
-                   ><img
-                        src="/Javbook/test/nhatquynh/header/assets/img/logo/logo.jpg"
-                        alt=""
-                        class="scale wh_40 circle"
-                        /></a>
-                <div class="popup_item_info">
-                    <a class="popup_item_info_name" href="#"
-                       ><strong>Le Nhat Quynh 1</strong>
-                    </a>
-                    <div class="popup_item_info_confirm flex">
-                        <button class="button accept">Accept</button>
-                        <button class="button rejeinfo">Reject</button>
+             <c:if test="${!friendrequest.isEmpty()}">
+                <c:forEach items="${friendrequest}" var="fr">
+                    <div class="popup_item flex flex_ac friend" id="${fr.sender}">
+                        <a class="popup_item_img wh_40" href="/Javbook/profile/${fr.sender}/"
+                           ><img
+                                src="${fr.senderavatar}"
+                                alt=""
+                                class="scale wh_40 circle"
+                                /></a>
+                        <div class="popup_item_info">
+                            <a class="popup_item_info_name" href="#"
+                               ><strong>${fr.sendername}</strong>
+                            </a>
+                            <div class="popup_item_info_confirm flex">
+                                <button class="button accept">Accept</button>
+                                <button class="button rejeinfo">Reject</button>
+                            </div>
+                            <span class="notification_time ">${fr.time}</span>
+                        </div>
                     </div>
-                </div>
-            </div>
+                </c:forEach>
+            </c:if>
 
             <div class="popup_item message mess_active">
                 <a class="popup_item_img wh_40 message_logo" href="#"

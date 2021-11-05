@@ -99,12 +99,21 @@ function loadheader() {
     numfriend = document.querySelector(".numfriend");
     accept.forEach((ele) => {
         ele.onclick = () => {
+            let query = new QueryData("/notification/deleteFriendRequest");
+            query.addParam("sender", ele.parentNode.parentNode.parentNode.id);
+            query.send("POST");
+            let query2 = new QueryData("/friend/insertFriend");
+            query2.addParam("B", ele.parentNode.parentNode.parentNode.id);
+            query2.send("POST");
             numfriend.innerText = parseInt(numfriend.textContent) - 1;
             ele.parentNode.parentNode.parentNode.remove();
         };
     });
     reject.forEach((ele) => {
         ele.onclick = () => {
+            let query = new QueryData("/notification/deleteFriendRequest");
+            query.addParam("sender", ele.parentNode.parentNode.parentNode.id);
+            query.send("POST");
             numfriend.innerText = parseInt(numfriend.textContent) - 1;
             ele.parentNode.parentNode.parentNode.remove();
         };

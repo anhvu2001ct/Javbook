@@ -9,6 +9,7 @@ import com.group1.misc.Pair;
 import com.group1.misc.Secret;
 import com.group1.model.Comment;
 import com.group1.model.Comment2;
+import com.group1.model.FriendRequest;
 import com.group1.model.Notification;
 import com.group1.model.Post;
 import com.group1.model.ProfileUserAbout;
@@ -105,10 +106,12 @@ public class IndexServlet extends BaseServlet {
     public static void setInfoHeader(HttpServletRequest request) {
         int accountId = (int) request.getSession().getAttribute("uid");
         List<Notification> notifications = NotificationDAO.getListNotification(accountId);
+        List<FriendRequest> friendrequest = NotificationDAO.getListFriendRequests(accountId);
         ProfileUserAbout userinfo = ProfileUserAboutDAO.getProfileUser(accountId);
         request.setAttribute("notifications", notifications);
         request.setAttribute("userinfo", userinfo);
         request.setAttribute("uid2", Secret.encode2(String.valueOf(accountId)));
+        request.setAttribute("friendrequest", friendrequest);       
     }
 
     @Override

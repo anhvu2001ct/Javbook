@@ -5,6 +5,7 @@
  */
 package com.group1.controller.processor;
 
+import com.group1.misc.Secret;
 import com.group1.model.dao.NotificationDAO;
 import com.group1.rest.BaseProcessor;
 import com.group1.rest.ServeAt;
@@ -16,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author ASUS
+ * @author nhat quynh
  */
 @WebServlet("/process/notification/*")
 public class NotificationProcessor extends BaseProcessor {
@@ -48,5 +49,12 @@ public class NotificationProcessor extends BaseProcessor {
     public void serveDeleteAllNotification(HttpServletRequest request, HttpServletResponse response) throws SQLException {
         String reference = request.getParameter("reference");
         NotificationDAO.deleteAllNotificationOfStatus(reference);
+    }
+    
+    @ServeAt(value = "/deleteFriendRequest", method = ServeMethod.POST)
+    public void serveDeleteFriendRequest(HttpServletRequest request, HttpServletResponse response) throws SQLException {
+        int receiver = (int) request.getSession().getAttribute("uid");
+        String sender = Secret.decode2(request.getParameter("sender"));
+        NotificationDAO.deleteFriendRequest(receiver, Integer.parseInt(sender));
     }
 }
