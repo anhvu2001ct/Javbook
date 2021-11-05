@@ -338,7 +338,7 @@
                 <img src="${post.status.userImage}" class="status-img" />
                 <div class="post-detail">
                     <div class="post-title">
-                        <a href="/Javbook/profile/${post.status.getID()}/">${post.status.userName}</a>
+                        <a href="#">${post.status.userName}</a>
                     </div>
 
                     <div class="post-state">
@@ -359,7 +359,14 @@
                         </c:if>
                     </div>
                 </div>
-
+                <div class="edit-post">
+                    <i class="fas fa-ellipsis-h"></i>
+                    <div class="edit-post-item">
+                        <ul>
+                            <li class="view"><i class="fas fa-eye"></i> View</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
             <div class="post-content">
                 <p class="content">${post.status.text}</p>
