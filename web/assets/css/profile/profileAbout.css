@@ -176,6 +176,14 @@
     position: relative;
 }
 
+.about .about-content .edit-password-item .title {
+    min-width: 165px;
+}
+
+.about .about-content .edit-password-item .edit-text {
+    flex: 1;
+}
+
 .about .about-content .edit-password .toggle-password {
     position: absolute;
     top: 50%;
