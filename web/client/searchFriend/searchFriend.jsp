@@ -46,15 +46,13 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
                         >
 
                         <c:if test="${userItem.second == 2}">
-                            <div class="friend">
+                            <div>
                                 <p>Friend</p>
                                 <p>1 mutual friend</p>
                             </div>
                         </c:if>
 
-                        <p>
-                            Live in ${userItem.first.address}
-                        </p>
+                        <p>Live in ${userItem.first.address}</p>
                     </div>
                     <div class="search-status js-add-friend-btn">
                         <c:choose>
