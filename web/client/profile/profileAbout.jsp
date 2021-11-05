@@ -504,7 +504,7 @@
                         </div>
                         <div class="list-item-content edit-password">
                             <div class="edit-password-item">
-                                Current Password
+                                <p class="title">Current Password</p>
                                 <input
                                     class="edit-text active"
                                     type="password"
@@ -521,7 +521,7 @@
                                 </span>
                             </div>
                             <div class="edit-password-item">
-                                New Password
+                                <p class="title">New Password</p>
                                 <input
                                     class="edit-text active"
                                     type="password"
@@ -538,7 +538,7 @@
                                 </span>
                             </div>
                             <div class="edit-password-item">
-                                Re New Password
+                                <p class="title">Re New Password</p>
                                 <input
                                     class="edit-text active"
                                     type="password"

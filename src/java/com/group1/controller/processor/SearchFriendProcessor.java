@@ -8,6 +8,7 @@ import com.group1.rest.BaseProcessor;
 import com.group1.rest.ServeAt;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Collections;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -34,7 +35,8 @@ public class SearchFriendProcessor extends BaseProcessor {
         
         List<Pair<ProfileUserAbout, Integer>> searchFriendList = SearchFriendDAO.getAllUserByName(uid, name);
         
-        request.setAttribute("uid", uid);
+        Collections.sort(searchFriendList, (Pair<ProfileUserAbout, Integer> a, Pair<ProfileUserAbout, Integer> b) -> b.second - a.second);
+        
         request.setAttribute("searchFriendList", searchFriendList);
         
         // Header (Quynh)
