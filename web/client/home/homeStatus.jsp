@@ -58,6 +58,7 @@
                         src="${post.status.statusImg}"
                         alt=""
                         class="post-photo"
+                        id="${post.status.getIDStatus()}"
                         />
                 </div>
             </div>
@@ -193,7 +194,7 @@
                                             <div class="comment-content-box">
                                                 <div class="content-main-comment">
                                                     <div class="comment-main-title">
-                                                        <a href="" class="main-user-name">${comment.first.userName}</a>
+                                                        <a href="/Javbook/profile/${comment.first.getID()}/" class="main-user-name">${comment.first.userName}</a>
                                                     </div>
                                                     <p class="text-comment" >${comment.first.text}</p>
                                                     <div class="display-comment-emoji main-display-comment-emoji">
@@ -297,7 +298,7 @@
                                                         <div class="comment-content-box">
                                                             <div class="content-main-comment">
                                                                 <div class="comment-main-title">
-                                                                    <a href="" class="main-user-name">${comment2.userName}</a>
+                                                                    <a href="/Javbook/profile/${comment2.getID()}/" class="main-user-name">${comment2.userName}</a>
                                                                 </div>
                                                                 <p>
                                                                     <span class="reply_user"></span> ${comment2.text}

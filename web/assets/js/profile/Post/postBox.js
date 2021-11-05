@@ -202,25 +202,9 @@ function postBox() {
     `;
     createComment.innerHTML = html;
     displayMainComment.prepend(createComment);
-    countCommentEmoji = document.querySelectorAll(".count-comment-enmoji");
-    listEmojiComment = document.querySelectorAll(".comment-item .tooltip  img");
-    iconTextComment = document.querySelectorAll(".comment-item  .emoji>span");
-    replyMainBtn = document.querySelectorAll(".main-comment-action >.reply-main");
-    replyLevelBtn = document.querySelectorAll(".main-comment-action .reply-level");
-    displaySendComment = document.querySelectorAll(".comment-level-item");
-    likeComment = document.querySelectorAll(".comment-item .emoji span");
-    deleteComment = document.querySelectorAll(".delete-comment");
-    deleteCommentData();
-    clickEmojiComment();
-    checkEmojiCount();
-    noneDisplayEmoji();
-    replyMain();
-    postCountLeft = document.querySelectorAll(".post-count-left");
-    mainCommentEmojiPopup = document.querySelectorAll(".main-display-comment-emoji");
-    levelCommentEmojiPopup = document.querySelectorAll(".level-display-comment-emoji");
+
     value.value = "";
-    deleteAndCreateEmoji();
-    popupEmotion()
+    reLoad();
   }
 
   function loopLevelComment(levelSend) {
@@ -357,25 +341,9 @@ function postBox() {
     createComment.innerHTML = html;
     Box.remove();
     displayLevelComment.appendChild(createComment);
-    likeComment = document.querySelectorAll(".comment-item .emoji span");
-    countCommentEmoji = document.querySelectorAll(".count-comment-enmoji");
-    listEmojiComment = document.querySelectorAll(".comment-item .tooltip  img");
-    iconTextComment = document.querySelectorAll(".comment-item  .emoji>span");
-    replyMainBtn = document.querySelectorAll(".main-comment-action >.reply-main");
-    replyLevelBtn = document.querySelectorAll(".main-comment-action .reply-level");
-    displaySendComment = document.querySelectorAll(".comment-level-item");
-    deleteComment = document.querySelectorAll(".delete-comment");
-    deleteCommentData();
-    clickEmojiComment();
-    checkEmojiCount();
-    noneDisplayEmoji();
-    replyLevel();
-    deleteAndCreateEmoji();
-    postCountLeft = document.querySelectorAll(".post-count-left");
-    mainCommentEmojiPopup = document.querySelectorAll(".main-display-comment-emoji");
-    levelCommentEmojiPopup = document.querySelectorAll(".level-display-comment-emoji");
+
     value.value = "";
-    popupEmotion();
+    reLoad();
   }
   function noneDisplayEmoji() {
     let countDisplayEmojiPost = document.querySelectorAll(".post-count-left ul li img");
@@ -588,9 +556,11 @@ function postBox() {
       count.innerText = list[0];
       if (list[1] !== undefined) {
         imgStatus[0].src = `/Javbook/assets/img/emoji/${list[1].trim()}`
+        imgStatus[0].alt = 1;
       }
       if (list[2] !== undefined) {
         imgStatus[1].src = `/Javbook/assets/img/emoji/${list[2].trim()}`
+        imgStatus[1].alt = 1;
       }
       if (type == "create") {
         image.src = `/Javbook/assets/img/emoji/${icon[indexList % 6]}.svg`;
@@ -657,9 +627,11 @@ function postBox() {
         count.innerText = list[0];
         if (list[1] !== undefined) {
           img[0].src = `/Javbook/assets/img/emoji/${list[1].trim()}`
+          img[0].alt = 1;
         }
         if (list[2] !== undefined) {
           img[1].src = `/Javbook/assets/img/emoji/${list[2].trim()}`
+          img[1].alt = 1;
         }
         if (type == "create") {
           name.innerText = nameIcon[indexList % 6];
@@ -694,9 +666,11 @@ function postBox() {
         count.innerText = list[0];
         if (list[1] !== undefined) {
           img[0].src = `/Javbook/assets/img/emoji/${list[1].trim()}`
+          img[0].alt = 1;
         }
         if (list[2] !== undefined) {
           img[1].src = `/Javbook/assets/img/emoji/${list[2].trim()}`
+          img[1].alt = 1;
         }
         if (type == "create") {
           name.innerText = nameIcon[indexList % 6];
@@ -812,7 +786,27 @@ function postBox() {
       }
     })
   }
-
+  function reLoad() {
+    countCommentEmoji = document.querySelectorAll(".count-comment-enmoji");
+    listEmojiComment = document.querySelectorAll(".comment-item .tooltip  img");
+    iconTextComment = document.querySelectorAll(".comment-item  .emoji>span");
+    replyMainBtn = document.querySelectorAll(".main-comment-action >.reply-main");
+    replyLevelBtn = document.querySelectorAll(".main-comment-action .reply-level");
+    displaySendComment = document.querySelectorAll(".comment-level-item");
+    likeComment = document.querySelectorAll(".comment-item .emoji span");
+    deleteComment = document.querySelectorAll(".delete-comment");
+    deleteCommentData();
+    clickEmojiComment();
+    checkEmojiCount();
+    noneDisplayEmoji();
+    replyMain();
+    postCountLeft = document.querySelectorAll(".post-count-left");
+    mainCommentEmojiPopup = document.querySelectorAll(".main-display-comment-emoji");
+    levelCommentEmojiPopup = document.querySelectorAll(".level-display-comment-emoji");
+    replyLevel();
+    deleteAndCreateEmoji();
+    popupEmotion();
+  }
   popupEmotion();
   function displayPopupEmoji(value, type) {
     let uploadData = new QueryData("/emotion/renderPopup");
@@ -844,13 +838,14 @@ function postBox() {
           levelComment.remove();
 
         }
+        reLoad();
       }
     })
   }
   deleteCommentData();
   userImage.forEach((image) => {
     image.onclick = () => {
-      window.location = "/Javbook/status?id=4"
+      window.location = `/Javbook/status?status=${image.id}`
     }
   })
 
