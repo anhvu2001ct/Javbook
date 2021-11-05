@@ -26,6 +26,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -67,7 +68,6 @@ public class StatusProcessor extends BaseProcessor {
     public void serveDeleteStatus(HttpServletRequest request, HttpServletResponse response) throws SQLException {
         String statusId = request.getParameter("id");
         StatusDAO.deleteStatus(statusId);
-        NotificationDAO.deleteAllNotificationOfStatus(statusId);
     }
 
     @ServeAt(value = "/createComment", method = ServeMethod.POST)
@@ -76,8 +76,8 @@ public class StatusProcessor extends BaseProcessor {
             String statusId = request.getParameter("id");
             int accountId = (int) request.getSession().getAttribute("uid");
             String text = request.getParameter("text");
-            NotificationDAO.insertNotification(accountId, "7", statusId);
-            response.getWriter().print(CommentDAO.createComment(statusId, accountId, text));
+            int commentid = CommentDAO.createComment(statusId, accountId, text);
+            response.getWriter().print(commentid);
 
         } catch (IOException ex) {
             System.out.println("Save Comment Data Erorr");
@@ -266,5 +266,4 @@ public class StatusProcessor extends BaseProcessor {
         CommentDAO.deleteComment2(id);
     }
 
-   
 }

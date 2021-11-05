@@ -69,7 +69,7 @@ public class NotificationDAO {
                             break;
                     }
 
-                    Notification nf = new Notification(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), time, emoji, rs.getInt(7), rs.getInt(8), message);
+                    Notification nf = new Notification(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), time, emoji, rs.getString(7), rs.getInt(8), message);
                     list.add(nf);
                 }
 
@@ -83,20 +83,20 @@ public class NotificationDAO {
         return null;
     }
 
-    public static void insertNotification(int sender, String emoji, String reference) {
+    public static void insertNotification(String sender, String emoji, String reference, String statusid) {
         try {
             if (Integer.parseInt(emoji) != 7) {
-                deleteNotification(sender, reference, emoji);
+                deleteNotification(sender, emoji, reference);
             }
 
             String sql = "insert into Notification (ReceiverID, SenderID, Time, EmojiID, Reference, Seen) values (?,?,?,?,?,?);";
             PreparedStatement ps = SQL.prepareStatement(sql);
-            ps.setInt(1, getUseridOfStatus(reference));
-            ps.setInt(2, sender);
+            ps.setInt(1, getUseridOfStatus(statusid));
+            ps.setInt(2, Integer.parseInt(sender));
             Timestamp time = new Timestamp(System.currentTimeMillis());
             ps.setTimestamp(3, time);
             ps.setInt(4, Integer.parseInt(emoji));
-            ps.setInt(5, Integer.parseInt(reference));
+            ps.setString(5, reference);
             ps.setInt(6, 0);
             ps.executeUpdate();
         } catch (SQLException e) {
@@ -105,24 +105,23 @@ public class NotificationDAO {
 
     }
 
-    public static void deleteNotification(int sender, String reference, String emoji) {
+    public static void deleteNotification(String sender, String emoji, String reference) {
         try {
             String sql = "delete from Notification where SenderID = ? and Reference = ? and  EmojiID = 7";
             String sql2 = "delete from Notification where SenderID = ? and Reference = ? and not EmojiID = 7";
             if (Integer.parseInt(emoji) != 7) {
                 PreparedStatement ps = SQL.prepareStatement(sql2);
-                ps.setInt(1, sender);
-                ps.setInt(2, Integer.parseInt(reference));
+                ps.setInt(1, Integer.parseInt(sender));
+                ps.setString(2, reference);
                 ps.executeUpdate();
             } else {
                 PreparedStatement ps = SQL.prepareStatement(sql);
-                ps.setInt(1, sender);
-                ps.setInt(2, Integer.parseInt(reference));
+                ps.setInt(1, Integer.parseInt(sender));
+                ps.setString(2, reference);
                 ps.executeUpdate();
             }
 
         } catch (SQLException e) {
-            System.out.println(sender + " " + reference + " " + emoji);
             System.out.println("Can not delete notification!");
         }
 
@@ -130,10 +129,11 @@ public class NotificationDAO {
 
     public static void deleteAllNotificationOfStatus(String reference) {
         try {
-            String sql = "delete from Notification \n"
-                    + "where Reference = ?";
+            String sql = "delete from Notification\n"
+                    + "where Reference like ?";
+            String s = reference + "%";
             PreparedStatement ps = SQL.prepareStatement(sql);
-            ps.setInt(1, Integer.parseInt(reference));
+            ps.setString(1, s);
             ps.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Can not delete all notification of status!");

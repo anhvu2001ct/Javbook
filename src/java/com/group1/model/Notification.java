@@ -28,7 +28,7 @@ public class Notification {
     private String senderavatar;
     private String time;
     private String emoji; 
-    private int reference;
+    private String reference;
     private int seen;
     private String messnotifi;
    
