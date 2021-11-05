@@ -2,15 +2,17 @@ body {
     background-color: #373e57;
     color: #ccc8db;
 }
-.search-box {
+
+.search-friend {
     background-color: #24273b;
     width: 50%;
     margin: 30px auto;
     padding: 20px;
     border: 1px solid transparent;
     border-radius: 5px;
+    margin-top: 56px;
 }
-.search-box h3 {
+.search-friend h3 {
     margin-bottom: 20px;
 }
 .search-details {

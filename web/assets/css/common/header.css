@@ -40,6 +40,7 @@
     width: 100%;
     z-index: 10;
     color: #fff;
+    top: 0;
 }
 .header {
     height: 56px;
@@ -240,7 +241,7 @@
     font-size: 13px;
     color: #0080fa;
 }
-.seen{
+.seen {
     color: #ccc8db !important;
 }
 /* custom message  */

@@ -17,7 +17,34 @@ import java.util.logging.Logger;
  * @author Dang Minh Canh
  */
 public class FriendDAO {
+    
+    //Canh
+    public static boolean isFriend(int accountID, int accountID2){
+        try {
+            String query = "SELECT * "
+                    + "FROM Friend "
+                    + "WHERE A = ? "
+                    + "AND B = ?";
+            
+            if (accountID > accountID2){
+                int tmp = accountID;
+                accountID = accountID2;
+                accountID2 = tmp;
+            }
+            PreparedStatement ps = SQL.prepareStatement(query); // nem cau lenh query tu netbeans sang sql server
+            ps.setInt(1, accountID);
+            ps.setInt(2, accountID2);
+            
+            ResultSet rs = ps.executeQuery(); // execute query va nhan ket qua tra ve
+            
+            return rs.isBeforeFirst();
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
 
+    // Quynh
     public static void insertFriend(int A, int B) {
         try {
             String sql = "insert into Friend values(?,?,?)";

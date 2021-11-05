@@ -1,5 +1,6 @@
 package com.group1.controller.processor;
 
+import com.group1.misc.Pair;
 import com.group1.model.ProfileUserAbout;
 import com.group1.model.dao.SearchFriendDAO;
 import com.group1.rest.BaseProcessor;
@@ -30,11 +31,11 @@ public class SearchFriendProcessor extends BaseProcessor {
         
         String name = request.getParameter("name");
         
-        List<ProfileUserAbout> searchFriendList = SearchFriendDAO.getAllUserByName(uid, name);
-        System.out.println("Name: " + name);
-//        System.out.println(searchFriendList.toString());
+        List<Pair<ProfileUserAbout, Boolean>> searchFriendList = SearchFriendDAO.getAllUserByName(uid, name);
         
+        request.setAttribute("uid", uid);
         request.setAttribute("searchFriendList", searchFriendList);
+        
         request.getRequestDispatcher("/client/searchFriend/searchFriend.jsp").forward(request, response);
         
         

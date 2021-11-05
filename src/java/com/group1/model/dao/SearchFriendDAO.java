@@ -1,5 +1,6 @@
 package com.group1.model.dao;
 
+import com.group1.misc.Pair;
 import com.group1.model.ProfileUserAbout;
 import static com.group1.model.db.SQLConnector.SQL;
 import java.sql.PreparedStatement;
@@ -16,13 +17,13 @@ import java.util.logging.Logger;
  */
 public class SearchFriendDAO {
     
-    public static List<ProfileUserAbout> getAllUserByName(int accountID, String name) {
+    public static List<Pair<ProfileUserAbout, Boolean>> getAllUserByName(int accountID, String name) {
         try {
             String query = "SELECT * "
                     + "FROM AccountProfile "
                     + "WHERE AccountUserID != ? "
                     + "AND Name LIKE ?";
-            String s = "%" + name +"%";
+            String s = "%" + name.toLowerCase() +"%";
             
             PreparedStatement ps = SQL.prepareStatement(query); // nem cau lenh query tu netbeans sang sql server
             ps.setInt(1, accountID);
@@ -34,12 +35,14 @@ public class SearchFriendDAO {
                 return null;
             } else {
                 // if have user
-                List<ProfileUserAbout> list = new ArrayList<>();
+                List<Pair<ProfileUserAbout, Boolean>> list = new ArrayList<>();
                 
                 while (rs.next()) {
-                    list.add(new ProfileUserAbout(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), 
+                    ProfileUserAbout profileUser = new ProfileUserAbout(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), 
                             rs.getDate(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getInt(9), 
-                            rs.getString(10)));
+                            rs.getString(10));
+                    Boolean isFriend = FriendDAO.isFriend(accountID, profileUser.getAccountID());
+                    list.add(new Pair<>(profileUser, isFriend));
                 }
                 return list;
             }
