@@ -38,7 +38,12 @@ public class ProfileProcessor extends BaseProcessor {
 
             List<String> photos = StatusDAO.getListPhotoUser(Integer.parseInt(curId));
             request.setAttribute("photos", photos);
-            request.getRequestDispatcher("/client/profile/profilePhoto.jsp").forward(request, response);
+            if (accountId == Integer.parseInt(curId)) {
+                request.getRequestDispatcher("/client/profile/profilePhoto.jsp").forward(request, response);
+            } else {
+                request.getRequestDispatcher("/client/otherProfile/profilePhoto.jsp").forward(request, response);
+            }
+
         }
         if (value.equals("Post")) {
             request.getRequestDispatcher("/process/status/render").forward(request, response);

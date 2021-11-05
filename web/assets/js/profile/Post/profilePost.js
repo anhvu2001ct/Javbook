@@ -50,6 +50,7 @@
   function sendFile() {
 
     let uploadData = new QueryData("/status/crateStatus");
+    let query = new QueryData("/status/getEncodeID");
     //uploadImage
     let name = "user" + Date.now() + ".png";
     // uploadData
@@ -63,28 +64,36 @@
     }
     uploadData.addEvent("load", function () {
       statusID = this.response;
-      if (inputFile.files[0] != undefined) {
-        let uploadImg = new QueryUpload("upload/image");
-        uploadImg.addParam("file", inputFile.files[0]);
-        uploadImg.addParam("savePath", "post");
-        uploadImg.addParam("fileName", name);
-        let link = "/Javbook/assets/img/post/" + name;
-        console.log(link)
-        // uploadData.addParam("link", link);
-        uploadImg.addEvent("progress", function (e) {
-          let percent = e.loaded / e.total * 100;
-          console.log('upload process: ' + Math.floor(percent) + '%');
-        });
-        uploadImg.addEvent("load", function () {
-          window.setTimeout(() => {
-            renderNewPost(userEditContent, link, option, userNamePost.textContent, userImgPost.src, statusID);
-          }, 2000);
-        });
-        uploadImg.send();
-      }
-      else {
-        renderNewPost(userEditContent, "", option, userNamePost.textContent, userImgPost.src, statusID);
-      }
+      console.log(statusID)
+      query.addParam("id", statusID)
+      query.addEvent("load", function () {
+        let encodeID = this.response;
+        if (inputFile.files[0] != undefined) {
+          let uploadImg = new QueryUpload("upload/image");
+          uploadImg.addParam("file", inputFile.files[0]);
+          uploadImg.addParam("savePath", "post");
+          uploadImg.addParam("fileName", name);
+          let link = "/Javbook/assets/img/post/" + name;
+
+          // uploadData.addParam("link", link);
+          uploadImg.addEvent("progress", function (e) {
+            let percent = e.loaded / e.total * 100;
+            console.log('upload process: ' + Math.floor(percent) + '%');
+          });
+          query.addParam("id", statusID);
+          uploadImg.addEvent("load", function () {
+            window.setTimeout(() => {
+
+              renderNewPost(userEditContent, link, option, userNamePost.textContent, userImgPost.src, statusID, encodeID);
+            }, 2000);
+          });
+          uploadImg.send();
+        }
+        else {
+          renderNewPost(userEditContent, "", option, userNamePost.textContent, userImgPost.src, statusID, encodeID);
+        }
+      })
+      query.send("GET")
       document.querySelector(".popup_model").style.display = "none";
 
 
@@ -96,7 +105,7 @@
 
   }
 
-  function renderNewPost(text, img, option, name, url, statusID) {
+  function renderNewPost(text, img, option, name, url, statusID, encodeID) {
     let today = new Date();
     let date = (today.getMonth() + 1) + '/' + today.getDate() + '/' + today.getFullYear();
     let time = today.getHours() + ":" + today.getMinutes();
@@ -129,6 +138,7 @@ ${(option === 1) ? "<i class='fas fa-globe-asia'></i>" : (option === 2) ? " <i c
         <i class="fas fa-ellipsis-h"></i>
         <div class="edit-post-item">
           <ul>
+            <li class="view" id="${encodeID}" ><i class="fas fa-eye"></i> View</li>
             <li class="edit"><i class="fas fa-pen-nib"> </i> Edit</li>
             <li class="delete"><i class="far fa-trash-alt"></i> Delete</li>
           </ul>
@@ -143,6 +153,7 @@ ${(option === 1) ? "<i class='fas fa-globe-asia'></i>" : (option === 2) ? " <i c
         src="${img}"
         alt=""
         class="post-photo"
+        id=${encodeID}
       />
     </div>
   </div>

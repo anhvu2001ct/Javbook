@@ -66,15 +66,17 @@
                                         </c:if>
                                     </div>
                                 </div>
-                                <div class="edit-post">
-                                    <i class="fas fa-ellipsis-h"></i>
-                                    <div class="edit-post-item">
-                                        <ul>
-                                            <li class="edit"><i class="fas fa-pen-nib"> </i> Edit</li>
-                                            <li class="delete"><i class="far fa-trash-alt"></i> Delete</li>
-                                        </ul>
+                                <c:if test="${post.status.accountID==userID}">
+                                    <div class="edit-post">
+                                        <i class="fas fa-ellipsis-h"></i>
+                                        <div class="edit-post-item">
+                                            <ul>
+                                                <li class="edit"><i class="fas fa-pen-nib"> </i> Edit</li>
+                                                <li class="delete"><i class="far fa-trash-alt"></i> Delete</li>
+                                            </ul>
+                                        </div>
                                     </div>
-                                </div>
+                                </c:if>
                             </div>
                             <div class="post-content">
                                 <p class="content">${post.status.text}</p>

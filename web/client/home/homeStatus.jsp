@@ -37,17 +37,20 @@
                             </c:if>
                         </div>
                     </div>
-                    <c:if test="${post.status.accountID==userID}">
-                        <div class="edit-post">
-                            <i class="fas fa-ellipsis-h"></i>
-                            <div class="edit-post-item">
-                                <ul>
+
+                    <div class="edit-post">
+                        <i class="fas fa-ellipsis-h"></i>
+                        <div class="edit-post-item">
+                            <ul>
+                                <li class="view" id="${post.status.getIDStatus()}" ><i class="fas fa-eye"></i> View</li>
+                                    <c:if test="${post.status.accountID==userID}">
                                     <li class="edit"><i class="fas fa-pen-nib"> </i> Edit</li>
                                     <li class="delete"><i class="far fa-trash-alt"></i> Delete</li>
-                                </ul>
-                            </div>
+                                    </c:if>
+                            </ul>
                         </div>
-                    </c:if>
+                    </div>
+
 
                 </div>
                 <div class="post-content">

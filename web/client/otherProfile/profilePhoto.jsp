@@ -5,11 +5,10 @@
 --%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
 <c:choose>
-    <c:when test="${photos.size()==null}">
+    <c:when test="${photos.size()==1}">
         <div class="none-photo">
-            <h1>You don't have any pictures</h1>
+            <h1>This person currently doesn't have any photos</h1>
         </div>
     </c:when>
 

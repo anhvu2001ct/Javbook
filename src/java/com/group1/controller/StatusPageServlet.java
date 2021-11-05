@@ -90,11 +90,11 @@ public class StatusPageServlet extends BaseServlet {
         request.setAttribute("posts", posts);
         request.setAttribute("userID", accountId);
         request.setAttribute("avatar", StatusDAO.getAvatar(accountId));
-//        if (stt.getStatusImg().isEmpty()) {
-        request.getRequestDispatcher("/client/common/statusBox.jsp").forward(request, response);
-//        } else {
-//            request.getRequestDispatcher("/client/common/statusPage.jsp").forward(request, response);
-//        }
+        if (stt.getStatusImg() == null) {
+            request.getRequestDispatcher("/client/common/statusBox.jsp").forward(request, response);
+        } else {
+            request.getRequestDispatcher("/client/common/statusPage.jsp").forward(request, response);
+        }
 
     }
 

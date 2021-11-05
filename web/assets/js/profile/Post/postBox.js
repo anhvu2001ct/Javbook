@@ -44,7 +44,7 @@ function postBox() {
   let isEmojiMain = document.querySelectorAll(".emoji-main");
   let isEmojiLevel = document.querySelectorAll(".commnent-emoji");
   let deleteComment = document.querySelectorAll(".delete-comment");
-
+  let viewStatus = document.querySelectorAll(".view")
   isEmojiLevel.forEach((emoji) => {
     index = parseInt(emoji.id);
     let pTag = emoji.parentNode.parentNode.querySelector(".count-comment-enmoji");
@@ -877,6 +877,10 @@ function postBox() {
       window.location = `/Javbook/status?status=${image.id}`
     }
   })
-
+  viewStatus.forEach((status) => {
+    status.onclick = () => {
+      window.location = `/Javbook/status?status=${status.id}`
+    }
+  })
 }
 postBox();

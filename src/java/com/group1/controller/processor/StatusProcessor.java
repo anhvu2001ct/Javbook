@@ -14,7 +14,6 @@ import com.group1.model.ProfileUserAbout;
 import com.group1.model.Status;
 import com.group1.model.dao.CommentDAO;
 import com.group1.model.dao.EmojiDAO;
-import com.group1.model.dao.NotificationDAO;
 import com.group1.model.dao.ProfileStatusDAO;
 import com.group1.model.dao.ProfileUserAboutDAO;
 import com.group1.model.dao.StatusDAO;
@@ -26,6 +25,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -261,6 +262,15 @@ public class StatusProcessor extends BaseProcessor {
     public void serveDeleteComment2(HttpServletRequest request, HttpServletResponse response) {
         String id = request.getParameter("id");
         CommentDAO.deleteComment2(id);
+    }
+     @ServeAt(value = "/getEncodeID", method = ServeMethod.GET)
+    public void serveGetEnCodeID(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            String id = request.getParameter("id");
+            response.getWriter().print(StatusDAO.getStatus(id).getIDStatus());
+        } catch (IOException ex) {
+            Logger.getLogger(StatusProcessor.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }
