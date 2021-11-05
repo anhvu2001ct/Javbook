@@ -10,47 +10,52 @@ and open the template in the editor.
 
 
 .main-friends {
-	padding-left: 20px;
-	display: grid;
-	grid-template-columns: 426px 426px;
-	grid-template-rows: auto;
-	grid-gap: 10px;
+    padding-left: 20px;
+    display: grid;
+    grid-template-columns: 426px 426px;
+    grid-template-rows: auto;
+    grid-gap: 10px;
 }
-
+.none-friend{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 250px;
+}
 .friends-item {
-	border-radius: 5px;
-	border: 2px solid #004879;
-	display: flex;
+    border-radius: 5px;
+    border: 2px solid #004879;
+    display: flex;
 }
 .friend-item-img {
-	width: 120px;
-	height: 120px;
+    width: 120px;
+    height: 120px;
 }
 
 .friend-item-info {
-	margin-top: 40px;
-	margin-left: 10px;
-	height: 50px;
+    margin-top: 40px;
+    margin-left: 10px;
+    height: 50px;
 }
 
 .friend-item-name {
-	height: 20px;
-	font-size: 17px;
-	font-weight: 600;
+    height: 20px;
+    font-size: 17px;
+    font-weight: 600;
 }
 
 .friend-item-mutual {
-	height: 20px;
-	font-size: 13px;
+    height: 20px;
+    font-size: 13px;
 }
 
 .friends-item img {
-	margin-top: 15px;
-	margin-left: 15px;
-	margin-bottom: 15px;
-	width: 90px;
-	height: 90px;
-	border-radius: 10px;
+    margin-top: 15px;
+    margin-left: 15px;
+    margin-bottom: 15px;
+    width: 90px;
+    height: 90px;
+    border-radius: 10px;
 }
 
 

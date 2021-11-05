@@ -10,6 +10,8 @@ import com.group1.controller.ServerInit;
 import static com.group1.controller.ServerInit.gson;
 import com.group1.misc.PathInfo;
 import com.group1.misc.Secret;
+import com.group1.model.ProfileUserAbout;
+import com.group1.model.dao.FriendDAO;
 import com.group1.model.dao.StatusDAO;
 import com.group1.model.db.IO;
 import com.group1.rest.BaseProcessor;
@@ -52,7 +54,14 @@ public class ProfileProcessor extends BaseProcessor {
             request.getRequestDispatcher("/process/profileUserAbout/index").forward(request, response);
         }
         if (value.equals("Friends")) {
-            request.getRequestDispatcher("/client/profile/profileFriends.jsp").forward(request, response);
+            List<ProfileUserAbout> friends = FriendDAO.getListFriend(Integer.parseInt(curId));
+            request.setAttribute("friends", friends);
+            if (accountId == Integer.parseInt(curId)) {
+                request.getRequestDispatcher("/client/profile/profileFriends.jsp").forward(request, response);
+            } else {
+                request.getRequestDispatcher("/client/otherProfile/profileFriends.jsp").forward(request, response);
+            }
+
         }
 
     }
