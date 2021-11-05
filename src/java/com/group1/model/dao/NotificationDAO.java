@@ -76,12 +76,9 @@ public class NotificationDAO {
                     for (Entry<String, String> entry : map.entrySet()) {
                         map.put(entry.getKey(), Secret.encode1(entry.getValue()));
                     }
-                    System.out.println(PathInfo.toUrlParams(map));;
-
-                    Notification nf = new Notification(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), time, emoji, rs.getString(7), rs.getInt(8), message,PathInfo.toUrlParams(map));
+                    Notification nf = new Notification(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), time, emoji, rs.getString(7), rs.getInt(8), message, PathInfo.toUrlParams(map));
                     list.add(nf);
-                   
-                        
+
                 }
 
                 return list;
