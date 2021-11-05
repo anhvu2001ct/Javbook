@@ -1,5 +1,6 @@
 package com.group1.model;
 
+import com.group1.misc.Secret;
 import java.sql.Date;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,4 +28,8 @@ public class ProfileUserAbout {
     // String audience = "111111"
     // corresponding to DOB, Address, Gender, Career, ProfileStatus, Phone
     // 1 ~ Public, 2 ~ Friends, 3 ~ OnlyMe
+    
+    public String getEncodeID(){
+        return Secret.encode2(String.valueOf(accountID));
+    }
 }

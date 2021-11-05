@@ -31,40 +31,56 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
         <div class="search-friend">
             <h3>People</h3>
             <c:forEach items="${searchFriendList}" var="userItem">
-                <div class="search-details">
+                <div
+                    class="search-details"
+                    data-id="${userItem.first.getEncodeID()}"
+                >
                     <div class="search-img">
                         <img src="${userItem.first.avatar}" alt="" />
                     </div>
                     <div class="search-information">
-                        <a href="" class="title">${userItem.first.name}</a>
+                        <a
+                            href="/Javbook/profile/${userItem.first.getEncodeID()}/"
+                            class="title"
+                            >${userItem.first.name}</a
+                        >
 
-                        <c:if test="${userItem.second}">
+                        <c:if test="${userItem.second == 2}">
                             <div class="friend">
                                 <p>Friend</p>
                                 <p>1 mutual friend</p>
                             </div>
                         </c:if>
 
-                        <p>Live in ${userItem.first.address}</p>
+                        <p>
+                            Live in ${userItem.first.address}
+                        </p>
                     </div>
-                    <div class="search-status">
+                    <div class="search-status js-add-friend-btn">
                         <c:choose>
-                            <c:when test="${userItem.second}">
-                                <i
-                                    class="fab fa-facebook-messenger fa-lg mess"
-                                ></i>
+                            <c:when test="${userItem.second == -2}">
+                                <i class="fas fa-user-plus fa-lg"></i>
                             </c:when>
-                            <c:otherwise>
-                                <i class="fas fa-user-plus fa-1x add"></i>
-                            </c:otherwise>
+                            <c:when test="${userItem.second == -1}">
+                                <i class="fas fa-user-clock fa-lg"></i>
+                            </c:when>
+                            <c:when test="${userItem.second == 1}">
+                                <i class="fas fa-user-times fa-lg"></i>
+                            </c:when>
+                            <c:when test="${userItem.second == 2}">
+                                <i class="fab fa-facebook-messenger fa-lg"></i>
+                            </c:when>
+                            <c:otherwise> </c:otherwise>
                         </c:choose>
                     </div>
                 </div>
             </c:forEach>
         </div>
-        
+
         <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-        <script src="/Javbook/assets/js/searchFriend/searchFriend.js"></script>
         <script src="/Javbook/assets/js/common/header.js"></script>
+
+        <script src="/Javbook/assets/js/common/query.js"></script>
+        <script src="/Javbook/assets/js/searchFriend/searchFriend.js"></script>
     </body>
 </html>

@@ -55,7 +55,14 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 }
+
+.search-status:hover {
+    cursor: pointer;
+    opacity: 0.8;
+}
+
 .search-status i {
     color: #000000;
 }

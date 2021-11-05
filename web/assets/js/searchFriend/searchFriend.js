@@ -1,16 +1,26 @@
-const mess = document.querySelector(".mess");
-const add = document.querySelector(".add");
-const friend = document.querySelector(".friend");
+let addFriendBtns = document.querySelectorAll(".js-add-friend-btn");
 
-console.log(mess, friend, add);
-function isFriend(isFriend) {
-    if (isFriend) {
-        mess.style.display = "block"
-        friend.style.display = "block"
-        add.style.display = "none"
-    } else {
-        add.style.display = "block"
-        mess.style.display = "none"
-        friend.style.display = "none"
-    }
-}
+addFriendBtns.forEach((addFriendBtn) => {
+    addFriendBtn.addEventListener("click", function (e) {
+        let user = e.target.closest(".search-details");
+        let userID = user.dataset.id;
+
+        let query = new QueryData("friend/friendRequest");
+
+        query.addParam("receiverID", userID);
+
+        query.addEvent("load", function () {
+            let result = this.response;
+
+            if (result == "success") {
+                console.log("hii");
+            } else {
+                // maybe do something in the future
+                // if request friend fails
+                console.log("hiiaaa");
+            }
+        });
+
+        query.send("POST");
+    });
+});

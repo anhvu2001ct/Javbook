@@ -44,6 +44,46 @@ public class FriendDAO {
         }
     }
 
+    public static void requestFriend(int receiverID, int senderID) {
+  
+        try {
+            String query = "INSERT INTO NotificationFriend "
+                    + "VALUES (?, ? , ?)";
+            
+            PreparedStatement ps = SQL.prepareStatement(query);
+            ps.setInt(1, receiverID);
+            ps.setInt(2, senderID);
+
+            Timestamp time = new Timestamp(System.currentTimeMillis());
+            ps.setTimestamp(3, time);
+
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(FriendDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
+    }
+    
+    public static boolean isRequestedFriend(int receiverID, int senderID) {
+        try {
+            String query = "SELECT * "
+                    + "FROM NotificationFriend "
+                    + "WHERE ReceiverID = ? "
+                    + "AND SenderID = ?";
+           
+            PreparedStatement ps = SQL.prepareStatement(query); // nem cau lenh query tu netbeans sang sql server
+            ps.setInt(1, receiverID);
+            ps.setInt(2, senderID);
+
+            ResultSet rs = ps.executeQuery(); // execute query va nhan ket qua tra ve
+ 
+            return rs.isBeforeFirst();
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+    
     // Quynh
     public static void insertFriend(int A, int B) {
         try {
