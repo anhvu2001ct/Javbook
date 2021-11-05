@@ -84,7 +84,7 @@ public class FriendDAO {
         }
     }
     
-    // Quynh
+   // Quynh
     public static void insertFriend(int A, int B) {
         try {
             String sql = "insert into Friend values(?,?,?)";
@@ -104,9 +104,9 @@ public class FriendDAO {
         }
     }
 
-    public static List<Friend> getListFriend(int userid) {
+    public static List<ProfileUserAbout> getListFriend(int userid) {
         try {
-            List<Friend> list = new ArrayList<>();
+            List<ProfileUserAbout> list = new ArrayList<>();
             String sql = "select *\n"
                     + "from friend f\n"
                     + "where f.A = ? or f.B =?";
@@ -118,11 +118,17 @@ public class FriendDAO {
                 return null;
 
             } else {
-                while (rs.next()) {                    
-                    
+                while (rs.next()) {
+
+                    if (rs.getInt(1) == userid) {
+                        list.add(ProfileUserAboutDAO.getProfileUser(rs.getInt(2)));
+                    } else if (rs.getInt(2) == userid) {
+                        list.add(ProfileUserAboutDAO.getProfileUser(rs.getInt(1)));
+                    }
                 }
+                return list;
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println("Can not get list friend!");
         }
         return null;

@@ -16,6 +16,7 @@ import com.group1.model.ProfileUserAbout;
 import com.group1.model.Status;
 import com.group1.model.dao.CommentDAO;
 import com.group1.model.dao.EmojiDAO;
+import com.group1.model.dao.FriendDAO;
 import com.group1.model.dao.NotificationDAO;
 import com.group1.model.dao.ProfileUserAboutDAO;
 import com.group1.model.dao.StatusDAO;
@@ -107,11 +108,13 @@ public class IndexServlet extends BaseServlet {
         int accountId = (int) request.getSession().getAttribute("uid");
         List<Notification> notifications = NotificationDAO.getListNotification(accountId);
         List<FriendRequest> friendrequest = NotificationDAO.getListFriendRequests(accountId);
+        List<ProfileUserAbout> friendlist = FriendDAO.getListFriend(accountId);
         ProfileUserAbout userinfo = ProfileUserAboutDAO.getProfileUser(accountId);
         request.setAttribute("notifications", notifications);
         request.setAttribute("userinfo", userinfo);
         request.setAttribute("uid2", Secret.encode2(String.valueOf(accountId)));
-        request.setAttribute("friendrequest", friendrequest);       
+        request.setAttribute("friendrequest", friendrequest);    
+        request.setAttribute("friendlist", friendlist);
     }
 
     @Override
