@@ -98,7 +98,14 @@ public class StatusPageServlet extends BaseServlet {
 
     }
 
- 
+    public static void setInfoHeader(HttpServletRequest request) {
+        int accountId = (int) request.getSession().getAttribute("uid");
+        List<Notification> notifications = NotificationDAO.getListNotification(accountId);
+        ProfileUserAbout userinfo = ProfileUserAboutDAO.getProfileUser(accountId);
+        request.setAttribute("notifications", notifications);
+        request.setAttribute("userinfo", userinfo);
+        request.setAttribute("uid2", Secret.encode2(String.valueOf(accountId)));
+    }
 
     @Override
     protected void processPOST(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
