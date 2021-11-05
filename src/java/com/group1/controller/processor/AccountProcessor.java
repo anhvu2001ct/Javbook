@@ -8,7 +8,6 @@ import com.group1.rest.ServeAt;
 import com.group1.rest.ServeMethod;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -27,7 +26,7 @@ import javax.servlet.http.HttpSession;
 public class AccountProcessor extends BaseProcessor {
     
     @ServeAt("/index")
-    public void serveIndex(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, SQLException {         
+    public void serveIndex(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {         
        
     }
     

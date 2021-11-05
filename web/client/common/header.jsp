@@ -21,7 +21,7 @@
                         class="search-txt"
                         placeholder="Search on Javabook"
                         />
-                    <a class="search-btn flex_center wh_40 circle" href=""
+                    <a class="search-btn flex_center wh_40 circle" href="#"
                        ><i class="fas fa-search"></i
                         ></a>
                 </span>

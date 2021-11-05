@@ -9,10 +9,11 @@ $(document).on("click", ".header_icon", function () {
 });
 
 function countNumber() {
-    let mess = $(".mess_active").length < 100 ? $(".mess_active").length : "99+";
+    let mess =
+        $(".mess_active").length < 100 ? $(".mess_active").length : "99+";
     let friend = $(".friend").length < 100 ? $(".friend").length : "99+";
     let notifi =
-            $(".notifi_active").length < 100 ? $(".notifi_active").length : "99+";
+        $(".notifi_active").length < 100 ? $(".notifi_active").length : "99+";
 
     $(".nummess").text(mess);
     $(".numfriend").text(friend);
@@ -64,9 +65,7 @@ function loadheader() {
     numnotifi = document.querySelector(".numnotifi");
 
     notification.forEach((element, index) => {
-
         element.addEventListener("click", () => {
-            
             let query = new QueryData("/notification/isSeenNotification");
             query.addParam("notificationid", element.id);
             query.send("POST");
@@ -78,7 +77,6 @@ function loadheader() {
             }
             element.classList.remove("notifi_active");
         });
-
     });
 
     // load lại message
@@ -118,3 +116,11 @@ loadheader();
 
 //data
 
+// Search Friend - Poi Minh Canh
+let searchFriendBtn = document.querySelector(".search-btn");
+let searchFriend = document.querySelector(".search-txt");
+
+searchFriendBtn.addEventListener("click", function () {
+    // console.log("ser", searchFriend.value);
+    window.location = `/Javbook/searchFriend?name=${searchFriend.value}`;
+});
