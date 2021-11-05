@@ -1,5 +1,6 @@
 package com.group1.controller.processor;
 
+import com.group1.controller.IndexServlet;
 import com.group1.misc.Pair;
 import com.group1.model.ProfileUserAbout;
 import com.group1.model.dao.SearchFriendDAO;
@@ -35,6 +36,9 @@ public class SearchFriendProcessor extends BaseProcessor {
         
         request.setAttribute("uid", uid);
         request.setAttribute("searchFriendList", searchFriendList);
+        
+        // Header (Quynh)
+        IndexServlet.setInfoHeader(request);
         
         request.getRequestDispatcher("/client/searchFriend/searchFriend.jsp").forward(request, response);
         
