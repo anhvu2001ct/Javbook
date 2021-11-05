@@ -32,7 +32,7 @@ public class SearchFriendProcessor extends BaseProcessor {
         
         String name = request.getParameter("name");
         
-        List<Pair<ProfileUserAbout, Boolean>> searchFriendList = SearchFriendDAO.getAllUserByName(uid, name);
+        List<Pair<ProfileUserAbout, Integer>> searchFriendList = SearchFriendDAO.getAllUserByName(uid, name);
         
         request.setAttribute("uid", uid);
         request.setAttribute("searchFriendList", searchFriendList);

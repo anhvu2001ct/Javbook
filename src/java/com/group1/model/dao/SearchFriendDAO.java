@@ -17,7 +17,7 @@ import java.util.logging.Logger;
  */
 public class SearchFriendDAO {
     
-    public static List<Pair<ProfileUserAbout, Boolean>> getAllUserByName(int accountID, String name) {
+    public static List<Pair<ProfileUserAbout, Integer>> getAllUserByName(int accountID, String name) {
         try {
             String query = "SELECT * "
                     + "FROM AccountProfile "
@@ -35,14 +35,23 @@ public class SearchFriendDAO {
                 return null;
             } else {
                 // if have user
-                List<Pair<ProfileUserAbout, Boolean>> list = new ArrayList<>();
+                List<Pair<ProfileUserAbout, Integer>> list = new ArrayList<>();
                 
                 while (rs.next()) {
                     ProfileUserAbout profileUser = new ProfileUserAbout(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), 
                             rs.getDate(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getInt(9), 
                             rs.getString(10));
-                    Boolean isFriend = FriendDAO.isFriend(accountID, profileUser.getAccountID());
-                    list.add(new Pair<>(profileUser, isFriend));
+                    int i = -2;
+                    int otherID = profileUser.getAccountID();
+                    if (FriendDAO.isFriend(accountID, otherID)){
+                        i = 2;
+                    } else if (FriendDAO.isRequestedFriend(otherID, accountID)){
+                        i = 1;
+                    } else if (FriendDAO.isRequestedFriend(accountID, otherID)){
+                        i = -1;               
+                    }
+                    
+                    list.add(new Pair<>(profileUser, i));
                 }
                 return list;
             }

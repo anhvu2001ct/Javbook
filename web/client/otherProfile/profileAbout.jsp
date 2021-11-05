@@ -77,19 +77,6 @@
                     </li>
                     <li class="list-item">
                         <div class="icon">
-                            <i class="fas fa-mobile-alt"></i>
-                        </div>
-                        <div class="list-item-content">
-                            <input
-                                disabled
-                                class="edit-text"
-                                type="text"
-                                value="${account.phone}"
-                            />
-                        </div>
-                    </li>
-                    <li class="list-item">
-                        <div class="icon">
                             <i class="fas fa-heart"></i>
                         </div>
                         <div class="list-item-content">
