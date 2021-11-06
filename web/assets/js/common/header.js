@@ -133,3 +133,12 @@ searchFriendBtn.addEventListener("click", function () {
     // console.log("ser", searchFriend.value);
     window.location = `/Javbook/searchFriend?name=${searchFriend.value}`;
 });
+
+// Ghi socket o day
+
+// socket.addEvent("message", msg => {
+//     let data = JSON.parse(msg.data);
+//     if (data.type === "cmt") {
+//         // do noti cmt
+//     }
+// });

@@ -5,6 +5,7 @@
  */
 package com.group1.controller.processor;
 
+import static com.group1.controller.ServerInit.gson;
 import com.group1.misc.Pair;
 import com.group1.model.Comment;
 import com.group1.model.Comment2;
@@ -197,7 +198,8 @@ public class StatusProcessor extends BaseProcessor {
                     list.add(string);
                 }
             }
-            response.getWriter().print(list);
+            System.out.println(list);
+            response.getWriter().print(gson.toJson(list));
         } catch (IOException ex) {
             System.out.println("Get Number and Top Status Emoji Erorr");
         }

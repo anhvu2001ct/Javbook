@@ -135,7 +135,7 @@ inputFileAvatar.addEventListener("change", () => {
 
 let addFriendBtn = document.querySelector(".js-add-friend-btn");
 
-addFriendBtn.addEventListener("click", function (e) {
+// addFriendBtn.addEventListener("click", function (e) {
     // let iconContainer = e.target.closest(".search-status");
     // let icon = iconContainer.querySelector("i");
     // let user = e.target.closest(".search-details");
@@ -175,8 +175,9 @@ addFriendBtn.addEventListener("click", function (e) {
     //     }
     // });
     // query.send("POST");
-});
+// });
 
+//
 {
     let map = {};
     tabMenu.forEach((val, idx) => {

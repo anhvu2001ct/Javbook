@@ -547,7 +547,9 @@ function postBox() {
       let postBox = emoji.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
       query.addParam("id", postBox.id);
       query.addParam("emoji", (indexList % 6) + 1)
-      postReaction(emojiPost[index], iconText[index], iconText[index], postBox, "create", indexList);
+      query.addEvent("load", () => {
+        postReaction(emojiPost[index], iconText[index], iconText[index], postBox, "create", indexList);
+      });
       let query2 = new QueryData("/notification/insertNotification");
       query2.addParam("emojiid", (indexList % 6) + 1)
       query2.addParam("reference", `status=${postBox.id}`)
@@ -559,17 +561,14 @@ function postBox() {
     };
   });
   function postReaction(image, text, color, postBox, type, indexList) {
-    let query = new QueryData("/status/getTopStatusEmoji");
+    let query = new QueryData("/status/getTopStatusEmoji", "json");
     let count = postBox.querySelector(".count-emoji");
     let imgStatus = postBox.querySelectorAll(".post-count-left img")
     let string = "";
     let list = null;
     query.addParam("id", postBox.id);
     query.addEvent("load", function () {
-      string = this.response;
-      string = string.replace("[", "")
-      list = string.replace("]", "")
-      list = list.split(",")
+      let list = this.response;
       count.innerText = list[0];
       if (list[1] !== undefined) {
         imgStatus[0].src = `/Javbook/assets/img/emoji/${list[1].trim()}`
