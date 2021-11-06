@@ -622,6 +622,7 @@
         <div class="popup-emoji-box"><%@include file="../profile/popupEmoji.jsp" %></div>
         <script src="/Javbook/assets/js/common/query.js"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+        <script src="/Javbook/assets/js/common/ws.js"></script>
         <script src="/Javbook/assets/js/common/header.js"></script>
         <script src="/Javbook/assets/js/profile/Post/postBox.js"></script>     
         <script src="/Javbook/assets/js/profile/Post/popupEmoji.js"></script>

@@ -38,6 +38,12 @@ addFriendBtns.forEach((addFriendBtn) => {
                     // send invitation to others
                     icon.classList.remove("fa-user-plus");
                     icon.classList.add("fa-user-times");
+                    
+                    socket.sendTo(userID, JSON.stringify({
+                        "type": "friend",
+                        "data":"test socket make friend"
+                    }));
+
                 }
             } else {
                 // maybe do something in the future
@@ -49,3 +55,4 @@ addFriendBtns.forEach((addFriendBtn) => {
         query.send("POST");
     });
 });
+//socket

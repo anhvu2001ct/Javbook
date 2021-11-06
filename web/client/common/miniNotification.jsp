@@ -7,25 +7,29 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<c:if test="${!PARAM.isEmpty()}">
-    <c:forEach items="${PARAM}" var="param">
-        <div class="popup_item notification notifi_active">
-            <a class="popup_item_img wh_40 notification_logo" href="#"
-               ><img
-                    src="${param.useravatar}"
+
+    <a href="/Javbook/status?${notifi.url}">
+        <div class="popup_item notification notifi_active " id="${notifi.notificationid}">
+            <span
+                class="popup_item_img wh_40 notification_logo"
+
+                ><img
+                    src="${notifi.senderavatar}"
                     alt=""
                     class="scale wh_40 circle"
                     />
                 <span class="notification_icon">
-                    <i class="fas fa-${param.typeicon}"></i>
+                    <img src="/Javbook/assets/img/emoji/${notifi.emoji}" alt="">
                 </span>
-            </a>
+            </span>
             <div class="popup_item_info notification_content">
                 <span class="notification_text"
-                      ><strong>${param.username}</strong> ${param.messnotifi}</span
+                      ><strong>${notifi.sendername}</strong
+                    >${notifi.messnotifi}</span
                 >
-                <span class="notification_time">${param.timenotifi}</span>
+                <span class="notification_time "
+                      >${notifi.time}</span
+                >
             </div>
         </div>
-    </c:forEach>
-</c:if>
+    </a>

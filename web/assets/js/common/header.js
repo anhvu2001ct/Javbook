@@ -1,3 +1,4 @@
+
 $(document).on("click", ".header_icon", function () {
     if ($(this).hasClass("active")) {
         $(this).removeClass("active");
@@ -10,10 +11,10 @@ $(document).on("click", ".header_icon", function () {
 
 function countNumber() {
     let mess =
-        $(".mess_active").length < 100 ? $(".mess_active").length : "99+";
+            $(".mess_active").length < 100 ? $(".mess_active").length : "99+";
     let friend = $(".friend").length < 100 ? $(".friend").length : "99+";
     let notifi =
-        $(".notifi_active").length < 100 ? $(".notifi_active").length : "99+";
+            $(".notifi_active").length < 100 ? $(".notifi_active").length : "99+";
 
     $(".nummess").text(mess);
     $(".numfriend").text(friend);
@@ -135,10 +136,9 @@ searchFriendBtn.addEventListener("click", function () {
 });
 
 // Ghi socket o day
+let socket = new SocketConnector("test");
+socket.addEvent("message", msg => {
+    let data = JSON.parse(msg.data);
+    console.log(msg.from , data);
 
-// socket.addEvent("message", msg => {
-//     let data = JSON.parse(msg.data);
-//     if (data.type === "cmt") {
-//         // do noti cmt
-//     }
-// });
+});

@@ -209,6 +209,7 @@ Khang --%> <%@page contentType="text/html" pageEncoding="UTF-8"%>
         <div class="popup-emoji-box"><%@include file="popupEmoji.jsp" %></div>
         <script src="/Javbook/assets/js/profile/Header/profileHeader.js"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+        <script src="/Javbook/assets/js/common/ws.js"></script>
         <script src="/Javbook/assets/js/common/header.js"></script>
     </body>
 </html>

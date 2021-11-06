@@ -72,7 +72,7 @@
         </div>
 
         <div class="popup_inner flex" id="popup_inner">
-             <c:if test="${!friendrequest.isEmpty()}">
+            <c:if test="${!friendrequest.isEmpty()}">
                 <c:forEach items="${friendrequest}" var="fr">
                     <div class="popup_item flex flex_ac friend" id="${fr.sender}">
                         <a class="popup_item_img wh_40" href="/Javbook/profile/${fr.sender}/"
@@ -179,3 +179,4 @@
         </div>
     </div>
 </div>
+<div id="tmp-id" m-id="${tmpUID}"></div>
