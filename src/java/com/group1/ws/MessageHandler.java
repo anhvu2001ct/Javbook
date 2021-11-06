@@ -19,15 +19,15 @@ public class MessageHandler extends BaseWS {
 
     @Override
     protected void addClient(Session session) {
-        clients.putIfAbsent(id2, ConcurrentHashMap.newKeySet());
-        clients.get(id2).add(session);
+        clients.putIfAbsent(id, ConcurrentHashMap.newKeySet());
+        clients.get(id).add(session);
     }
     
     @Override
     protected void removeClient(Session session) {
-        Set<Session> client = clients.get(id2);
+        Set<Session> client = clients.get(id);
         client.remove(session);
-        if (client.isEmpty()) clients.remove(id2);
+        if (client.isEmpty()) clients.remove(id);
     }
 
     @Override
@@ -36,7 +36,7 @@ public class MessageHandler extends BaseWS {
         Set<Session> client = clients.get(Secret.decode2(to));
         if (client != null) {
             msg.remove("to");
-            msg.addProperty("from", id);
+            msg.addProperty("from", id2);
             client.forEach(c -> c.getAsyncRemote().sendText(msg.toString()));
         }
     }

@@ -29,7 +29,6 @@ public abstract class BaseServlet extends HttpServlet {
     private void processBoth(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setAttribute("pathInfo", new PathInfo(request.getPathInfo()));
-        request.setAttribute("tmpUID", request.getSession().getAttribute("uid2"));
     }
 
     private void handleError(HttpServletRequest request, HttpServletResponse response, ErrorHandler handler) throws ServletException, IOException {
