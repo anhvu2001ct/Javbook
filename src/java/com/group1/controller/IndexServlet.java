@@ -113,7 +113,6 @@ public class IndexServlet extends BaseServlet {
         ProfileUserAbout userinfo = ProfileUserAboutDAO.getProfileUser(accountId);
         request.setAttribute("notifications", notifications);
         request.setAttribute("userinfo", userinfo);
-        request.setAttribute("uid2", Secret.encode2(String.valueOf(accountId)));
         request.setAttribute("friendrequest", friendrequest);
         request.setAttribute("friendlist", friendlist);
     }
