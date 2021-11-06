@@ -54,7 +54,6 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
                         <c:if test="${userItem.second == 2}">
                             <div>
                                 <p>Friend</p>
-                                <p>1 mutual friend</p>
                             </div>
                         </c:if>
 
