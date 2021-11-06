@@ -14,6 +14,7 @@ import com.group1.model.ProfileUserAbout;
 import com.group1.model.Status;
 import com.group1.model.dao.CommentDAO;
 import com.group1.model.dao.EmojiDAO;
+import com.group1.model.dao.FriendDAO;
 import com.group1.model.dao.ProfileStatusDAO;
 import com.group1.model.dao.ProfileUserAboutDAO;
 import com.group1.model.dao.StatusDAO;
@@ -39,7 +40,7 @@ import javax.servlet.http.HttpSession;
  */
 @WebServlet("/process/status/*")
 public class StatusProcessor extends BaseProcessor {
-
+    
     @ServeAt(value = "/crateStatus", method = ServeMethod.POST)
     public void serveCreateStatus(HttpServletRequest request, HttpServletResponse response) throws SQLException {
         try {
@@ -51,9 +52,9 @@ public class StatusProcessor extends BaseProcessor {
         } catch (IOException ex) {
             System.out.println("Create Status Erorr");
         }
-
+        
     }
-
+    
     @ServeAt(value = "/editStatus", method = ServeMethod.POST)
     public void serveEditStatus(HttpServletRequest request, HttpServletResponse response) throws SQLException {
         String text = request.getParameter("text");
@@ -61,13 +62,13 @@ public class StatusProcessor extends BaseProcessor {
         String statusId = request.getParameter("id");
         StatusDAO.editStatus(statusId, text, mood);
     }
-
+    
     @ServeAt(value = "/deleteStatus", method = ServeMethod.POST)
     public void serveDeleteStatus(HttpServletRequest request, HttpServletResponse response) throws SQLException {
         String statusId = request.getParameter("id");
         StatusDAO.deleteStatus(statusId);
     }
-
+    
     @ServeAt(value = "/createComment", method = ServeMethod.POST)
     public void serveCreateComment(HttpServletRequest request, HttpServletResponse response) throws SQLException {
         try {
@@ -76,13 +77,13 @@ public class StatusProcessor extends BaseProcessor {
             String text = request.getParameter("text");
             int commentid = CommentDAO.createComment(statusId, accountId, text);
             response.getWriter().print(commentid);
-
+            
         } catch (IOException ex) {
             System.out.println("Save Comment Data Erorr");
         }
-
+        
     }
-
+    
     @ServeAt(value = "/createComment2", method = ServeMethod.POST)
     public void serveCreateComment2(HttpServletRequest request, HttpServletResponse response) throws SQLException {
         try {
@@ -93,9 +94,9 @@ public class StatusProcessor extends BaseProcessor {
         } catch (IOException ex) {
             System.out.println("Save Comment2 Data Erorr");
         }
-
+        
     }
-
+    
     @ServeAt(value = "/render", method = ServeMethod.GET)
     public void serveRenderPost(HttpServletRequest request, HttpServletResponse response) {
         try {
@@ -103,13 +104,13 @@ public class StatusProcessor extends BaseProcessor {
             HttpSession ses = request.getSession();
             int userID = (Integer) ses.getAttribute("uid");
             int accountId = (Integer) request.getAttribute("id");
-
+            
             ProfileUserAbout profileUser = ProfileUserAboutDAO.getProfileUser(accountId);
-
+            
             int profileStatusID = profileUser.getProfileStatusID();
             // get Profile Status
             ProfileStatus profileStatus = ProfileStatusDAO.getProfileStatus(profileStatusID);
-
+            
             request.setAttribute("profileUser", profileUser);
             request.setAttribute("profileStatus", profileStatus);
 
@@ -118,8 +119,9 @@ public class StatusProcessor extends BaseProcessor {
             List<Post> posts = new ArrayList<>();
             if (status != null) {
                 Collections.sort(status, (Status a, Status b) -> b.getStatusId() - a.getStatusId());
-
+                
                 for (Status stt : status) {
+                    stt.setFriend(FriendDAO.isFriend(userID, accountId));
                     stt.setNumberOfEmoji(EmojiDAO.getStatusNumberOfEmojis(stt.getStatusId()));
                     stt.setUserEmotion(EmojiDAO.isStatusUserEmojis(stt.getStatusId(), userID));
                     if (EmojiDAO.getListStatusMaxEmojis(stt.getStatusId()) != null) {
@@ -132,7 +134,7 @@ public class StatusProcessor extends BaseProcessor {
                     post.setStatus(stt);
                     List<Pair<Comment, List<Comment2>>> li = new ArrayList<>();
                     List<Comment> comments = CommentDAO.getListComment(stt.getStatusId());
-
+                    
                     if (comments != null) {
                         Collections.sort(comments, (Comment a, Comment b) -> b.getCommentId() - a.getCommentId());
                         for (Comment comment : comments) {
@@ -164,7 +166,7 @@ public class StatusProcessor extends BaseProcessor {
                     }
                     posts.add(post);
                 }
-
+                
             }
             request.setAttribute("posts", posts);
             request.setAttribute("userID", userID);
@@ -174,15 +176,15 @@ public class StatusProcessor extends BaseProcessor {
             } else {
                 request.getRequestDispatcher("/client/otherProfile/profilePost.jsp").forward(request, response);
             }
-
+            
         } catch (ServletException ex) {
             System.out.println("Render ServletException");
         } catch (IOException ex) {
             System.out.println("RenderI OException ");
         }
-
+        
     }
-
+    
     @ServeAt(value = "/getTopStatusEmoji", method = ServeMethod.GET)
     public void serveGetTopStatusEmoji(HttpServletRequest request, HttpServletResponse response) throws SQLException {
         try {
@@ -199,9 +201,9 @@ public class StatusProcessor extends BaseProcessor {
         } catch (IOException ex) {
             System.out.println("Get Number and Top Status Emoji Erorr");
         }
-
+        
     }
-
+    
     @ServeAt(value = "/getTopCommentEmoji", method = ServeMethod.GET)
     public void serveGetTopCommentEmoji(HttpServletRequest request, HttpServletResponse response) throws SQLException {
         try {
@@ -218,9 +220,9 @@ public class StatusProcessor extends BaseProcessor {
         } catch (IOException ex) {
             System.out.println("Get Number and Top Comment Emoji Erorr");
         }
-
+        
     }
-
+    
     @ServeAt(value = "/getTopComment2Emoji", method = ServeMethod.GET)
     public void serveGetTopComment2Emoji(HttpServletRequest request, HttpServletResponse response) throws SQLException {
         try {
@@ -237,9 +239,9 @@ public class StatusProcessor extends BaseProcessor {
         } catch (IOException ex) {
             System.out.println("Get Number and Top Comment2 Emoji Erorr");
         }
-
+        
     }
-
+    
     @ServeAt(value = "/getUserName", method = ServeMethod.GET)
     public void serveGetUserName(HttpServletRequest request, HttpServletResponse response) throws SQLException {
         try {
@@ -249,21 +251,22 @@ public class StatusProcessor extends BaseProcessor {
         } catch (IOException ex) {
             System.out.println("Get User Name");
         }
-
+        
     }
-
+    
     @ServeAt(value = "/deleteComment", method = ServeMethod.POST)
     public void serveDeleteComment(HttpServletRequest request, HttpServletResponse response) {
         String id = request.getParameter("id");
         CommentDAO.deleteComment(id);
     }
-
+    
     @ServeAt(value = "/deleteComment2", method = ServeMethod.POST)
     public void serveDeleteComment2(HttpServletRequest request, HttpServletResponse response) {
         String id = request.getParameter("id");
         CommentDAO.deleteComment2(id);
     }
-     @ServeAt(value = "/getEncodeID", method = ServeMethod.GET)
+
+    @ServeAt(value = "/getEncodeID", method = ServeMethod.GET)
     public void serveGetEnCodeID(HttpServletRequest request, HttpServletResponse response) {
         try {
             String id = request.getParameter("id");
@@ -272,5 +275,5 @@ public class StatusProcessor extends BaseProcessor {
             Logger.getLogger(StatusProcessor.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
 }

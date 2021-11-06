@@ -47,6 +47,7 @@ public class IndexServlet extends BaseServlet {
                 Collections.sort(status, (Status a, Status b) -> b.getStatusId() - a.getStatusId());
 
                 for (Status stt : status) {
+                    stt.setFriend(FriendDAO.isFriend(stt.getAccountID(), accountId));
                     stt.setNumberOfEmoji(EmojiDAO.getStatusNumberOfEmojis(stt.getStatusId()));
                     stt.setUserEmotion(EmojiDAO.isStatusUserEmojis(stt.getStatusId(), accountId));
                     if (EmojiDAO.getListStatusMaxEmojis(stt.getStatusId()) != null) {
@@ -113,7 +114,7 @@ public class IndexServlet extends BaseServlet {
         request.setAttribute("notifications", notifications);
         request.setAttribute("userinfo", userinfo);
         request.setAttribute("uid2", Secret.encode2(String.valueOf(accountId)));
-        request.setAttribute("friendrequest", friendrequest);    
+        request.setAttribute("friendrequest", friendrequest);
         request.setAttribute("friendlist", friendlist);
     }
 

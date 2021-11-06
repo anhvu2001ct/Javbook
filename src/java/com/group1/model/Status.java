@@ -33,6 +33,7 @@ public class Status {
     private String max1, max2;
     private int userEmotion;
     private int accountID;
+    private boolean friend;
 
     public String getID() {
         return Secret.encode2(String.valueOf(accountID));

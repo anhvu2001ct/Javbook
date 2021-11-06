@@ -52,7 +52,7 @@
     let uploadData = new QueryData("/status/crateStatus");
     let query = new QueryData("/status/getEncodeID");
     //uploadImage
-    let name = "user" + Date.now() + ".png";
+    let name = "post" + Date.now() + ".png";
     // uploadData
     uploadData.addParam("content", userEditContent.value);
     let statusID;
