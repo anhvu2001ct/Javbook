@@ -29,8 +29,8 @@ public abstract class BaseWS {
     public void message(Session session, String msg) throws IOException {
        JsonArray arr = gson.fromJson(msg, JsonArray.class);
        if (arr.size() == 2) {
-           id = arr.get(1).getAsString();
-           id2 = Secret.decode2(id);
+           id2 = arr.get(1).getAsString();
+           id = Secret.decode2(id2);
            addClient(session);
            return;
        }
