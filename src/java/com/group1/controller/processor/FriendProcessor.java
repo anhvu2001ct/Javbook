@@ -7,6 +7,7 @@ package com.group1.controller.processor;
 
 import com.group1.misc.Secret;
 import com.group1.model.dao.FriendDAO;
+import com.group1.model.dao.NotificationDAO;
 import com.group1.rest.BaseProcessor;
 import com.group1.rest.ServeAt;
 import com.group1.rest.ServeMethod;
@@ -38,11 +39,20 @@ public class FriendProcessor  extends BaseProcessor {
         PrintWriter out = response.getWriter();
         
         HttpSession ses = request.getSession();
-        int senderID = (Integer) ses.getAttribute("uid");      
+        int uid = (Integer) ses.getAttribute("uid");      
         
-        String receiverID = Secret.decode2(request.getParameter("receiverID"));
+        int otherID = Integer.parseInt(Secret.decode2(request.getParameter("receiverID")));
+        int index = Integer.parseInt(request.getParameter("index"));
         
-        FriendDAO.requestFriend(Integer.parseInt(receiverID), senderID);
+        if (index == 1){
+            NotificationDAO.deleteFriendRequest(otherID, uid);
+        } else if (index == -1){
+            NotificationDAO.deleteFriendRequest(uid, otherID);
+            FriendDAO.insertFriend(uid, otherID);
+        } else if (index == -2){
+            FriendDAO.requestFriend(otherID, uid);
+        }
+        
                 
         out.print("success");
     }

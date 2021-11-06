@@ -35,7 +35,9 @@ public class SearchFriendProcessor extends BaseProcessor {
         
         List<Pair<ProfileUserAbout, Integer>> searchFriendList = SearchFriendDAO.getAllUserByName(uid, name);
         
-        Collections.sort(searchFriendList, (Pair<ProfileUserAbout, Integer> a, Pair<ProfileUserAbout, Integer> b) -> b.second - a.second);
+        if (searchFriendList != null){
+            Collections.sort(searchFriendList, (Pair<ProfileUserAbout, Integer> a, Pair<ProfileUserAbout, Integer> b) -> b.second - a.second);
+        }
         
         request.setAttribute("searchFriendList", searchFriendList);
         

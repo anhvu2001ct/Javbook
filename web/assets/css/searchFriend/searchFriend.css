@@ -24,6 +24,10 @@ body {
     margin-top: 10px;
 }
 
+.search-details span {
+    font-size: 30px;
+}
+
 .search-img img {
     object-position: center;
     object-fit: cover;

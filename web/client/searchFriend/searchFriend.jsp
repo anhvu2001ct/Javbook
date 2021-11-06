@@ -30,10 +30,16 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
         <%@include file="../common/header.jsp" %>
         <div class="search-friend">
             <h3>People</h3>
+            <c:if test="${searchFriendList == null}">
+                <div class="search-details">
+                    <span>Nobody here! Looking for other names!</span>
+                </div>
+            </c:if>
             <c:forEach items="${searchFriendList}" var="userItem">
                 <div
                     class="search-details"
                     data-id="${userItem.first.getEncodeID()}"
+                    data-index="${userItem.second}"
                 >
                     <div class="search-img">
                         <img src="${userItem.first.avatar}" alt="" />
