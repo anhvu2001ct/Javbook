@@ -155,6 +155,11 @@ if (addFriendBtn != null) {
             if (result == "success") {
                 // they are friends
                 if (index == 2) {
+                    addFriendBtn.dataset.index = -2;
+                    title.innerHTML = "Add Friend";
+                    // delete friend
+                    icon.classList.remove("fa-user-check");
+                    icon.classList.add("fa-user-plus");
                 } else if (index == 1) {
                     addFriendBtn.dataset.index = -2;
                     title.innerHTML = "Add Friend";

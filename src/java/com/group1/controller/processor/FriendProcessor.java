@@ -44,13 +44,21 @@ public class FriendProcessor  extends BaseProcessor {
         int otherID = Integer.parseInt(Secret.decode2(request.getParameter("receiverID")));
         int index = Integer.parseInt(request.getParameter("index"));
         
-        if (index == 1){
-            NotificationDAO.deleteFriendRequest(otherID, uid);
-        } else if (index == -1){
-            NotificationDAO.deleteFriendRequest(uid, otherID);
-            FriendDAO.insertFriend(uid, otherID);
-        } else if (index == -2){
-            FriendDAO.requestFriend(otherID, uid);
+        switch (index) {
+            case 2:
+                FriendDAO.deleteFriend(otherID, uid);
+            case 1:
+                NotificationDAO.deleteFriendRequest(otherID, uid);
+                break;
+            case -1:
+                NotificationDAO.deleteFriendRequest(uid, otherID);
+                FriendDAO.insertFriend(uid, otherID);
+                break;
+            case -2:
+                FriendDAO.requestFriend(otherID, uid);
+                break;
+            default:
+                break;
         }
         
                 

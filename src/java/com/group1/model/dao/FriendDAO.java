@@ -18,7 +18,7 @@ import java.util.logging.Logger;
  */
 public class FriendDAO {
     
-    //Canh
+    // Canh
     public static boolean isFriend(int accountID, int accountID2){
         try {
             String query = "SELECT * "
@@ -43,6 +43,32 @@ public class FriendDAO {
             return false;
         }
     }
+    
+       
+    public static void deleteFriend(int accountID, int accountID2) {
+        try {
+            String query = "DELETE FROM Friend " 
+                         +  "WHERE A = ? "
+                         +  "AND B = ?";
+            
+            if (accountID > accountID2){
+                int tmp = accountID;
+                accountID = accountID2;
+                accountID2 = tmp;
+            }
+            
+            PreparedStatement ps = SQL.prepareStatement(query);
+            
+            ps.setInt(1, accountID);
+            ps.setInt(2, accountID2);
+            
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(FriendDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
+    }
+    
 
     public static void requestFriend(int receiverID, int senderID) {
   
@@ -83,8 +109,8 @@ public class FriendDAO {
             return false;
         }
     }
-    
-   // Quynh
+ 
+    // Quynh
     public static void insertFriend(int A, int B) {
         try {
             String sql = "insert into Friend values(?,?,?)";
