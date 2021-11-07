@@ -30,7 +30,10 @@ public class RealtimeNotificationProcessor extends BaseProcessor {
         int senderID = Integer.parseInt(Secret.decode2(request.getParameter("senderID")));
         int receiverID = (int) request.getSession().getAttribute("uid");
         String reference = String.format("status=%s&comment=%s", statusID, commentID);
+        System.out.println("receiver: " + receiverID);
+        System.out.println("senderid: " + request.getParameter("senderID") + "_ senderid " + senderID);
         Notification nf = NotificationDAO.getOneNotification(receiverID, senderID, "7", reference);
+        System.out.println(nf);
         request.setAttribute("notification", nf);
         request.getRequestDispatcher("/client/common/miniNotification.jsp").forward(request, response);
     }
@@ -42,7 +45,10 @@ public class RealtimeNotificationProcessor extends BaseProcessor {
         int senderID = Integer.parseInt(Secret.decode2(request.getParameter("senderID")));
         int receiverID = (int) request.getSession().getAttribute("uid");
         String reference = String.format("status=%s", statusID);
+        System.out.println("receiver: " + receiverID);
+        System.out.println("senderid: " + request.getParameter("senderID") + "_ senderid " + senderID);
         Notification nf = NotificationDAO.getOneNotification(receiverID, senderID, emojiID, reference);
+        System.out.println(nf);
         request.setAttribute("notification", nf);
         request.getRequestDispatcher("/client/common/miniNotification.jsp").forward(request, response);
     }

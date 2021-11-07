@@ -151,6 +151,8 @@ socket.addEvent("message", (msg) => {
     let commentID = data.commentID;
     let senderID = msg.from;
     console.log("comment: ", statusID, commentID, senderID);
+    console.log("senderid: ",senderID);
+
     let container = document.querySelector("#popup_inner");
     let query = new QueryData("/realtimenotification/comment");
     query.addParam("statusID", statusID);
@@ -163,7 +165,7 @@ socket.addEvent("message", (msg) => {
       tag.innerHTML = `${notifi}`;
 
       container.appendChild(tag);
-      countNumber();
+      loadheader();
     });
     query.send("POST");
   }
@@ -184,7 +186,7 @@ socket.addEvent("message", (msg) => {
 
       tag.innerHTML = `${notifi}`;
       container.appendChild(tag);
-      countNumber();
+      loadheader();
     });
     query.send("POST");
   }
@@ -201,7 +203,7 @@ socket.addEvent("message", (msg) => {
 
       tag.innerHTML = `${notifi}`;
       container.appendChild(tag);
-      countNumber();
+      loadheader();
     });
     query.send("POST");
   }

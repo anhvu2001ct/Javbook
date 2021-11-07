@@ -95,24 +95,51 @@
                 </c:forEach>
             </c:if>
 
-            <div class="popup_item message mess_active">
-                <a class="popup_item_img wh_40 message_logo" href="#"
-                   ><img
-                        src="/Javbook/test/nhatquynh/header/assets/img/logo/logo.jpg"
-                        alt=""
-                        class="scale wh_40 circle"
-                        />
-                </a>
-                <div class="popup_item_info message_content">
-                    <span class="message_user"
-                          ><strong>Đặng Minh Cảnh</strong></span
-                    >
-                    <span class="message_cp">
-                        <span class="message_text">sent to you a message</span>
-                    </span>
-                    <span class="notification_time ">about 2h ago</span>
-                </div>
-            </div>
+            <c:if test="${!notiMessage.isEmpty()}">
+                <c:forEach items="${notiMessage}" var="fr">
+                    <c:if test="${fr.seen == 1}">  
+                        <div class="popup_item message mess_active ">
+                            <a class="popup_item_img wh_40 message_logo" href="#"
+                               ><img
+                                    src="${fr.avatar}"
+                                    alt=""
+                                    class="scale wh_40 circle"
+                                    />
+                            </a>
+                            <div class="popup_item_info message_content">
+                                <span class="message_user"
+                                      ><strong>${fr.name}</strong></span
+                                >
+                                <span class="message_cp ">
+                                    <span class="message_text seen">sent to you a message</span>
+                                </span>
+                                <span class="notification_time seen">${fr.time}</span>
+                            </div>
+                        </div>
+                    </c:if>
+                    <c:if test="${fr.seen == 0}">
+                        <div class="popup_item message mess_active">
+                            <a class="popup_item_img wh_40 message_logo" href="#"
+                               ><img
+                                    src="${fr.avatar}"
+                                    alt=""
+                                    class="scale wh_40 circle"
+                                    />
+                            </a>
+                            <div class="popup_item_info message_content">
+                                <span class="message_user"
+                                      ><strong>${fr.name}</strong></span
+                                >
+                                <span class="message_cp">
+                                    <span class="message_text">sent to you a message</span>
+                                </span>
+                                <span class="notification_time ">${fr.time}</span>
+                            </div>
+                        </div>
+                    </c:if>
+
+                </c:forEach>
+            </c:if>
 
             <c:if test="${!notifications.isEmpty()}">
                 <c:forEach items="${notifications}" var="notifi">

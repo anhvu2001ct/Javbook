@@ -8,6 +8,7 @@ package com.group1.model.dao;
 import com.group1.misc.PathInfo;
 import com.group1.misc.Secret;
 import com.group1.model.FriendRequest;
+import com.group1.model.NotiMessage;
 import com.group1.model.Notification;
 import static com.group1.model.db.SQLConnector.SQL;
 import java.sql.PreparedStatement;
@@ -262,12 +263,12 @@ public class NotificationDAO {
         try {
             String sql = "select top 1 n.NotificationID, n.SenderID, a.Name, a.Avatar, n.Time, n.EmojiID, n.Reference, n.Seen\n"
                     + "from Notification n, AccountProfile a\n"
-                    + "where n.ReceiverID = ? and n.SenderID = ? and n.EmojiID =? and n.Reference = ?\n"
+                    + "where n.ReceiverID = ? and n.SenderID = ? and n.SenderID = a.AccountUserID and n.EmojiID = ? and n.Reference = ?\n"
                     + "order by n.NotificationID desc";
             PreparedStatement ps = SQL.prepareStatement(sql);
             ps.setInt(1, receiverID);
             ps.setInt(2, senderID);
-            ps.setString(3, emojiID);
+            ps.setInt(3, Integer.parseInt(emojiID));
             ps.setString(4, reference);
             ResultSet rs = ps.executeQuery();
 
@@ -314,12 +315,42 @@ public class NotificationDAO {
                         map.put(entry.getKey(), Secret.encode1(entry.getValue()));
                     }
                     Notification nf = new Notification(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), time, emoji, rs.getString(7), rs.getInt(8), message, PathInfo.toUrlParams(map));
+                    System.out.println("data tu DAO" + nf.toString());
                     return nf;
                 }
             }
 
         } catch (Exception e) {
             System.out.println("Can not get real time notification!");
+        }
+        return null;
+    }
+
+    public static List<NotiMessage> getListNotiMessage(int userid) {
+        try {
+            List<NotiMessage> list = new ArrayList<>();
+            String sql = "select n.SenderID,a.Name , a.Avatar, n.Time, n.Seen\n"
+                    + "from NotificationChat n, AccountProfile a\n"
+                    + "where n.ReceiverID = ?  and n.SenderID =a.AccountUserID";
+            PreparedStatement ps = SQL.prepareStatement(sql);
+            ps.setInt(1, userid);
+            ResultSet rs = ps.executeQuery();
+
+            if (!rs.isBeforeFirst()) {
+                return null;
+
+            } else {
+                while (rs.next()) {
+                    String time = "about " + CommentDAO.calculateTime(rs.getTimestamp(4)) + " ago";
+                    String senderid = Secret.encode2(String.valueOf(rs.getInt(1)));
+                    NotiMessage fr = new NotiMessage(senderid, rs.getString(2), rs.getString(3), time, String.valueOf(rs.getInt(5)));
+                    list.add(fr);
+                }
+                return list;
+            }
+
+        } catch (SQLException e) {
+            System.out.println("can not get list notification message!");
         }
         return null;
     }
