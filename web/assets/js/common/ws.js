@@ -13,7 +13,7 @@ class SocketConnector {
     sendTo(to, data) {
         this.ws.send(JSON.stringify([{
             "to": to,
-            "data": data
+            "data": data    
         }]))
     }
 
