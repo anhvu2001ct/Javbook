@@ -8,12 +8,14 @@ package com.group1.controller.processor;
 import static com.group1.controller.ServerInit.gson;
 import com.group1.misc.Pair;
 import com.group1.misc.Secret;
+import com.group1.model.Account;
 import com.group1.model.Comment;
 import com.group1.model.Comment2;
 import com.group1.model.Post;
 import com.group1.model.ProfileStatus;
 import com.group1.model.ProfileUserAbout;
 import com.group1.model.Status;
+import com.group1.model.dao.AccountDAO;
 import com.group1.model.dao.CommentDAO;
 import com.group1.model.dao.EmojiDAO;
 import com.group1.model.dao.FriendDAO;
@@ -106,13 +108,31 @@ public class StatusProcessor extends BaseProcessor {
             HttpSession ses = request.getSession();
             int userID = (Integer) ses.getAttribute("uid");
             int accountId = (Integer) request.getAttribute("id");
-            
+            // get account
+            Account account = AccountDAO.getAccount(accountId);
+        
             ProfileUserAbout profileUser = ProfileUserAboutDAO.getProfileUser(accountId);
             
             int profileStatusID = profileUser.getProfileStatusID();
             // get Profile Status
             ProfileStatus profileStatus = ProfileStatusDAO.getProfileStatus(profileStatusID);
+             
+            boolean isFriend = FriendDAO.isFriend(accountId, userID);
+            if (accountId == userID) isFriend = true;
             
+            request.setAttribute("isFriend", isFriend);
+            // get Audience
+            String audience = profileUser.getAudience();
+            ArrayList<Integer> audiences = new ArrayList<>();
+
+            for (char ch : audience.toCharArray()) {
+                audiences.add(ch - '0');
+            }
+            
+            request.setAttribute("audiences", audiences);
+            
+            request.setAttribute("account", account);
+
             request.setAttribute("profileUser", profileUser);
             request.setAttribute("profileStatus", profileStatus);
 

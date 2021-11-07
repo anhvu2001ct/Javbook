@@ -123,6 +123,7 @@
 .about .about-content .list-item-content {
     font-weight: 300;
     flex: 1;
+    font-size: 17px;
 }
 
 .about .about-content .list-item-content span {
