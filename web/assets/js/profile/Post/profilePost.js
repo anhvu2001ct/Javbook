@@ -115,7 +115,7 @@
     postbox.classList.add("post");
     postbox.classList.add("home-box");
     postbox.classList.add("box");
-    postbox.setAttribute("data-id",111)
+    postbox.setAttribute("data-id", "zMTOwUTN")
     postbox.setAttribute("id", statusID);
     let html = `
         
@@ -266,7 +266,7 @@ ${(option === 1) ? "<i class='fas fa-globe-asia'></i>" : (option === 2) ? " <i c
           class="send-text-comment"
           placeholder="Write a comment…"
         ></textarea>
-        <button class="send-comment main-send">
+        <button class="send-comment main-send" data-id="5MTOzkTN">
           <i class="fas fa-paper-plane"></i>
         </button>
       </div>

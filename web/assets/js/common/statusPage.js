@@ -719,7 +719,6 @@ iconText.forEach((like, index) => {
     let postBox = like.parentNode.parentNode.parentNode.parentNode;
     query.addParam("id", postBox.id);
     let receiverID = postBox.getAttribute("data-id")
-    console.log(receiverID)
     socket.sendTo(receiverID, JSON.stringify({
       "type": "react",
       "statusID": postBox.id,
@@ -748,6 +747,39 @@ iconText.forEach((like, index) => {
 
     }
   };
+  like.parentNode.querySelector("img").onclick = () => {
+    let query = new QueryData("/emotion/createStatusEmoji");
+    let postBox = like.parentNode.parentNode.parentNode.parentNode;
+    query.addParam("id", postBox.id);
+    let receiverID = postBox.getAttribute("data-id")
+    socket.sendTo(receiverID, JSON.stringify({
+      "type": "react",
+      "statusID": postBox.id,
+      "emojiID": 1
+    }));
+    if (!emojiPost[index].src.includes("unlike.png")) {
+
+      let query2 = new QueryData("/emotion/deleteStatusEmoji");
+      query2.addParam("id", postBox.id);
+      query2.addEvent("load", function () {
+        postReaction(emojiPost[index], like, like, postBox, "delete", 0);
+      })
+      let query3 = new QueryData("/notification/deleteNotification");
+      query3.addParam("emojiid", 1)
+      query3.addParam("reference", `status=${postBox.id}`)
+
+      query2.send("POST")
+      query3.send("POST")
+
+
+    } else {
+      query.addParam("emoji", 1);
+      query.send("POST")
+      let postBox = like.parentNode.parentNode.parentNode.parentNode;
+      postReaction(emojiPost[index], like, like, postBox, "create", 0);
+
+    }
+  }
 });
 
 function deleteAndCreateEmoji() {
