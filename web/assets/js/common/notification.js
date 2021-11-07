@@ -1,37 +1,36 @@
 // Toast function
-function toast({
-  title = "",
-  message = "",
-  image = "",
-  type = "",
-  link = "#",
-  duration = 3000,
+function popup_realtime({
+    title = "",
+    message = "",
+    image = "",
+    type = "",
+    link = "#",
+    duration = 3000,
 }) {
+    const main = document.getElementById("popup_realtime");
+    if (main) {
+        const toast = document.createElement("div");
 
-  const main = document.getElementById("popup_realtime");
-  if (main) {
-    const toast = document.createElement("div");
+        // Auto remove toast
+        const autoRemoveId = setTimeout(function () {
+            main.removeChild(toast);
+        }, duration + 1000);
 
-    // Auto remove toast
-    const autoRemoveId = setTimeout(function () {
-      main.removeChild(toast);
-    }, duration + 1000);
+        // Remove toast when clicked
+        toast.onclick = function (e) {
+            if (e.target.closest(".toast__close")) {
+                main.removeChild(toast);
+                clearTimeout(autoRemoveId);
+            }
+        };
 
-    // Remove toast when clicked
-    toast.onclick = function (e) {
-      if (e.target.closest(".toast__close")) {
-        main.removeChild(toast);
-        clearTimeout(autoRemoveId);
-      }
-    };
+        const srcimg = image;
+        const delay = (duration / 1000).toFixed(2);
 
-    const srcimg = image;
-    const delay = (duration / 1000).toFixed(2);
+        toast.classList.add("toast", `toast--${type}`);
+        toast.style.animation = `slideInLeft ease .3s, fadeOut linear 1s ${delay}s forwards`;
 
-    toast.classList.add("toast", `toast--${type}`);
-    toast.style.animation = `slideInLeft ease .3s, fadeOut linear 1s ${delay}s forwards`;
-
-    toast.innerHTML = `
+        toast.innerHTML = `
                       <div class="toast__icon">
                         <a class="wh_50" href="${link}"
                             ><img
@@ -48,6 +47,6 @@ function toast({
                           <i class="fas fa-times"></i>
                       </div>
                   `;
-    main.appendChild(toast);
-  }
+        main.appendChild(toast);
+    }
 }
