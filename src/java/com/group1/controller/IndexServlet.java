@@ -35,7 +35,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet("")
 public class IndexServlet extends BaseServlet {
-
+    
     @Override
     protected void processGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         setInfoHeader(request);
@@ -45,7 +45,7 @@ public class IndexServlet extends BaseServlet {
             List<Post> posts = new ArrayList<>();
             if (status != null) {
                 Collections.sort(status, (Status a, Status b) -> b.getStatusId() - a.getStatusId());
-
+                
                 for (Status stt : status) {
                     stt.setFriend(FriendDAO.isFriend(stt.getAccountID(), accountId));
                     stt.setNumberOfEmoji(EmojiDAO.getStatusNumberOfEmojis(stt.getStatusId()));
@@ -60,7 +60,7 @@ public class IndexServlet extends BaseServlet {
                     post.setStatus(stt);
                     List<Pair<Comment, List<Comment2>>> li = new ArrayList<>();
                     List<Comment> comments = CommentDAO.getListComment(stt.getStatusId());
-
+                    
                     if (comments != null) {
                         Collections.sort(comments, (Comment a, Comment b) -> b.getCommentId() - a.getCommentId());
                         for (Comment comment : comments) {
@@ -92,19 +92,20 @@ public class IndexServlet extends BaseServlet {
                     }
                     posts.add(post);
                 }
-
+                
             }
             request.setAttribute("posts", posts);
             request.setAttribute("userID", accountId);
+            request.setAttribute("userEncodeID", Secret.encode2(String.valueOf(accountId)));
             request.getRequestDispatcher("/client/home/homePage.jsp").forward(request, response);
         } catch (ServletException ex) {
             System.out.println("Render ServletException");
         } catch (IOException ex) {
             System.out.println("RenderI OException ");
         }
-
+        
     }
-
+    
     public static void setInfoHeader(HttpServletRequest request) {
         int accountId = (int) request.getSession().getAttribute("uid");
         List<Notification> notifications = NotificationDAO.getListNotification(accountId);
@@ -116,10 +117,10 @@ public class IndexServlet extends BaseServlet {
         request.setAttribute("friendrequest", friendrequest);
         request.setAttribute("friendlist", friendlist);
     }
-
+    
     @Override
     protected void processPOST(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
 }
