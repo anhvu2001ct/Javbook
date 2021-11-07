@@ -254,10 +254,7 @@
 }
 .message_text {
     display: inline-block;
-    max-width: 80%;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    max-width: 100%;
     color: #2e89ff;
 }
 .message_text > strong {

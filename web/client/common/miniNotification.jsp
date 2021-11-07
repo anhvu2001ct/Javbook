@@ -8,27 +8,27 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 
-    <a href="/Javbook/status?${notifi.url}">
-        <div class="popup_item notification notifi_active " id="${notifi.notificationid}">
+    <a href="/Javbook/status?${notification.url}">
+        <div class="popup_item notification notifi_active " id="${notification.notificationid}">
             <span
                 class="popup_item_img wh_40 notification_logo"
 
                 ><img
-                    src="${notifi.senderavatar}"
+                    src="${notification.senderavatar}"
                     alt=""
                     class="scale wh_40 circle"
                     />
                 <span class="notification_icon">
-                    <img src="/Javbook/assets/img/emoji/${notifi.emoji}" alt="">
+                    <img src="/Javbook/assets/img/emoji/${notification.emoji}" alt="">
                 </span>
             </span>
             <div class="popup_item_info notification_content">
                 <span class="notification_text"
-                      ><strong>${notifi.sendername}</strong
-                    >${notifi.messnotifi}</span
+                      ><strong>${notification.sendername}</strong
+                    >${notification.messnotifi}</span
                 >
                 <span class="notification_time "
-                      >${notifi.time}</span
+                      >${notification.time}</span
                 >
             </div>
         </div>

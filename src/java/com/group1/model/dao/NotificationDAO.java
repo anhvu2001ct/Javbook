@@ -215,6 +215,37 @@ public class NotificationDAO {
         return null;
     }
 
+    public static FriendRequest getOneFriendRequests(int userid, int userid2) {
+        try {
+
+            String sql = "select top 1 nf.SenderID, ap.Name, ap.Avatar, nf.Time\n"
+                    + "from NotificationFriend nf, AccountProfile ap\n"
+                    + "where nf.ReceiverID = ? and nf.SenderID = ? and nf.SenderID = ap.AccountUserID\n"
+                    + "order by nf.SenderID desc";
+            PreparedStatement ps = SQL.prepareStatement(sql);
+            ps.setInt(1, userid);
+            ps.setInt(2, userid2);
+            ResultSet rs = ps.executeQuery();
+
+            if (!rs.isBeforeFirst()) {
+                return null;
+
+            } else {
+                while (rs.next()) {
+                    String time = "about " + CommentDAO.calculateTime(rs.getTimestamp(4)) + " ago";
+                    String senderid = Secret.encode2(String.valueOf(rs.getInt(1)));
+                    FriendRequest fr = new FriendRequest(senderid, rs.getString(2), rs.getString(3), time);
+                    return fr;
+
+                }
+            }
+
+        } catch (SQLException e) {
+            System.out.println("can not get list friend request!");
+        }
+        return null;
+    }
+
     public static void deleteFriendRequest(int userid, int sender) {
         try {
             String sql = "delete from NotificationFriend where ReceiverID = ? and SenderID = ?";
@@ -225,6 +256,72 @@ public class NotificationDAO {
         } catch (Exception e) {
             System.out.println("Can not delete friend request!");
         }
+    }
+
+    public static Notification getOneNotification(int receiverID, int senderID, String emojiID, String reference) {
+        try {
+            String sql = "select top 1 n.NotificationID, n.SenderID, a.Name, a.Avatar, n.Time, n.EmojiID, n.Reference, n.Seen\n"
+                    + "from Notification n, AccountProfile a\n"
+                    + "where n.ReceiverID = ? and n.SenderID = ? and n.EmojiID =? and n.Reference = ?\n"
+                    + "order by n.NotificationID desc";
+            PreparedStatement ps = SQL.prepareStatement(sql);
+            ps.setInt(1, receiverID);
+            ps.setInt(2, senderID);
+            ps.setString(3, emojiID);
+            ps.setString(4, reference);
+            ResultSet rs = ps.executeQuery();
+
+            if (!rs.isBeforeFirst()) {
+                return null;
+
+            } else {
+                while (rs.next()) {
+                    String time = "about " + CommentDAO.calculateTime(rs.getTimestamp(5)) + " ago";
+                    String message = "";
+                    String emoji = "";
+                    switch (rs.getInt(6)) {
+                        case 1:
+                            message = " liked on your post.";
+                            emoji = "like.svg";
+                            break;
+                        case 2:
+                            message = " loved on your post.";
+                            emoji = "love.svg";
+                            break;
+                        case 3:
+                            message = " care on your post.";
+                            emoji = "care.svg";
+                            break;
+                        case 4:
+                            message = " haha on your post.";
+                            emoji = "haha.svg";
+                            break;
+                        case 5:
+                            message = " sad on your post.";
+                            emoji = "sad.svg";
+                            break;
+                        case 6:
+                            message = " angry on your post.";
+                            emoji = "angry.svg";
+                            break;
+                        case 7:
+                            message = " commented on your post.";
+                            emoji = "message.svg";
+                            break;
+                    }
+                    Map<String, String> map = PathInfo.getUrlParams(rs.getString(7));
+                    for (Entry<String, String> entry : map.entrySet()) {
+                        map.put(entry.getKey(), Secret.encode1(entry.getValue()));
+                    }
+                    Notification nf = new Notification(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), time, emoji, rs.getString(7), rs.getInt(8), message, PathInfo.toUrlParams(map));
+                    return nf;
+                }
+            }
+
+        } catch (Exception e) {
+            System.out.println("Can not get real time notification!");
+        }
+        return null;
     }
 
 }

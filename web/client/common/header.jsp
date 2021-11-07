@@ -105,14 +105,12 @@
                 </a>
                 <div class="popup_item_info message_content">
                     <span class="message_user"
-                          ><strong>Hoang Khang</strong></span
+                          ><strong>Đặng Minh Cảnh</strong></span
                     >
                     <span class="message_cp">
-                        <span class="message_text"
-                              ><strong>Khang:</strong> đã bình luận về bài viết
-                            của bạn</span
-                        >
+                        <span class="message_text">sent to you a message</span>
                     </span>
+                    <span class="notification_time ">about 2h ago</span>
                 </div>
             </div>
 
@@ -165,9 +163,7 @@
                                           ><strong>${notifi.sendername}</strong
                                         >${notifi.messnotifi}</span
                                     >
-                                    <span class="notification_time "
-                                          >${notifi.time}</span
-                                    >
+                                    <span class="notification_time ">${notifi.time}</span>
                                 </div>
                             </div>
                         </a>
