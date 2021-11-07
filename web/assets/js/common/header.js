@@ -209,25 +209,3 @@ socket.addEvent("message", (msg) => {
         query.send("POST");
     }
 });
-
-// Poi Minh Canh
-messageBtns = document.querySelectorAll(".js-message-btn");
-
-messageBtns.forEach((messageBtn) => {
-    messageBtn.addEventListener("click", function () {
-        let query = new QueryData("boxChat/getBoxChat");
-        query.addParam("otherID", this.dataset.otherId);
-
-        query.addEvent("load", function () {
-            let result = this.response;
-
-            if (result == "success") {
-                console.log("success");
-            } else {
-                console.log("fail");
-            }
-        });
-
-        query.send("POST");
-    });
-});

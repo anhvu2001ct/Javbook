@@ -159,11 +159,15 @@
             </div>
         </div>
         <div class="popup-emoji-box"><%@include file="../profile/popupEmoji.jsp" %></div>
+        
+        <%@include file="/client/boxChat/boxChatContainer.jsp" %>
+         
         <script src="/Javbook/assets/js/common/query.js"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
         <script src="/Javbook/assets/js/home/LeftPanel/leftpanel.js"></script>
         <script src="/Javbook/assets/js/common/ws.js"></script>
         <script src="/Javbook/assets/js/common/header.js"></script>
+        <script src="/Javbook/assets/js/common/message.js"></script>
         <script src="/Javbook/assets/js/common/notification.js"></script>
         <script src="/Javbook/assets/js/profile/Post/postBox.js" async></script>
         <script src="/Javbook/assets/js/profile/Post/profilePost.js" async></script>
