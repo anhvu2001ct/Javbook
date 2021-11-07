@@ -30,7 +30,7 @@ public class TestProfileAbout extends BaseServlet {
         ProfileUserAbout profileUser = ProfileUserAboutDAO.getProfileUser(uid);
         System.out.println(profileUser.toString());
         request.setAttribute("profileUser", profileUser);
-
+        System.out.println("");
         request.getRequestDispatcher("/client/profile/profileAbout.jsp").include(request, response);
 
     }
