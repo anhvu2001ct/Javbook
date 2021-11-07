@@ -7,13 +7,12 @@ Khang --%> <%@page contentType="text/html" pageEncoding="UTF-8"%>
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Javbook</title>
+        <title>Profile User</title>
         <link
             rel="icon"
-            href="/Javbook/assets/img/logo/Javbook_black.png"
-            type="image/gif"
-            sizes="16x16"
-            />
+            href="/Javbook/assets/img/icon/Javbook.ico"
+            type="image/x-icon"
+        />
         <link
             rel="stylesheet"
             href="/Javbook/assets/css/common/variables.css"
