@@ -52,7 +52,6 @@ addFriendBtns.forEach((addFriendBtn) => {
             } else {
                 // maybe do something in the future
                 // if request friend fails
-                console.log("hiiaaa");
             }
         });
 

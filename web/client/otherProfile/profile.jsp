@@ -1,7 +1,5 @@
-i<%-- Document : 
-profileheader Created on : Oct 11, 2021, 7:57:36 PM 
-Author : MrKhang --%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+i<%-- Document : profileheader Created on : Oct 11, 2021, 7:57:36 PM Author :
+MrKhang --%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -16,59 +14,59 @@ Author : MrKhang --%>
             href="/Javbook/assets/img/logo/Javbook_black.png"
             type="image/gif"
             sizes="16x16"
-            />
+        />
         <link
             rel="stylesheet"
             href="/Javbook/assets/css/common/variables.css"
-            />
+        />
         <link rel="stylesheet" href="/Javbook/assets/css/common/base.css" />
         <link
             rel="stylesheet"
             href="/Javbook/assets/css/profile/profileHeader.css"
-            />
+        />
         <link
             rel="stylesheet"
             href="/Javbook/assets/css/profile/profilePost.css"
-            />
+        />
         <link rel="stylesheet" href="/Javbook/assets/css/common/postBox.css" />
         <link
             rel="stylesheet"
             href="/Javbook/assets/css/profile/profilePhoto.css"
-            />
+        />
         <link
             rel="stylesheet"
             href="/Javbook/assets/css/profile/profileAbout.css"
-            />
+        />
         <!-- Toast Message -->
         <link
             rel="stylesheet"
             href="/Javbook/assets/css/common/toastMessage.css"
-            />
+        />
         <link
             rel="stylesheet"
             href="/Javbook/assets/css/profile/profileFriends.css"
-            />
+        />
         <link rel="stylesheet" href="/Javbook/assets/css/common/header.css" />
         <link rel="stylesheet" href="/Javbook/assets/css/boxChat/boxChat.css" />
         <link
             rel="stylesheet"
             href="/Javbook/assets/css/profile/popupEmoji.css"
-            />
+        />
         <link
             rel="stylesheet"
             href="/Javbook/assets/fonts/fontawesome-5.15.4/css/all.min.css"
-            />
+        />
         <link
             rel="stylesheet"
             href="/Javbook/assets/css/common/notification.css"
-            />
+        />
         <script src="/Javbook/assets/js/common/query.js"></script>
         <!-- Toast Message -->
         <script src="/Javbook/assets/js/common/toastMessage.js"></script>
     </head>
     <body>
-        <%@include file="../common/header.jsp" %>
-        <%@include file="../common/notification.jsp" %>
+        <%@include file="../common/header.jsp" %> <%@include
+        file="../common/notification.jsp" %>
         <div class="main-container">
             <div class="profile">
                 <div class="profile-name-background"></div>
@@ -77,7 +75,7 @@ Author : MrKhang --%>
                         src="${profileUser.avatar}"
                         alt=""
                         class="profile-img"
-                        />
+                    />
 
                     <div class="profile-name">${profileUser.name}</div>
                 </div>
@@ -91,11 +89,10 @@ Author : MrKhang --%>
                             name="photo-file"
                             id="header-avatar-file"
                             accept="image/* "
-                            />
+                        />
                     </div>
                 </c:if>
                 <div class="photo-profile-cover">
-
                     <c:if test="${yourID == otherssID}">
                         <div class="edit-cover-img">
                             <label for="header-photo-file">
@@ -107,7 +104,7 @@ Author : MrKhang --%>
                                 name="photo-file"
                                 id="header-photo-file"
                                 accept="image/* "
-                                />
+                            />
                         </div>
                     </c:if>
 
@@ -115,7 +112,7 @@ Author : MrKhang --%>
                         src="${profileUser.coverImg}"
                         alt=""
                         class="profile-cover"
-                        />
+                    />
                 </div>
 
                 <div class="profile-menu">
@@ -124,33 +121,30 @@ Author : MrKhang --%>
                     <a class="profile-menu-link">Friends</a>
                     <a class="profile-menu-link">Photos</a>
                     <div class="friendAndMess">
-                        <c:choose>
-                            <c:when test="${isFriend==2}">
-                                <div class="addFriend js-add-friend-btn">
+                        <div
+                            class="addFriend js-add-friend-btn"
+                            data-id="${otherID}"
+                            data-index="${isFriend}"
+                        >
+                            <c:choose>
+                                <c:when test="${isFriend==2}">
                                     <i class="fas fa-user-check fa-1x"></i>
-                                    Friends
-                                </div>
-                            </c:when>
-                            <c:when test="${isFriend==-2}">
-                                <div class="addFriend js-add-friend-btn">
+                                    <span>Friends</span>
+                                </c:when>
+                                <c:when test="${isFriend==-2}">
                                     <i class="fas fa-user-plus fa-1x"></i>
-                                    Add Friends
-                                </div>
-                            </c:when>
-                            <c:when test="${isFriend==1}">
-                                <div class="addFriend js-add-friend-btn">
+                                    <span>Add Friend</span>
+                                </c:when>
+                                <c:when test="${isFriend==1}">
                                     <i class="fas fa-user-times fa-1x"></i>
-                                    Waiting
-                                </div>
-                            </c:when>
-                            <c:otherwise>
-                                <div class="addFriend js-add-friend-btn">
+                                    <span>Waiting</span>
+                                </c:when>
+                                <c:otherwise>
                                     <i class="fas fa-user-clock fa-1x"></i>
-                                    Accept
-                                </div>
-                            </c:otherwise>
-                        </c:choose>
-
+                                    <span>Accept</span>
+                                </c:otherwise>
+                            </c:choose>
+                        </div>
                         <div class="addFriend">
                             <i class="fab fa-facebook-messenger fa-lg mess"></i>
                             Message
@@ -174,7 +168,7 @@ Author : MrKhang --%>
                             class="wh_40 scale circle"
                             src="/Javbook/assets/img/default/avatar.png"
                             alt=""
-                            />
+                        />
                     </div>
                     <div class="status_content flex_gr1">
                         <textarea
@@ -183,12 +177,12 @@ Author : MrKhang --%>
                             rows=""
                             class="enter"
                             placeholder="What's your mind?"
-                            ></textarea>
+                        ></textarea>
                         <div class="display-img">
                             <img src="" alt="" id="status-img" />
                             <span class="close-img"
-                                  ><i class="fas fa-times"></i
-                                ></span>
+                                ><i class="fas fa-times"></i
+                            ></span>
                         </div>
                     </div>
                 </div>
@@ -205,7 +199,7 @@ Author : MrKhang --%>
                             name="file"
                             id="file"
                             accept="image/*"
-                            />
+                        />
                         <label for="file" class="photo pointer">
                             <i class="far fa-images"></i>
                             <span class="p_l5">Photo/Video</span>
@@ -228,7 +222,7 @@ Author : MrKhang --%>
                             class="wh_40 scale circle"
                             src="/Javbook/assets/img/default/avatar.png"
                             alt=""
-                            />
+                        />
                     </div>
                     <div class="status_content flex_gr1">
                         <textarea
@@ -237,7 +231,7 @@ Author : MrKhang --%>
                             rows=""
                             class="enter"
                             placeholder="What's your mind?"
-                            ></textarea>
+                        ></textarea>
                         <div class="display-img">
                             <img src="" alt="" id="status-img" />
                         </div>

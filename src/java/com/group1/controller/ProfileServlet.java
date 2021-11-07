@@ -50,6 +50,7 @@ public class ProfileServlet extends BaseServlet {
             request.setAttribute("isFriend", i);
             request.setAttribute("yourID", uid);
             request.setAttribute("otherssID", curID);
+            request.setAttribute("otherID", Secret.encode2(curID));
             request.getRequestDispatcher("/client/otherProfile/profile.jsp").forward(request, response);
         }
         
