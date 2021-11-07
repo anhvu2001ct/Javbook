@@ -38,7 +38,7 @@
                     <i class="fas fa-ellipsis-h"></i>
                     <div class="edit-post-item">
                         <ul>
-                            <li class="view"><i class="fas fa-eye"></i> View</li>
+                            <li class="view" id="${post.status.getIDStatus()}"><i class="fas fa-eye"></i> View</li>
                             <li class="edit"><i class="fas fa-pen-nib"> </i> Edit</li>
                             <li class="delete"><i class="far fa-trash-alt"></i> Delete</li>
                         </ul>

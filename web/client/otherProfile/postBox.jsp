@@ -52,7 +52,7 @@
                             <i class="fas fa-ellipsis-h"></i>
                             <div class="edit-post-item">
                                 <ul>
-                                    <li class="view"><i class="fas fa-eye"></i> View</li>
+                                    <li class="view" id="${post.status.getIDStatus()}"><i class="fas fa-eye"></i> View</li>
                                 </ul>
                             </div>
                         </div>

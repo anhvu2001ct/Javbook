@@ -7,6 +7,7 @@ package com.group1.controller.processor;
 
 import static com.group1.controller.ServerInit.gson;
 import com.group1.misc.Pair;
+import com.group1.misc.Secret;
 import com.group1.model.Comment;
 import com.group1.model.Comment2;
 import com.group1.model.Post;
@@ -171,7 +172,8 @@ public class StatusProcessor extends BaseProcessor {
             }
             request.setAttribute("posts", posts);
             request.setAttribute("userID", userID);
-            request.setAttribute("avatar", StatusDAO.getAvatar(accountId));
+            request.setAttribute("encodeID", Secret.encode2(String.valueOf(accountId)));
+            request.setAttribute("avatar", StatusDAO.getAvatar(userID));
             if (userID == accountId) {
                 request.getRequestDispatcher("/client/profile/profilePost.jsp").forward(request, response);
             } else {
@@ -266,7 +268,7 @@ public class StatusProcessor extends BaseProcessor {
         String id = request.getParameter("id");
         CommentDAO.deleteComment2(id);
     }
-
+    
     @ServeAt(value = "/getEncodeID", method = ServeMethod.GET)
     public void serveGetEnCodeID(HttpServletRequest request, HttpServletResponse response) {
         try {

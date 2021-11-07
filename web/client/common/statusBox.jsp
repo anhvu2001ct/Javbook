@@ -44,7 +44,7 @@
         <div class="body-post">
             <div class="list-post post-list">
                 <c:forEach items="${posts}" var="post">
-                    <div class="post box post-page" id="${post.status.statusId}">
+                    <div class="post box post-page" id="${post.status.statusId}" data-id ="${post.status.getID()}">
                         <div class="post-item">
                             <div class="status-main">
                                 <img src="${post.status.userImage}" class="status-img" />
@@ -204,7 +204,7 @@
                                         class="send-text-comment"
                                         placeholder="Write a comment…"
                                         ></textarea>
-                                    <button class="send-comment main-send">
+                                    <button class="send-comment main-send" data-id ="${post.status.getID()}">
                                         <i class="fas fa-paper-plane"></i>
                                     </button>
                                 </div>
