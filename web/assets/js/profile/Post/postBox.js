@@ -104,14 +104,17 @@ function postBox() {
         query3.addParam("emojiid", 7)
         query3.addParam("reference", `status=${postBox.id}&comment=${commentId}`);
         query3.addParam("statusid", postBox.id)
+        query3.addEvent("load", function () {
+          socket.sendTo(receiverID, JSON.stringify({
+            "type": "comment",
+            "statusID": statusID,
+            "commentID": commentId
+          }));
+        })
         query3.send("POST");
         let receiverID = mainSend.getAttribute("data-id");
         let statusID = postBox.id;
-        socket.sendTo(receiverID, JSON.stringify({
-          "type": "comment",
-          "statusID": statusID,
-          "commentID": commentId
-        }));
+
         query2.addEvent("load", function () {
           userName = this.response;
           renderMainComment(mainSend, value, commentId, userName.trim());
@@ -560,15 +563,17 @@ function postBox() {
       query2.addParam("emojiid", (indexList % 6) + 1)
       query2.addParam("reference", `status=${postBox.id}`)
       query2.addParam("statusid", postBox.id)
-
+      query2.addEvent("load", function () {
+        let receiverID = postBox.getAttribute("data-id")
+        socket.sendTo(receiverID, JSON.stringify({
+          "type": "react",
+          "statusID": postBox.id,
+          "emojiID": ((indexList % 6) + 1)
+        }));
+      })
       query.send("POST");
       query2.send("POST")
-      let receiverID = postBox.getAttribute("data-id")
-      socket.sendTo(receiverID, JSON.stringify({
-        "type": "react",
-        "statusID": postBox.id,
-        "emojiID": ((indexList % 6) + 1)
-      }));
+
     };
   });
   function postReaction(image, text, color, postBox, type, indexList) {
