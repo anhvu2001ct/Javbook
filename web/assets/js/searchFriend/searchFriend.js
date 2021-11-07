@@ -25,6 +25,7 @@ addFriendBtns.forEach((addFriendBtn) => {
                     // delete invitations sent to others
                     icon.classList.remove("fa-user-times");
                     icon.classList.add("fa-user-plus");
+                    iconContainer.title = "Add friend";
                 } else if (index == -1) {
                     user.dataset.index = 2;
                     // accept invitations of others
@@ -32,18 +33,21 @@ addFriendBtns.forEach((addFriendBtn) => {
                     icon.classList.remove("fa-user-clock");
                     icon.classList.add("fab");
                     icon.classList.add("fa-facebook-messenger");
-                    user.dataset.index = 1;
+                    iconContainer.title = "Go chat!";
                 } else if (index == -2) {
                     user.dataset.index = 1;
                     // send invitation to others
                     icon.classList.remove("fa-user-plus");
                     icon.classList.add("fa-user-times");
-                    
-                    socket.sendTo(userID, JSON.stringify({
-                        "type": "friend",
-                        "data":"test socket make friend"
-                    }));
+                    iconContainer.title = "Unsend friend request";
 
+                    socket.sendTo(
+                        userID,
+                        JSON.stringify({
+                            type: "friend",
+                            data: "test socket make friend",
+                        })
+                    );
                 }
             } else {
                 // maybe do something in the future

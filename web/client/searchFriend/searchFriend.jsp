@@ -59,23 +59,42 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
                         <p>Live in ${userItem.first.address}</p>
                     </div>
-                    <div class="search-status js-add-friend-btn">
-                        <c:choose>
-                            <c:when test="${userItem.second == -2}">
+
+                    <c:choose>
+                        <c:when test="${userItem.second == -2}">
+                            <div
+                                class="search-status js-add-friend-btn"
+                                title="Add friend"
+                            >
                                 <i class="fas fa-user-plus fa-lg"></i>
-                            </c:when>
-                            <c:when test="${userItem.second == -1}">
+                            </div>
+                        </c:when>
+                        <c:when test="${userItem.second == -1}">
+                            <div
+                                class="search-status js-add-friend-btn"
+                                title="Accept friend request"
+                            >
                                 <i class="fas fa-user-clock fa-lg"></i>
-                            </c:when>
-                            <c:when test="${userItem.second == 1}">
+                            </div>
+                        </c:when>
+                        <c:when test="${userItem.second == 1}">
+                            <div
+                                class="search-status js-add-friend-btn"
+                                title="Unsend friend request"
+                            >
                                 <i class="fas fa-user-times fa-lg"></i>
-                            </c:when>
-                            <c:when test="${userItem.second == 2}">
+                            </div>
+                        </c:when>
+                        <c:when test="${userItem.second == 2}">
+                            <div
+                                class="search-status js-add-friend-btn"
+                                title="Go chat!"
+                            >
                                 <i class="fab fa-facebook-messenger fa-lg"></i>
-                            </c:when>
-                            <c:otherwise> </c:otherwise>
-                        </c:choose>
-                    </div>
+                            </div>
+                        </c:when>
+                        <c:otherwise> </c:otherwise>
+                    </c:choose>
                 </div>
             </c:forEach>
         </div>
