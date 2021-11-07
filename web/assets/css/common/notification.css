@@ -1,96 +1,96 @@
 .notification_message_popup {
-  height: auto;
-  display: flex;
-  flex-direction: column;
-  position: fixed;
-  bottom: 0;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    bottom: 0;
 }
 
 /* ======= Toast message ======== */
 .scale {
-  object-fit: cover;
-  object-position: center;
+    object-fit: cover;
+    object-position: center;
 }
 .circle {
-  border-radius: 50%;
+    border-radius: 50%;
 }
 .wh_50 {
-  width: 50px;
-  height: 50px;
+    width: 50px;
+    height: 50px;
 }
 #popup_realtime {
-  position: fixed;
-  display: flex;
-  flex-direction: column;
-  bottom: 20px;
-  left: 20px;
-  cursor: pointer;
-  z-index: 20;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    bottom: 20px;
+    left: 20px;
+    cursor: pointer;
+    z-index: 99999999;
 }
 
 .toast {
-  display: flex;
-  align-items: center;
-  background-color: #fff;
-  border-radius: 2px;
-  padding: 10px 0;
-  width: 300px;
-  border-left: 4px solid;
-  box-shadow: 0 5px 8px rgba(0, 0, 0, 0.08);
-  transition: all linear 0.4s;
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 2px;
+    padding: 10px 0;
+    width: 300px;
+    border-left: 4px solid;
+    box-shadow: 0 5px 8px rgba(0, 0, 0, 0.08);
+    transition: all linear 0.4s;
 }
 
 @keyframes slideInLeft {
-  from {
-    opacity: 0;
-    transform: translateY(calc(100% + 20px));
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+    from {
+        opacity: 0;
+        transform: translateY(calc(100% + 20px));
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 @keyframes fadeOut {
-  to {
-    opacity: 0;
-  }
+    to {
+        opacity: 0;
+    }
 }
 
 .toast--success {
-  border-color: #47d864;
+    border-color: #47d864;
 }
 
 .toast--info {
-  border-color: #2f86eb;
+    border-color: #2f86eb;
 }
 .toast--kb {
-  border-color: #d46033;
+    border-color: #d46033;
 }
 
 .toast + .toast {
-  margin-top: 10px;
+    margin-top: 10px;
 }
 
 .toast__icon,
 .toast__close {
-  padding: 0 16px;
+    padding: 0 16px;
 }
 
 .toast__body {
-  flex-grow: 1;
+    flex-grow: 1;
 }
 
 .toast__msg {
-  font-size: 16px;
-  color: #000;
+    font-size: 16px;
+    color: #000;
 }
 .notification_time {
-  font-size: 13px;
-  color: #0080fa;
+    font-size: 13px;
+    color: #0080fa;
 }
 .toast__close {
-  font-size: 20px;
-  color: rgba(0, 0, 0, 0.3);
-  cursor: pointer;
+    font-size: 20px;
+    color: rgba(0, 0, 0, 0.3);
+    cursor: pointer;
 }

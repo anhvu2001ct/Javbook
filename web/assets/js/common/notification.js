@@ -5,7 +5,7 @@ function popup_realtime({
     image = "",
     type = "",
     link = "#",
-    duration = 3000,
+    duration = 6000,
 }) {
     const main = document.getElementById("popup_realtime");
     if (main) {
