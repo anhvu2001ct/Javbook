@@ -55,12 +55,17 @@ Khang --%> <%@page contentType="text/html" pageEncoding="UTF-8"%>
             rel="stylesheet"
             href="/Javbook/assets/fonts/fontawesome-5.15.4/css/all.min.css"
             />
+        <link
+            rel="stylesheet"
+            href="/Javbook/assets/css/common/notification.css"
+            />
         <script src="/Javbook/assets/js/common/query.js"></script>
         <!-- Toast Message -->
         <script src="/Javbook/assets/js/common/toastMessage.js"></script>
     </head>
     <body>
         <%@include file="../common/header.jsp" %>
+        <%@include file="../common/notification.jsp" %>
         <div class="main-container">
             <div class="profile">
                 <div class="profile-name-background"></div>
@@ -211,6 +216,7 @@ Khang --%> <%@page contentType="text/html" pageEncoding="UTF-8"%>
         <script src="/Javbook/assets/js/profile/Header/profileHeader.js"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
         <script src="/Javbook/assets/js/common/ws.js"></script>
+        <script src="/Javbook/assets/js/common/notification.js"></script>
         <script src="/Javbook/assets/js/common/header.js"></script>
     </body>
 </html>

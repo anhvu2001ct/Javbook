@@ -277,7 +277,7 @@ public class NotificationDAO {
 
             } else {
                 while (rs.next()) {
-                    String time = "about " + CommentDAO.calculateTime(rs.getTimestamp(5)) + " ago";
+                    String time = "about 1 m ago";
                     String message = "";
                     String emoji = "";
                     switch (rs.getInt(6)) {
@@ -315,7 +315,6 @@ public class NotificationDAO {
                         map.put(entry.getKey(), Secret.encode1(entry.getValue()));
                     }
                     Notification nf = new Notification(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), time, emoji, rs.getString(7), rs.getInt(8), message, PathInfo.toUrlParams(map));
-                    System.out.println("data tu DAO" + nf.toString());
                     return nf;
                 }
             }

@@ -39,9 +39,14 @@
             rel="stylesheet"
             href="/Javbook/assets/css/profile/profilePost.css"
             />
+        <link
+            rel="stylesheet"
+            href="/Javbook/assets/css/common/notification.css"
+            />
     </head>
     <body>
         <%@include file="../common/header.jsp" %>
+        <%@include file="../common/notification.jsp" %>
         <div class="body-post">
             <div class="list-post post-list">
                 <c:forEach items="${posts}" var="post">
@@ -624,6 +629,7 @@
         <script src="/Javbook/assets/js/common/query.js"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
         <script src="/Javbook/assets/js/common/ws.js"></script>
+        <script src="/Javbook/assets/js/common/notification.js"></script>
         <script src="/Javbook/assets/js/common/header.js"></script>
         <script src="/Javbook/assets/js/profile/Post/postBox.js"></script>     
         <script src="/Javbook/assets/js/profile/Post/popupEmoji.js"></script>

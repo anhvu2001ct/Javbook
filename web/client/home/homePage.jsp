@@ -34,7 +34,7 @@
             rel="stylesheet"
             href="/Javbook/assets/css/common/header.css"
             />
-        <link rel="stylesheet" href="/Javbook/assets/css/boxChat/boxChat.css" />
+        <link rel="stylesheet" href="/Javbook/assets/css/boxChat/BoxChat.css" />
         <link
             rel="stylesheet"
             href="/Javbook/assets/css/common/notification.css"
@@ -163,8 +163,8 @@
         <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
         <script src="/Javbook/assets/js/home/LeftPanel/leftpanel.js"></script>
         <script src="/Javbook/assets/js/common/ws.js"></script>
-        <script src="/Javbook/assets/js/common/header.js"></script>
         <script src="/Javbook/assets/js/common/notification.js"></script>
+        <script src="/Javbook/assets/js/common/header.js"></script>
         <script src="/Javbook/assets/js/profile/Post/postBox.js" async></script>
         <script src="/Javbook/assets/js/profile/Post/profilePost.js" async></script>
         <script src="/Javbook/assets/js/profile/Post/popupEmoji.js" async></script>
