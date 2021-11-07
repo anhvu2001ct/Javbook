@@ -1,5 +1,8 @@
-i<%-- Document : profileheader Created on : Oct 11, 2021, 7:57:36 PM Author : Mr
-Khang --%> <%@page contentType="text/html" pageEncoding="UTF-8"%>
+i<%-- Document : 
+profileheader Created on : Oct 11, 2021, 7:57:36 PM 
+Author : MrKhang --%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -78,29 +81,36 @@ Khang --%> <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
                     <div class="profile-name">${profileUser.name}</div>
                 </div>
-                <div class="edit-header-avatar">
-                    <label for="header-avatar-file">
-                        <i class="fas fa-camera"></i>
-                    </label>
-                    <input
-                        type="file"
-                        name="photo-file"
-                        id="header-avatar-file"
-                        accept="image/* "
-                        />
-                </div>
-                <div class="photo-profile-cover">
-                    <div class="edit-cover-img">
-                        <label for="header-photo-file">
-                            <i class="far fa-edit fa-lg"></i>
+                <c:if test="${yourID == otherssID}">
+                    <div class="edit-header-avatar">
+                        <label for="header-avatar-file">
+                            <i class="fas fa-camera"></i>
                         </label>
                         <input
                             type="file"
                             name="photo-file"
-                            id="header-photo-file"
+                            id="header-avatar-file"
                             accept="image/* "
                             />
                     </div>
+                </c:if>
+                <div class="photo-profile-cover">
+
+                    <c:if test="${yourID == otherssID}">
+                        <div class="edit-cover-img">
+                            <label for="header-photo-file">
+                                <i class="far fa-edit fa-lg"></i>
+                            </label>
+
+                            <input
+                                type="file"
+                                name="photo-file"
+                                id="header-photo-file"
+                                accept="image/* "
+                                />
+                        </div>
+                    </c:if>
+
                     <img
                         src="${profileUser.coverImg}"
                         alt=""
@@ -246,9 +256,9 @@ Khang --%> <%@page contentType="text/html" pageEncoding="UTF-8"%>
             </div>
         </div>
         <div class="popup-emoji-box"><%@include file="popupEmoji.jsp" %></div>
-        
+
         <%@include file="/client/boxChat/boxChatContainer.jsp" %>
-         
+
         <script src="/Javbook/assets/js/profile/Header/profileHeader.js"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
         <script src="/Javbook/assets/js/common/ws.js"></script>

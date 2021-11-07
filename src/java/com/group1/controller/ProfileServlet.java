@@ -48,6 +48,8 @@ public class ProfileServlet extends BaseServlet {
                 i = -1;
             }
             request.setAttribute("isFriend", i);
+            request.setAttribute("yourID", uid);
+            request.setAttribute("otherssID", curID);
             request.getRequestDispatcher("/client/otherProfile/profile.jsp").forward(request, response);
         }
         

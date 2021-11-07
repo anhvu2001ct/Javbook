@@ -48,9 +48,11 @@
             <div class="post-content">
                 <p class="content">${post.status.text}</p>
             </div>
-            <div class="post-photos">
-                <img src="${post.status.statusImg}" alt="" class="post-photo" id="${post.status.getIDStatus()}" />
-            </div>
+            <c:if test="${post.status.statusImg !=null}">
+                <div class="post-photos">
+                    <img src="${post.status.statusImg}" alt="" class="post-photo" id="${post.status.getIDStatus()}" />
+                </div>
+            </c:if>
         </div>
         <div class="post-count">
             <div class="post-count-left">
