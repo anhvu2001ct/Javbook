@@ -19,7 +19,7 @@
 </c:if>
 
 <c:forEach items="${posts}" var="post" >
-    <c:if test="${post.status.mood==2 && post.status.friend ||post.status.mood==1 }">
+    <c:if test="${post.status.mood==2 && post.status.friend ||post.status.mood==1 || post.status.accountID==userID}">
         <c:if test="${post.status.mood!=3}">
             <div class="post box" id="${post.status.statusId}" data-id ="${encodeID}">
                 <div class="post-item">
