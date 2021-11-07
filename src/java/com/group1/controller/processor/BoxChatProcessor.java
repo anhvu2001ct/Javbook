@@ -56,7 +56,7 @@ public class BoxChatProcessor extends BaseProcessor {
         
         request.setAttribute("chatList", chatList);
         request.setAttribute("profileUser", profileUser);
-
+        
         request.getRequestDispatcher("/client/boxChat/boxChat.jsp").forward(request, response);
         
         

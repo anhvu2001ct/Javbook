@@ -54,7 +54,7 @@
 }
 /* boxchat_container  */
 .boxchat_container {
-    position: absolute;
+    position: fixed;
     bottom: 0;
     right: 100px;
     line-height: 1.3;

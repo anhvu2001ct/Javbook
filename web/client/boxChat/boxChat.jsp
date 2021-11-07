@@ -1,5 +1,5 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%> <%@ taglib
-uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <div class="boxchat_header">
     <div class="boxchat_header_title">
@@ -22,7 +22,7 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 </div>
 
 <div class="boxchat_inner">
-    <c:forEach items="chatList" var="chatItem">
+    <c:forEach items="${chatList}" var="chatItem">
         <c:choose>
             <c:when test="${chatItem.second}">
                 <div class="owneruser">
