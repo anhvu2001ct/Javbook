@@ -25,6 +25,7 @@
             href="/Javbook/assets/css/searchFriend/searchFriend.css"
         />
         <link rel="stylesheet" href="/Javbook/assets/css/common/header.css" />
+        <link rel="stylesheet" href="/Javbook/assets/css/boxChat/boxChat.css" />
     </head>
     <body>
         <%@include file="../common/header.jsp" %>

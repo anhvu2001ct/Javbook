@@ -46,6 +46,7 @@ Khang --%> <%@page contentType="text/html" pageEncoding="UTF-8"%>
             href="/Javbook/assets/css/profile/profileFriends.css"
             />
         <link rel="stylesheet" href="/Javbook/assets/css/common/header.css" />
+        <link rel="stylesheet" href="/Javbook/assets/css/boxChat/boxChat.css" />
         <link
             rel="stylesheet"
             href="/Javbook/assets/css/profile/popupEmoji.css"

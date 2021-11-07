@@ -34,6 +34,7 @@
             rel="stylesheet"
             href="/Javbook/assets/css/common/header.css"
             />
+        <link rel="stylesheet" href="/Javbook/assets/css/boxChat/boxChat.css" />
         <link
             rel="stylesheet"
             href="/Javbook/assets/css/common/notification.css"

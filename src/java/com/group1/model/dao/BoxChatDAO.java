@@ -22,7 +22,8 @@ public class BoxChatDAO {
             String query = "SELECT * "
                     + "FROM Chat "
                     + "WHERE (ReceiverID = ? AND SenderID = ?) "
-                    + "OR (ReceiverID = ? AND SenderID = ?)";
+                    + "OR (ReceiverID = ? AND SenderID = ?) "
+                    + "ORDER BY Time ASC";
 
             PreparedStatement ps = SQL.prepareStatement(query); // nem cau lenh query tu netbeans sang sql server
             ps.setInt(1, ID);

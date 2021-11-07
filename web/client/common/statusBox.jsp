@@ -30,6 +30,7 @@
             />
         <link rel="stylesheet" href="/Javbook/assets/css/common/base.css" />
         <link rel="stylesheet" href="/Javbook/assets/css/common/header.css" />
+        <link rel="stylesheet" href="/Javbook/assets/css/boxChat/boxChat.css" />
         <link
             rel="stylesheet"
             href="/Javbook/assets/css/profile/popupEmoji.css"

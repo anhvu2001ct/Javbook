@@ -49,53 +49,15 @@ public class BoxChatProcessor extends BaseProcessor {
         int uid = (Integer) ses.getAttribute("uid");
         
         int otherID = Integer.parseInt(Secret.decode2(request.getParameter("otherID")));
-             
-//        // update Audience
-//        if (ProfileUserAboutDAO.updateAudience(uid, audience)) {
-//            out.print("success");
-//        } else {
-//            out.print(oldAudienceType);
-//        }
-//        
 //          
         System.out.println("test" + uid + " " + otherID);
         List<Pair<Chat, Boolean>> chatList = BoxChatDAO.getBoxChat(uid, otherID);
         System.out.println("List" + chatList.toString());
-//        if (chatList != null){
-//            Collections.sort(searchFriendList, (Pair<ProfileUserAbout, Integer> a, Pair<ProfileUserAbout, Integer> b) -> b.second - a.second);
-//        }
-        
-//        request.setAttribute("searchFriendList", searchFriendList);
-//        
-//        // Header (Quynh)
-//        IndexServlet.setInfoHeader(request);
-//        
-//        request.getRequestDispatcher("/client/searchFriend/searchFriend.jsp").forward(request, response);
-        out.print("success");
-        
-    }
 
-    @ServeAt(value = "/updateCoverImg", method = ServeMethod.POST)
-    public void serveUpdateCoverImg(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setAttribute("chatList", chatList);
 
-        PrintWriter out = response.getWriter();
-
-        HttpSession ses = request.getSession();
-        int uid = (Integer) ses.getAttribute("uid");
-
-        String coverImg = request.getParameter("urlImg");
-        String deleteCoverImg = request.getParameter("oldUrlImg");
+        request.getRequestDispatcher("/client/boxChat/boxChat.jsp").forward(request, response);
         
-        PathInfo pathInfo = new PathInfo(deleteCoverImg);
-        
-        IO.delete(ServerInit.imgPath, "cover", pathInfo.path[pathInfo.size-1]);
-        
-        // update Avatar
-        if (ProfileUserAboutDAO.updateCoverImg(uid, coverImg)) {
-            out.print("success");
-        } else {
-            out.print("/Javbook/assets/img/default/cover.jpg");
-        }
     }
 
 }
