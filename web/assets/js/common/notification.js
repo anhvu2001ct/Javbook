@@ -7,7 +7,7 @@ function toast({
   link = "#",
   duration = 3000,
 }) {
-  console.log(title, message);
+
   const main = document.getElementById("toast");
   if (main) {
     const toast = document.createElement("div");

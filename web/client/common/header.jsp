@@ -96,44 +96,44 @@
             </c:if>
 
             <c:if test="${!notiMessage.isEmpty()}">
-                <c:forEach items="${notiMessage}" var="fr">
-                    <c:if test="${fr.seen == 1}">  
-                        <div class="popup_item message mess_active ">
+                <c:forEach items="${notiMessage}" var="notiMessageItem">
+                    <c:if test="${notiMessageItem.seen == 1}">  
+                        <div class="popup_item message mess_active js-message-btn" data-other-id="${notiMessageItem.id}">
                             <a class="popup_item_img wh_40 message_logo" href="#"
                                ><img
-                                    src="${fr.avatar}"
+                                    src="${notiMessageItem.avatar}"
                                     alt=""
                                     class="scale wh_40 circle"
                                     />
                             </a>
                             <div class="popup_item_info message_content">
                                 <span class="message_user"
-                                      ><strong>${fr.name}</strong></span
+                                      ><strong>${notiMessageItem.name}</strong></span
                                 >
                                 <span class="message_cp ">
                                     <span class="message_text seen">sent to you a message</span>
                                 </span>
-                                <span class="notification_time seen">${fr.time}</span>
+                                <span class="notification_time seen">${notiMessageItem.time}</span>
                             </div>
                         </div>
                     </c:if>
-                    <c:if test="${fr.seen == 0}">
-                        <div class="popup_item message mess_active">
+                    <c:if test="${notiMessageItem.seen == 0}">
+                        <div class="popup_item message mess_active js-message-btn" data-other-id="${notiMessageItem.id}">
                             <a class="popup_item_img wh_40 message_logo" href="#"
                                ><img
-                                    src="${fr.avatar}"
+                                    src="${notiMessageItem.avatar}"
                                     alt=""
                                     class="scale wh_40 circle"
                                     />
                             </a>
                             <div class="popup_item_info message_content">
                                 <span class="message_user"
-                                      ><strong>${fr.name}</strong></span
+                                      ><strong>${notiMessageItem.name}</strong></span
                                 >
                                 <span class="message_cp">
                                     <span class="message_text">sent to you a message</span>
                                 </span>
-                                <span class="notification_time ">${fr.time}</span>
+                                <span class="notification_time ">${notiMessageItem.time}</span>
                             </div>
                         </div>
                     </c:if>

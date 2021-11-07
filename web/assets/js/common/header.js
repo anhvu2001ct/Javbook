@@ -150,52 +150,97 @@ socket.addEvent("message", (msg) => {
     let statusID = data.statusID;
     let commentID = data.commentID;
     let senderID = msg.from;
-    console.log("comment: ", statusID, commentID, senderID);
-    console.log("senderid: ",senderID);
-
     let container = document.querySelector("#popup_inner");
+
     let query = new QueryData("/realtimenotification/comment");
+    let query2 = new QueryData("/realtimenotification/popupcomment", "json");
+
     query.addParam("statusID", statusID);
     query.addParam("commentID", commentID);
     query.addParam("senderID", senderID);
-    let tag = document.createElement("span");
 
+    query2.addParam("statusID", statusID);
+    query2.addParam("commentID", commentID);
+    query2.addParam("senderID", senderID);
+
+    let tag = document.createElement("span");
     query.addEvent("load", function () {
       let notifi = this.response;
       tag.innerHTML = `${notifi}`;
-
       container.appendChild(tag);
       loadheader();
     });
+
+    query2.addEvent("load", function () {
+      let list = this.response;
+      console.log(list);
+      toast({
+        title: list[0],
+        message: list[1],
+        image: list[2],
+        type: list[3],
+        link: list[4],
+        duration: 3000,
+      });
+      loadheader();
+    });
+
     query.send("POST");
+    query2.send("POST");
   }
   if (data.type === "react") {
     let statusID = data.statusID;
     let emojiID = data.emojiID;
     let senderID = msg.from;
-    console.log("react: ", statusID, emojiID, senderID);
-    console.log("senderid: ",senderID);
+
     let container = document.querySelector("#popup_inner");
     let query = new QueryData("/realtimenotification/react");
+    let query2 = new QueryData("/realtimenotification/popupreact", "json");
+
     query.addParam("statusID", statusID);
     query.addParam("emojiID", emojiID);
     query.addParam("senderID", senderID);
+
+    query2.addParam("statusID", statusID);
+    query2.addParam("emojiID", emojiID);
+    query2.addParam("senderID", senderID);
+
     let tag = document.createElement("span");
+
     query.addEvent("load", function () {
       let notifi = this.response;
-
       tag.innerHTML = `${notifi}`;
       container.appendChild(tag);
       loadheader();
     });
+
+    query2.addEvent("load", function () {
+      let list = this.response;
+      console.log(list);
+      toast({
+        title: list[0],
+        message: list[1],
+        image: list[2],
+        type: list[3],
+        link: list[4],
+        duration: 3000,
+      });
+      loadheader();
+    });
+
+    query2.send("POST");
     query.send("POST");
   }
   if (data.type === "friend") {
     let senderID = msg.from;
-    console.log(senderID);
+
     let container = document.querySelector("#popup_inner");
     let query = new QueryData("/realtimenotification/friend");
+    let query2 = new QueryData("/realtimenotification/popupfriend", "json");
+
     query.addParam("senderID", senderID);
+    query2.addParam("senderID", senderID);
+
     let tag = document.createElement("span");
 
     query.addEvent("load", function () {
@@ -205,6 +250,20 @@ socket.addEvent("message", (msg) => {
       container.appendChild(tag);
       loadheader();
     });
+    query2.addEvent("load", function () {
+      let list = this.response;
+      console.log(list);
+      toast({
+        title: list[0],
+        message: list[1],
+        image: list[2],
+        type: list[3],
+        link: list[4],
+        duration: 3000,
+      });
+      loadheader();
+    });
+    query2.send("POST");
     query.send("POST");
   }
 });

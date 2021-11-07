@@ -1,5 +1,5 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%> <%@taglib
-uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%> 
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!DOCTYPE html>
 <html>
@@ -10,24 +10,30 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
             rel="icon"
             href="/Javbook/assets/img/icon/Javbook.ico"
             type="image/x-icon"
-        />
+            />
         <link
             rel="stylesheet"
             href="/Javbook/assets/fonts/fontawesome-5.15.4/css/all.min.css"
-        />
+            />
         <link
             rel="stylesheet"
             href="/Javbook/assets/css/common/variables.css"
-        />
+            />
         <link rel="stylesheet" href="/Javbook/assets/css/common/base.css" />
         <link
             rel="stylesheet"
             href="/Javbook/assets/css/searchFriend/searchFriend.css"
-        />
+            />
         <link rel="stylesheet" href="/Javbook/assets/css/common/header.css" />
+        <link
+            rel="stylesheet"
+            href="/Javbook/assets/css/common/notification.css"
+            />
+        <link rel="stylesheet" href="/Javbook/assets/css/boxChat/boxChat.css" />
     </head>
     <body>
         <%@include file="../common/header.jsp" %>
+        <%@include file="../common/notification.jsp" %>
         <div class="search-friend">
             <h3>People</h3>
             <c:if test="${searchFriendList == null}">
@@ -40,7 +46,7 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
                     class="search-details"
                     data-id="${userItem.first.getEncodeID()}"
                     data-index="${userItem.second}"
-                >
+                    >
                     <div class="search-img">
                         <img src="${userItem.first.avatar}" alt="" />
                     </div>
@@ -65,7 +71,7 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
                             <div
                                 class="search-status js-add-friend-btn"
                                 title="Add friend"
-                            >
+                                >
                                 <i class="fas fa-user-plus fa-lg"></i>
                             </div>
                         </c:when>
@@ -73,7 +79,7 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
                             <div
                                 class="search-status js-add-friend-btn"
                                 title="Accept friend request"
-                            >
+                                >
                                 <i class="fas fa-user-clock fa-lg"></i>
                             </div>
                         </c:when>
@@ -81,7 +87,7 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
                             <div
                                 class="search-status js-add-friend-btn"
                                 title="Unsend friend request"
-                            >
+                                >
                                 <i class="fas fa-user-times fa-lg"></i>
                             </div>
                         </c:when>
@@ -89,7 +95,7 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
                             <div
                                 class="search-status js-add-friend-btn"
                                 title="Go chat!"
-                            >
+                                >
                                 <i class="fab fa-facebook-messenger fa-lg"></i>
                             </div>
                         </c:when>
@@ -98,10 +104,14 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
                 </div>
             </c:forEach>
         </div>
+        
+        <%@include file="/client/boxChat/boxChatContainer.jsp" %>
 
         <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
         <script src="/Javbook/assets/js/common/ws.js"></script>
+        <script src="/Javbook/assets/js/common/notification.js"></script>
         <script src="/Javbook/assets/js/common/header.js"></script>
+        <script src="/Javbook/assets/js/common/message.js"></script>
         <script src="/Javbook/assets/js/common/query.js"></script>
         <script src="/Javbook/assets/js/searchFriend/searchFriend.js"></script>
     </body>
