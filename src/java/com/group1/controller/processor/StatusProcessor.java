@@ -198,7 +198,6 @@ public class StatusProcessor extends BaseProcessor {
                     list.add(string);
                 }
             }
-            System.out.println(list);
             response.getWriter().print(gson.toJson(list));
         } catch (IOException ex) {
             System.out.println("Get Number and Top Status Emoji Erorr");

@@ -3,6 +3,7 @@ package com.group1.controller;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.group1.misc.Secret;
 import com.group1.model.db.IO;
 import com.group1.model.db.SQLConnector;
 import java.nio.file.Paths;

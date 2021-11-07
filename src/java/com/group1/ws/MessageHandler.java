@@ -26,8 +26,10 @@ public class MessageHandler extends BaseWS {
     @Override
     protected void removeClient(Session session) {
         Set<Session> client = clients.get(id);
-        client.remove(session);
-        if (client.isEmpty()) clients.remove(id);
+        if (client != null) {
+            client.remove(session);
+            if (client.isEmpty()) clients.remove(id);
+        }
     }
 
     @Override

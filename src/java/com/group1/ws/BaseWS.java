@@ -34,7 +34,6 @@ public abstract class BaseWS {
            addClient(session);
            return;
        }
-       
        onMessage(session, arr.get(0).getAsJsonObject());
     }
    
