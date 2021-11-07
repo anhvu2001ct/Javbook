@@ -213,10 +213,14 @@ Khang --%> <%@page contentType="text/html" pageEncoding="UTF-8"%>
             </div>
         </div>
         <div class="popup-emoji-box"><%@include file="popupEmoji.jsp" %></div>
+        
+        <%@include file="/client/boxChat/boxChatContainer.jsp" %>
+         
         <script src="/Javbook/assets/js/profile/Header/profileHeader.js"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
         <script src="/Javbook/assets/js/common/ws.js"></script>
         <script src="/Javbook/assets/js/common/notification.js"></script>
         <script src="/Javbook/assets/js/common/header.js"></script>
+        <script src="/Javbook/assets/js/common/message.js"></script>
     </body>
 </html>

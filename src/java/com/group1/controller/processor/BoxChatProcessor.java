@@ -49,14 +49,13 @@ public class BoxChatProcessor extends BaseProcessor {
         int uid = (Integer) ses.getAttribute("uid");
         
         int otherID = Integer.parseInt(Secret.decode2(request.getParameter("otherID")));
-//          
-        System.out.println("test" + uid + " " + otherID);
+          
         List<Pair<Chat, Boolean>> chatList = BoxChatDAO.getBoxChat(uid, otherID);
-        System.out.println("List" + chatList.toString());
 
         request.setAttribute("chatList", chatList);
 
         request.getRequestDispatcher("/client/boxChat/boxChat.jsp").forward(request, response);
+        
         
     }
 
