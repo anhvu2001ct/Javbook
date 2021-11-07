@@ -7,5 +7,4 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!-- Box Chat Container-->
 <div class="small_zooomout_container"></div>
-<div class="boxchat_container">
-</div>
+<div class="boxchat_container"></div>

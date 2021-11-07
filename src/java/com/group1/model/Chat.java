@@ -1,5 +1,6 @@
 package com.group1.model;
 
+import com.group1.misc.Secret;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,4 +22,5 @@ public class Chat {
    
     private int receiverID, senderID;
     private String text, chatImg, time;
+    
 }

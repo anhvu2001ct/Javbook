@@ -51,8 +51,11 @@ public class BoxChatProcessor extends BaseProcessor {
         int otherID = Integer.parseInt(Secret.decode2(request.getParameter("otherID")));
           
         List<Pair<Chat, Boolean>> chatList = BoxChatDAO.getBoxChat(uid, otherID);
-
+        
+        ProfileUserAbout profileUser = ProfileUserAboutDAO.getProfileUser(otherID);
+        
         request.setAttribute("chatList", chatList);
+        request.setAttribute("profileUser", profileUser);
 
         request.getRequestDispatcher("/client/boxChat/boxChat.jsp").forward(request, response);
         
