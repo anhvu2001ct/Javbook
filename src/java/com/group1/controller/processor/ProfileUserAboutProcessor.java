@@ -41,7 +41,7 @@ import javax.servlet.http.Part;
 public class ProfileUserAboutProcessor extends BaseProcessor {
 
     @ServeAt("/index")
-    public void serveIndex(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, SQLException {
+    public void serveIndex(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession ses = request.getSession();
         int uid = (Integer) ses.getAttribute("uid");
         int accountID = (Integer) request.getAttribute("id");
