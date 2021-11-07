@@ -7,6 +7,7 @@ import com.group1.model.Account;
 import com.group1.model.ProfileStatus;
 import com.group1.model.ProfileUserAbout;
 import com.group1.model.dao.AccountDAO;
+import com.group1.model.dao.FriendDAO;
 import com.group1.model.dao.ProfileStatusDAO;
 import com.group1.model.dao.ProfileUserAboutDAO;
 import com.group1.model.db.IO;
@@ -44,6 +45,7 @@ public class ProfileUserAboutProcessor extends BaseProcessor {
         int uid = (Integer) ses.getAttribute("uid");
         int accountID = (Integer) request.getAttribute("id");
         ProfileUserAbout profileUser = ProfileUserAboutDAO.getProfileUser(accountID);
+        // get account
         Account account = AccountDAO.getAccount(accountID);
         int profileStatusID = profileUser.getProfileStatusID();
         // get Profile Status
@@ -76,6 +78,18 @@ public class ProfileUserAboutProcessor extends BaseProcessor {
 
             request.getRequestDispatcher("/client/profile/profileAbout.jsp").forward(request, response);
         } else {
+            boolean isFriend = FriendDAO.isFriend(accountID, uid);
+           
+            request.setAttribute("isFriend", isFriend);
+            // get Audience
+            String audience = profileUser.getAudience();
+            ArrayList<Integer> audiences = new ArrayList<>();
+
+            for (char ch : audience.toCharArray()) {
+                audiences.add(ch - '0');
+            }
+            
+            request.setAttribute("audiences", audiences);
             request.getRequestDispatcher("/client/otherProfile/profileAbout.jsp").forward(request, response);
         }
 
