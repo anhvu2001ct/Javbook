@@ -7,8 +7,6 @@ messageBtns.forEach((messageBtn) => {
         query.addEvent("load", function () {
             let result = this.response;
 
-            console.log("Result: ", result);
-
             if (result != null) {
                 var chatBox = document.createElement("div"); // is a node
                 chatBox.classList.add("boxchat");
