@@ -297,7 +297,9 @@
     }
 
     // Event Toggle Password Button Onclick
-    toggleCurrentPassBtn.addEventListener("click", toggleCurrentPass);
+    if (toggleCurrentPassBtn != null) {
+        toggleCurrentPassBtn.addEventListener("click", toggleCurrentPass);
+    }
 
     toggleNewPassBtns.forEach((toggleNewPassBtn) => {
         toggleNewPassBtn.addEventListener("click", toggleNewPass);
@@ -627,18 +629,26 @@
         editTextBtn.addEventListener("click", editText);
     });
 
-    editPasswordBtn.addEventListener("click", editPassword);
+    if (editPasswordBtn != null) {
+        editPasswordBtn.addEventListener("click", editPassword);
+    }
 
     editSelectAudienceBtns.forEach((editSelectAudienceBtn) => {
         editSelectAudienceBtn.addEventListener("click", editSelectAudience);
     });
 
     // Modal Select Gender
-    modalSelectGenderBtn.addEventListener("click", editSelectGender);
+    if (modalSelectGenderBtn != null) {
+        modalSelectGenderBtn.addEventListener("click", editSelectGender);
+    }
     // Modal Select Status
-    modalSelectStatusBtn.addEventListener("click", editSelectStatus);
+    if (modalSelectStatusBtn != null) {
+        modalSelectStatusBtn.addEventListener("click", editSelectStatus);
+    }
     // Modal Select Language
-    modalSelectLanguageBtn.addEventListener("click", editSelectLanguage);
+    if (modalSelectLanguageBtn != null) {
+        modalSelectLanguageBtn.addEventListener("click", editSelectLanguage);
+    }
 
     modalCloseBtns.forEach((modalCloseBtn) => {
         modalCloseBtn.addEventListener("click", (e) => {
@@ -657,30 +667,33 @@
             e.stopPropagation();
         });
     });
+
     // Logout
     logoutBtn = document.querySelector("#js-logout");
 
-    logoutBtn.addEventListener("click", function () {
-        let query = new QueryData("account/logout");
+    if (logoutBtn != null) {
+        logoutBtn.addEventListener("click", function () {
+            let query = new QueryData("account/logout");
 
-        query.addEvent("load", function () {
-            let result = this.response;
+            query.addEvent("load", function () {
+                let result = this.response;
 
-            if (result == "success") {
-                window.location = "/Javbook/";
-                // console.log("ok");
-            } else {
-                toast(
-                    {
-                        title: "Logout Failed!",
-                        type: "error",
-                        duration: 10000,
-                    },
-                    ["<span>Unknown fault</span>!"]
-                );
-            }
+                if (result == "success") {
+                    window.location = "/Javbook/";
+                    // console.log("ok");
+                } else {
+                    toast(
+                        {
+                            title: "Logout Failed!",
+                            type: "error",
+                            duration: 10000,
+                        },
+                        ["<span>Unknown fault</span>!"]
+                    );
+                }
+            });
+
+            query.send("POST");
         });
-
-        query.send("POST");
-    });
+    }
 })();
