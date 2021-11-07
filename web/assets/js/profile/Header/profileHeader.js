@@ -141,50 +141,72 @@ let addFriendBtn = document.querySelector(".js-add-friend-btn");
 
 if (addFriendBtn != null) {
     addFriendBtn.addEventListener("click", function (e) {
-        console.log("hihi");
         let icon = addFriendBtn.querySelector("i");
         let title = addFriendBtn.querySelector("span");
         let userID = addFriendBtn.dataset.id;
         let index = addFriendBtn.dataset.index;
 
-        let query = new QueryData("friend/friendRequest");
-        query.addParam("receiverID", userID);
-        query.addParam("index", index);
-        query.addEvent("load", function () {
-            let result = this.response;
-            if (result == "success") {
-                // they are friends
-                if (index == 2) {
-                    addFriendBtn.dataset.index = -2;
-                    title.innerHTML = "Add Friend";
-                    // delete friend
-                    icon.classList.remove("fa-user-check");
-                    icon.classList.add("fa-user-plus");
-                } else if (index == 1) {
-                    addFriendBtn.dataset.index = -2;
-                    title.innerHTML = "Add Friend";
-                    // delete invitations sent to others
-                    icon.classList.remove("fa-user-times");
-                    icon.classList.add("fa-user-plus");
-                } else if (index == -1) {
-                    addFriendBtn.dataset.index = 2;
-                    title.innerHTML = "Friends";
-                    // accept invitations of others
-                    icon.classList.remove("fa-user-clock");
-                    icon.classList.add("fa-user-check");
-                } else if (index == -2) {
-                    addFriendBtn.dataset.index = 1;
-                    title.innerHTML = "Waiting";
-                    // send invitation to others
-                    icon.classList.remove("fa-user-plus");
-                    icon.classList.add("fa-user-times");
-                }
-            } else {
-                // maybe do something in the future
-                // if request friend fails
+        // they are friend
+        if (index == 2) {
+            var option = confirm("Are you sure to delete this friend?");
+            if (option === true) {
+                let query = new QueryData("friend/friendRequest");
+                query.addParam("receiverID", userID);
+                query.addParam("index", index);
+                query.addEvent("load", function () {
+                    let result = this.response;
+                    if (result == "success") {
+                        // they are friend
+                        addFriendBtn.dataset.index = -2;
+                        title.innerHTML = "Add Friend";
+                        // delete friend
+                        icon.classList.remove("fa-user-check");
+                        icon.classList.add("fa-user-plus");
+                    } else {
+                        // maybe do something in the future
+                        // if request friend fails
+                    }
+                });
+                query.send("POST");
             }
-        });
-        query.send("POST");
+        } else {
+            let query = new QueryData("friend/friendRequest");
+            query.addParam("receiverID", userID);
+            query.addParam("index", index);
+            query.addEvent("load", function () {
+                let result = this.response;
+                if (result == "success") {
+                    // sent friend request to other
+                    if (index == 1) {
+                        addFriendBtn.dataset.index = -2;
+                        title.innerHTML = "Add Friend";
+                        // delete invitations sent to others
+                        icon.classList.remove("fa-user-times");
+                        icon.classList.add("fa-user-plus");
+                    }
+                    // other sent friend request to myself
+                    else if (index == -1) {
+                        addFriendBtn.dataset.index = 2;
+                        title.innerHTML = "Friends";
+                        // accept invitations of others
+                        icon.classList.remove("fa-user-clock");
+                        icon.classList.add("fa-user-check");
+                    }
+                    // don't interaction
+                    else if (index == -2) {
+                        addFriendBtn.dataset.index = 1;
+                        title.innerHTML = "Waiting";
+                        // send invitation to others
+                        icon.classList.remove("fa-user-plus");
+                        icon.classList.add("fa-user-times");
+                    }
+                } else {
+                    // maybe do something in the future
+                    // if request friend fails
+                }
+            });
+            query.send("POST");
+        }
     });
 }
 
