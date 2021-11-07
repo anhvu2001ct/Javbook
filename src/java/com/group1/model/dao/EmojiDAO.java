@@ -113,7 +113,7 @@ public class EmojiDAO {
     public static List<Emoji> getListStatusEmoji(String StatusID) {
         try {
             List<Emoji> list = new ArrayList<>();
-            String query = "Select Name, Avatar,EmojiID\n"
+            String query = "Select Name, Avatar,EmojiID ,se.AccountUserID\n"
                     + "from StatusEmotion se  ,AccountProfile ap\n"
                     + "Where StatusID = ? and  se.AccountUserID =ap.AccountUserID";
             PreparedStatement ps = SQL.prepareStatement(query);
@@ -123,7 +123,7 @@ public class EmojiDAO {
                 return null;
             } else {
                 while (rs.next()) {
-                    Emoji emoji = new Emoji(rs.getString(1), rs.getString(2), rs.getInt(3));
+                    Emoji emoji = new Emoji(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getInt(4));
                     list.add(emoji);
                 }
                 return list;
@@ -178,7 +178,7 @@ public class EmojiDAO {
     public static List<Emoji> getListCommentEmoji(String commentID) {
         try {
             List<Emoji> list = new ArrayList<>();
-            String query = "Select Name, Avatar,EmojiID\n"
+            String query = "Select Name, Avatar,EmojiID,se.AccountUserID\n"
                     + "from CommentEmotion se  ,AccountProfile ap\n"
                     + "Where CommentID = ? and  se.AccountUserID =ap.AccountUserID";
             PreparedStatement ps = SQL.prepareStatement(query);
@@ -188,7 +188,7 @@ public class EmojiDAO {
                 return null;
             } else {
                 while (rs.next()) {
-                    Emoji emoji = new Emoji(rs.getString(1), rs.getString(2), rs.getInt(3));
+                    Emoji emoji = new Emoji(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getInt(4));
                     list.add(emoji);
                 }
                 return list;
@@ -292,7 +292,7 @@ public class EmojiDAO {
     public static List<Emoji> getListComment2Emoji(String comment2ID) {
         try {
             List<Emoji> list = new ArrayList<>();
-            String query = "Select Name, Avatar,EmojiID\n"
+            String query = "Select Name, Avatar,EmojiID ,se.AccountUserID\n"
                     + "from Comment2Emotion se  ,AccountProfile ap\n"
                     + "Where Comment2ID = ? and  se.AccountUserID =ap.AccountUserID";
             PreparedStatement ps = SQL.prepareStatement(query);
@@ -302,7 +302,7 @@ public class EmojiDAO {
                 return null;
             } else {
                 while (rs.next()) {
-                    Emoji emoji = new Emoji(rs.getString(1), rs.getString(2), rs.getInt(3));
+                    Emoji emoji = new Emoji(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getInt(4));
                     list.add(emoji);
                 }
                 return list;

@@ -115,6 +115,7 @@
     postbox.classList.add("post");
     postbox.classList.add("home-box");
     postbox.classList.add("box");
+    postbox.setAttribute("data-id",111)
     postbox.setAttribute("id", statusID);
     let html = `
         

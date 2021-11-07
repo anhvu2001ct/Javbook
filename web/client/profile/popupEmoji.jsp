@@ -75,11 +75,11 @@
                                             <img src="/Javbook/assets/img/emoji/angry.svg" alt="" />
                                         </c:otherwise>
                                     </c:choose>
-                                    
+
                                 </div>
                             </div>
                             <div class="right-emoji-detail">
-                                <a href="#" class="friend-name-detail">${all.userName}</a>
+                                <a href="/Javbook/profile/${all.getID()}/" class="friend-name-detail">${all.userName}</a>
                                 <div class="friend-status-detail">
                                     <div class="chat-friend-emoji">
                                         <i class="fab fa-facebook-messenger"></i>
@@ -106,7 +106,7 @@
                                 </div>
                             </div>
                             <div class="right-emoji-detail">
-                                <a href="#" class="friend-name-detail">${like.userName}</a>
+                                <a href="/Javbook/profile/${like.getID()}/" class="friend-name-detail">${like.userName}</a>
                                 <div class="friend-status-detail">
                                     <div class="chat-friend-emoji">
                                         <i class="fab fa-facebook-messenger"></i>
@@ -133,7 +133,7 @@
                                 </div>
                             </div>
                             <div class="right-emoji-detail">
-                                <a href="#" class="friend-name-detail">${love.userName}</a>
+                                <a href="/Javbook/profile/${love.getID()}/" class="friend-name-detail">${love.userName}</a>
                                 <div class="friend-status-detail">
                                     <div class="chat-friend-emoji">
                                         <i class="fab fa-facebook-messenger"></i>
@@ -160,7 +160,7 @@
                                 </div>
                             </div>
                             <div class="right-emoji-detail">
-                                <a href="#" class="friend-name-detail">${care.userName}</a>
+                                <a href="/Javbook/profile/${care.getID()}/" class="friend-name-detail">${care.userName}</a>
                                 <div class="friend-status-detail">
                                     <div class="chat-friend-emoji">
                                         <i class="fab fa-facebook-messenger"></i>
@@ -187,7 +187,7 @@
                                 </div>
                             </div>
                             <div class="right-emoji-detail">
-                                <a href="#" class="friend-name-detail">${haha.userName}</a>
+                                <a href="/Javbook/profile/${haha.getID()}/" class="friend-name-detail">${haha.userName}</a>
                                 <div class="friend-status-detail">
                                     <div class="chat-friend-emoji">
                                         <i class="fab fa-facebook-messenger"></i>
@@ -214,7 +214,7 @@
                                 </div>
                             </div>
                             <div class="right-emoji-detail">
-                                <a href="#" class="friend-name-detail">${sad.userName}</a>
+                                <a href="sad" class="friend-name-detail">${sad.userName}</a>
                                 <div class="friend-status-detail">
                                     <div class="chat-friend-emoji">
                                         <i class="fab fa-facebook-messenger"></i>
@@ -241,7 +241,7 @@
                                 </div>
                             </div>
                             <div class="right-emoji-detail">
-                                <a href="#" class="friend-name-detail">${ar.userName}</a>
+                                <a href="/Javbook/profile/${ar.getID()}/" class="friend-name-detail">${ar.userName}</a>
                                 <div class="friend-status-detail">
                                     <div class="chat-friend-emoji">
                                         <i class="fab fa-facebook-messenger"></i>
