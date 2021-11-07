@@ -7,5 +7,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!--notification-->
 <div class="notification_message_popup">
-    <div id="toast"></div>
+    <div id="popup_realtime"></div>
 </div>

@@ -8,7 +8,7 @@ function toast({
   duration = 3000,
 }) {
 
-  const main = document.getElementById("toast");
+  const main = document.getElementById("popup_realtime");
   if (main) {
     const toast = document.createElement("div");
 

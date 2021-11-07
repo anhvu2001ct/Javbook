@@ -18,7 +18,7 @@
   width: 50px;
   height: 50px;
 }
-#toast {
+#popup_realtime {
   position: fixed;
   display: flex;
   flex-direction: column;
