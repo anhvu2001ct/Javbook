@@ -14,15 +14,17 @@
 
   });
 
+  if (document.getElementById("input") != null) {
+    document.getElementById("input").addEventListener("click", function () {
+      document.querySelector(".popup-main-post").style.display = "flex";
+      statusPhoto.src = "";
+      let userAvatarPopup = document.querySelector(".popup-main-post .wh_40 img");
+      let userAvatar = document.querySelector(".userAvatar");
+      userAvatarPopup.src = userAvatar.src;
 
-  document.getElementById("input").addEventListener("click", function () {
-    document.querySelector(".popup-main-post").style.display = "flex";
-    statusPhoto.src = "";
-    let userAvatarPopup = document.querySelector(".popup-main-post .wh_40 img");
-    let userAvatar = document.querySelector(".userAvatar");
-    userAvatarPopup.src = userAvatar.src;
+    });
+  }
 
-  });
   closePopUp.addEventListener("click", function () {
     document.querySelector(".popup_model").style.display = "none";
     userEditContent.value = "";

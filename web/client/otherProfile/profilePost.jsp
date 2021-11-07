@@ -122,8 +122,8 @@
                         />
                 </div>
 
-                <div class="input flex flex_ac pointer" id="input">
-                    What's your mind?
+                <div class="input flex flex_ac pointer" id="">
+                    Write something to ...
                 </div>
             </div>
             <div class="post_ele2 flex flex_ac">
