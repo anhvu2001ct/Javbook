@@ -97,7 +97,7 @@
 .boxchat_header_title > a {
     display: flex;
     align-items: center;
-    width: 160px;
+    width: 250px;
     padding: 5px;
     cursor: pointer;
     color: #fff;
@@ -140,7 +140,7 @@
     padding: 10px;
     height: 360px;
     border-bottom: 1px solid gray;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 .boxchat_inner::-webkit-scrollbar {
