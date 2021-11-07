@@ -5,6 +5,7 @@
  */
 package com.group1.model;
 
+import com.group1.misc.Secret;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,5 +27,10 @@ public class Emoji {
     private String userName;
     private String userImage;
     private int emojiID;
+    private int accountID;
+
+    public String getID() {
+        return Secret.encode2(String.valueOf(accountID));
+    }
 
 }
