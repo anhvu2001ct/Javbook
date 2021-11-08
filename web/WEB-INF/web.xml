@@ -3,4 +3,8 @@
     <session-config>
         <session-timeout>300</session-timeout>
     </session-config>
+    
+    <error-page>
+        <location>/test/nhatquynh/404_page/index.html</location>
+    </error-page>
 </web-app>
